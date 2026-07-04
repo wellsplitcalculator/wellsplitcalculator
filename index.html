@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -507,10 +507,7 @@
       <span>WellSplit</span>
     </div>
 
-    <button class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Toggle color theme">
-      <span id="themeIcon">☾</span>
-      <span id="themeText">Dark</span>
-    </button>
+    <button class="theme-toggle" onclick="toggleTheme()">☀ Light</button>
   </nav>
 
   <main>
@@ -822,16 +819,17 @@
     }
 
     function toggleTheme() {
-      const html = document.documentElement;
-      const icon = document.getElementById("themeIcon");
-      const text = document.getElementById("themeText");
-      const current = html.getAttribute("data-theme");
-      const next = current === "dark" ? "light" : "dark";
+    const html = document.documentElement;
+    const btn = document.querySelector(".theme-toggle");
 
-      html.setAttribute("data-theme", next);
-      icon.textContent = next === "dark" ? "☾" : "☀";
-      text.textContent = next === "dark" ? "Dark" : "Light";
+    if (html.dataset.theme === "light") {
+        html.dataset.theme = "dark";
+        btn.innerHTML = "☾ Dark";
+    } else {
+        html.dataset.theme = "light";
+        btn.innerHTML = "☀ Light";
     }
+}
 
     async function copyResult(id) {
       const result = document.getElementById(id).innerText.trim();
