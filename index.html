@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WellSplit helps couples, roommates, friends, and households split shared costs fairly with clean money calculators." />
+  <title>WellSplit - Fair Bill Split Calculators</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #080c11;
+      --panel: #0f151d;
+      --panel-2: #131b25;
+      --field: #0a1017;
+      --text: #eef4f8;
+      --muted: #9aa7b3;
+      --border: #26313d;
+      --accent: #7dd3fc;
+      --accent-2: #38bdf8;
+      --good: #86efac;
+      --warn: #facc15;
+      --danger: #f87171;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.26);
+      --radius: 16px;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --panel-2: #f1f5f9;
+      --field: #ffffff;
+      --text: #111827;
+      --muted: #5e6b78;
+      --border: #dce3eb;
+      --accent: #0369a1;
+      --accent-2: #0284c7;
+      --good: #15803d;
+      --warn: #a16207;
+      --danger: #b91c1c;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 6%;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      min-width: 0;
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      border-radius: 0;
+      flex: 0 0 auto;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 800;
+      transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    main {
+      padding: 42px 6% 28px;
+    }
+
+    .page-shell {
+      width: min(100%, 660px);
+    }
+
+    .hero {
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      max-width: 620px;
+      font-size: clamp(2rem, 5vw, 3.65rem);
+      line-height: 1.02;
+      letter-spacing: -0.065em;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 610px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .calculator {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .calc-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .calc-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 27px;
+      height: 27px;
+      border-radius: 9px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .calc-title-wrap {
+      display: flex;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .calculator h2 {
+      font-size: 1.03rem;
+      line-height: 1.18;
+      letter-spacing: -0.035em;
+      margin-bottom: 4px;
+    }
+
+    .calculator .description {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 38px;
+      background: var(--field);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 10px;
+      outline: none;
+      font-size: 0.9rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+
+    input::placeholder {
+      color: color-mix(in srgb, var(--muted) 70%, transparent);
+    }
+
+    .dynamic-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1.2fr 0.75fr 0.75fr 34px;
+      gap: 8px;
+      align-items: end;
+      padding: 9px;
+      background: color-mix(in srgb, var(--panel-2) 64%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .row.two {
+      grid-template-columns: 1.2fr 0.85fr 34px;
+    }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 0.86rem;
+      font-weight: 900;
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #061018;
+    }
+
+    .primary:hover {
+      background: var(--accent-2);
+    }
+
+    .secondary {
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .remove {
+      width: 34px;
+      height: 38px;
+      padding: 0;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      font-size: 1rem;
+    }
+
+    .remove:hover {
+      color: var(--danger);
+      border-color: color-mix(in srgb, var(--danger) 60%, var(--border));
+    }
+
+    .result {
+      margin-top: 12px;
+      padding: 12px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      white-space: pre-line;
+      font-size: 0.86rem;
+      line-height: 1.42;
+      font-weight: 650;
+      min-height: 48px;
+    }
+
+    .result:empty::before {
+      content: "Result will appear here.";
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .content-section {
+      width: min(100%, 660px);
+      margin-top: 36px;
+    }
+
+    .content-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .content-card h2 {
+      font-size: 1.18rem;
+      letter-spacing: -0.045em;
+      margin-bottom: 8px;
+    }
+
+    .content-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    details {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 13px 14px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+    }
+
+    details p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-top: 9px;
+    }
+
+    footer {
+      padding: 24px 6%;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 40;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (min-width: 1024px) {
+      main {
+        padding-right: 40%;
+      }
+    }
+
+    @media (max-width: 780px) {
+      nav {
+        padding: 11px 18px;
+      }
+
+      main {
+        padding: 34px 18px 24px;
+      }
+
+      .page-shell,
+      .content-section {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+
+      .calculator,
+      .content-card {
+        padding: 15px;
+      }
+
+      .grid,
+      .grid.three,
+      .row,
+      .row.two {
+        grid-template-columns: 1fr;
+      }
+
+      .row {
+        padding: 10px;
+      }
+
+      .remove {
+        width: 100%;
+      }
+
+      .btns button {
+        flex: 1 1 145px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .logo span {
+        display: none;
+      }
+
+      .theme-toggle {
+        padding: 8px 10px;
+      }
+
+      .btns button {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo" aria-label="WellSplit home">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUD1Rqd4LG2iNo0FYTF7fFP2knI_DXvo7Xu2dQBxHMm3omgEj8Ear5nHg_By0ESjMRmXKbVHwj6CVExqdF6bdGh9uuh0ePR5S5kX0fdl-n2bZFGe7WfmM0HbIDxEg37hyNoyTyvJqu0DWyG4FOw1YmK-0lP--ai0KVNNb8eMgFfBzO22sh3pzKniPmaK-9OZi4xjZc7mfIr_Il7S12JmC40DHFODZSGzougB_Rni-rw=w1280" alt="WellSplit logo" />
+      <span>WellSplit</span>
+    </div>
+
+    <button class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Toggle color theme">
+      <span id="themeIcon">☾</span>
+      <span id="themeText">Dark</span>
+    </button>
+  </nav>
+
+  <main>
+    <div class="page-shell">
+      <section class="hero">
+        
+        <h1></h1>
+        <p>WellSplit helps couples, roommates, friends, and households divide shared costs with clear, practical calculators.</p>
+      </section>
+
+      <section class="calculator" aria-labelledby="couples-title">
+        <div class="calc-head">
+          <div class="calc-title-wrap">
+            <span class="calc-number">1</span>
+            <div>
+              <h2 id="couples-title">Couples Income-Based Split</h2>
+              <p class="description">Split a bill by each person’s share of combined income.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid three">
+          <div>
+            <label for="coupleIncomeA">Person A Income</label>
+            <input type="number" id="coupleIncomeA" min="0" inputmode="decimal" placeholder="4000" />
+          </div>
+          <div>
+            <label for="coupleIncomeB">Person B Income</label>
+            <input type="number" id="coupleIncomeB" min="0" inputmode="decimal" placeholder="2000" />
+          </div>
+          <div>
+            <label for="coupleBill">Shared Bill</label>
+            <input type="number" id="coupleBill" min="0" inputmode="decimal" placeholder="900" />
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="primary" type="button" onclick="calculateCouple()">Calculate</button>
+          <button class="secondary" type="button" onclick="copyResult('coupleResult')">Copy</button>
+        </div>
+
+        <div class="result" id="coupleResult">Result will appear here.</div>
+      </section>
+
+      <section class="calculator" aria-labelledby="roommates-title">
+        <div class="calc-head">
+          <div class="calc-title-wrap">
+            <span class="calc-number">2</span>
+            <div>
+              <h2 id="roommates-title">Roommates Rent & Utilities</h2>
+              <p class="description">Weight rent by room value and split utilities by person or room size.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid three">
+          <div>
+            <label for="roomRent">Total Rent</label>
+            <input type="number" id="roomRent" min="0" inputmode="decimal" placeholder="2400" />
+          </div>
+          <div>
+            <label for="roomUtilities">Utilities</label>
+            <input type="number" id="roomUtilities" min="0" inputmode="decimal" placeholder="300" />
+          </div>
+          <div>
+            <label for="utilityMethod">Utility Method</label>
+            <select id="utilityMethod">
+              <option value="equal">Equal per person</option>
+              <option value="room">By room size</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="roommateRows" class="dynamic-list">
+          <div class="row">
+            <div>
+              <label>Room / Name</label>
+              <input type="text" placeholder="Master room" class="roomName" />
+            </div>
+            <div>
+              <label>Room size</label>
+              <input type="number" placeholder="1.2" min="0" inputmode="decimal" class="roomWeight" />
+            </div>
+            <div>
+              <label>People</label>
+              <input type="number" placeholder="1" min="1" inputmode="numeric" class="roomPeople" />
+            </div>
+            <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove room">×</button>
+          </div>
+          <div class="row">
+            <div>
+              <label>Room / Name</label>
+              <input type="text" placeholder="Small room" class="roomName" />
+            </div>
+            <div>
+              <label>Room size</label>
+              <input type="number" placeholder="1" min="0" inputmode="decimal" class="roomWeight" />
+            </div>
+            <div>
+              <label>People</label>
+              <input type="number" placeholder="1" min="1" inputmode="numeric" class="roomPeople" />
+            </div>
+            <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove room">×</button>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="secondary" type="button" onclick="addRoommateRow()">Add Room</button>
+          <button class="primary" type="button" onclick="calculateRoommates()">Calculate</button>
+          <button class="secondary" type="button" onclick="copyResult('roommateResult')">Copy</button>
+        </div>
+
+        <div class="result" id="roommateResult">Result will appear here.</div>
+      </section>
+
+      <section class="calculator" aria-labelledby="friends-title">
+        <div class="calc-head">
+          <div class="calc-title-wrap">
+            <span class="calc-number">3</span>
+            <div>
+              <h2 id="friends-title">Friends Group Expense Split</h2>
+              <p class="description">Enter who paid what, then see who owes whom.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="friendRows" class="dynamic-list">
+          <div class="row two">
+            <div>
+              <label>Friend</label>
+              <input type="text" placeholder="Amina" class="friendName" />
+            </div>
+            <div>
+              <label>Paid</label>
+              <input type="number" placeholder="250" min="0" inputmode="decimal" class="friendPaid" />
+            </div>
+            <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove friend">×</button>
+          </div>
+          <div class="row two">
+            <div>
+              <label>Friend</label>
+              <input type="text" placeholder="Omar" class="friendName" />
+            </div>
+            <div>
+              <label>Paid</label>
+              <input type="number" placeholder="80" min="0" inputmode="decimal" class="friendPaid" />
+            </div>
+            <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove friend">×</button>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="secondary" type="button" onclick="addFriendRow()">Add Friend</button>
+          <button class="primary" type="button" onclick="calculateFriends()">Calculate</button>
+          <button class="secondary" type="button" onclick="copyResult('friendResult')">Copy</button>
+        </div>
+
+        <div class="result" id="friendResult">Result will appear here.</div>
+      </section>
+
+      <section class="calculator" aria-labelledby="household-title">
+        <div class="calc-head">
+          <div class="calc-title-wrap">
+            <span class="calc-number">4</span>
+            <div>
+              <h2 id="household-title">Household Affordability</h2>
+              <p class="description">Compare income, expenses, savings, and disposable income.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <label for="houseIncomeA">Person A Income</label>
+            <input type="number" id="houseIncomeA" min="0" inputmode="decimal" placeholder="4500" />
+          </div>
+          <div>
+            <label for="houseIncomeB">Person B Income</label>
+            <input type="number" id="houseIncomeB" min="0" inputmode="decimal" placeholder="3200" />
+          </div>
+          <div>
+            <label for="houseExpenses">Monthly Expenses</label>
+            <input type="number" id="houseExpenses" min="0" inputmode="decimal" placeholder="4200" />
+          </div>
+          <div>
+            <label for="houseSavings">Savings Target</label>
+            <input type="number" id="houseSavings" min="0" inputmode="decimal" placeholder="1200" />
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="primary" type="button" onclick="calculateHousehold()">Calculate</button>
+          <button class="secondary" type="button" onclick="copyResult('householdResult')">Copy</button>
+        </div>
+
+        <div class="result" id="householdResult">Result will appear here.</div>
+      </section>
+
+      <section class="calculator" aria-labelledby="tradeoff-title">
+        <div class="calc-head">
+          <div class="calc-title-wrap">
+            <span class="calc-number">5</span>
+            <div>
+              <h2 id="tradeoff-title">Life-Money Tradeoff</h2>
+              <p class="description">See how many work hours a purchase costs each person.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid three">
+          <div>
+            <label for="wageA">Person A Wage</label>
+            <input type="number" id="wageA" min="0" inputmode="decimal" placeholder="25" />
+          </div>
+          <div>
+            <label for="wageB">Person B Wage</label>
+            <input type="number" id="wageB" min="0" inputmode="decimal" placeholder="18" />
+          </div>
+          <div>
+            <label for="purchasePrice">Purchase Price</label>
+            <input type="number" id="purchasePrice" min="0" inputmode="decimal" placeholder="600" />
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="primary" type="button" onclick="calculateTradeoff()">Calculate</button>
+          <button class="secondary" type="button" onclick="copyResult('tradeoffResult')">Copy</button>
+        </div>
+
+        <div class="result" id="tradeoffResult">Result will appear here.</div>
+      </section>
+    </div>
+
+    <section class="content-section">
+      <div class="content-card">
+        <h2>Why fair splitting matters</h2>
+        <p>Shared expenses can become stressful when people rely on rough guesses or one-size-fits-all splits. WellSplit makes the numbers easier to explain by showing clear shares for income-based bills, weighted rent, group reimbursements, household affordability, and time-cost comparisons.</p>
+      </div>
+
+      <div class="content-card">
+        <h2>About WellSplit</h2>
+        <p>WellSplit is built for people making financial decisions together. It helps couples, roommates, friends, and households turn shared money questions into simple calculations that feel more transparent, practical, and fair.</p>
+      </div>
+
+      <div class="content-card">
+        <h2>FAQs</h2>
+        <div class="faq-list">
+          <details>
+            <summary>Should couples split bills equally or by income?</summary>
+            <p>If both people earn similar amounts, an equal split can work. If incomes are very different, an income-based split may feel fairer because each person contributes according to their financial ability.</p>
+          </details>
+
+          <details>
+            <summary>How should roommates split rent fairly?</summary>
+            <p>Rent can be weighted by room size, private bathroom access, storage, parking, or other benefits. Utilities are commonly split equally per person, but some households prefer splitting them by room weight.</p>
+          </details>
+
+          <details>
+            <summary>What does room weight mean?</summary>
+            <p>A room weight is a fairness multiplier. A standard room can be 1.0, a larger room can be 1.2, and a smaller room can be 0.8. The calculator divides rent based on the total of all room weights.</p>
+          </details>
+
+          <details>
+            <summary>How does the group expense calculator work?</summary>
+            <p>It totals what everyone paid, calculates each person’s equal share, then shows who overpaid and who underpaid. The final result suggests who should pay whom to settle the group.</p>
+          </details>
+
+          <details>
+            <summary>What is affordability percentage?</summary>
+            <p>Affordability percentage shows how much of shared monthly income is used by monthly expenses plus the savings target. A lower percentage means more income is left after planned costs.</p>
+          </details>
+
+          <details>
+            <summary>What does the life-money tradeoff calculator show?</summary>
+            <p>It converts a purchase price into work hours based on each person’s hourly wage. This makes it easier to compare the real time cost of a purchase for two people.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 WellSplit.net. All rights reserved.
+  </footer>
+
+  <div class="toast" id="toast">Result copied.</div>
+
+  <script>
+    function money(value) {
+      const number = Number(value || 0);
+      return "$" + number.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function getValue(id) {
+      return parseFloat(document.getElementById(id).value) || 0;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1600);
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById("themeIcon");
+      const text = document.getElementById("themeText");
+      const current = html.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+
+      html.setAttribute("data-theme", next);
+      icon.textContent = next === "dark" ? "☾" : "☀";
+      text.textContent = next === "dark" ? "Dark" : "Light";
+    }
+
+    async function copyResult(id) {
+      const result = document.getElementById(id).innerText.trim();
+
+      if (!result || result === "Result will appear here.") {
+        showToast("Calculate first.");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(result);
+        showToast("Result copied.");
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+        textarea.value = result;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+        showToast("Result copied.");
+      }
+    }
+
+    function removeRow(button) {
+      const row = button.closest(".row");
+      const container = row.parentElement;
+
+      if (container.children.length > 1) {
+        row.remove();
+      } else {
+        showToast("Keep at least one row.");
+      }
+    }
+
+    function calculateCouple() {
+      const incomeA = getValue("coupleIncomeA");
+      const incomeB = getValue("coupleIncomeB");
+      const bill = getValue("coupleBill");
+      const totalIncome = incomeA + incomeB;
+      const output = document.getElementById("coupleResult");
+
+      if (totalIncome <= 0 || bill <= 0) {
+        output.innerText = "Please enter valid incomes and a shared bill amount.";
+        return;
+      }
+
+      const shareA = incomeA / totalIncome;
+      const shareB = incomeB / totalIncome;
+
+      output.innerText =
+        `Person A pays ${money(bill * shareA)} (${(shareA * 100).toFixed(1)}%)\n` +
+        `Person B pays ${money(bill * shareB)} (${(shareB * 100).toFixed(1)}%)\n` +
+        `Total shared bill: ${money(bill)}`;
+    }
+
+    function addRoommateRow() {
+      const container = document.getElementById("roommateRows");
+      const row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML = `
+        <div>
+          <label>Room / Name</label>
+          <input type="text" placeholder="Room" class="roomName" />
+        </div>
+        <div>
+          <label>Weight</label>
+          <input type="number" placeholder="1" min="0" inputmode="decimal" class="roomWeight" />
+        </div>
+        <div>
+          <label>People</label>
+          <input type="number" placeholder="1" min="1" inputmode="numeric" class="roomPeople" />
+        </div>
+        <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove room">×</button>
+      `;
+      container.appendChild(row);
+    }
+
+    function calculateRoommates() {
+      const rent = getValue("roomRent");
+      const utilities = getValue("roomUtilities");
+      const method = document.getElementById("utilityMethod").value;
+      const names = document.querySelectorAll(".roomName");
+      const weights = document.querySelectorAll(".roomWeight");
+      const people = document.querySelectorAll(".roomPeople");
+      const output = document.getElementById("roommateResult");
+
+      let rooms = [];
+      let totalWeight = 0;
+      let totalPeople = 0;
+
+      for (let i = 0; i < names.length; i++) {
+        const name = names[i].value.trim() || `Room ${i + 1}`;
+        const weight = parseFloat(weights[i].value) || 1;
+        const count = Math.max(parseFloat(people[i].value) || 1, 1);
+
+        rooms.push({ name, weight, count });
+        totalWeight += weight;
+        totalPeople += count;
+      }
+
+      if (rent <= 0 && utilities <= 0) {
+        output.innerText = "Please enter rent, utilities, or both.";
+        return;
+      }
+
+      if (totalWeight <= 0 || totalPeople <= 0) {
+        output.innerText = "Please enter valid room weights and people counts.";
+        return;
+      }
+
+      const lines = rooms.map(room => {
+        const rentShare = rent * (room.weight / totalWeight);
+        const utilityShare = method === "equal"
+          ? utilities * (room.count / totalPeople)
+          : utilities * (room.weight / totalWeight);
+        const totalRoomShare = rentShare + utilityShare;
+        const perPerson = totalRoomShare / room.count;
+
+        return `${room.name}: ${money(totalRoomShare)} total | ${money(perPerson)} per person\nRent ${money(rentShare)} + Utilities ${money(utilityShare)}`;
+      });
+
+      output.innerText = lines.join("\n\n");
+    }
+
+    function addFriendRow() {
+      const container = document.getElementById("friendRows");
+      const row = document.createElement("div");
+      row.className = "row two";
+      row.innerHTML = `
+        <div>
+          <label>Friend</label>
+          <input type="text" placeholder="Friend" class="friendName" />
+        </div>
+        <div>
+          <label>Paid</label>
+          <input type="number" placeholder="0" min="0" inputmode="decimal" class="friendPaid" />
+        </div>
+        <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove friend">×</button>
+      `;
+      container.appendChild(row);
+    }
+
+    function calculateFriends() {
+      const names = document.querySelectorAll(".friendName");
+      const paidInputs = document.querySelectorAll(".friendPaid");
+      const output = document.getElementById("friendResult");
+
+      let people = [];
+      let total = 0;
+
+      for (let i = 0; i < names.length; i++) {
+        const name = names[i].value.trim() || `Friend ${i + 1}`;
+        const paid = parseFloat(paidInputs[i].value) || 0;
+        people.push({ name, paid });
+        total += paid;
+      }
+
+      if (people.length < 2 || total <= 0) {
+        output.innerText = "Please add at least two friends and valid paid amounts.";
+        return;
+      }
+
+      const share = total / people.length;
+      const debtors = [];
+      const creditors = [];
+
+      people.forEach(person => {
+        const balance = person.paid - share;
+        if (balance < -0.01) debtors.push({ name: person.name, amount: Math.abs(balance) });
+        if (balance > 0.01) creditors.push({ name: person.name, amount: balance });
+      });
+
+      let result = `Total: ${money(total)} | Each share: ${money(share)}\n`;
+      let i = 0;
+      let j = 0;
+      let settlements = [];
+
+      while (i < debtors.length && j < creditors.length) {
+        const payment = Math.min(debtors[i].amount, creditors[j].amount);
+        settlements.push(`${debtors[i].name} pays ${creditors[j].name}: ${money(payment)}`);
+        debtors[i].amount -= payment;
+        creditors[j].amount -= payment;
+        if (debtors[i].amount < 0.01) i++;
+        if (creditors[j].amount < 0.01) j++;
+      }
+
+      output.innerText = settlements.length ? result + settlements.join("\n") : result + "Everyone is already settled.";
+    }
+
+    function calculateHousehold() {
+      const incomeA = getValue("houseIncomeA");
+      const incomeB = getValue("houseIncomeB");
+      const expenses = getValue("houseExpenses");
+      const savings = getValue("houseSavings");
+      const output = document.getElementById("householdResult");
+
+      const totalIncome = incomeA + incomeB;
+      const totalPlanned = expenses + savings;
+      const disposable = totalIncome - totalPlanned;
+      const affordability = totalIncome > 0 ? (totalPlanned / totalIncome) * 100 : 0;
+
+      if (totalIncome <= 0) {
+        output.innerText = "Please enter valid monthly income.";
+        return;
+      }
+
+      output.innerText =
+        `Shared income: ${money(totalIncome)}\n` +
+        `Expenses: ${money(expenses)} | Savings target: ${money(savings)}\n` +
+        `Disposable income: ${money(disposable)}\n` +
+        `Affordability percentage: ${affordability.toFixed(1)}%`;
+    }
+
+    function calculateTradeoff() {
+      const wageA = getValue("wageA");
+      const wageB = getValue("wageB");
+      const price = getValue("purchasePrice");
+      const output = document.getElementById("tradeoffResult");
+
+      if (wageA <= 0 || wageB <= 0 || price <= 0) {
+        output.innerText = "Please enter valid wages and purchase price.";
+        return;
+      }
+
+      const hoursA = price / wageA;
+      const hoursB = price / wageB;
+      const difference = Math.abs(hoursA - hoursB);
+
+      output.innerText =
+        `Purchase: ${money(price)}\n` +
+        `Person A: ${hoursA.toFixed(1)} work hours\n` +
+        `Person B: ${hoursB.toFixed(1)} work hours\n` +
+        `Difference: ${difference.toFixed(1)} hours`;
+    }
+  </script>
+</body>
+</html>
