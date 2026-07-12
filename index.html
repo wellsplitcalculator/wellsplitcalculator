@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
   
- <!-- Google adsense tag -->
+  <!-- Google adsense tag -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
      crossorigin="anonymous"></script>
   
@@ -315,7 +315,7 @@
     }
 
     .splitter-category a::before {
-      content: "▸";
+      content: "↳";
       position: absolute;
       left: 7px;
       color: var(--muted);
@@ -659,6 +659,30 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    .mobile-menu-backdrop {
+      display: none;
+    }
+
+    @media (max-width: 780px) {
+      .mobile-menu-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 15;
+        display: block;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+      }
+
+      .mobile-menu-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+    }
+
     @media (max-width: 1024px) {
       .dropdown:hover .dropdown-menu,
       .dropdown:focus-within .dropdown-menu {
@@ -764,16 +788,19 @@
         position: fixed;
         inset: 0;
         z-index: 100;
-        width: 100%;
+        width: 100vw;
+        height: 100dvh;
+        max-width: none;
         max-height: none;
         margin: 0;
-        padding: 0 16px 24px;
+        padding: 0 16px 28px;
         border: 0;
         border-radius: 0;
         background: var(--bg);
         box-shadow: none;
         transform: translateX(100%);
         overflow-y: auto;
+        overscroll-behavior: contain;
       }
 
       .dropdown.open .dropdown-menu {
@@ -821,7 +848,8 @@
       }
 
       .splitter-categories {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
       }
 
       main {
@@ -859,6 +887,12 @@
 
       .btns button {
         flex: 1 1 145px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .splitter-categories {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -1024,6 +1058,13 @@
       </button>
     </div>
   </nav>
+
+  <div
+    class="mobile-menu-backdrop"
+    id="mobileMenuBackdrop"
+    onclick="closeMobileMenu()"
+    aria-hidden="true"
+  ></div>
 
   <main>
     <div class="page-shell">
@@ -1407,9 +1448,12 @@
     function toggleMobileMenu() {
       const menu = document.getElementById("navActions");
       const button = document.querySelector(".menu-toggle");
+      const backdrop = document.getElementById("mobileMenuBackdrop");
       const isOpen = menu.classList.toggle("open");
 
       button.classList.toggle("active", isOpen);
+      backdrop.classList.toggle("show", isOpen);
+
       button.setAttribute("aria-expanded", String(isOpen));
       button.setAttribute(
         "aria-label",
@@ -1424,11 +1468,15 @@
     function closeMobileMenu() {
       const menu = document.getElementById("navActions");
       const button = document.querySelector(".menu-toggle");
+      const backdrop = document.getElementById("mobileMenuBackdrop");
 
       menu.classList.remove("open");
       button.classList.remove("active");
+      backdrop.classList.remove("show");
+
       button.setAttribute("aria-expanded", "false");
       button.setAttribute("aria-label", "Open navigation menu");
+
       setSplittersMenu(false);
     }
 
