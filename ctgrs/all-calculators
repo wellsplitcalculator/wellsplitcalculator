@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-VR5ESWGW9Y");
+  </script>
+
+  <!-- Favicon -->
+  <link href="/files/favicon.png" rel="icon" type="image/png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta
+    content="Browse WellSplit rent split tools and couple money split calculators."
+    name="description"
+  >
+
+  <title>All Splitters - WellSplit</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #2f343c;
+      --panel: #3a4048;
+      --panel-2: #454c56;
+      --field: #505863;
+      --text: #f3f4f6;
+      --muted: #c6ccd4;
+      --border: #606977;
+      --accent: #7dd3fc;
+      --accent-2: #38bdf8;
+      --good: #86efac;
+      --warn: #facc15;
+      --danger: #f87171;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+      --radius: 16px;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --panel-2: #f1f5f9;
+      --field: #ffffff;
+      --text: #111827;
+      --muted: #5e6b78;
+      --border: #dce3eb;
+      --accent: #0369a1;
+      --accent-2: #0284c7;
+      --good: #15803d;
+      --warn: #a16207;
+      --danger: #b91c1c;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 6%;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      min-width: 0;
+      text-decoration: none;
+    }
+
+    .logo:hover,
+    .logo:focus,
+    .logo:visited {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      border-radius: 0;
+      flex: 0 0 auto;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 800;
+      transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel);
+      cursor: pointer;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      gap: 5px;
+      flex: 0 0 auto;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text);
+      border-radius: 999px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 38px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+      transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+    }
+
+    .nav-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    main {
+      width: 100%;
+      padding: 42px 5% 36px;
+    }
+
+    .page-shell {
+      width: 100%;
+      max-width: none;
+    }
+
+    .hero {
+      margin-bottom: 34px;
+    }
+
+    h1 {
+      max-width: 900px;
+      font-size: clamp(2rem, 5vw, 3.65rem);
+      line-height: 1.02;
+      letter-spacing: -0.065em;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 52px;
+      width: 100%;
+    }
+
+    .category-card {
+      width: 100%;
+    }
+
+    .category-head {
+      margin-bottom: 18px;
+    }
+
+    .category-card h2 {
+      font-size: 1.35rem;
+      line-height: 1.2;
+      letter-spacing: -0.04em;
+      margin-bottom: 5px;
+    }
+
+    .category-description {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+      max-width: 760px;
+    }
+
+    .tool-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      column-gap: 38px;
+      row-gap: 11px;
+      width: 100%;
+      list-style: none;
+    }
+
+    .tool-list li {
+      min-width: 0;
+    }
+
+    .tool-link {
+      display: inline;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.45;
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      overflow-wrap: anywhere;
+      transition: color 0.16s ease;
+    }
+
+    .tool-link:hover,
+    .tool-link:focus-visible {
+      color: var(--accent);
+      outline: none;
+    }
+
+    footer {
+      padding: 24px 6%;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .footer-links {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .footer-links a {
+      color: var(--accent);
+      text-underline-offset: 3px;
+    }
+
+    .mobile-menu-backdrop {
+      display: none;
+    }
+
+    @media (max-width: 1250px) {
+      .tool-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      main {
+        padding-left: 4%;
+        padding-right: 4%;
+      }
+
+      .tool-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 28px;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .mobile-menu-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 15;
+        display: block;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+      }
+
+      .mobile-menu-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      nav {
+        padding: 11px 18px;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .menu-toggle {
+        display: flex;
+        margin-left: auto;
+      }
+
+      .nav-actions {
+        display: none;
+        width: 100%;
+        margin-left: 0;
+        padding: 10px 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-actions.open {
+        display: flex;
+      }
+
+      .nav-actions > .nav-link:not(.all-splitters-link) {
+        order: 1;
+      }
+
+      .nav-actions > .theme-toggle {
+        order: 2;
+      }
+
+      .nav-actions > .all-splitters-link {
+        order: 3;
+      }
+
+      .nav-link,
+      .theme-toggle {
+        width: 100%;
+        min-height: 46px;
+        justify-content: space-between;
+        border: 0;
+        border-radius: 8px;
+        padding: 11px 12px;
+        background: transparent;
+        color: var(--text);
+        font-size: 0.9rem;
+        text-align: left;
+        box-shadow: none;
+      }
+
+      .nav-link:hover,
+      .theme-toggle:hover {
+        background: var(--panel-2);
+        color: var(--accent);
+        transform: none;
+      }
+
+      .theme-toggle {
+        justify-content: flex-start;
+      }
+
+      .all-splitters-link::after {
+        content: "›";
+        margin-left: auto;
+        font-size: 1.35rem;
+        line-height: 1;
+        color: var(--muted);
+      }
+
+      main {
+        padding: 34px 18px 26px;
+      }
+
+      .page-shell {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+
+      .category-grid {
+        gap: 40px;
+      }
+
+      .tool-list {
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .logo span {
+        display: none;
+      }
+
+      .logo img {
+        width: 34px;
+        height: 34px;
+      }
+
+      .nav-link,
+      .theme-toggle {
+        padding: 10px 11px;
+        font-size: 0.82rem;
+      }
+
+      .theme-toggle {
+        gap: 4px;
+      }
+
+      .tool-link {
+        font-size: 0.82rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a aria-label="WellSplit home" class="logo" href="/">
+      <img alt="WellSplit logo" src="wellsplitlog.png">
+      <span>WellSplit.net</span>
+    </a>
+
+    <button
+      aria-controls="navActions"
+      aria-expanded="false"
+      aria-label="Open navigation menu"
+      class="menu-toggle"
+      onclick="toggleMobileMenu()"
+      type="button"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-actions" id="navActions">
+      <a class="nav-link all-splitters-link" href="/all-splitters/">Other Calculators</a>
+      <a class="nav-link" href="/blog/">Blog</a>
+
+      <button
+        aria-label="Switch color theme"
+        class="theme-toggle"
+        onclick="toggleTheme()"
+        type="button"
+      >
+        ☀ Light
+      </button>
+    </div>
+  </nav>
+
+  <div
+    aria-hidden="true"
+    class="mobile-menu-backdrop"
+    id="mobileMenuBackdrop"
+    onclick="closeMobileMenu()"
+  ></div>
+
+  <main>
+    <div class="page-shell">
+      <section class="hero">
+        <h1>All Splitting Calculators</h1>
+        <p>
+          Browse all WellSplit calculators by category. Select any underlined tool
+          to open its calculator page.
+        </p>
+      </section>
+
+      <section class="category-grid" aria-label="Calculator categories">
+        <article class="category-card">
+          <div class="category-head">
+<div>
+              <h2>Rent Split Tools</h2>
+              <p class="category-description">
+                Calculators for rent, rooms, occupants, amenities, deposits, and shared housing costs.
+              </p>
+            </div>
+          </div>
+
+          <ul class="tool-list">
+            <li><a class="tool-link" href="/fair-rent-splitter/">Fair Rent Splitter</a></li>
+            <li><a class="tool-link" href="/unequal-room-rent-calculator/">Unequal Room Rent Calculator</a></li>
+            <li><a class="tool-link" href="/couple-single-roommate-rent-split-calculator/">Couple + Single Roommate Rent Split Calculator</a></li>
+            <li><a class="tool-link" href="/multiple-couples-and-singles-rent-split-calculator/">Multiple Couples and Singles Rent Split Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-room-size-calculator/">Rent Split by Room Size Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-room-size-private-bathroom-calculator/">Rent Split by Room Size + Private Bathroom Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-room-size-balcony-patio-calculator/">Rent Split by Room Size + Balcony/Patio Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-room-size-parking-spot-calculator/">Rent Split by Room Size + Parking Spot Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-room-quality-score-calculator/">Rent Split by Room Quality Score Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-private-vs-shared-square-footage-calculator/">Rent Split by Private vs Shared Square Footage Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-number-of-occupants-calculator/">Rent Split by Number of Occupants Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-income-calculator/">Rent Split by Income Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-income-room-size-hybrid-calculator/">Rent Split by Income + Room Size Hybrid Calculator</a></li>
+            <li><a class="tool-link" href="/rent-split-by-privacy-level-calculator/">Rent Split by Privacy Level Calculator</a></li>
+            <li><a class="tool-link" href="/overnight-guest-rent-adjustment-calculator/">Overnight Guest Rent Adjustment Calculator</a></li>
+            <li><a class="tool-link" href="/work-from-home-rent-adjustment-calculator/">Work-From-Home Rent Adjustment Calculator</a></li>
+            <li><a class="tool-link" href="/storage-garage-access-rent-adjustment-calculator/">Storage / Garage Access Rent Adjustment Calculator</a></li>
+            <li><a class="tool-link" href="/furnished-vs-unfurnished-room-rent-calculator/">Furnished vs Unfurnished Room Rent Calculator</a></li>
+            <li><a class="tool-link" href="/master-bedroom-premium-calculator/">Master Bedroom Premium Calculator</a></li>
+            <li><a class="tool-link" href="/en-suite-bathroom-rent-split-calculator/">En-Suite Bathroom Rent Split Calculator</a></li>
+            <li><a class="tool-link" href="/basement-private-floor-rent-split-calculator/">Basement / Private Floor Rent Split Calculator</a></li>
+            <li><a class="tool-link" href="/large-closet-storage-premium-rent-calculator/">Large Closet / Storage Premium Rent Calculator</a></li>
+            <li><a class="tool-link" href="/pet-impact-rent-adjustment-calculator/">Pet Impact Rent Adjustment Calculator</a></li>
+            <li><a class="tool-link" href="/utilities-included-rent-fairness-calculator/">Utilities-Included Rent Fairness Calculator</a></li>
+            <li><a class="tool-link" href="/mid-month-move-in-prorated-rent-calculator/">Mid-Month Move-In Prorated Rent Calculator</a></li>
+            <li><a class="tool-link" href="/mid-month-move-out-prorated-rent-calculator/">Mid-Month Move-Out Prorated Rent Calculator</a></li>
+            <li><a class="tool-link" href="/security-deposit-split-calculator/">Security Deposit Split Calculator</a></li>
+            <li><a class="tool-link" href="/security-deposit-refund-calculator/">Security Deposit Refund Calculator</a></li>
+            <li><a class="tool-link" href="/shared-housing-all-in-split-calculator/">Shared Housing All-In Split Calculator</a></li>
+          </ul>
+        </article>
+
+        <article class="category-card">
+          <div class="category-head">
+<div>
+            <!--   <h2>Couple Money Split Tools</h2>
+              <p class="category-description">
+                Calculators for income-based contributions, shared budgets, savings, bills, and financial planning.
+              </p>
+            </div>
+          </div>
+
+          <ul class="tool-list">
+            <li><a class="tool-link" href="/couples-expense-fairness-calculator/">Couples Expense Fairness Calculator</a></li>
+            <li><a class="tool-link" href="/split-bills-by-income-calculator/">Split Bills by Income Calculator</a></li>
+            <li><a class="tool-link" href="/50-50-vs-income-based-split-comparison-calculator/">50/50 vs Income-Based Split Comparison Calculator</a></li>
+            <li><a class="tool-link" href="/shared-household-contribution-calculator/">Shared Household Contribution Calculator</a></li>
+            <li><a class="tool-link" href="/joint-account-contribution-calculator/">Joint Account Contribution Calculator</a></li>
+            <li><a class="tool-link" href="/personal-spending-allowance-calculator-for-couples/">Personal Spending Allowance Calculator for Couples</a></li>
+            <li><a class="tool-link" href="/savings-goal-split-calculator-for-couples/">Savings Goal Split Calculator for Couples</a></li>
+            <li><a class="tool-link" href="/rent-bills-split-calculator-for-unequal-incomes/">Rent + Bills Split Calculator for Unequal Incomes</a></li>
+            <li><a class="tool-link" href="/move-in-together-budget-calculator/">Move-In Together Budget Calculator</a></li>
+            <li><a class="tool-link" href="/income-gap-fairness-calculator/">Income Gap Fairness Calculator</a></li>
+            <li><a class="tool-link" href="/one-pays-rent-one-pays-everything-else-calculator/">“One Pays Rent, One Pays Everything Else” Calculator</a></li>
+            <li><a class="tool-link" href="/child-free-vs-with-kids-contribution-calculator/">Child-Free vs With-Kids Contribution Calculator</a></li>
+            <li><a class="tool-link" href="/unequal-debt-fairness-calculator/">Unequal Debt Fairness Calculator</a></li>
+            <li><a class="tool-link" href="/emergency-fund-contribution-split-calculator/">Emergency Fund Contribution Split Calculator</a></li>
+            <li><a class="tool-link" href="/vacation-budget-split-calculator-for-couples/">Vacation Budget Split Calculator for Couples</a></li>
+            <li><a class="tool-link" href="/grocery-fairness-calculator-for-couples/">Grocery Fairness Calculator for Couples</a></li>
+            <li><a class="tool-link" href="/date-spending-fairness-calculator/">Date Spending Fairness Calculator</a></li>
+            <li><a class="tool-link" href="/cost-of-living-merge-calculator/">Cost-of-Living Merge Calculator</a></li>
+            <li><a class="tool-link" href="/can-we-afford-to-move-in-together-calculator/">Can We Afford to Move In Together Calculator</a></li>
+            <li><a class="tool-link" href="/combined-budget-stress-test-calculator/">Combined Budget Stress-Test Calculator</a></li>
+            <li><a class="tool-link" href="/separate-finances-vs-pooled-finances-comparison-calculator/">Separate Finances vs Pooled Finances Comparison Calculator</a></li>
+            <li><a class="tool-link" href="/split-mortgage-bills-fairness-calculator/">Split Mortgage + Bills Fairness Calculator</a></li>
+            <li><a class="tool-link" href="/stay-at-home-partner-contribution-planner/">Stay-at-Home Partner Contribution Planner</a></li>
+            <li><a class="tool-link" href="/breakup-budget-separation-calculator/">Breakup Budget Separation Calculator</a></li>
+           <li><a class="tool-link" href="/post-breakup-shared-bills-separation-calculator/">Post-Breakup Shared Bills Separation Calculator</a></li> -->
+          </ul>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    © 2026 WellSplit.net. All rights reserved.
+  </footer>
+
+  <footer class="footer-links">
+    <a href="/about/">About</a> |
+    <a href="/contact/">Contact</a> |
+    <a href="/privacy-policy/">Privacy Policy</a>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.querySelector(".theme-toggle");
+
+      if (html.dataset.theme === "light") {
+        html.dataset.theme = "dark";
+        btn.innerHTML = "☾ Dark";
+      } else {
+        html.dataset.theme = "light";
+        btn.innerHTML = "☀ Light";
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById("navActions");
+      const button = document.querySelector(".menu-toggle");
+      const backdrop = document.getElementById("mobileMenuBackdrop");
+      const isOpen = menu.classList.toggle("open");
+
+      button.classList.toggle("active", isOpen);
+      backdrop.classList.toggle("show", isOpen);
+
+      button.setAttribute("aria-expanded", String(isOpen));
+      button.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+      );
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById("navActions");
+      const button = document.querySelector(".menu-toggle");
+      const backdrop = document.getElementById("mobileMenuBackdrop");
+
+      menu.classList.remove("open");
+      button.classList.remove("active");
+      backdrop.classList.remove("show");
+
+      button.setAttribute("aria-expanded", "false");
+      button.setAttribute("aria-label", "Open navigation menu");
+    }
+
+    document.querySelectorAll(".nav-actions a").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.matchMedia("(max-width: 780px)").matches) {
+          closeMobileMenu();
+        }
+      });
+    });
+
+    document.addEventListener("keydown", event => {
+      if (
+        event.key === "Escape" &&
+        document.getElementById("navActions").classList.contains("open")
+      ) {
+        closeMobileMenu();
+        document.querySelector(".menu-toggle").focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 780) {
+        closeMobileMenu();
+      }
+    });
+  </script>
+</body>
+</html>
