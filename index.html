@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+
+<html data-theme="light" lang="en">
 <head>
+
   
   <!-- Google adsense tag -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
@@ -21,12 +23,11 @@
 <link rel="icon" type="image/png" href="/files/favicon.png">
 
   
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="WellSplit helps couples, roommates, friends, and households split shared costs fairly with clean money calculators." />
-  <title>Split Bill Calculator. Share group expenses, costs, & bills in seconds - 100% Free</title>
-
-  <style>
+  <meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="WellSplit helps couples, roommates, friends, and households split shared costs fairly with clean money calculators." name="description"/>
+<title>Split Bill Calculator. Share group expenses, costs, &amp; bills in seconds - 100% Free</title>
+<style>
     * {
       box-sizing: border-box;
       margin: 0;
@@ -224,123 +225,6 @@
       border-color: var(--accent);
       color: var(--accent);
       transform: translateY(-1px);
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-arrow {
-      width: 7px;
-      height: 7px;
-      border-right: 2px solid currentColor;
-      border-bottom: 2px solid currentColor;
-      transform: rotate(45deg) translateY(-2px);
-      transition: transform 0.18s ease;
-    }
-
-    .dropdown.open .dropdown-arrow {
-      transform: rotate(225deg) translate(-1px, -1px);
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: calc(100% + 10px);
-      right: 0;
-      z-index: 30;
-      width: min(920px, calc(100vw - 36px));
-      max-height: min(74vh, 720px);
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding: 12px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-6px);
-      pointer-events: none;
-      transition: opacity 0.16s ease, visibility 0.16s ease, transform 0.22s ease;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
-    }
-
-    .dropdown.open .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .mobile-splitters-head {
-      display: none;
-    }
-
-    .splitter-categories {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(220px, 1fr));
-      gap: 12px;
-      align-items: start;
-    }
-
-    .splitter-category {
-      min-width: 0;
-      padding: 10px;
-      background: color-mix(in srgb, var(--panel-2) 58%, transparent);
-      border: 1px solid var(--border);
-      border-radius: 13px;
-    }
-
-    .splitter-category h3 {
-      margin: 0 0 8px;
-      color: var(--accent);
-      font-size: 0.8rem;
-      line-height: 1.2;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-
-    .splitter-category a {
-      display: block;
-      position: relative;
-      padding: 8px 8px 8px 20px;
-      border-radius: 8px;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 700;
-      line-height: 1.3;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .splitter-category a::before {
-      content: "▸";
-      position: absolute;
-      left: 7px;
-      color: var(--muted);
-    }
-
-    .splitter-category a:hover,
-    .splitter-category a:focus-visible {
-      background: var(--panel);
-      color: var(--accent);
-      outline: none;
-    }
-
-    @media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
-      .dropdown:hover .dropdown-menu,
-      .dropdown:focus-within .dropdown-menu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
-
-      .dropdown:hover .dropdown-arrow,
-      .dropdown:focus-within .dropdown-arrow {
-        transform: rotate(225deg) translate(-1px, -1px);
-      }
     }
 
     main {
@@ -683,22 +567,7 @@
       }
     }
 
-    @media (max-width: 1024px) {
-      .dropdown:hover .dropdown-menu,
-      .dropdown:focus-within .dropdown-menu {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
-
-      .dropdown.open .dropdown-menu {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-      }
-    }
-
-    @media (min-width: 1024px) {
+@media (min-width: 1024px) {
       main {
         padding-right: 40%;
       }
@@ -732,7 +601,7 @@
         display: flex;
       }
 
-      .nav-actions > .nav-link {
+      .nav-actions > .nav-link:not(.all-splitters-link) {
         order: 1;
       }
 
@@ -740,7 +609,7 @@
         order: 2;
       }
 
-      .nav-actions > .dropdown {
+      .nav-actions > .all-splitters-link {
         order: 3;
       }
 
@@ -772,84 +641,12 @@
         justify-content: flex-start;
       }
 
-      .dropdown {
-        width: 100%;
-      }
-
-      .dropdown-toggle .dropdown-arrow {
-        transform: rotate(-45deg);
-      }
-
-      .dropdown.open .dropdown-toggle .dropdown-arrow {
-        transform: rotate(-45deg);
-      }
-
-      .dropdown-menu {
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        width: 100vw;
-        height: 100dvh;
-        max-width: none;
-        max-height: none;
-        margin: 0;
-        padding: 0 16px 28px;
-        border: 0;
-        border-radius: 0;
-        background: var(--bg);
-        box-shadow: none;
-        transform: translateX(100%);
-        overflow-y: auto;
-        overscroll-behavior: contain;
-      }
-
-      .dropdown.open .dropdown-menu {
-        transform: translateX(0);
-      }
-
-      .mobile-splitters-head {
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
-        gap: 12px;
-        min-height: 64px;
-        margin: 0 -16px 14px;
-        padding: 10px 16px;
-        background: color-mix(in srgb, var(--bg) 94%, transparent);
-        backdrop-filter: blur(16px);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .mobile-splitters-head strong {
-        grid-column: 2;
-        justify-self: center;
-        font-size: 0.98rem;
-      }
-
-      .mobile-back {
-        grid-column: 1;
-        min-height: 40px;
-        padding: 8px 10px;
-        border: 1px solid var(--border);
-        border-radius: 9px;
-        background: var(--panel);
-        color: var(--text);
-        font-size: 0.84rem;
-        font-weight: 850;
-      }
-
-      .mobile-back:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-        transform: none;
-      }
-
-      .splitter-categories {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        align-items: start;
+      .all-splitters-link::after {
+        content: "›";
+        margin-left: auto;
+        font-size: 1.35rem;
+        line-height: 1;
+        color: var(--muted);
       }
 
       main {
@@ -890,12 +687,6 @@
       }
     }
 
-    @media (max-width: 560px) {
-      .splitter-categories {
-        grid-template-columns: 1fr;
-      }
-    }
-
     @media (max-width: 420px) {
       .logo span {
         display: none;
@@ -923,435 +714,279 @@
     }
   </style>
 </head>
-
 <body>
-  <nav>
-    <a class="logo" href="/" aria-label="WellSplit home">
-      <img src="wellsplitlog.png" alt="WellSplit logo" />
-      <span>WellSplit.net</span>
-    </a>
-
-    <button
-      class="menu-toggle"
-      type="button"
-      aria-label="Open navigation menu"
-      aria-expanded="false"
-      aria-controls="navActions"
-      onclick="toggleMobileMenu()"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-    <div class="nav-actions" id="navActions">
-      <div class="dropdown" id="splittersDropdown">
-        <button
-          class="dropdown-toggle"
-          id="splittersToggle"
-          type="button"
-          aria-haspopup="true"
-          aria-expanded="false"
-          aria-controls="splittersMenu"
-        >
-          All Splitters
-          <span class="dropdown-arrow" aria-hidden="true"></span>
-        </button>
-
-        <div class="dropdown-menu" id="splittersMenu" aria-label="All Splitters">
-          <div class="mobile-splitters-head">
-            <button
-              class="mobile-back"
-              type="button"
-              onclick="setSplittersMenu(false)"
-              aria-label="Back to main navigation"
-            >
-              ← Back
-            </button>
-            <strong>All Splitters</strong>
-          </div>
-
-          <div class="splitter-categories">
-            <section class="splitter-category">
-              <h3>Most Used</h3>
-              <a href="#couples-title">Couples Income-Based Split</a>
-              <a href="#roommates-title">Roommates Rent &amp; Utilities</a>
-              <a href="#friends-title">Friends Group Expense Split</a>
-              <a href="#household-title">Household Affordability</a>
-              <a href="#tradeoff-title">Life-Money Tradeoff</a>
-            </section>
-
-            <section class="splitter-category">
-              <h3>Rent Split Tools</h3>
-              <a href="/fair-rent-splitter/">Fair Rent Splitter</a>
-              <a href="/unequal-room-rent-calculator/">Unequal Room Rent Calculator</a>
-              <a href="/couple-single-roommate-rent-split-calculator/">Couple + Single Roommate Rent Split Calculator</a>
-              <a href="/multiple-couples-singles-rent-split-calculator/">Multiple Couples and Singles Rent Split Calculator</a>
-              <a href="/rent-split-by-room-size-calculator/">Rent Split by Room Size Calculator</a>
-              <a href="/rent-split-room-size-private-bathroom-calculator/">Rent Split by Room Size + Private Bathroom Calculator</a>
-              <a href="/rent-split-room-size-balcony-patio-calculator/">Rent Split by Room Size + Balcony/Patio Calculator</a>
-              <a href="/rent-split-room-size-parking-spot-calculator/">Rent Split by Room Size + Parking Spot Calculator</a>
-              <a href="/rent-split-by-room-quality-score-calculator/">Rent Split by Room Quality Score Calculator</a>
-              <a href="/rent-split-private-vs-shared-square-footage-calculator/">Rent Split by Private vs Shared Square Footage Calculator</a>
-              <a href="/rent-split-by-number-of-occupants-calculator/">Rent Split by Number of Occupants Calculator</a>
-              <a href="/rent-split-by-income-calculator/">Rent Split by Income Calculator</a>
-              <a href="/rent-split-income-room-size-hybrid-calculator/">Rent Split by Income + Room Size Hybrid Calculator</a>
-              <a href="/rent-split-by-privacy-level-calculator/">Rent Split by Privacy Level Calculator</a>
-              <a href="/overnight-guest-rent-adjustment-calculator/">Overnight Guest Rent Adjustment Calculator</a>
-              <a href="/work-from-home-rent-adjustment-calculator/">Work-From-Home Rent Adjustment Calculator</a>
-              <a href="/storage-garage-access-rent-adjustment-calculator/">Storage / Garage Access Rent Adjustment Calculator</a>
-              <a href="/furnished-vs-unfurnished-room-rent-calculator/">Furnished vs Unfurnished Room Rent Calculator</a>
-              <a href="/master-bedroom-premium-calculator/">Master Bedroom Premium Calculator</a>
-              <a href="/en-suite-bathroom-rent-split-calculator/">En-Suite Bathroom Rent Split Calculator</a>
-              <a href="/basement-private-floor-rent-split-calculator/">Basement / Private Floor Rent Split Calculator</a>
-              <a href="/large-closet-storage-premium-rent-calculator/">Large Closet / Storage Premium Rent Calculator</a>
-              <a href="/pet-impact-rent-adjustment-calculator/">Pet Impact Rent Adjustment Calculator</a>
-              <a href="/utilities-included-rent-fairness-calculator/">Utilities-Included Rent Fairness Calculator</a>
-              <a href="/mid-month-move-in-prorated-rent-calculator/">Mid-Month Move-In Prorated Rent Calculator</a>
-              <a href="/mid-month-move-out-prorated-rent-calculator/">Mid-Month Move-Out Prorated Rent Calculator</a>
-              <a href="/security-deposit-split-calculator/">Security Deposit Split Calculator</a>
-              <a href="/security-deposit-refund-calculator/">Security Deposit Refund Calculator</a>
-              <a href="/shared-housing-all-in-split-calculator/">Shared Housing All-In Split Calculator</a>
-            </section>
-
-            <section class="splitter-category">
-              <h3>Couples Money Split Tools</h3>
-              <a href="/couples-expense-fairness-calculator/">Couples Expense Fairness Calculator</a>
-              <a href="/split-bills-by-income-calculator/">Split Bills by Income Calculator</a>
-              <a href="/50-50-vs-income-based-split-comparison-calculator/">50/50 vs Income-Based Split Comparison Calculator</a>
-              <a href="/shared-household-contribution-calculator/">Shared Household Contribution Calculator</a>
-              <a href="/joint-account-contribution-calculator/">Joint Account Contribution Calculator</a>
-              <a href="/personal-spending-allowance-calculator-for-couples/">Personal Spending Allowance Calculator for Couples</a>
-              <a href="/savings-goal-split-calculator-for-couples/">Savings Goal Split Calculator for Couples</a>
-              <a href="/rent-bills-split-calculator-for-unequal-incomes/">Rent + Bills Split Calculator for Unequal Incomes</a>
-              <a href="/move-in-together-budget-calculator/">Move-In Together Budget Calculator</a>
-              <a href="/income-gap-fairness-calculator/">Income Gap Fairness Calculator</a>
-              <a href="/one-pays-rent-one-pays-everything-else-calculator/">“One Pays Rent, One Pays Everything Else” Calculator</a>
-              <a href="/child-free-vs-with-kids-contribution-calculator/">Child-Free vs With-Kids Contribution Calculator</a>
-              <a href="/unequal-debt-fairness-calculator/">Unequal Debt Fairness Calculator</a>
-              <a href="/emergency-fund-contribution-split-calculator/">Emergency Fund Contribution Split Calculator</a>
-              <a href="/vacation-budget-split-calculator-for-couples/">Vacation Budget Split Calculator for Couples</a>
-              <a href="/grocery-fairness-calculator-for-couples/">Grocery Fairness Calculator for Couples</a>
-              <a href="/date-spending-fairness-calculator/">Date Spending Fairness Calculator</a>
-              <a href="/cost-of-living-merge-calculator/">Cost-of-Living Merge Calculator</a>
-              <a href="/can-we-afford-to-move-in-together-calculator/">Can We Afford to Move In Together Calculator</a>
-              <a href="/combined-budget-stress-test-calculator/">Combined Budget Stress-Test Calculator</a>
-              <a href="/separate-vs-pooled-finances-comparison-calculator/">Separate Finances vs Pooled Finances Comparison Calculator</a>
-              <a href="/split-mortgage-bills-fairness-calculator/">Split Mortgage + Bills Fairness Calculator</a>
-              <a href="/stay-at-home-partner-contribution-planner/">Stay-at-Home Partner Contribution Planner</a>
-              <a href="/breakup-budget-separation-calculator/">Breakup Budget Separation Calculator</a>
-              <a href="/post-breakup-shared-bills-separation-calculator/">Post-Breakup Shared Bills Separation Calculator</a>
-            </section>
-          </div>
-        </div>
-      </div>
-
-      <a class="nav-link" href="/blog/">Blog</a>
-
-      <button
-        class="theme-toggle"
-        type="button"
-        onclick="toggleTheme()"
-        aria-label="Switch color theme"
-      >
+<nav>
+<a aria-label="WellSplit home" class="logo" href="/">
+<img alt="WellSplit logo" src="wellsplitlog.png"/>
+<span>WellSplit.net</span>
+</a>
+<button aria-controls="navActions" aria-expanded="false" aria-label="Open navigation menu" class="menu-toggle" onclick="toggleMobileMenu()" type="button">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<div class="nav-actions" id="navActions">
+<a class="nav-link all-splitters-link" href="/all-splitters/">All Splitters</a>
+<a class="nav-link" href="/blog/">Blog</a>
+<button aria-label="Switch color theme" class="theme-toggle" onclick="toggleTheme()" type="button">
         ☀ Light
       </button>
-    </div>
-  </nav>
-
-  <div
-    class="mobile-menu-backdrop"
-    id="mobileMenuBackdrop"
-    onclick="closeMobileMenu()"
-    aria-hidden="true"
-  ></div>
-
-  <main>
-    <div class="page-shell">
-      <section class="hero">
-        
-        <h1></h1>
-        <p>WellSplit helps couples, roommates, friends, families, and co-decision makers divide costs with context, fairness, and a result you can actually use.</p>
-      </section>
-
-      <section class="calculator" aria-labelledby="couples-title">
-        <div class="calc-head">
-          <div class="calc-title-wrap">
-            <span class="calc-number">1</span>
-            <div>
-              <h2 id="couples-title">Couples Income-Based Split</h2>
-              <p class="description">Split a bill by each person’s share of combined income.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid three">
-          <div>
-            <label for="coupleIncomeA">Person A Income</label>
-            <input type="number" id="coupleIncomeA" min="0" inputmode="decimal" placeholder="4000" />
-          </div>
-          <div>
-            <label for="coupleIncomeB">Person B Income</label>
-            <input type="number" id="coupleIncomeB" min="0" inputmode="decimal" placeholder="2000" />
-          </div>
-          <div>
-            <label for="coupleBill">Shared Bill</label>
-            <input type="number" id="coupleBill" min="0" inputmode="decimal" placeholder="900" />
-          </div>
-        </div>
-
-        <div class="btns">
-          <button class="primary" type="button" onclick="calculateCouple()">Calculate</button>
-          <button class="secondary" type="button" onclick="copyResult('coupleResult')">Copy</button>
-        </div>
-
-        <div class="result" id="coupleResult">Result will appear here.</div>
-      </section>
-
-      <section class="calculator" aria-labelledby="roommates-title">
-        <div class="calc-head">
-          <div class="calc-title-wrap">
-            <span class="calc-number">2</span>
-            <div>
-              <h2 id="roommates-title">Roommates Rent & Utilities</h2>
-              <p class="description">Weight rent by room value and split utilities by person or room size.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid three">
-          <div>
-            <label for="roomRent">Total Rent</label>
-            <input type="number" id="roomRent" min="0" inputmode="decimal" placeholder="2400" />
-          </div>
-          <div>
-            <label for="roomUtilities">Utilities</label>
-            <input type="number" id="roomUtilities" min="0" inputmode="decimal" placeholder="300" />
-          </div>
-          <div>
-            <label for="utilityMethod">Utility Method</label>
-            <select id="utilityMethod">
-              <option value="equal">Equal per person</option>
-              <option value="room">By room size</option>
-            </select>
-          </div>
-        </div>
-
-        <div id="roommateRows" class="dynamic-list">
-          <div class="row">
-            <div>
-              <label>Room / Name</label>
-              <input type="text" placeholder="Master room" class="roomName" />
-            </div>
-            <div>
-              <label>Room size</label>
-              <input type="number" placeholder="1.2" min="0" inputmode="decimal" class="roomWeight" />
-            </div>
-            <div>
-              <label>People</label>
-              <input type="number" placeholder="1" min="1" inputmode="numeric" class="roomPeople" />
-            </div>
-            <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove room">×</button>
-          </div>
-          <div class="row">
-            <div>
-              <label>Room / Name</label>
-              <input type="text" placeholder="Small room" class="roomName" />
-            </div>
-            <div>
-              <label>Room size</label>
-              <input type="number" placeholder="1" min="0" inputmode="decimal" class="roomWeight" />
-            </div>
-            <div>
-              <label>People</label>
-              <input type="number" placeholder="1" min="1" inputmode="numeric" class="roomPeople" />
-            </div>
-            <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove room">×</button>
-          </div>
-        </div>
-
-        <div class="btns">
-          <button class="secondary" type="button" onclick="addRoommateRow()">Add Room</button>
-          <button class="primary" type="button" onclick="calculateRoommates()">Calculate</button>
-          <button class="secondary" type="button" onclick="copyResult('roommateResult')">Copy</button>
-        </div>
-
-        <div class="result" id="roommateResult">Result will appear here.</div>
-      </section>
-
-      <section class="calculator" aria-labelledby="friends-title">
-        <div class="calc-head">
-          <div class="calc-title-wrap">
-            <span class="calc-number">3</span>
-            <div>
-              <h2 id="friends-title">Friends Group Expense Split</h2>
-              <p class="description">Enter who paid what, then see who owes whom.</p>
-            </div>
-          </div>
-        </div>
-
-        <div id="friendRows" class="dynamic-list">
-          <div class="row two">
-            <div>
-              <label>Friend</label>
-              <input type="text" placeholder="Amina" class="friendName" />
-            </div>
-            <div>
-              <label>Paid</label>
-              <input type="number" placeholder="250" min="0" inputmode="decimal" class="friendPaid" />
-            </div>
-            <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove friend">×</button>
-          </div>
-          <div class="row two">
-            <div>
-              <label>Friend</label>
-              <input type="text" placeholder="Omar" class="friendName" />
-            </div>
-            <div>
-              <label>Paid</label>
-              <input type="number" placeholder="80" min="0" inputmode="decimal" class="friendPaid" />
-            </div>
-            <button class="remove" type="button" onclick="removeRow(this)" aria-label="Remove friend">×</button>
-          </div>
-        </div>
-
-        <div class="btns">
-          <button class="secondary" type="button" onclick="addFriendRow()">Add Friend</button>
-          <button class="primary" type="button" onclick="calculateFriends()">Calculate</button>
-          <button class="secondary" type="button" onclick="copyResult('friendResult')">Copy</button>
-        </div>
-
-        <div class="result" id="friendResult">Result will appear here.</div>
-      </section>
-
-      <section class="calculator" aria-labelledby="household-title">
-        <div class="calc-head">
-          <div class="calc-title-wrap">
-            <span class="calc-number">4</span>
-            <div>
-              <h2 id="household-title">Household Affordability</h2>
-              <p class="description">Compare income, expenses, savings, and disposable income.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid">
-          <div>
-            <label for="houseIncomeA">Person A Income</label>
-            <input type="number" id="houseIncomeA" min="0" inputmode="decimal" placeholder="4500" />
-          </div>
-          <div>
-            <label for="houseIncomeB">Person B Income</label>
-            <input type="number" id="houseIncomeB" min="0" inputmode="decimal" placeholder="3200" />
-          </div>
-          <div>
-            <label for="houseExpenses">Monthly Expenses</label>
-            <input type="number" id="houseExpenses" min="0" inputmode="decimal" placeholder="4200" />
-          </div>
-          <div>
-            <label for="houseSavings">Savings Target</label>
-            <input type="number" id="houseSavings" min="0" inputmode="decimal" placeholder="1200" />
-          </div>
-        </div>
-
-        <div class="btns">
-          <button class="primary" type="button" onclick="calculateHousehold()">Calculate</button>
-          <button class="secondary" type="button" onclick="copyResult('householdResult')">Copy</button>
-        </div>
-
-        <div class="result" id="householdResult">Result will appear here.</div>
-      </section>
-
-      <section class="calculator" aria-labelledby="tradeoff-title">
-        <div class="calc-head">
-          <div class="calc-title-wrap">
-            <span class="calc-number">5</span>
-            <div>
-              <h2 id="tradeoff-title">Life-Money Tradeoff</h2>
-              <p class="description">See how many work hours a purchase costs each person.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid three">
-          <div>
-            <label for="wageA">Person A Wage</label>
-            <input type="number" id="wageA" min="0" inputmode="decimal" placeholder="25" />
-          </div>
-          <div>
-            <label for="wageB">Person B Wage</label>
-            <input type="number" id="wageB" min="0" inputmode="decimal" placeholder="18" />
-          </div>
-          <div>
-            <label for="purchasePrice">Purchase Price</label>
-            <input type="number" id="purchasePrice" min="0" inputmode="decimal" placeholder="600" />
-          </div>
-        </div>
-
-        <div class="btns">
-          <button class="primary" type="button" onclick="calculateTradeoff()">Calculate</button>
-          <button class="secondary" type="button" onclick="copyResult('tradeoffResult')">Copy</button>
-        </div>
-
-        <div class="result" id="tradeoffResult">Result will appear here.</div>
-      </section>
-    </div>
-
-    <section class="content-section">
-      <div class="content-card">
-        <h2>Why fair splitting matters</h2>
-        <p>Shared expenses can become stressful when people rely on rough guesses or one-size-fits-all splits. WellSplit makes the numbers easier to explain by showing clear shares for income-based bills, weighted rent, group reimbursements, household affordability, and time-cost comparisons.</p>
-      </div>
-
-      <div class="content-card">
-        <h2>About WellSplit</h2>
-        <p>WellSplit is built for people making financial decisions together. It helps couples, roommates, friends, and households turn shared money questions into simple calculations that feel more transparent, practical, and fair.</p>
-      </div>
-
-      <div class="content-card">
-        <h2>FAQs</h2>
-        <div class="faq-list">
-          <details>
-            <summary>Should couples split bills equally or by income?</summary>
-            <p>If both people earn similar amounts, an equal split can work. If incomes are very different, an income-based split may feel fairer because each person contributes according to their financial ability.</p>
-          </details>
-
-          <details>
-            <summary>How should roommates split rent fairly?</summary>
-            <p>Rent can be weighted by room size, private bathroom access, storage, parking, or other benefits. Utilities are commonly split equally per person, but some households prefer splitting them by room weight.</p>
-          </details>
-
-          <details>
-            <summary>What does room weight mean?</summary>
-            <p>A room weight is a fairness multiplier. A standard room can be 1.0, a larger room can be 1.2, and a smaller room can be 0.8. The calculator divides rent based on the total of all room weights.</p>
-          </details>
-
-          <details>
-            <summary>How does the group expense calculator work?</summary>
-            <p>It totals what everyone paid, calculates each person’s equal share, then shows who overpaid and who underpaid. The final result suggests who should pay whom to settle the group.</p>
-          </details>
-
-          <details>
-            <summary>What is affordability percentage?</summary>
-            <p>Affordability percentage shows how much of shared monthly income is used by monthly expenses plus the savings target. A lower percentage means more income is left after planned costs.</p>
-          </details>
-
-          <details>
-            <summary>What does the life-money tradeoff calculator show?</summary>
-            <p>It converts a purchase price into work hours based on each person’s hourly wage. This makes it easier to compare the real time cost of a purchase for two people.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
+</div>
+</nav>
+<div aria-hidden="true" class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
+<main>
+<div class="page-shell">
+<section class="hero">
+<h1></h1>
+<p>WellSplit helps couples, roommates, friends, families, and co-decision makers divide costs with context, fairness, and a result you can actually use.</p>
+</section>
+<section aria-labelledby="couples-title" class="calculator">
+<div class="calc-head">
+<div class="calc-title-wrap">
+<span class="calc-number">1</span>
+<div>
+<h2 id="couples-title">Couples Income-Based Split</h2>
+<p class="description">Split a bill by each person’s share of combined income.</p>
+</div>
+</div>
+</div>
+<div class="grid three">
+<div>
+<label for="coupleIncomeA">Person A Income</label>
+<input id="coupleIncomeA" inputmode="decimal" min="0" placeholder="4000" type="number"/>
+</div>
+<div>
+<label for="coupleIncomeB">Person B Income</label>
+<input id="coupleIncomeB" inputmode="decimal" min="0" placeholder="2000" type="number"/>
+</div>
+<div>
+<label for="coupleBill">Shared Bill</label>
+<input id="coupleBill" inputmode="decimal" min="0" placeholder="900" type="number"/>
+</div>
+</div>
+<div class="btns">
+<button class="primary" onclick="calculateCouple()" type="button">Calculate</button>
+<button class="secondary" onclick="copyResult('coupleResult')" type="button">Copy</button>
+</div>
+<div class="result" id="coupleResult">Result will appear here.</div>
+</section>
+<section aria-labelledby="roommates-title" class="calculator">
+<div class="calc-head">
+<div class="calc-title-wrap">
+<span class="calc-number">2</span>
+<div>
+<h2 id="roommates-title">Roommates Rent &amp; Utilities</h2>
+<p class="description">Weight rent by room value and split utilities by person or room size.</p>
+</div>
+</div>
+</div>
+<div class="grid three">
+<div>
+<label for="roomRent">Total Rent</label>
+<input id="roomRent" inputmode="decimal" min="0" placeholder="2400" type="number"/>
+</div>
+<div>
+<label for="roomUtilities">Utilities</label>
+<input id="roomUtilities" inputmode="decimal" min="0" placeholder="300" type="number"/>
+</div>
+<div>
+<label for="utilityMethod">Utility Method</label>
+<select id="utilityMethod">
+<option value="equal">Equal per person</option>
+<option value="room">By room size</option>
+</select>
+</div>
+</div>
+<div class="dynamic-list" id="roommateRows">
+<div class="row">
+<div>
+<label>Room / Name</label>
+<input class="roomName" placeholder="Master room" type="text"/>
+</div>
+<div>
+<label>Room size</label>
+<input class="roomWeight" inputmode="decimal" min="0" placeholder="1.2" type="number"/>
+</div>
+<div>
+<label>People</label>
+<input class="roomPeople" inputmode="numeric" min="1" placeholder="1" type="number"/>
+</div>
+<button aria-label="Remove room" class="remove" onclick="removeRow(this)" type="button">×</button>
+</div>
+<div class="row">
+<div>
+<label>Room / Name</label>
+<input class="roomName" placeholder="Small room" type="text"/>
+</div>
+<div>
+<label>Room size</label>
+<input class="roomWeight" inputmode="decimal" min="0" placeholder="1" type="number"/>
+</div>
+<div>
+<label>People</label>
+<input class="roomPeople" inputmode="numeric" min="1" placeholder="1" type="number"/>
+</div>
+<button aria-label="Remove room" class="remove" onclick="removeRow(this)" type="button">×</button>
+</div>
+</div>
+<div class="btns">
+<button class="secondary" onclick="addRoommateRow()" type="button">Add Room</button>
+<button class="primary" onclick="calculateRoommates()" type="button">Calculate</button>
+<button class="secondary" onclick="copyResult('roommateResult')" type="button">Copy</button>
+</div>
+<div class="result" id="roommateResult">Result will appear here.</div>
+</section>
+<section aria-labelledby="friends-title" class="calculator">
+<div class="calc-head">
+<div class="calc-title-wrap">
+<span class="calc-number">3</span>
+<div>
+<h2 id="friends-title">Friends Group Expense Split</h2>
+<p class="description">Enter who paid what, then see who owes whom.</p>
+</div>
+</div>
+</div>
+<div class="dynamic-list" id="friendRows">
+<div class="row two">
+<div>
+<label>Friend</label>
+<input class="friendName" placeholder="Amina" type="text"/>
+</div>
+<div>
+<label>Paid</label>
+<input class="friendPaid" inputmode="decimal" min="0" placeholder="250" type="number"/>
+</div>
+<button aria-label="Remove friend" class="remove" onclick="removeRow(this)" type="button">×</button>
+</div>
+<div class="row two">
+<div>
+<label>Friend</label>
+<input class="friendName" placeholder="Omar" type="text"/>
+</div>
+<div>
+<label>Paid</label>
+<input class="friendPaid" inputmode="decimal" min="0" placeholder="80" type="number"/>
+</div>
+<button aria-label="Remove friend" class="remove" onclick="removeRow(this)" type="button">×</button>
+</div>
+</div>
+<div class="btns">
+<button class="secondary" onclick="addFriendRow()" type="button">Add Friend</button>
+<button class="primary" onclick="calculateFriends()" type="button">Calculate</button>
+<button class="secondary" onclick="copyResult('friendResult')" type="button">Copy</button>
+</div>
+<div class="result" id="friendResult">Result will appear here.</div>
+</section>
+<section aria-labelledby="household-title" class="calculator">
+<div class="calc-head">
+<div class="calc-title-wrap">
+<span class="calc-number">4</span>
+<div>
+<h2 id="household-title">Household Affordability</h2>
+<p class="description">Compare income, expenses, savings, and disposable income.</p>
+</div>
+</div>
+</div>
+<div class="grid">
+<div>
+<label for="houseIncomeA">Person A Income</label>
+<input id="houseIncomeA" inputmode="decimal" min="0" placeholder="4500" type="number"/>
+</div>
+<div>
+<label for="houseIncomeB">Person B Income</label>
+<input id="houseIncomeB" inputmode="decimal" min="0" placeholder="3200" type="number"/>
+</div>
+<div>
+<label for="houseExpenses">Monthly Expenses</label>
+<input id="houseExpenses" inputmode="decimal" min="0" placeholder="4200" type="number"/>
+</div>
+<div>
+<label for="houseSavings">Savings Target</label>
+<input id="houseSavings" inputmode="decimal" min="0" placeholder="1200" type="number"/>
+</div>
+</div>
+<div class="btns">
+<button class="primary" onclick="calculateHousehold()" type="button">Calculate</button>
+<button class="secondary" onclick="copyResult('householdResult')" type="button">Copy</button>
+</div>
+<div class="result" id="householdResult">Result will appear here.</div>
+</section>
+<section aria-labelledby="tradeoff-title" class="calculator">
+<div class="calc-head">
+<div class="calc-title-wrap">
+<span class="calc-number">5</span>
+<div>
+<h2 id="tradeoff-title">Life-Money Tradeoff</h2>
+<p class="description">See how many work hours a purchase costs each person.</p>
+</div>
+</div>
+</div>
+<div class="grid three">
+<div>
+<label for="wageA">Person A Wage</label>
+<input id="wageA" inputmode="decimal" min="0" placeholder="25" type="number"/>
+</div>
+<div>
+<label for="wageB">Person B Wage</label>
+<input id="wageB" inputmode="decimal" min="0" placeholder="18" type="number"/>
+</div>
+<div>
+<label for="purchasePrice">Purchase Price</label>
+<input id="purchasePrice" inputmode="decimal" min="0" placeholder="600" type="number"/>
+</div>
+</div>
+<div class="btns">
+<button class="primary" onclick="calculateTradeoff()" type="button">Calculate</button>
+<button class="secondary" onclick="copyResult('tradeoffResult')" type="button">Copy</button>
+</div>
+<div class="result" id="tradeoffResult">Result will appear here.</div>
+</section>
+</div>
+<section class="content-section">
+<div class="content-card">
+<h2>Why fair splitting matters</h2>
+<p>Shared expenses can become stressful when people rely on rough guesses or one-size-fits-all splits. WellSplit makes the numbers easier to explain by showing clear shares for income-based bills, weighted rent, group reimbursements, household affordability, and time-cost comparisons.</p>
+</div>
+<div class="content-card">
+<h2>About WellSplit</h2>
+<p>WellSplit is built for people making financial decisions together. It helps couples, roommates, friends, and households turn shared money questions into simple calculations that feel more transparent, practical, and fair.</p>
+</div>
+<div class="content-card">
+<h2>FAQs</h2>
+<div class="faq-list">
+<details>
+<summary>Should couples split bills equally or by income?</summary>
+<p>If both people earn similar amounts, an equal split can work. If incomes are very different, an income-based split may feel fairer because each person contributes according to their financial ability.</p>
+</details>
+<details>
+<summary>How should roommates split rent fairly?</summary>
+<p>Rent can be weighted by room size, private bathroom access, storage, parking, or other benefits. Utilities are commonly split equally per person, but some households prefer splitting them by room weight.</p>
+</details>
+<details>
+<summary>What does room weight mean?</summary>
+<p>A room weight is a fairness multiplier. A standard room can be 1.0, a larger room can be 1.2, and a smaller room can be 0.8. The calculator divides rent based on the total of all room weights.</p>
+</details>
+<details>
+<summary>How does the group expense calculator work?</summary>
+<p>It totals what everyone paid, calculates each person’s equal share, then shows who overpaid and who underpaid. The final result suggests who should pay whom to settle the group.</p>
+</details>
+<details>
+<summary>What is affordability percentage?</summary>
+<p>Affordability percentage shows how much of shared monthly income is used by monthly expenses plus the savings target. A lower percentage means more income is left after planned costs.</p>
+</details>
+<details>
+<summary>What does the life-money tradeoff calculator show?</summary>
+<p>It converts a purchase price into work hours based on each person’s hourly wage. This makes it easier to compare the real time cost of a purchase for two people.</p>
+</details>
+</div>
+</div>
+</section>
+</main>
+<footer>
     © 2026 WellSplit.net. All rights reserved.
   </footer>
-
-  <div class="toast" id="toast">Result copied.</div>
-
-  <script>
+<div class="toast" id="toast">Result copied.</div>
+<script>
     function money(value) {
       const number = Number(value || 0);
       return "$" + number.toLocaleString(undefined, {
@@ -1387,63 +1022,6 @@
     }
 }
 
-    const splittersDropdown = document.getElementById("splittersDropdown");
-    const splittersToggle = document.getElementById("splittersToggle");
-    const splittersMenu = document.getElementById("splittersMenu");
-
-    function setSplittersMenu(open) {
-      splittersDropdown.classList.toggle("open", open);
-      splittersToggle.setAttribute("aria-expanded", String(open));
-
-      if (window.matchMedia("(max-width: 780px)").matches) {
-        document.body.style.overflow = open ? "hidden" : "";
-      }
-    }
-
-    splittersToggle.addEventListener("click", event => {
-      const isDesktopHoverMode = window.matchMedia(
-        "(min-width: 1025px) and (hover: hover) and (pointer: fine)"
-      ).matches;
-
-      if (isDesktopHoverMode) {
-        return;
-      }
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      setSplittersMenu(
-        !splittersDropdown.classList.contains("open")
-      );
-    });
-
-    splittersMenu.addEventListener("click", event => {
-      if (event.target.closest("a")) {
-        setSplittersMenu(false);
-
-        if (window.matchMedia("(max-width: 780px)").matches) {
-          closeMobileMenu();
-        }
-      }
-    });
-
-    document.addEventListener("click", event => {
-      if (!splittersDropdown.contains(event.target)) {
-        setSplittersMenu(false);
-      }
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        if (splittersDropdown.classList.contains("open")) {
-          setSplittersMenu(false);
-          splittersToggle.focus();
-        } else if (document.getElementById("navActions").classList.contains("open")) {
-          closeMobileMenu();
-          document.querySelector(".menu-toggle").focus();
-        }
-      }
-    });
 
     function toggleMobileMenu() {
       const menu = document.getElementById("navActions");
@@ -1460,9 +1038,6 @@
         isOpen ? "Close navigation menu" : "Open navigation menu"
       );
 
-      if (!isOpen) {
-        setSplittersMenu(false);
-      }
     }
 
     function closeMobileMenu() {
@@ -1477,7 +1052,6 @@
       button.setAttribute("aria-expanded", "false");
       button.setAttribute("aria-label", "Open navigation menu");
 
-      setSplittersMenu(false);
     }
 
     document.querySelectorAll(".nav-actions a").forEach(link => {
@@ -1486,6 +1060,17 @@
           closeMobileMenu();
         }
       });
+    });
+
+
+    document.addEventListener("keydown", event => {
+      if (
+        event.key === "Escape" &&
+        document.getElementById("navActions").classList.contains("open")
+      ) {
+        closeMobileMenu();
+        document.querySelector(".menu-toggle").focus();
+      }
     });
 
     window.addEventListener("resize", () => {
@@ -1728,8 +1313,8 @@
         `Difference: ${difference.toFixed(1)} hours`;
     }
   </script>
-  <footer style="text-align:center; margin-top:40px;">
-  <a href="/about/">About</a> |
+<footer style="text-align:center; margin-top:40px;">
+<a href="/about/">About</a> |
   <a href="/contact/">Contact</a> |
   <a href="/privacy-policy/">Privacy Policy</a>
 </footer>
