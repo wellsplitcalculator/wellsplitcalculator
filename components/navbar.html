@@ -1,0 +1,40 @@
+<nav>
+  <a aria-label="WellSplit home" class="logo" href="/">
+    <img alt="WellSplit logo" src="/wellsplitlog.png">
+    <span>WellSplit.net</span>
+  </a>
+
+  <button
+    aria-controls="navActions"
+    aria-expanded="false"
+    aria-label="Open navigation menu"
+    class="menu-toggle"
+    onclick="toggleMobileMenu()"
+    type="button"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="nav-actions" id="navActions">
+    <a class="nav-link all-splitters-link" href="/all-splitters/">All Splitters</a>
+    <a class="nav-link" href="/blog/">Blog</a>
+
+    <button
+      aria-label="Switch color theme"
+      class="theme-toggle"
+      onclick="toggleTheme()"
+      type="button"
+    >
+      ☀ Light
+    </button>
+  </div>
+</nav>
+
+<div
+  aria-hidden="true"
+  class="mobile-menu-backdrop"
+  id="mobileMenuBackdrop"
+  onclick="closeMobileMenu()"
+></div>
