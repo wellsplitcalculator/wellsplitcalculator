@@ -5,6 +5,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="Split rent fairly using room size, shared space, bathrooms, balconies, parking, storage, furnishings, work-from-home use, guests, occupants, and custom weights." name="description">
   <title>Fair Rent Splitter - WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     :root{--bg:#2f343c;--panel:#3a4048;--panel-2:#454c56;--field:#505863;--text:#f3f4f6;--muted:#c6ccd4;--border:#606977;--accent:#7dd3fc;--accent-2:#38bdf8;--danger:#f87171;--shadow:0 18px 50px rgba(0,0,0,.18);--radius:16px}
@@ -32,17 +33,15 @@
     .primary{background:var(--accent);color:#061018}.primary:hover{background:var(--accent-2)}.secondary{background:var(--panel-2);color:var(--text);border:1px solid var(--border)}.secondary:hover{border-color:var(--accent);color:var(--accent)}
     .result{margin-top:14px;padding:14px;background:var(--panel-2);border:1px solid var(--border);border-radius:12px;color:var(--text);min-height:56px}.result:empty::before{content:"Your rent split will appear here.";color:var(--muted);font-weight:600}
     .summary-line{color:var(--muted);font-size:.82rem;margin-bottom:12px}.result-table{width:100%;border-collapse:collapse;font-size:.86rem}.result-table th,.result-table td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}.result-table th{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em}.result-table tr:last-child td{border-bottom:0}.money-cell{font-weight:900;color:var(--accent);white-space:nowrap}.note{margin-top:12px;color:var(--muted);font-size:.8rem;line-height:1.45}
-    .theme-toggle{position:fixed;top:16px;right:18px;z-index:10;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--panel);color:var(--text);padding:8px 12px;border-radius:999px;cursor:pointer;font-size:.85rem;font-weight:800;box-shadow:var(--shadow)}
     footer{padding:24px 6%;color:var(--muted);border-top:1px solid var(--border);font-size:.9rem;text-align:center}
     @media(max-width:1050px){.room-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-    @media(max-width:780px){main{padding:78px 18px 26px}.page-shell{width:100%}h1{font-size:clamp(2rem,10vw,3rem)}.calculator{padding:15px}.grid,.grid.two,.room-grid{grid-template-columns:1fr}.btns button{flex:1 1 145px}.result{overflow-x:auto}}
-    @media(max-width:420px){.theme-toggle{top:12px;right:12px;font-size:.8rem}.btns button{flex:1 1 100%}}
+    @media(max-width:780px){main{padding:34px 18px 26px}.page-shell{width:100%}h1{font-size:clamp(2rem,10vw,3rem)}.calculator{padding:15px}.grid,.grid.two,.room-grid{grid-template-columns:1fr}.btns button{flex:1 1 145px}.result{overflow-x:auto}}
+    @media(max-width:420px){.btns button{flex:1 1 100%}}
   </style>
 </head>
 <body>
   <div id="navbar-container"></div>
-  <button aria-label="Switch color theme" class="theme-toggle" onclick="toggleTheme()" type="button">☀ Light</button>
-  <main>
+<main>
     <div class="page-shell">
       <section class="hero">
         <h1>Fair Rent Splitter</h1>
@@ -93,15 +92,13 @@
       </section>
     </div>
   </main>
-  <footer>© 2026 WellSplit.net. All rights reserved.</footer>
-  <script>
+<script>
     const guestFactors={never:0,occasional:.5,regular:1,frequent:2};
     function money(value){const symbol=document.getElementById('currencySymbol').value;return symbol+Number(value||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
     function getNumber(id){return parseFloat(document.getElementById(id).value)||0}
     function updateRangeValue(input){document.getElementById(input.id+'Value').textContent=input.value+'%'}
     function updateHybridLabel(){const equal=Number(document.getElementById('equalPercent').value);document.getElementById('equalPercentValue').textContent=equal+'% equal / '+(100-equal)+'% weighted'}
     function updateMethodVisibility(){document.getElementById('hybridField').style.display=document.getElementById('splitMethod').value==='hybrid'?'block':'none'}
-    function toggleTheme(){const html=document.documentElement,button=document.querySelector('.theme-toggle');if(html.dataset.theme==='light'){html.dataset.theme='dark';button.innerHTML='☾ Dark'}else{html.dataset.theme='light';button.innerHTML='☀ Light'}}
     function roomTemplate(index){return `<div class="room-row"><div class="room-row-head"><span class="room-label">Room ${index}</span><button aria-label="Remove room" class="remove" onclick="removeRoom(this)" type="button">×</button></div><div class="room-grid"><div><label>Room / roommate name</label><input class="roomName" placeholder="Room ${index}" type="text"></div><div><label>Room size</label><input class="roomSize" inputmode="decimal" min="0" placeholder="150" type="number"></div><div><label>Occupants</label><input class="occupants" inputmode="numeric" min="1" value="1" type="number"></div><div><label>Private bathroom</label><select class="privateBathroom"><option value="0">No</option><option value="1">Yes</option></select></div><div><label>Balcony / patio</label><select class="balcony"><option value="0">No</option><option value="1">Yes</option></select></div><div><label>Parking</label><select class="parking"><option value="0">No</option><option value="1">Yes</option></select></div><div><label>Closet / storage</label><select class="storage"><option value="0">Standard</option><option value="0.5">Above average</option><option value="1">Large / private</option></select></div><div><label>Furnished</label><select class="furnished"><option value="0">No</option><option value="1">Yes</option></select></div><div><label>Works from home</label><select class="wfh"><option value="0">No</option><option value="0.5">Sometimes</option><option value="1">Regularly</option></select></div><div><label>Guest frequency</label><select class="guests"><option value="never">Never</option><option value="occasional">Occasional</option><option value="regular">Regular</option><option value="frequent">Frequent</option></select></div><div><label>Custom room weight</label><input class="customWeight" max="200" min="50" type="range" value="100"></div></div></div>`}
     function refreshRoomLabels(){document.querySelectorAll('.room-row').forEach((row,index)=>row.querySelector('.room-label').textContent='Room '+(index+1));document.getElementById('roommateCount').value=document.querySelectorAll('.room-row').length}
     function addRoom(){const container=document.getElementById('roomRows');container.insertAdjacentHTML('beforeend',roomTemplate(container.children.length+1));refreshRoomLabels()}
@@ -114,7 +111,7 @@
     syncRoomsFromCount();updateMethodVisibility();updateHybridLabel();
   </script>
 
-<div id="footer-container"></div>
+  <div id="footer-container"></div>
 
   <script src="/components/shared.js"></script>
   
