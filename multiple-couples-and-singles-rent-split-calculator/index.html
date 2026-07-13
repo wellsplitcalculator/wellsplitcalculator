@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta
+    content="Split rent fairly between multiple couples and single roommates using room size and shared-space usage."
+    name="description"
+  >
+  <title>Multiple Couples and Singles Rent Split Calculator - WellSplit</title>
+
+  <link rel="stylesheet" href="/components/styles.css">
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0
+    }
+
+    :root{
+      --bg:#2f343c;
+      --panel:#3a4048;
+      --panel-2:#454c56;
+      --field:#505863;
+      --text:#f3f4f6;
+      --muted:#c6ccd4;
+      --border:#606977;
+      --accent:#7dd3fc;
+      --accent-2:#38bdf8;
+      --danger:#f87171;
+      --shadow:0 18px 50px rgba(0,0,0,.18);
+      --radius:16px
+    }
+
+    html[data-theme="light"]{
+      --bg:#f6f7f9;
+      --panel:#fff;
+      --panel-2:#f1f5f9;
+      --field:#fff;
+      --text:#111827;
+      --muted:#5e6b78;
+      --border:#dce3eb;
+      --accent:#0369a1;
+      --accent-2:#0284c7;
+      --danger:#b91c1c;
+      --shadow:0 18px 45px rgba(15,23,42,.08)
+    }
+
+    html{
+      scroll-behavior:smooth
+    }
+
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;
+      line-height:1.5
+    }
+
+    button,
+    input,
+    select{
+      font:inherit
+    }
+
+    main{
+      padding:42px 6% 32px
+    }
+
+    .content-layout{
+      width:min(100%,1180px);
+      display:grid;
+      grid-template-columns:minmax(0,800px) minmax(280px,1fr);
+      gap:34px;
+      align-items:start
+    }
+
+    .page-shell{
+      width:100%;
+      min-width:0
+    }
+
+    .ad-space{
+      min-height:600px
+    }
+
+    .hero{
+      margin-bottom:22px
+    }
+
+    h1{
+      max-width:780px;
+      font-size:clamp(2rem,5vw,3.55rem);
+      line-height:1.02;
+      letter-spacing:-.06em;
+      margin-bottom:12px
+    }
+
+    .hero p{
+      max-width:720px;
+      color:var(--muted);
+      font-size:.9rem
+    }
+
+    .calculator{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px
+    }
+
+    .section-title{
+      font-size:1.08rem;
+      line-height:1.2;
+      letter-spacing:-.035em;
+      margin-bottom:4px
+    }
+
+    .section-description{
+      color:var(--muted);
+      font-size:.82rem;
+      line-height:1.45;
+      margin-bottom:14px
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px
+    }
+
+    label{
+      display:block;
+      margin-bottom:4px;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800
+    }
+
+    input,
+    select{
+      width:100%;
+      min-height:42px;
+      background:var(--field);
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:9px 10px;
+      outline:none;
+      font-size:.9rem
+    }
+
+    input:focus,
+    select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)
+    }
+
+    .group-list{
+      display:grid;
+      gap:10px
+    }
+
+    .group-row{
+      padding:12px;
+      background:color-mix(in srgb,var(--panel-2) 66%,transparent);
+      border:1px solid var(--border);
+      border-radius:13px
+    }
+
+    .group-row-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px
+    }
+
+    .group-label{
+      font-size:.9rem;
+      font-weight:850
+    }
+
+    .group-grid{
+      display:grid;
+      grid-template-columns:1.4fr 1fr 1fr;
+      gap:8px;
+      align-items:end
+    }
+
+    .remove{
+      width:38px;
+      height:38px;
+      padding:0;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--muted);
+      border-radius:10px;
+      cursor:pointer;
+      font-size:1rem;
+      font-weight:900
+    }
+
+    .remove:hover{
+      color:var(--danger);
+      border-color:var(--danger)
+    }
+
+    .btns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px
+    }
+
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius:10px;
+      padding:10px 13px;
+      font-size:.86rem;
+      font-weight:900;
+      transition:.16s
+    }
+
+    button:hover{
+      transform:translateY(-1px)
+    }
+
+    .primary{
+      background:var(--accent);
+      color:#061018
+    }
+
+    .primary:hover{
+      background:var(--accent-2)
+    }
+
+    .secondary{
+      background:var(--panel-2);
+      color:var(--text);
+      border:1px solid var(--border)
+    }
+
+    .secondary:hover{
+      border-color:var(--accent);
+      color:var(--accent)
+    }
+
+    .result{
+      margin-top:14px;
+      padding:14px;
+      background:var(--panel-2);
+      border:1px solid var(--border);
+      border-radius:12px;
+      min-height:56px;
+      overflow-x:auto
+    }
+
+    .result:empty::before{
+      content:"Your rent split will appear here.";
+      color:var(--muted);
+      font-weight:600
+    }
+
+    .summary-line{
+      color:var(--muted);
+      font-size:.82rem;
+      margin-bottom:12px
+    }
+
+    .result-table{
+      width:100%;
+      min-width:680px;
+      border-collapse:collapse;
+      font-size:.86rem
+    }
+
+    .result-table th,
+    .result-table td{
+      padding:9px 8px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
+      vertical-align:top
+    }
+
+    .result-table th{
+      color:var(--muted);
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.04em
+    }
+
+    .result-table tr:last-child td{
+      border-bottom:0
+    }
+
+    .money-cell{
+      font-weight:900;
+      color:var(--accent);
+      white-space:nowrap
+    }
+
+    .note{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:.8rem;
+      line-height:1.45
+    }
+
+    footer{
+      padding:24px 6%;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      font-size:.9rem;
+      text-align:center
+    }
+
+    @media(max-width:900px){
+      .content-layout{
+        display:block;
+        width:100%
+      }
+
+      .ad-column{
+        display:none
+      }
+    }
+
+    @media(max-width:780px){
+      main{
+        padding:34px 18px 26px
+      }
+
+      h1{
+        font-size:clamp(2rem,10vw,3rem)
+      }
+
+      .calculator{
+        padding:15px
+      }
+
+      .grid,
+      .group-grid{
+        grid-template-columns:1fr
+      }
+
+      .btns button{
+        flex:1 1 145px
+      }
+    }
+
+    @media(max-width:420px){
+      .btns button{
+        flex:1 1 100%
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="content-layout">
+
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Multiple Couples and Singles Rent Split Calculator</h1>
+          <p>
+            Split rent between any number of couples and single roommates using bedroom size
+            for private space and your chosen method for shared space.
+          </p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Rent details</h2>
+          <p class="section-description">
+            Choose how much of the rent represents shared space and how that portion should be divided.
+          </p>
+
+          <div class="grid">
+            <div>
+              <label for="totalRent">Total monthly rent</label>
+              <input id="totalRent" inputmode="decimal" min="0" placeholder="4000" type="number">
+            </div>
+
+            <div>
+              <label for="currencySymbol">Currency symbol</label>
+              <select id="currencySymbol">
+                <option value="$">$</option>
+                <option value="CA$">CA$</option>
+                <option value="US$">US$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sizeUnit">Room-size measurement</label>
+              <select id="sizeUnit">
+                <option value="sq ft">Square feet (sq ft)</option>
+                <option value="m²">Square metres (m²)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="groupCount">Number of rooms / groups</label>
+              <input id="groupCount" inputmode="numeric" min="1" max="12" value="4" type="number">
+            </div>
+
+            <div>
+              <label for="sharedPercent">Shared-space portion of rent</label>
+              <select id="sharedPercent">
+                <option value="30">30%</option>
+                <option value="40" selected>40%</option>
+                <option value="50">50%</option>
+                <option value="60">60%</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sharedMethod">Split shared-space rent</label>
+              <select id="sharedMethod">
+                <option value="person" selected>By person</option>
+                <option value="group">Equally by room / group</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Couples and singles</h2>
+          <p class="section-description">
+            Add one row for each bedroom. Choose “Couple” when two people share that room.
+          </p>
+
+          <div class="group-list" id="groupRows"></div>
+
+          <div class="btns">
+            <button class="secondary" onclick="addGroup()" type="button">Add Room</button>
+            <button class="secondary" onclick="syncGroupsFromCount()" type="button">Apply Room Count</button>
+            <button class="primary" onclick="calculateRent()" type="button">Calculate Rent Split</button>
+            <button class="secondary" onclick="copyResult()" type="button">Copy Result</button>
+          </div>
+
+          <div class="result" id="result"></div>
+        </section>
+      </div>
+
+      <aside class="ad-column" aria-label="Advertisement space">
+        <div class="ad-space">
+          <!-- Place your desktop AdSense ad code here. -->
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <script>
+    function money(value){
+      const symbol=document.getElementById('currencySymbol').value;
+
+      return symbol+Number(value||0).toLocaleString(undefined,{
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      });
+    }
+
+    function getNumber(id){
+      return parseFloat(document.getElementById(id).value)||0;
+    }
+
+    function groupTemplate(index){
+      return `
+        <div class="group-row">
+          <div class="group-row-head">
+            <span class="group-label">Room ${index}</span>
+
+            <button
+              aria-label="Remove room"
+              class="remove"
+              onclick="removeGroup(this)"
+              type="button"
+            >×</button>
+          </div>
+
+          <div class="group-grid">
+            <div>
+              <label>Room / roommate name</label>
+              <input class="groupName" placeholder="Room ${index}" type="text">
+            </div>
+
+            <div>
+              <label>Occupancy type</label>
+              <select class="groupType">
+                <option value="single">Single</option>
+                <option value="couple">Couple</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Room size</label>
+              <input
+                class="roomSize"
+                inputmode="decimal"
+                min="0"
+                placeholder="150"
+                type="number"
+              >
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function refreshGroupLabels(){
+      document.querySelectorAll('.group-row').forEach((row,index)=>{
+        row.querySelector('.group-label').textContent='Room '+(index+1);
+      });
+
+      document.getElementById('groupCount').value=
+        document.querySelectorAll('.group-row').length;
+    }
+
+    function addGroup(){
+      const container=document.getElementById('groupRows');
+
+      container.insertAdjacentHTML(
+        'beforeend',
+        groupTemplate(container.children.length+1)
+      );
+
+      refreshGroupLabels();
+    }
+
+    function removeGroup(button){
+      const rows=document.querySelectorAll('.group-row');
+
+      if(rows.length<=1){
+        alert('Keep at least one room.');
+        return;
+      }
+
+      button.closest('.group-row').remove();
+      refreshGroupLabels();
+    }
+
+    function syncGroupsFromCount(){
+      const requested=Math.min(
+        Math.max(parseInt(document.getElementById('groupCount').value)||1,1),
+        12
+      );
+
+      const container=document.getElementById('groupRows');
+
+      while(container.children.length<requested){
+        addGroup();
+      }
+
+      while(container.children.length>requested){
+        container.lastElementChild.remove();
+      }
+
+      refreshGroupLabels();
+    }
+
+    function collectGroups(){
+      return [...document.querySelectorAll('.group-row')].map((row,index)=>{
+        const type=row.querySelector('.groupType').value;
+
+        return {
+          name:row.querySelector('.groupName').value.trim()||'Room '+(index+1),
+          type,
+          occupants:type==='couple'?2:1,
+          roomSize:parseFloat(row.querySelector('.roomSize').value)||0
+        };
+      });
+    }
+
+    function calculateRent(){
+      const rent=getNumber('totalRent');
+      const result=document.getElementById('result');
+      const sizeUnit=document.getElementById('sizeUnit').value;
+      const groups=collectGroups();
+
+      if(rent<=0){
+        result.innerHTML='<p>Please enter a valid total rent amount.</p>';
+        return;
+      }
+
+      if(groups.some(group=>group.roomSize<=0)){
+        result.innerHTML='<p>Please enter a valid room size for every room.</p>';
+        return;
+      }
+
+      const sharedRatio=getNumber('sharedPercent')/100;
+      const privateRatio=1-sharedRatio;
+
+      const sharedRent=rent*sharedRatio;
+      const privateRent=rent*privateRatio;
+
+      const totalRoomSize=groups.reduce(
+        (sum,group)=>sum+group.roomSize,
+        0
+      );
+
+      const totalOccupants=groups.reduce(
+        (sum,group)=>sum+group.occupants,
+        0
+      );
+
+      const sharedMethod=document.getElementById('sharedMethod').value;
+
+      groups.forEach(group=>{
+        group.privateShare=
+          privateRent*(group.roomSize/totalRoomSize);
+
+        group.sharedShare=
+          sharedMethod==='person'
+            ? sharedRent*(group.occupants/totalOccupants)
+            : sharedRent/groups.length;
+
+        group.total=group.privateShare+group.sharedShare;
+        group.perPerson=group.total/group.occupants;
+        group.percent=(group.total/rent)*100;
+      });
+
+      const sharedMethodLabel=
+        sharedMethod==='person'
+          ? 'Shared-space rent split by person'
+          : 'Shared-space rent split equally by room / group';
+
+      const rows=groups.map(group=>`
+        <tr>
+          <td>${escapeHtml(group.name)}</td>
+          <td>${group.type==='couple'?'Couple':'Single'}</td>
+          <td>${group.occupants}</td>
+          <td>${formatNumber(group.roomSize)} ${sizeUnit}</td>
+          <td>${money(group.privateShare)}</td>
+          <td>${money(group.sharedShare)}</td>
+          <td class="money-cell">${money(group.total)}</td>
+          <td>${money(group.perPerson)}</td>
+        </tr>
+      `).join('');
+
+      result.innerHTML=`
+        <div class="summary-line">
+          ${groups.length} rooms ·
+          ${totalOccupants} people ·
+          ${Math.round(sharedRatio*100)}% shared-space rent ·
+          ${Math.round(privateRatio*100)}% private-room rent ·
+          ${sharedMethodLabel}
+        </div>
+
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Room / group</th>
+              <th>Type</th>
+              <th>People</th>
+              <th>Room size</th>
+              <th>Private-room share</th>
+              <th>Shared-space share</th>
+              <th>Group total</th>
+              <th>Per person</th>
+            </tr>
+          </thead>
+
+          <tbody>${rows}</tbody>
+        </table>
+
+        <p class="note">
+          The private-room portion is divided according to bedroom size.
+          The shared-space portion is divided by person or equally by room,
+          depending on the method selected. A couple's total is split equally
+          between both partners.
+        </p>
+      `;
+    }
+
+    function formatNumber(value){
+      return Number(value||0).toLocaleString(undefined,{
+        maximumFractionDigits:2
+      });
+    }
+
+    function escapeHtml(value){
+      return String(value)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    async function copyResult(){
+      const result=document.getElementById('result');
+
+      if(!result.innerText.trim()){
+        alert('Calculate the rent split first.');
+        return;
+      }
+
+      try{
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      }catch(error){
+        const textarea=document.createElement('textarea');
+
+        textarea.value=result.innerText.trim();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+
+        alert('Result copied.');
+      }
+    }
+
+    syncGroupsFromCount();
+  </script>
+
+  <div id="footer-container"></div>
+
+  <script src="/components/shared.js"></script>
+</body>
+</html>
