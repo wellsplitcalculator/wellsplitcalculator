@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+
+  <!-- Google adsense tag -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+     crossorigin="anonymous"></script>
+  
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VR5ESWGW9Y');
+</script>
+
+
+  <!-- favicon -->
+<link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta
+    content="Calculate an unequal room rent split using bedroom size, private bathrooms, balconies, parking, storage, furnishings, occupants, and custom room adjustments."
+    name="description"
+  >
+  <title>Unequal Room Rent Calculator - WellSplit</title>
+
+  <link rel="stylesheet" href="/components/styles.css">
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0
+    }
+
+    :root{
+      --bg:#2f343c;
+      --panel:#3a4048;
+      --panel-2:#454c56;
+      --field:#505863;
+      --text:#f3f4f6;
+      --muted:#c6ccd4;
+      --border:#606977;
+      --accent:#7dd3fc;
+      --accent-2:#38bdf8;
+      --danger:#f87171;
+      --shadow:0 18px 50px rgba(0,0,0,.18);
+      --radius:16px
+    }
+
+    html[data-theme="light"]{
+      --bg:#f6f7f9;
+      --panel:#fff;
+      --panel-2:#f1f5f9;
+      --field:#fff;
+      --text:#111827;
+      --muted:#5e6b78;
+      --border:#dce3eb;
+      --accent:#0369a1;
+      --accent-2:#0284c7;
+      --danger:#b91c1c;
+      --shadow:0 18px 45px rgba(15,23,42,.08)
+    }
+
+    html{
+      scroll-behavior:smooth
+    }
+
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;
+      line-height:1.5
+    }
+
+    button,
+    input,
+    select{
+      font:inherit
+    }
+
+    main{
+      padding:42px 6% 32px
+    }
+
+    .content-layout{
+      width:min(100%,1180px);
+      display:grid;
+      grid-template-columns:minmax(0,800px) minmax(280px,1fr);
+      gap:34px;
+      align-items:start
+    }
+
+    .page-shell{
+      width:100%;
+      min-width:0
+    }
+
+    .ad-column{
+      min-height:100%
+    }
+
+    .ad-space{
+      width:100%;
+      min-height:600px
+    }
+
+    .hero{
+      margin-bottom:22px
+    }
+
+    h1{
+      max-width:760px;
+      font-size:clamp(2rem,5vw,3.65rem);
+      line-height:1.02;
+      letter-spacing:-.065em;
+      margin-bottom:12px
+    }
+
+    .hero p{
+      max-width:720px;
+      color:var(--muted);
+      font-size:.9rem
+    }
+
+    .calculator{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px
+    }
+
+    .section-title{
+      font-size:1.08rem;
+      line-height:1.2;
+      letter-spacing:-.035em;
+      margin-bottom:4px
+    }
+
+    .section-description{
+      color:var(--muted);
+      font-size:.82rem;
+      line-height:1.45;
+      margin-bottom:14px
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px
+    }
+
+    .grid.two{
+      grid-template-columns:repeat(2,minmax(0,1fr))
+    }
+
+    label{
+      display:block;
+      margin-bottom:4px;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800
+    }
+
+    input,
+    select{
+      width:100%;
+      min-height:40px;
+      background:var(--field);
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:9px 10px;
+      outline:none;
+      font-size:.9rem
+    }
+
+    input:focus,
+    select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)
+    }
+
+    input[type="range"]{
+      min-height:auto;
+      padding:0;
+      border:0;
+      box-shadow:none;
+      accent-color:var(--accent)
+    }
+
+    .range-wrap{
+      padding:10px;
+      background:color-mix(in srgb,var(--panel-2) 66%,transparent);
+      border:1px solid var(--border);
+      border-radius:11px
+    }
+
+    .range-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:6px
+    }
+
+    .range-head label{
+      margin:0
+    }
+
+    .range-value{
+      color:var(--accent);
+      font-size:.78rem;
+      font-weight:900
+    }
+
+    .room-list{
+      display:grid;
+      gap:10px;
+      margin-top:14px
+    }
+
+    .room-row{
+      padding:12px;
+      background:color-mix(in srgb,var(--panel-2) 66%,transparent);
+      border:1px solid var(--border);
+      border-radius:13px
+    }
+
+    .room-row-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px
+    }
+
+    .room-label{
+      font-size:.9rem;
+      font-weight:850
+    }
+
+    .room-grid{
+      display:grid;
+      grid-template-columns:1.35fr repeat(4,minmax(100px,1fr));
+      gap:8px;
+      align-items:end
+    }
+
+    .remove{
+      width:38px;
+      height:38px;
+      padding:0;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--muted);
+      border-radius:10px;
+      cursor:pointer;
+      font-size:1rem;
+      font-weight:900
+    }
+
+    .remove:hover{
+      color:var(--danger);
+      border-color:var(--danger)
+    }
+
+    .btns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px
+    }
+
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius:10px;
+      padding:10px 13px;
+      font-size:.86rem;
+      font-weight:900;
+      transition:.16s
+    }
+
+    button:hover{
+      transform:translateY(-1px)
+    }
+
+    .primary{
+      background:var(--accent);
+      color:#061018
+    }
+
+    .primary:hover{
+      background:var(--accent-2)
+    }
+
+    .secondary{
+      background:var(--panel-2);
+      color:var(--text);
+      border:1px solid var(--border)
+    }
+
+    .secondary:hover{
+      border-color:var(--accent);
+      color:var(--accent)
+    }
+
+    .result{
+      margin-top:14px;
+      padding:14px;
+      background:var(--panel-2);
+      border:1px solid var(--border);
+      border-radius:12px;
+      color:var(--text);
+      min-height:56px;
+      overflow-x:auto
+    }
+
+    .result:empty::before{
+      content:"Your unequal rent split will appear here.";
+      color:var(--muted);
+      font-weight:600
+    }
+
+    .summary-line{
+      color:var(--muted);
+      font-size:.82rem;
+      margin-bottom:12px
+    }
+
+    .result-table{
+      width:100%;
+      min-width:690px;
+      border-collapse:collapse;
+      font-size:.86rem
+    }
+
+    .result-table th,
+    .result-table td{
+      padding:9px 8px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
+      vertical-align:top
+    }
+
+    .result-table th{
+      color:var(--muted);
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.04em
+    }
+
+    .result-table tr:last-child td{
+      border-bottom:0
+    }
+
+    .money-cell{
+      font-weight:900;
+      color:var(--accent);
+      white-space:nowrap
+    }
+
+    .note{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:.8rem;
+      line-height:1.45
+    }
+
+    footer{
+      padding:24px 6%;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      font-size:.9rem;
+      text-align:center
+    }
+
+    @media(max-width:1100px){
+      .content-layout{
+        grid-template-columns:minmax(0,760px) minmax(220px,1fr);
+        gap:24px
+      }
+
+      .grid{
+        grid-template-columns:repeat(2,minmax(0,1fr))
+      }
+
+      .room-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr))
+      }
+    }
+
+    @media(max-width:900px){
+      .content-layout{
+        display:block;
+        width:100%
+      }
+
+      .ad-column{
+        display:none
+      }
+
+      .page-shell{
+        width:100%
+      }
+    }
+
+    @media(max-width:780px){
+      main{
+        padding:34px 18px 26px
+      }
+
+      h1{
+        font-size:clamp(2rem,10vw,3rem)
+      }
+
+      .calculator{
+        padding:15px
+      }
+
+      .grid,
+      .grid.two,
+      .room-grid{
+        grid-template-columns:1fr
+      }
+
+      .btns button{
+        flex:1 1 145px
+      }
+    }
+
+    @media(max-width:420px){
+      .btns button{
+        flex:1 1 100%
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="content-layout">
+
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Unequal Room Rent Calculator</h1>
+          <p>
+            Split rent fairly when bedrooms are not equal. Compare room size,
+            private features, occupants, and custom adjustments to calculate each room's share.
+          </p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Rent and split settings</h2>
+          <p class="section-description">
+            Choose how much rent is divided equally and how much is based on differences between rooms.
+          </p>
+
+          <div class="grid">
+            <div>
+              <label for="totalRent">Total monthly rent</label>
+              <input id="totalRent" inputmode="decimal" min="0" placeholder="3000" type="number">
+            </div>
+
+            <div>
+              <label for="roomCount">Number of rooms</label>
+              <input id="roomCount" inputmode="numeric" min="1" max="12" value="3" type="number">
+            </div>
+
+            <div>
+              <label for="currencySymbol">Currency symbol</label>
+              <select id="currencySymbol">
+                <option value="$">$</option>
+                <option value="CA$">CA$</option>
+                <option value="US$">US$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="equalPercent">Equal portion of rent</label>
+              <input
+                id="equalPercent"
+                max="100"
+                min="0"
+                oninput="updateEqualLabel()"
+                type="range"
+                value="40"
+              >
+              <div class="range-head">
+                <span></span>
+                <span class="range-value" id="equalPercentValue">40% equal / 60% unequal</span>
+              </div>
+            </div>
+
+            <div>
+              <label for="sizeUnit">Room-size unit</label>
+              <select id="sizeUnit">
+                <option value="sq ft">Square feet</option>
+                <option value="m²">Square metres</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="occupantMethod">Additional occupants</label>
+              <select id="occupantMethod">
+                <option value="adjust" selected>Increase room share</option>
+                <option value="perPersonOnly">Only divide room total per person</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Feature importance</h2>
+          <p class="section-description">
+            Use these sliders to control how strongly each room difference affects the unequal portion.
+          </p>
+
+          <div class="grid two">
+            <div class="range-wrap">
+              <div class="range-head">
+                <label for="roomSizeWeight">Room size importance</label>
+                <span class="range-value" id="roomSizeWeightValue">100%</span>
+              </div>
+              <input id="roomSizeWeight" max="200" min="0" oninput="updateRangeValue(this)" type="range" value="100">
+            </div>
+
+            <div class="range-wrap">
+              <div class="range-head">
+                <label for="bathroomWeight">Private bathroom premium</label>
+                <span class="range-value" id="bathroomWeightValue">20%</span>
+              </div>
+              <input id="bathroomWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="20">
+            </div>
+
+            <div class="range-wrap">
+              <div class="range-head">
+                <label for="balconyWeight">Balcony / patio premium</label>
+                <span class="range-value" id="balconyWeightValue">8%</span>
+              </div>
+              <input id="balconyWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="8">
+            </div>
+
+            <div class="range-wrap">
+              <div class="range-head">
+                <label for="parkingWeight">Parking premium</label>
+                <span class="range-value" id="parkingWeightValue">12%</span>
+              </div>
+              <input id="parkingWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="12">
+            </div>
+
+            <div class="range-wrap">
+              <div class="range-head">
+                <label for="storageWeight">Storage premium</label>
+                <span class="range-value" id="storageWeightValue">6%</span>
+              </div>
+              <input id="storageWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="6">
+            </div>
+
+            <div class="range-wrap">
+              <div class="range-head">
+                <label for="occupancyWeight">Extra occupant adjustment</label>
+                <span class="range-value" id="occupancyWeightValue">25%</span>
+              </div>
+              <input id="occupancyWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="25">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">3. Room details</h2>
+          <p class="section-description">
+            Add one row for each bedroom or roommate group and describe the differences between rooms.
+          </p>
+
+          <div class="room-list" id="roomRows"></div>
+
+          <div class="btns">
+            <button class="secondary" onclick="addRoom()" type="button">Add Room</button>
+            <button class="secondary" onclick="syncRoomsFromCount()" type="button">Apply Room Count</button>
+            <button class="primary" onclick="calculateRent()" type="button">Calculate Unequal Split</button>
+            <button class="secondary" onclick="copyResult()" type="button">Copy Result</button>
+          </div>
+
+          <div class="result" id="result"></div>
+        </section>
+      </div>
+
+      <aside class="ad-column" aria-label="Advertisement space">
+        <div class="ad-space">
+          <!-- Place your desktop AdSense ad code here. -->
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <script>
+    function money(value){
+      const symbol=document.getElementById('currencySymbol').value;
+
+      return symbol+Number(value||0).toLocaleString(undefined,{
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      });
+    }
+
+    function getNumber(id){
+      return parseFloat(document.getElementById(id).value)||0;
+    }
+
+    function updateRangeValue(input){
+      document.getElementById(input.id+'Value').textContent=input.value+'%';
+    }
+
+    function updateEqualLabel(){
+      const equal=Number(document.getElementById('equalPercent').value);
+
+      document.getElementById('equalPercentValue').textContent=
+        equal+'% equal / '+(100-equal)+'% unequal';
+    }
+
+    function roomTemplate(index){
+      return `
+        <div class="room-row">
+          <div class="room-row-head">
+            <span class="room-label">Room ${index}</span>
+
+            <button
+              aria-label="Remove room"
+              class="remove"
+              onclick="removeRoom(this)"
+              type="button"
+            >×</button>
+          </div>
+
+          <div class="room-grid">
+            <div>
+              <label>Room / roommate name</label>
+              <input class="roomName" placeholder="Room ${index}" type="text">
+            </div>
+
+            <div>
+              <label>Room size</label>
+              <input class="roomSize" inputmode="decimal" min="0" placeholder="150" type="number">
+            </div>
+
+            <div>
+              <label>Occupants</label>
+              <input class="occupants" inputmode="numeric" min="1" value="1" type="number">
+            </div>
+
+            <div>
+              <label>Private bathroom</label>
+              <select class="privateBathroom">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Balcony / patio</label>
+              <select class="balcony">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Parking</label>
+              <select class="parking">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Closet / storage</label>
+              <select class="storage">
+                <option value="0">Standard</option>
+                <option value="0.5">Above average</option>
+                <option value="1">Large / private</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Custom adjustment</label>
+              <select class="customAdjustment">
+                <option value="-0.20">20% lower</option>
+                <option value="-0.10">10% lower</option>
+                <option value="0" selected>No adjustment</option>
+                <option value="0.10">10% higher</option>
+                <option value="0.20">20% higher</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function refreshRoomLabels(){
+      document.querySelectorAll('.room-row').forEach((row,index)=>{
+        row.querySelector('.room-label').textContent='Room '+(index+1);
+      });
+
+      document.getElementById('roomCount').value=
+        document.querySelectorAll('.room-row').length;
+    }
+
+    function addRoom(){
+      const container=document.getElementById('roomRows');
+
+      container.insertAdjacentHTML(
+        'beforeend',
+        roomTemplate(container.children.length+1)
+      );
+
+      refreshRoomLabels();
+    }
+
+    function removeRoom(button){
+      const rows=document.querySelectorAll('.room-row');
+
+      if(rows.length<=1){
+        alert('Keep at least one room.');
+        return;
+      }
+
+      button.closest('.room-row').remove();
+      refreshRoomLabels();
+    }
+
+    function syncRoomsFromCount(){
+      const requested=Math.min(
+        Math.max(parseInt(document.getElementById('roomCount').value)||1,1),
+        12
+      );
+
+      const container=document.getElementById('roomRows');
+
+      while(container.children.length<requested){
+        addRoom();
+      }
+
+      while(container.children.length>requested){
+        container.lastElementChild.remove();
+      }
+
+      refreshRoomLabels();
+    }
+
+    function collectRooms(){
+      return [...document.querySelectorAll('.room-row')].map((row,index)=>({
+        name:row.querySelector('.roomName').value.trim()||'Room '+(index+1),
+        roomSize:parseFloat(row.querySelector('.roomSize').value)||0,
+        occupants:Math.max(parseInt(row.querySelector('.occupants').value)||1,1),
+        privateBathroom:Number(row.querySelector('.privateBathroom').value),
+        balcony:Number(row.querySelector('.balcony').value),
+        parking:Number(row.querySelector('.parking').value),
+        storage:Number(row.querySelector('.storage').value),
+        customAdjustment:Number(row.querySelector('.customAdjustment').value)
+      }));
+    }
+
+    function calculateRent(){
+      const rent=getNumber('totalRent');
+      const equalPercent=getNumber('equalPercent');
+      const equalRatio=equalPercent/100;
+      const unequalRatio=1-equalRatio;
+      const sizeUnit=document.getElementById('sizeUnit').value;
+      const occupantMethod=document.getElementById('occupantMethod').value;
+      const result=document.getElementById('result');
+      const rooms=collectRooms();
+
+      if(rent<=0){
+        result.innerHTML='<p>Please enter a valid total rent amount.</p>';
+        return;
+      }
+
+      if(rooms.some(room=>room.roomSize<=0)){
+        result.innerHTML='<p>Please enter a valid size for every room.</p>';
+        return;
+      }
+
+      const totalRoomSize=rooms.reduce((sum,room)=>sum+room.roomSize,0);
+      const averageRoomSize=totalRoomSize/rooms.length;
+      const totalOccupants=rooms.reduce((sum,room)=>sum+room.occupants,0);
+
+      const weights={
+        roomSize:getNumber('roomSizeWeight')/100,
+        bathroom:getNumber('bathroomWeight')/100,
+        balcony:getNumber('balconyWeight')/100,
+        parking:getNumber('parkingWeight')/100,
+        storage:getNumber('storageWeight')/100,
+        occupancy:getNumber('occupancyWeight')/100
+      };
+
+      rooms.forEach(room=>{
+        const sizeScore=(room.roomSize/averageRoomSize)*weights.roomSize;
+
+        const featureMultiplier=
+          1+
+          room.privateBathroom*weights.bathroom+
+          room.balcony*weights.balcony+
+          room.parking*weights.parking+
+          room.storage*weights.storage+
+          (
+            occupantMethod==='adjust'
+              ? Math.max(room.occupants-1,0)*weights.occupancy
+              : 0
+          )+
+          room.customAdjustment;
+
+        room.score=Math.max(sizeScore*featureMultiplier,.0001);
+      });
+
+      const totalScore=rooms.reduce((sum,room)=>sum+room.score,0);
+      const equalRoomShare=rent/rooms.length;
+
+      rooms.forEach(room=>{
+        const unequalShare=rent*(room.score/totalScore);
+
+        room.total=
+          equalRoomShare*equalRatio+
+          unequalShare*unequalRatio;
+
+        room.perPerson=room.total/room.occupants;
+        room.percent=(room.total/rent)*100;
+      });
+
+      const rows=rooms.map(room=>`
+        <tr>
+          <td>${escapeHtml(room.name)}</td>
+          <td>${room.occupants}</td>
+          <td>${formatNumber(room.roomSize)} ${sizeUnit}</td>
+          <td>${room.percent.toFixed(1)}%</td>
+          <td class="money-cell">${money(room.total)}</td>
+          <td>${money(room.perPerson)}</td>
+        </tr>
+      `).join('');
+
+      result.innerHTML=`
+        <div class="summary-line">
+          ${equalPercent}% equal / ${100-equalPercent}% unequal ·
+          ${rooms.length} rooms ·
+          ${totalOccupants} total occupants ·
+          ${formatNumber(totalRoomSize)} ${sizeUnit} total bedroom space
+        </div>
+
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Room</th>
+              <th>Occupants</th>
+              <th>Room size</th>
+              <th>Rent share</th>
+              <th>Room total</th>
+              <th>Per person</th>
+            </tr>
+          </thead>
+
+          <tbody>${rows}</tbody>
+        </table>
+
+        <p class="note">
+          The equal portion is divided evenly among rooms. The unequal portion is
+          distributed using room size, selected room features, extra occupants, and
+          each room's custom adjustment. All room totals add up to the full monthly rent.
+        </p>
+      `;
+    }
+
+    function formatNumber(value){
+      return Number(value||0).toLocaleString(undefined,{
+        maximumFractionDigits:2
+      });
+    }
+
+    function escapeHtml(value){
+      return String(value)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    async function copyResult(){
+      const result=document.getElementById('result');
+
+      if(!result.innerText.trim()){
+        alert('Calculate the rent split first.');
+        return;
+      }
+
+      try{
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      }catch(error){
+        const textarea=document.createElement('textarea');
+
+        textarea.value=result.innerText.trim();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+
+        alert('Result copied.');
+      }
+    }
+
+    syncRoomsFromCount();
+    updateEqualLabel();
+  </script>
+
+  <div id="footer-container"></div>
+
+  <script src="/components/shared.js"></script>
+</body>
+</html>
