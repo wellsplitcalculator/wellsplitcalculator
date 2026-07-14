@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta
+    name="description"
+    content="Split rent fairly using bedroom size, room quality scores, occupants, and shared-space allocation. Compare room value on a simple 1 to 10 scale."
+  >
+
+  <title>Rent Split by Room Quality Score Calculator - WellSplit</title>
+
+  <link rel="stylesheet" href="/components/styles.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a rent split by room quality score calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It helps roommates divide rent using a simple quality score for each bedroom. Higher-quality rooms pay more, while lower-quality rooms pay less."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the calculator work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter the total rent, room size, occupants, shared-space settings, and a quality score for each room. The calculator combines size and quality to determine each room's share."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the room quality score mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The score represents the room's overall value compared with the others. It can reflect privacy, natural light, noise, layout, condition, storage, and general comfort."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What quality score should I use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use a simple 1 to 10 scale. A score of 5 can represent an average room, while lower or higher scores represent below-average or above-average quality."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should room size and quality both matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Room size measures private space, while the quality score captures differences that square footage alone cannot explain."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How strongly does the quality score affect rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The quality importance slider controls its influence. A higher percentage makes quality differences affect the final rent more strongly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I ignore room size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Set room-size importance to 0% if you want the split to depend only on room quality and shared-space allocation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I ignore room quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Set quality importance to 0% if you want the split to depend only on room size and shared space."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What factors can be included in a quality score?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common factors include sunlight, noise, privacy, closet space, room shape, temperature, floor level, view, condition, and distance from shared areas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should a private bathroom be included in the quality score?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A private bathroom can be reflected by giving that room a higher quality score."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should parking be included in the quality score?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It can be, but only if the household wants parking value included in the same score. Otherwise, use a separate parking calculator."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can couples use this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Enter the couple's room once and set the occupants to two. The room total will be divided equally between both partners."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can multiple people share one room?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Enter the correct number of occupants and the calculator will show the per-person amount."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use square feet or square metres?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use either square feet or square metres, but keep the same unit for all rooms and shared-space measurements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is shared space handled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Shared space can be excluded, divided equally by room, or divided according to occupants."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if all rooms have the same quality score?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Then quality will not create any differences, and the result will depend on room size, shared space, and occupants."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if all rooms are the same size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Then the quality scores will determine the differences, subject to the selected quality importance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator include utilities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It calculates monthly rent only. Utilities can be divided separately."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do all room totals add up to the full rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The full monthly rent is distributed across all rooms, subject only to minor display rounding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the result legally binding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It is an estimate for roommate discussions. Everyone should agree to the final split and follow the lease."
+      }
+    }
+  ]
+}
+  </script>
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    :root{
+      --bg:#2f343c;--panel:#3a4048;--panel-2:#454c56;--field:#505863;
+      --text:#f3f4f6;--muted:#c6ccd4;--border:#606977;--accent:#7dd3fc;
+      --accent-2:#38bdf8;--danger:#f87171;--shadow:0 18px 50px rgba(0,0,0,.18);
+      --radius:16px
+    }
+
+    html[data-theme="light"]{
+      --bg:#f6f7f9;--panel:#fff;--panel-2:#f1f5f9;--field:#fff;
+      --text:#111827;--muted:#5e6b78;--border:#dce3eb;--accent:#0369a1;
+      --accent-2:#0284c7;--danger:#b91c1c;--shadow:0 18px 45px rgba(15,23,42,.08)
+    }
+
+    html{scroll-behavior:smooth}
+    body{min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;line-height:1.6}
+    button,input,select{font:inherit}
+    main{padding:42px 6% 40px}
+
+    .content-layout{width:min(100%,1180px);display:grid;grid-template-columns:minmax(0,800px) minmax(280px,1fr);gap:34px;align-items:start}
+    .page-shell{width:100%;min-width:0}
+    .ad-space{min-height:600px}
+    .hero{margin-bottom:22px}
+
+    h1{max-width:780px;font-size:clamp(2rem,5vw,3.55rem);line-height:1.02;letter-spacing:-.06em;margin-bottom:12px}
+    .hero p{max-width:720px;color:var(--muted);font-size:.92rem}
+
+    .calculator,.content-section{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+    .section-title{font-size:1.15rem;line-height:1.25;letter-spacing:-.035em;margin-bottom:5px}
+    .section-description{color:var(--muted);font-size:.84rem;line-height:1.5;margin-bottom:14px}
+
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    label{display:block;margin-bottom:4px;color:var(--muted);font-size:.72rem;font-weight:800}
+
+    input,select{width:100%;min-height:42px;background:var(--field);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:9px 10px;outline:none;font-size:.9rem}
+    input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+    input[type="range"]{min-height:auto;padding:0;border:0;box-shadow:none;accent-color:var(--accent)}
+
+    .range-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
+    .range-value{color:var(--accent);font-size:.78rem;font-weight:900}
+
+    .room-list{display:grid;gap:10px}
+    .room-row{padding:12px;background:color-mix(in srgb,var(--panel-2) 66%,transparent);border:1px solid var(--border);border-radius:13px}
+    .room-row-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .room-label{font-size:.9rem;font-weight:850}
+    .room-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:8px;align-items:end}
+
+    .remove{width:38px;height:38px;padding:0;border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:10px;cursor:pointer;font-size:1rem;font-weight:900}
+    .remove:hover{color:var(--danger);border-color:var(--danger)}
+
+    .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    button{border:0;cursor:pointer;border-radius:10px;padding:10px 13px;font-size:.86rem;font-weight:900;transition:.16s}
+    button:hover{transform:translateY(-1px)}
+    .primary{background:var(--accent);color:#061018}
+    .primary:hover{background:var(--accent-2)}
+    .secondary{background:var(--panel-2);color:var(--text);border:1px solid var(--border)}
+    .secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+    .result{margin-top:14px;padding:14px;background:var(--panel-2);border:1px solid var(--border);border-radius:12px;min-height:56px;overflow-x:auto}
+    .result:empty::before{content:"Your rent split will appear here.";color:var(--muted);font-weight:600}
+    .summary-line{color:var(--muted);font-size:.82rem;margin-bottom:12px}
+
+    .result-table{width:100%;min-width:760px;border-collapse:collapse;font-size:.86rem}
+    .result-table th,.result-table td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+    .result-table th{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em}
+    .result-table tr:last-child td{border-bottom:0}
+    .money-cell{font-weight:900;color:var(--accent);white-space:nowrap}
+    .note{margin-top:12px;color:var(--muted);font-size:.8rem;line-height:1.5}
+
+    .content-section h2{font-size:1.45rem;line-height:1.2;letter-spacing:-.035em;margin-bottom:10px}
+    .content-section h3{font-size:1.02rem;margin:18px 0 6px}
+    .content-section p{color:var(--muted);font-size:.9rem;margin-bottom:10px}
+    .content-section ul{margin:8px 0 10px 20px;color:var(--muted);font-size:.9rem}
+    .content-section li{margin-bottom:5px}
+
+    #faqs h2{font-size:1.55rem;margin-bottom:8px;letter-spacing:-.03em}
+    .faq-list{display:flex;flex-direction:column;gap:9px;margin-top:15px}
+    .faq-item{background:var(--panel);border:1px solid var(--border);border-radius:13px;overflow:hidden;transition:border-color .2s ease,background .2s ease}
+    .faq-item:hover{border-color:var(--accent)}
+    .faq-item[open]{background:var(--panel-2)}
+    .faq-item summary{display:flex;align-items:center;gap:9px;cursor:pointer;list-style:none;user-select:none;padding:12px 14px;font-size:.9rem;font-weight:750;line-height:1.35;color:var(--text)}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item summary::before{content:"▶";font-size:.7rem;flex-shrink:0;color:var(--text);transition:transform .2s ease}
+    .faq-item[open] summary::before{transform:rotate(90deg)}
+    .faq-answer{padding:0 14px 13px 35px}
+    .faq-answer p{margin:0;font-size:.83rem;line-height:1.6;color:var(--muted)}
+
+    footer{padding:24px 6%;color:var(--muted);border-top:1px solid var(--border);font-size:.9rem;text-align:center}
+
+    @media(max-width:900px){
+      .content-layout{display:block;width:100%}
+      .ad-column{display:none}
+    }
+
+    @media(max-width:780px){
+      main{padding:34px 18px 26px}
+      h1{font-size:clamp(2rem,10vw,3rem)}
+      .calculator,.content-section{padding:15px}
+      .grid,.room-grid{grid-template-columns:1fr}
+      .btns button{flex:1 1 145px}
+      #faqs h2{font-size:1.4rem}
+      .faq-list{gap:8px}
+      .faq-item summary{padding:11px 13px;font-size:.87rem}
+      .faq-answer{padding:0 13px 12px 33px}
+      .faq-answer p{font-size:.81rem}
+    }
+
+    @media(max-width:420px){
+      .btns button{flex:1 1 100%}
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+
+        <section class="hero">
+          <h1>Rent Split by Room Quality Score Calculator</h1>
+          <p>
+            Divide rent using bedroom size, room quality scores, occupants,
+            and optional shared-space allocation.
+          </p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Rent and scoring details</h2>
+          <p class="section-description">
+            Enter the rent, room count, measurement unit, shared space, and how strongly room size and quality should matter.
+          </p>
+
+          <div class="grid">
+            <div>
+              <label for="totalRent">Total monthly rent</label>
+              <input id="totalRent" inputmode="decimal" min="0" placeholder="3000" type="number">
+            </div>
+
+            <div>
+              <label for="roomCount">Number of rooms</label>
+              <input id="roomCount" inputmode="numeric" min="1" max="20" value="3" type="number">
+            </div>
+
+            <div>
+              <label for="currencySymbol">Currency symbol</label>
+              <select id="currencySymbol">
+                <option value="$">$</option>
+                <option value="CA$">CA$</option>
+                <option value="US$">US$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sizeUnit">Room-size measurement</label>
+              <select id="sizeUnit">
+                <option value="sq ft">Square feet (sq ft)</option>
+                <option value="m²">Square metres (m²)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sharedSpace">Total shared-space size</label>
+              <input id="sharedSpace" inputmode="decimal" min="0" placeholder="900" type="number">
+            </div>
+
+            <div>
+              <label for="sharedSpaceMethod">Shared-space method</label>
+              <select id="sharedSpaceMethod">
+                <option value="ignore">Do not include shared space</option>
+                <option value="equal" selected>Divide equally by room</option>
+                <option value="occupants">Divide according to occupants</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="roomSizeWeight">Room size importance</label>
+              <input id="roomSizeWeight" max="100" min="0" oninput="updateWeightLabels()" type="range" value="60">
+              <div class="range-head">
+                <span></span>
+                <span class="range-value" id="roomSizeWeightValue">60%</span>
+              </div>
+            </div>
+
+            <div>
+              <label for="qualityWeight">Room quality importance</label>
+              <input id="qualityWeight" max="100" min="0" oninput="updateWeightLabels()" type="range" value="40">
+              <div class="range-head">
+                <span></span>
+                <span class="range-value" id="qualityWeightValue">40%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Room details</h2>
+          <p class="section-description">
+            Add one row per bedroom and score each room from 1 to 10 based on its overall quality.
+          </p>
+
+          <div class="room-list" id="roomRows"></div>
+
+          <div class="btns">
+            <button class="secondary" onclick="addRoom()" type="button">Add Room</button>
+            <button class="secondary" onclick="syncRoomsFromCount()" type="button">Apply Room Count</button>
+            <button class="primary" onclick="calculateRent()" type="button">Calculate Rent Split</button>
+            <button class="secondary" onclick="copyResult()" type="button">Copy Result</button>
+          </div>
+
+          <div class="result" id="result"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Rent Split by Room Quality Score Calculator</h2>
+
+          <p>
+            The WellSplit Rent Split by Room Quality Score Calculator helps roommates
+            divide rent when bedroom value depends on more than square footage alone.
+          </p>
+
+          <p>
+            Each room receives a score from 1 to 10 based on factors such as privacy,
+            natural light, noise, storage, layout, condition, and overall comfort. The
+            calculator combines that score with room size and optional shared-space allocation.
+          </p>
+
+          <h3>How to use this calculator</h3>
+
+          <ul>
+            <li>Enter the total monthly rent and choose a currency.</li>
+            <li>Select square feet or square metres.</li>
+            <li>Enter shared-space size and choose how it should be divided.</li>
+            <li>Set the importance of room size and room quality.</li>
+            <li>Add each room, its size, occupants, and quality score.</li>
+            <li>Calculate each room total and per-person amount.</li>
+          </ul>
+
+          <p>
+            This method is useful when rooms differ in sunlight, privacy, noise,
+            storage, shape, condition, or other qualities that are difficult to measure directly.
+          </p>
+        </section>
+
+        <section class="content-section" id="faqs">
+          <h2>Room Quality Score Rent Split FAQs</h2>
+          <p>
+            These answers explain how bedroom size, quality scores, shared space,
+            and occupancy can affect a fair roommate rent split.
+          </p>
+
+          <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is a rent split by room quality score calculator?</summary>
+            <div class="faq-answer"><p>It helps roommates divide rent using a simple quality score for each bedroom. Higher-quality rooms pay more, while lower-quality rooms pay less.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How does the calculator work?</summary>
+            <div class="faq-answer"><p>Enter the total rent, room size, occupants, shared-space settings, and a quality score for each room. The calculator combines size and quality to determine each room's share.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What does the room quality score mean?</summary>
+            <div class="faq-answer"><p>The score represents the room's overall value compared with the others. It can reflect privacy, natural light, noise, layout, condition, storage, and general comfort.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What quality score should I use?</summary>
+            <div class="faq-answer"><p>Use a simple 1 to 10 scale. A score of 5 can represent an average room, while lower or higher scores represent below-average or above-average quality.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should room size and quality both matter?</summary>
+            <div class="faq-answer"><p>Yes. Room size measures private space, while the quality score captures differences that square footage alone cannot explain.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How strongly does the quality score affect rent?</summary>
+            <div class="faq-answer"><p>The quality importance slider controls its influence. A higher percentage makes quality differences affect the final rent more strongly.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I ignore room size?</summary>
+            <div class="faq-answer"><p>Set room-size importance to 0% if you want the split to depend only on room quality and shared-space allocation.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I ignore room quality?</summary>
+            <div class="faq-answer"><p>Set quality importance to 0% if you want the split to depend only on room size and shared space.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What factors can be included in a quality score?</summary>
+            <div class="faq-answer"><p>Common factors include sunlight, noise, privacy, closet space, room shape, temperature, floor level, view, condition, and distance from shared areas.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should a private bathroom be included in the quality score?</summary>
+            <div class="faq-answer"><p>Yes. A private bathroom can be reflected by giving that room a higher quality score.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should parking be included in the quality score?</summary>
+            <div class="faq-answer"><p>It can be, but only if the household wants parking value included in the same score. Otherwise, use a separate parking calculator.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can couples use this calculator?</summary>
+            <div class="faq-answer"><p>Yes. Enter the couple's room once and set the occupants to two. The room total will be divided equally between both partners.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can multiple people share one room?</summary>
+            <div class="faq-answer"><p>Yes. Enter the correct number of occupants and the calculator will show the per-person amount.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use square feet or square metres?</summary>
+            <div class="faq-answer"><p>Yes. Use either square feet or square metres, but keep the same unit for all rooms and shared-space measurements.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How is shared space handled?</summary>
+            <div class="faq-answer"><p>Shared space can be excluded, divided equally by room, or divided according to occupants.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if all rooms have the same quality score?</summary>
+            <div class="faq-answer"><p>Then quality will not create any differences, and the result will depend on room size, shared space, and occupants.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if all rooms are the same size?</summary>
+            <div class="faq-answer"><p>Then the quality scores will determine the differences, subject to the selected quality importance.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does this calculator include utilities?</summary>
+            <div class="faq-answer"><p>No. It calculates monthly rent only. Utilities can be divided separately.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Do all room totals add up to the full rent?</summary>
+            <div class="faq-answer"><p>Yes. The full monthly rent is distributed across all rooms, subject only to minor display rounding.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the result legally binding?</summary>
+            <div class="faq-answer"><p>No. It is an estimate for roommate discussions. Everyone should agree to the final split and follow the lease.</p></div>
+          </details>
+          </div>
+        </section>
+      </div>
+
+      <aside class="ad-column" aria-label="Advertisement space">
+        <div class="ad-space">
+          <!-- Place your desktop AdSense ad code here. -->
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    function money(value){
+      const symbol=document.getElementById('currencySymbol').value;
+      return symbol+Number(value||0).toLocaleString(undefined,{
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      });
+    }
+
+    function getNumber(id){
+      return parseFloat(document.getElementById(id).value)||0;
+    }
+
+    function updateWeightLabels(){
+      document.getElementById('roomSizeWeightValue').textContent=
+        document.getElementById('roomSizeWeight').value+'%';
+      document.getElementById('qualityWeightValue').textContent=
+        document.getElementById('qualityWeight').value+'%';
+    }
+
+    function roomTemplate(index){
+      return `
+        <div class="room-row">
+          <div class="room-row-head">
+            <span class="room-label">Room ${index}</span>
+            <button aria-label="Remove room" class="remove" onclick="removeRoom(this)" type="button">×</button>
+          </div>
+
+          <div class="room-grid">
+            <div>
+              <label>Room / roommate name</label>
+              <input class="roomName" placeholder="Room ${index}" type="text">
+            </div>
+
+            <div>
+              <label>Room size</label>
+              <input class="roomSize" inputmode="decimal" min="0" placeholder="150" type="number">
+            </div>
+
+            <div>
+              <label>Occupants</label>
+              <input class="occupants" inputmode="numeric" min="1" max="10" value="1" type="number">
+            </div>
+
+            <div>
+              <label>Quality score</label>
+              <select class="qualityScore">
+                <option value="1">1 - Very low</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5" selected>5 - Average</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10 - Excellent</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function refreshRoomLabels(){
+      document.querySelectorAll('.room-row').forEach((row,index)=>{
+        row.querySelector('.room-label').textContent='Room '+(index+1);
+      });
+      document.getElementById('roomCount').value=document.querySelectorAll('.room-row').length;
+    }
+
+    function addRoom(){
+      const container=document.getElementById('roomRows');
+      if(container.children.length>=20){
+        alert('You can add up to 20 rooms.');
+        return;
+      }
+      container.insertAdjacentHTML('beforeend',roomTemplate(container.children.length+1));
+      refreshRoomLabels();
+    }
+
+    function removeRoom(button){
+      const rows=document.querySelectorAll('.room-row');
+      if(rows.length<=1){
+        alert('Keep at least one room.');
+        return;
+      }
+      button.closest('.room-row').remove();
+      refreshRoomLabels();
+    }
+
+    function syncRoomsFromCount(){
+      const requested=Math.min(Math.max(parseInt(document.getElementById('roomCount').value)||1,1),20);
+      const container=document.getElementById('roomRows');
+
+      while(container.children.length<requested) addRoom();
+      while(container.children.length>requested) container.lastElementChild.remove();
+
+      refreshRoomLabels();
+    }
+
+    function collectRooms(){
+      return [...document.querySelectorAll('.room-row')].map((row,index)=>({
+        name:row.querySelector('.roomName').value.trim()||'Room '+(index+1),
+        roomSize:parseFloat(row.querySelector('.roomSize').value)||0,
+        occupants:Math.max(parseInt(row.querySelector('.occupants').value)||1,1),
+        qualityScore:Number(row.querySelector('.qualityScore').value)
+      }));
+    }
+
+    function calculateRent(){
+      const rent=getNumber('totalRent');
+      const sharedSpace=getNumber('sharedSpace');
+      const sharedMethod=document.getElementById('sharedSpaceMethod').value;
+      const sizeWeight=getNumber('roomSizeWeight')/100;
+      const qualityWeight=getNumber('qualityWeight')/100;
+      const sizeUnit=document.getElementById('sizeUnit').value;
+      const result=document.getElementById('result');
+      const rooms=collectRooms();
+
+      if(rent<=0){
+        result.innerHTML='<p>Please enter a valid total rent amount.</p>';
+        return;
+      }
+
+      if(rooms.some(room=>room.roomSize<=0)){
+        result.innerHTML='<p>Please enter a valid size for every room.</p>';
+        return;
+      }
+
+      if(sizeWeight===0 && qualityWeight===0){
+        result.innerHTML='<p>Set room size importance or room quality importance above 0%.</p>';
+        return;
+      }
+
+      const totalOccupants=rooms.reduce((sum,room)=>sum+room.occupants,0);
+      const averageRoomSize=rooms.reduce((sum,room)=>sum+room.roomSize,0)/rooms.length;
+
+      rooms.forEach(room=>{
+        let sharedSpaceShare=0;
+
+        if(sharedMethod==='equal' && sharedSpace>0){
+          sharedSpaceShare=sharedSpace/rooms.length;
+        }
+
+        if(sharedMethod==='occupants' && sharedSpace>0){
+          sharedSpaceShare=sharedSpace*(room.occupants/totalOccupants);
+        }
+
+        room.sharedSpaceShare=sharedSpaceShare;
+        room.effectiveSize=room.roomSize+sharedSpaceShare;
+
+        const normalizedSize=room.effectiveSize/Math.max(averageRoomSize,1);
+        const normalizedQuality=room.qualityScore/5;
+
+        room.score=Math.max(
+          normalizedSize*sizeWeight+
+          normalizedQuality*qualityWeight,
+          .0001
+        );
+      });
+
+      const totalScore=rooms.reduce((sum,room)=>sum+room.score,0);
+
+      rooms.forEach(room=>{
+        room.percent=(room.score/totalScore)*100;
+        room.total=rent*(room.score/totalScore);
+        room.perPerson=room.total/room.occupants;
+      });
+
+      const sharedMethodLabel=
+        sharedMethod==='ignore'
+          ? 'Shared space excluded'
+          : sharedMethod==='equal'
+            ? 'Shared space divided equally by room'
+            : 'Shared space divided according to occupants';
+
+      const rows=rooms.map(room=>`
+        <tr>
+          <td>${escapeHtml(room.name)}</td>
+          <td>${room.occupants}</td>
+          <td>${formatNumber(room.roomSize)} ${sizeUnit}</td>
+          <td>${room.qualityScore} / 10</td>
+          <td>${formatNumber(room.sharedSpaceShare)} ${sizeUnit}</td>
+          <td>${room.percent.toFixed(1)}%</td>
+          <td class="money-cell">${money(room.total)}</td>
+          <td>${money(room.perPerson)}</td>
+        </tr>
+      `).join('');
+
+      result.innerHTML=`
+        <div class="summary-line">
+          ${rooms.length} rooms ·
+          ${totalOccupants} occupants ·
+          ${Math.round(sizeWeight*100)}% size importance ·
+          ${Math.round(qualityWeight*100)}% quality importance ·
+          ${sharedMethodLabel}
+        </div>
+
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Room</th>
+              <th>Occupants</th>
+              <th>Room size</th>
+              <th>Quality score</th>
+              <th>Shared-space share</th>
+              <th>Rent share</th>
+              <th>Room total</th>
+              <th>Per person</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+
+        <p class="note">
+          Each room's share combines its effective size and quality score using
+          the importance percentages selected above. Room totals add up to the full monthly rent.
+        </p>
+      `;
+    }
+
+    function formatNumber(value){
+      return Number(value||0).toLocaleString(undefined,{maximumFractionDigits:2});
+    }
+
+    function escapeHtml(value){
+      return String(value)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    async function copyResult(){
+      const result=document.getElementById('result');
+
+      if(!result.innerText.trim()){
+        alert('Calculate the rent split first.');
+        return;
+      }
+
+      try{
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      }catch(error){
+        const textarea=document.createElement('textarea');
+        textarea.value=result.innerText.trim();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        alert('Result copied.');
+      }
+    }
+
+    syncRoomsFromCount();
+    updateWeightLabels();
+  </script>
+
+  <div id="footer-container"></div>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
