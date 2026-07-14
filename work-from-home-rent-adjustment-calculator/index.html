@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta
+    name="description"
+    content="Adjust roommate rent based on work-from-home days. Keep most rent equal and divide a selected portion according to each roommate's monthly WFH use."
+  >
+
+  <title>Work-From-Home Rent Adjustment Calculator - WellSplit</title>
+
+  <link rel="stylesheet" href="/components/styles.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a work-from-home rent calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It adjusts part of the rent based on how often each roommate works from home."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does it work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most rent stays equal. The selected WFH portion is divided by work-from-home days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What counts as a WFH day?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A day when a roommate regularly works or studies from the rental home."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What WFH percentage should I use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many households use 5% to 20% of rent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why keep most rent equal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bedrooms and basic access remain available regardless of daytime use."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if nobody works from home?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The full rent is divided equally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if everyone has the same WFH days?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The rent remains equal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can one roommate enter zero days?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. They will not receive a share of the WFH-adjusted portion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should weekends be counted?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only count weekends used as regular work-from-home days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should occasional emails count?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually not. Count meaningful home-working days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can students use this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Regular study-from-home days can be entered the same way."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can part-time workers use it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Enter their actual monthly WFH days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it include utilities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It adjusts rent only."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should utilities be adjusted too?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They can be calculated separately if needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can couples use this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Add each partner separately if they pay rent individually."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add many roommates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Add up to 20 roommates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do payments add up to the rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, apart from minor display rounding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I copy the result?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the Copy Result button."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is WFH rent adjustment always necessary?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Use it only when the household agrees it is useful."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the result legally binding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It is an estimate for roommate discussions."
+      }
+    }
+  ]
+}
+  </script>
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    :root{
+      --bg:#2f343c;
+      --panel:#3a4048;
+      --panel-2:#454c56;
+      --field:#505863;
+      --text:#f3f4f6;
+      --muted:#c6ccd4;
+      --border:#606977;
+      --accent:#7dd3fc;
+      --accent-2:#38bdf8;
+      --danger:#f87171;
+      --shadow:0 18px 50px rgba(0,0,0,.18);
+      --radius:16px
+    }
+
+    html[data-theme="light"]{
+      --bg:#f6f7f9;
+      --panel:#fff;
+      --panel-2:#f1f5f9;
+      --field:#fff;
+      --text:#111827;
+      --muted:#5e6b78;
+      --border:#dce3eb;
+      --accent:#0369a1;
+      --accent-2:#0284c7;
+      --danger:#b91c1c;
+      --shadow:0 18px 45px rgba(15,23,42,.08)
+    }
+
+    html{scroll-behavior:smooth}
+
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;
+      line-height:1.6
+    }
+
+    button,input,select{font:inherit}
+    main{padding:42px 6% 40px}
+
+    .content-layout{
+      width:min(100%,1180px);
+      display:grid;
+      grid-template-columns:minmax(0,760px) minmax(280px,1fr);
+      gap:34px;
+      align-items:start
+    }
+
+    .page-shell{width:100%;min-width:0}
+    .ad-space{min-height:600px}
+    .hero{margin-bottom:22px}
+
+    h1{
+      max-width:740px;
+      font-size:clamp(2rem,5vw,3.5rem);
+      line-height:1.02;
+      letter-spacing:-.06em;
+      margin-bottom:12px
+    }
+
+    .hero p{max-width:690px;color:var(--muted);font-size:.92rem}
+
+    .calculator,.content-section{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px
+    }
+
+    .section-title{
+      font-size:1.15rem;
+      line-height:1.25;
+      letter-spacing:-.035em;
+      margin-bottom:5px
+    }
+
+    .section-description{
+      color:var(--muted);
+      font-size:.84rem;
+      line-height:1.5;
+      margin-bottom:14px
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px
+    }
+
+    label{
+      display:block;
+      margin-bottom:4px;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800
+    }
+
+    input,select{
+      width:100%;
+      min-height:42px;
+      background:var(--field);
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:9px 10px;
+      outline:none;
+      font-size:.9rem
+    }
+
+    input:focus,select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)
+    }
+
+    input[type="range"]{
+      min-height:auto;
+      padding:0;
+      border:0;
+      box-shadow:none;
+      accent-color:var(--accent)
+    }
+
+    .range-head{
+      display:flex;
+      justify-content:flex-end;
+      margin-top:6px
+    }
+
+    .range-value{
+      color:var(--accent);
+      font-size:.78rem;
+      font-weight:900
+    }
+
+    .roommate-list{display:grid;gap:10px}
+
+    .roommate-row{
+      padding:12px;
+      background:color-mix(in srgb,var(--panel-2) 66%,transparent);
+      border:1px solid var(--border);
+      border-radius:13px
+    }
+
+    .roommate-row-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px
+    }
+
+    .roommate-label{font-size:.9rem;font-weight:850}
+
+    .roommate-grid{
+      display:grid;
+      grid-template-columns:1.5fr 1fr;
+      gap:8px;
+      align-items:end
+    }
+
+    .remove{
+      width:38px;
+      height:38px;
+      padding:0;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--muted);
+      border-radius:10px;
+      cursor:pointer;
+      font-size:1rem;
+      font-weight:900
+    }
+
+    .remove:hover{color:var(--danger);border-color:var(--danger)}
+
+    .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius:10px;
+      padding:10px 13px;
+      font-size:.86rem;
+      font-weight:900;
+      transition:.16s
+    }
+
+    button:hover{transform:translateY(-1px)}
+    .primary{background:var(--accent);color:#061018}
+    .primary:hover{background:var(--accent-2)}
+    .secondary{background:var(--panel-2);color:var(--text);border:1px solid var(--border)}
+    .secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+    .result{
+      margin-top:14px;
+      padding:14px;
+      background:var(--panel-2);
+      border:1px solid var(--border);
+      border-radius:12px;
+      min-height:56px;
+      overflow-x:auto
+    }
+
+    .result:empty::before{
+      content:"Your work-from-home rent adjustment will appear here.";
+      color:var(--muted);
+      font-weight:600
+    }
+
+    .summary-line{color:var(--muted);font-size:.82rem;margin-bottom:12px}
+
+    .result-table{
+      width:100%;
+      min-width:650px;
+      border-collapse:collapse;
+      font-size:.86rem
+    }
+
+    .result-table th,.result-table td{
+      padding:9px 8px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
+      vertical-align:top
+    }
+
+    .result-table th{
+      color:var(--muted);
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.04em
+    }
+
+    .result-table tr:last-child td{border-bottom:0}
+    .money-cell{font-weight:900;color:var(--accent);white-space:nowrap}
+    .note{margin-top:12px;color:var(--muted);font-size:.8rem;line-height:1.5}
+
+    .content-section h2{
+      font-size:1.45rem;
+      line-height:1.2;
+      letter-spacing:-.035em;
+      margin-bottom:10px
+    }
+
+    .content-section h3{font-size:1.02rem;margin:18px 0 6px}
+    .content-section p{color:var(--muted);font-size:.9rem;margin-bottom:10px}
+    .content-section ul{margin:8px 0 10px 20px;color:var(--muted);font-size:.9rem}
+    .content-section li{margin-bottom:5px}
+
+    #faqs h2{font-size:1.45rem;margin-bottom:7px}
+
+    .faq-list{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+      margin-top:13px
+    }
+
+    .faq-item{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:11px;
+      overflow:hidden
+    }
+
+    .faq-item:hover{border-color:var(--accent)}
+    .faq-item[open]{background:var(--panel-2)}
+
+    .faq-item summary{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      list-style:none;
+      padding:10px 12px;
+      font-size:.85rem;
+      font-weight:750;
+      line-height:1.3
+    }
+
+    .faq-item summary::-webkit-details-marker{display:none}
+
+    .faq-item summary::before{
+      content:"▶";
+      font-size:.64rem;
+      transition:transform .2s
+    }
+
+    .faq-item[open] summary::before{transform:rotate(90deg)}
+    .faq-answer{padding:0 12px 11px 31px}
+    .faq-answer p{margin:0;font-size:.79rem;line-height:1.5;color:var(--muted)}
+
+    footer{
+      padding:24px 6%;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      font-size:.9rem;
+      text-align:center
+    }
+
+    @media(max-width:900px){
+      .content-layout{display:block;width:100%}
+      .ad-column{display:none}
+    }
+
+    @media(max-width:780px){
+      main{padding:34px 18px 26px}
+      h1{font-size:clamp(2rem,10vw,3rem)}
+      .calculator,.content-section{padding:15px}
+      .grid,.roommate-grid{grid-template-columns:1fr}
+      .btns button{flex:1 1 145px}
+      #faqs h2{font-size:1.32rem}
+      .faq-item summary{font-size:.82rem}
+      .faq-answer p{font-size:.77rem}
+    }
+
+    @media(max-width:420px){
+      .btns button{flex:1 1 100%}
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+
+        <section class="hero">
+          <h1>Work-From-Home Rent Adjustment Calculator</h1>
+          <p>
+            Adjust an equal roommate rent split when some roommates use the home as a workplace more often.
+          </p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Rent and WFH settings</h2>
+          <p class="section-description">
+            Choose the portion of rent that should reflect regular work-from-home use.
+          </p>
+
+          <div class="grid">
+            <div>
+              <label for="totalRent">Total monthly rent</label>
+              <input id="totalRent" inputmode="decimal" min="0" placeholder="3000" type="number">
+            </div>
+
+            <div>
+              <label for="currencySymbol">Currency symbol</label>
+              <select id="currencySymbol">
+                <option value="$">$</option>
+                <option value="CA$">CA$</option>
+                <option value="US$">US$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="roommateCount">Number of roommates</label>
+              <input id="roommateCount" inputmode="numeric" min="1" max="20" value="3" type="number">
+            </div>
+
+            <div>
+              <label for="wfhPercent">WFH-adjusted portion of rent</label>
+              <input id="wfhPercent" max="30" min="0" oninput="updateWfhLabel()" type="range" value="10">
+              <div class="range-head">
+                <span class="range-value" id="wfhPercentValue">10% adjusted / 90% equal</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Work-from-home days</h2>
+          <p class="section-description">
+            Enter how many days each roommate regularly works or studies from home during the month.
+          </p>
+
+          <div class="roommate-list" id="roommateRows"></div>
+
+          <div class="btns">
+            <button class="secondary" onclick="addRoommate()" type="button">Add Roommate</button>
+            <button class="secondary" onclick="syncRoommatesFromCount()" type="button">Apply Roommate Count</button>
+            <button class="primary" onclick="calculateRent()" type="button">Calculate Adjustment</button>
+            <button class="secondary" onclick="copyResult()" type="button">Copy Result</button>
+          </div>
+
+          <div class="result" id="result"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Work-From-Home Rent Adjustment Calculator</h2>
+
+          <p>
+            The WellSplit Work-From-Home Rent Adjustment Calculator helps roommates
+            account for regular daytime use of shared household space.
+          </p>
+
+          <p>
+            Most of the rent remains equal. Only the selected WFH portion is divided
+            according to each roommate's monthly work-from-home days.
+          </p>
+
+          <h3>How to use it</h3>
+
+          <ul>
+            <li>Enter the total monthly rent.</li>
+            <li>Add each roommate.</li>
+            <li>Choose the WFH-adjusted percentage.</li>
+            <li>Enter each roommate's monthly WFH days.</li>
+            <li>Calculate the updated payments.</li>
+          </ul>
+
+          <p>
+            This simple method works best when the normal rent split is equal and the
+            household only wants a modest adjustment for regular home-office use.
+          </p>
+        </section>
+
+        <section class="content-section" id="faqs">
+          <h2>Work-From-Home Rent Adjustment FAQs</h2>
+          <p>Quick answers about WFH use and roommate rent.</p>
+
+          <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is a work-from-home rent calculator?</summary>
+            <div class="faq-answer"><p>It adjusts part of the rent based on how often each roommate works from home.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How does it work?</summary>
+            <div class="faq-answer"><p>Most rent stays equal. The selected WFH portion is divided by work-from-home days.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What counts as a WFH day?</summary>
+            <div class="faq-answer"><p>A day when a roommate regularly works or studies from the rental home.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What WFH percentage should I use?</summary>
+            <div class="faq-answer"><p>Many households use 5% to 20% of rent.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Why keep most rent equal?</summary>
+            <div class="faq-answer"><p>Bedrooms and basic access remain available regardless of daytime use.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if nobody works from home?</summary>
+            <div class="faq-answer"><p>The full rent is divided equally.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if everyone has the same WFH days?</summary>
+            <div class="faq-answer"><p>The rent remains equal.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can one roommate enter zero days?</summary>
+            <div class="faq-answer"><p>Yes. They will not receive a share of the WFH-adjusted portion.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should weekends be counted?</summary>
+            <div class="faq-answer"><p>Only count weekends used as regular work-from-home days.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should occasional emails count?</summary>
+            <div class="faq-answer"><p>Usually not. Count meaningful home-working days.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can students use this calculator?</summary>
+            <div class="faq-answer"><p>Yes. Regular study-from-home days can be entered the same way.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can part-time workers use it?</summary>
+            <div class="faq-answer"><p>Yes. Enter their actual monthly WFH days.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does it include utilities?</summary>
+            <div class="faq-answer"><p>No. It adjusts rent only.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should utilities be adjusted too?</summary>
+            <div class="faq-answer"><p>They can be calculated separately if needed.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can couples use this calculator?</summary>
+            <div class="faq-answer"><p>Yes. Add each partner separately if they pay rent individually.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I add many roommates?</summary>
+            <div class="faq-answer"><p>Yes. Add up to 20 roommates.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Do payments add up to the rent?</summary>
+            <div class="faq-answer"><p>Yes, apart from minor display rounding.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I copy the result?</summary>
+            <div class="faq-answer"><p>Yes. Use the Copy Result button.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is WFH rent adjustment always necessary?</summary>
+            <div class="faq-answer"><p>No. Use it only when the household agrees it is useful.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the result legally binding?</summary>
+            <div class="faq-answer"><p>No. It is an estimate for roommate discussions.</p></div>
+          </details>
+          </div>
+        </section>
+      </div>
+
+      <aside class="ad-column" aria-label="Advertisement space">
+        <div class="ad-space">
+          <!-- Place your desktop AdSense ad code here. -->
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    function money(value){
+      const symbol=document.getElementById('currencySymbol').value;
+
+      return symbol+Number(value||0).toLocaleString(undefined,{
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      });
+    }
+
+    function getNumber(id){
+      return parseFloat(document.getElementById(id).value)||0;
+    }
+
+    function updateWfhLabel(){
+      const adjusted=Number(document.getElementById('wfhPercent').value);
+
+      document.getElementById('wfhPercentValue').textContent=
+        adjusted+'% adjusted / '+(100-adjusted)+'% equal';
+    }
+
+    function roommateTemplate(index){
+      return `
+        <div class="roommate-row">
+          <div class="roommate-row-head">
+            <span class="roommate-label">Roommate ${index}</span>
+
+            <button
+              aria-label="Remove roommate"
+              class="remove"
+              onclick="removeRoommate(this)"
+              type="button"
+            >×</button>
+          </div>
+
+          <div class="roommate-grid">
+            <div>
+              <label>Roommate name</label>
+              <input class="roommateName" placeholder="Roommate ${index}" type="text">
+            </div>
+
+            <div>
+              <label>WFH days per month</label>
+              <input class="wfhDays" inputmode="numeric" min="0" max="31" value="0" type="number">
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function refreshRoommateLabels(){
+      document.querySelectorAll('.roommate-row').forEach((row,index)=>{
+        row.querySelector('.roommate-label').textContent='Roommate '+(index+1);
+      });
+
+      document.getElementById('roommateCount').value=
+        document.querySelectorAll('.roommate-row').length;
+    }
+
+    function addRoommate(){
+      const container=document.getElementById('roommateRows');
+
+      if(container.children.length>=20){
+        alert('You can add up to 20 roommates.');
+        return;
+      }
+
+      container.insertAdjacentHTML(
+        'beforeend',
+        roommateTemplate(container.children.length+1)
+      );
+
+      refreshRoommateLabels();
+    }
+
+    function removeRoommate(button){
+      const rows=document.querySelectorAll('.roommate-row');
+
+      if(rows.length<=1){
+        alert('Keep at least one roommate.');
+        return;
+      }
+
+      button.closest('.roommate-row').remove();
+      refreshRoommateLabels();
+    }
+
+    function syncRoommatesFromCount(){
+      const requested=Math.min(
+        Math.max(parseInt(document.getElementById('roommateCount').value)||1,1),
+        20
+      );
+
+      const container=document.getElementById('roommateRows');
+
+      while(container.children.length<requested){
+        addRoommate();
+      }
+
+      while(container.children.length>requested){
+        container.lastElementChild.remove();
+      }
+
+      refreshRoommateLabels();
+    }
+
+    function collectRoommates(){
+      return [...document.querySelectorAll('.roommate-row')].map((row,index)=>({
+        name:row.querySelector('.roommateName').value.trim()||'Roommate '+(index+1),
+        wfhDays:Math.min(
+          Math.max(parseFloat(row.querySelector('.wfhDays').value)||0,0),
+          31
+        )
+      }));
+    }
+
+    function calculateRent(){
+      const rent=getNumber('totalRent');
+      const result=document.getElementById('result');
+      const roommates=collectRoommates();
+
+      if(rent<=0){
+        result.innerHTML='<p>Please enter a valid total rent amount.</p>';
+        return;
+      }
+
+      const adjustedRatio=getNumber('wfhPercent')/100;
+      const equalRatio=1-adjustedRatio;
+
+      const equalRent=rent*equalRatio;
+      const adjustedRent=rent*adjustedRatio;
+      const equalShare=equalRent/roommates.length;
+
+      const totalWfhDays=roommates.reduce(
+        (sum,roommate)=>sum+roommate.wfhDays,
+        0
+      );
+
+      roommates.forEach(roommate=>{
+        roommate.adjustedShare=
+          totalWfhDays>0
+            ? adjustedRent*(roommate.wfhDays/totalWfhDays)
+            : adjustedRent/roommates.length;
+
+        roommate.total=
+          equalShare+
+          roommate.adjustedShare;
+
+        roommate.changeFromEqual=
+          roommate.total-(rent/roommates.length);
+
+        roommate.percent=
+          (roommate.total/rent)*100;
+      });
+
+      const rows=roommates.map(roommate=>`
+        <tr>
+          <td>${escapeHtml(roommate.name)}</td>
+          <td>${formatNumber(roommate.wfhDays)}</td>
+          <td>${money(equalShare)}</td>
+          <td>${money(roommate.adjustedShare)}</td>
+          <td class="money-cell">${money(roommate.total)}</td>
+          <td>${signedMoney(roommate.changeFromEqual)}</td>
+        </tr>
+      `).join('');
+
+      result.innerHTML=`
+        <div class="summary-line">
+          ${roommates.length} roommates ·
+          ${formatNumber(totalWfhDays)} total WFH days ·
+          ${Math.round(adjustedRatio*100)}% WFH-adjusted rent ·
+          ${Math.round(equalRatio*100)}% equal rent
+        </div>
+
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Roommate</th>
+              <th>WFH days</th>
+              <th>Equal portion</th>
+              <th>WFH portion</th>
+              <th>Total rent</th>
+              <th>Change vs. equal</th>
+            </tr>
+          </thead>
+
+          <tbody>${rows}</tbody>
+        </table>
+
+        <p class="note">
+          The equal portion is divided evenly. The WFH-adjusted portion follows each
+          roommate's share of total work-from-home days. If everyone enters zero days,
+          the full rent is divided equally.
+        </p>
+      `;
+    }
+
+    function signedMoney(value){
+      if(Math.abs(value)<0.005){
+        return money(0);
+      }
+
+      return (value>0?'+':'−')+money(Math.abs(value));
+    }
+
+    function formatNumber(value){
+      return Number(value||0).toLocaleString(undefined,{
+        maximumFractionDigits:2
+      });
+    }
+
+    function escapeHtml(value){
+      return String(value)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    async function copyResult(){
+      const result=document.getElementById('result');
+
+      if(!result.innerText.trim()){
+        alert('Calculate the rent split first.');
+        return;
+      }
+
+      try{
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      }catch(error){
+        const textarea=document.createElement('textarea');
+
+        textarea.value=result.innerText.trim();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+
+        alert('Result copied.');
+      }
+    }
+
+    syncRoommatesFromCount();
+    updateWfhLabel();
+  </script>
+
+  <div id="footer-container"></div>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
