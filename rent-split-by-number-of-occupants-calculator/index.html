@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta
+    name="description"
+    content="Split rent fairly by number of occupants. Add couples, singles, families, or shared rooms and calculate each group's total and per-person payment."
+  >
+
+  <title>Rent Split by Number of Occupants Calculator - WellSplit</title>
+
+  <link rel="stylesheet" href="/components/styles.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a rent split by number of occupants calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It divides monthly rent according to how many people live in each room or household group. A room with more occupants receives a larger share of the rent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does this calculator work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter the total rent, add each room or group, and specify the number of occupants. The calculator divides rent in proportion to the total number of people."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is splitting rent by number of occupants fair?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It can be fair when everyone has similar private space and mainly differs by how many people use the home. It is especially useful for couples and shared rooms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is each group's rent calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each group pays the same fraction of rent as its fraction of the total occupants. For example, two people in a three-person home pay two-thirds of the rent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the per-person amount calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The calculator divides each group's total by the number of occupants in that group."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can couples use this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Add the couple as one room or group and enter two occupants."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can more than two people share a room?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Enter the correct number of occupants for that room or group."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add single roommates and couples together?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Add one row for each room or household group and enter the number of people in each."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if all occupants should pay the same amount?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This calculator naturally gives every person the same per-person share because the rent is divided by the total number of occupants."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if one person has a larger room?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This calculator does not adjust for room size. Use a room-size calculator if bedroom differences should affect rent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if one room has a private bathroom?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This calculator does not adjust for amenities. Use a private-bathroom or room-quality calculator if those differences should matter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this for a family sharing one room?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Enter the family or group as one row and include the total number of occupants."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this for student housing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. It works well for student houses, shared apartments, and other homes where rent is divided by headcount."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator include utilities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It calculates rent only. Utilities can also be divided by occupants using the same general method."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I choose a currency?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Select the currency symbol you want displayed in the results."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add many rooms or groups?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Add as many rows as needed up to the calculator's room limit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if one room is empty?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A room with zero occupants should not be included. Add only occupied rooms or groups."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do all group totals add up to the full rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The calculator distributes the full monthly rent across all occupants, subject only to minor display rounding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I copy the result?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the Copy Result button after calculating."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the result legally binding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It is an estimate for household discussions. Everyone should agree to the final arrangement and follow the lease."
+      }
+    }
+  ]
+}
+  </script>
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    :root{
+      --bg:#2f343c;--panel:#3a4048;--panel-2:#454c56;--field:#505863;
+      --text:#f3f4f6;--muted:#c6ccd4;--border:#606977;--accent:#7dd3fc;
+      --accent-2:#38bdf8;--danger:#f87171;--shadow:0 18px 50px rgba(0,0,0,.18);
+      --radius:16px
+    }
+
+    html[data-theme="light"]{
+      --bg:#f6f7f9;--panel:#fff;--panel-2:#f1f5f9;--field:#fff;
+      --text:#111827;--muted:#5e6b78;--border:#dce3eb;--accent:#0369a1;
+      --accent-2:#0284c7;--danger:#b91c1c;--shadow:0 18px 45px rgba(15,23,42,.08)
+    }
+
+    html{scroll-behavior:smooth}
+
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;
+      line-height:1.6
+    }
+
+    button,input,select{font:inherit}
+    main{padding:42px 6% 40px}
+
+    .content-layout{
+      width:min(100%,1180px);
+      display:grid;
+      grid-template-columns:minmax(0,760px) minmax(280px,1fr);
+      gap:34px;
+      align-items:start
+    }
+
+    .page-shell{width:100%;min-width:0}
+    .ad-space{min-height:600px}
+    .hero{margin-bottom:22px}
+
+    h1{
+      max-width:740px;
+      font-size:clamp(2rem,5vw,3.5rem);
+      line-height:1.02;
+      letter-spacing:-.06em;
+      margin-bottom:12px
+    }
+
+    .hero p{max-width:680px;color:var(--muted);font-size:.92rem}
+
+    .calculator,.content-section{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px
+    }
+
+    .section-title{
+      font-size:1.15rem;
+      line-height:1.25;
+      letter-spacing:-.035em;
+      margin-bottom:5px
+    }
+
+    .section-description{
+      color:var(--muted);
+      font-size:.84rem;
+      line-height:1.5;
+      margin-bottom:14px
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px
+    }
+
+    label{
+      display:block;
+      margin-bottom:4px;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800
+    }
+
+    input,select{
+      width:100%;
+      min-height:42px;
+      background:var(--field);
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:9px 10px;
+      outline:none;
+      font-size:.9rem
+    }
+
+    input:focus,select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)
+    }
+
+    .group-list{display:grid;gap:10px}
+
+    .group-row{
+      padding:12px;
+      background:color-mix(in srgb,var(--panel-2) 66%,transparent);
+      border:1px solid var(--border);
+      border-radius:13px
+    }
+
+    .group-row-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px
+    }
+
+    .group-label{font-size:.9rem;font-weight:850}
+
+    .group-grid{
+      display:grid;
+      grid-template-columns:1.5fr 1fr;
+      gap:8px;
+      align-items:end
+    }
+
+    .remove{
+      width:38px;
+      height:38px;
+      padding:0;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--muted);
+      border-radius:10px;
+      cursor:pointer;
+      font-size:1rem;
+      font-weight:900
+    }
+
+    .remove:hover{color:var(--danger);border-color:var(--danger)}
+
+    .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius:10px;
+      padding:10px 13px;
+      font-size:.86rem;
+      font-weight:900;
+      transition:.16s
+    }
+
+    button:hover{transform:translateY(-1px)}
+    .primary{background:var(--accent);color:#061018}
+    .primary:hover{background:var(--accent-2)}
+    .secondary{background:var(--panel-2);color:var(--text);border:1px solid var(--border)}
+    .secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+    .result{
+      margin-top:14px;
+      padding:14px;
+      background:var(--panel-2);
+      border:1px solid var(--border);
+      border-radius:12px;
+      min-height:56px;
+      overflow-x:auto
+    }
+
+    .result:empty::before{
+      content:"Your occupant-based rent split will appear here.";
+      color:var(--muted);
+      font-weight:600
+    }
+
+    .summary-line{color:var(--muted);font-size:.82rem;margin-bottom:12px}
+
+    .result-table{
+      width:100%;
+      min-width:560px;
+      border-collapse:collapse;
+      font-size:.86rem
+    }
+
+    .result-table th,.result-table td{
+      padding:9px 8px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
+      vertical-align:top
+    }
+
+    .result-table th{
+      color:var(--muted);
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.04em
+    }
+
+    .result-table tr:last-child td{border-bottom:0}
+    .money-cell{font-weight:900;color:var(--accent);white-space:nowrap}
+    .note{margin-top:12px;color:var(--muted);font-size:.8rem;line-height:1.5}
+
+    .content-section h2{font-size:1.45rem;line-height:1.2;letter-spacing:-.035em;margin-bottom:10px}
+    .content-section h3{font-size:1.02rem;margin:18px 0 6px}
+    .content-section p{color:var(--muted);font-size:.9rem;margin-bottom:10px}
+    .content-section ul{margin:8px 0 10px 20px;color:var(--muted);font-size:.9rem}
+    .content-section li{margin-bottom:5px}
+
+    #faqs h2{font-size:1.55rem;margin-bottom:8px;letter-spacing:-.03em}
+    .faq-list{display:flex;flex-direction:column;gap:9px;margin-top:15px}
+    .faq-item{background:var(--panel);border:1px solid var(--border);border-radius:13px;overflow:hidden;transition:border-color .2s ease,background .2s ease}
+    .faq-item:hover{border-color:var(--accent)}
+    .faq-item[open]{background:var(--panel-2)}
+    .faq-item summary{display:flex;align-items:center;gap:9px;cursor:pointer;list-style:none;user-select:none;padding:12px 14px;font-size:.9rem;font-weight:750;line-height:1.35;color:var(--text)}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item summary::before{content:"▶";font-size:.7rem;flex-shrink:0;color:var(--text);transition:transform .2s ease}
+    .faq-item[open] summary::before{transform:rotate(90deg)}
+    .faq-answer{padding:0 14px 13px 35px}
+    .faq-answer p{margin:0;font-size:.83rem;line-height:1.6;color:var(--muted)}
+
+    footer{
+      padding:24px 6%;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      font-size:.9rem;
+      text-align:center
+    }
+
+    @media(max-width:900px){
+      .content-layout{display:block;width:100%}
+      .ad-column{display:none}
+    }
+
+    @media(max-width:780px){
+      main{padding:34px 18px 26px}
+      h1{font-size:clamp(2rem,10vw,3rem)}
+      .calculator,.content-section{padding:15px}
+      .grid,.group-grid{grid-template-columns:1fr}
+      .btns button{flex:1 1 145px}
+      #faqs h2{font-size:1.4rem}
+      .faq-list{gap:8px}
+      .faq-item summary{padding:11px 13px;font-size:.87rem}
+      .faq-answer{padding:0 13px 12px 33px}
+      .faq-answer p{font-size:.81rem}
+    }
+
+    @media(max-width:420px){
+      .btns button{flex:1 1 100%}
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+
+        <section class="hero">
+          <h1>Rent Split by Number of Occupants Calculator</h1>
+          <p>
+            Divide rent according to how many people live in each room or household group.
+          </p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Rent details</h2>
+          <p class="section-description">
+            Enter the monthly rent, currency, and number of rooms or household groups.
+          </p>
+
+          <div class="grid">
+            <div>
+              <label for="totalRent">Total monthly rent</label>
+              <input id="totalRent" inputmode="decimal" min="0" placeholder="3000" type="number">
+            </div>
+
+            <div>
+              <label for="currencySymbol">Currency symbol</label>
+              <select id="currencySymbol">
+                <option value="$">$</option>
+                <option value="CA$">CA$</option>
+                <option value="US$">US$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="groupCount">Number of rooms / groups</label>
+              <input id="groupCount" inputmode="numeric" min="1" max="20" value="3" type="number">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Occupant details</h2>
+          <p class="section-description">
+            Add one row for each bedroom, couple, family, or household group.
+          </p>
+
+          <div class="group-list" id="groupRows"></div>
+
+          <div class="btns">
+            <button class="secondary" onclick="addGroup()" type="button">Add Group</button>
+            <button class="secondary" onclick="syncGroupsFromCount()" type="button">Apply Group Count</button>
+            <button class="primary" onclick="calculateRent()" type="button">Calculate Rent Split</button>
+            <button class="secondary" onclick="copyResult()" type="button">Copy Result</button>
+          </div>
+
+          <div class="result" id="result"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Rent Split by Number of Occupants Calculator</h2>
+
+          <p>
+            The WellSplit Rent Split by Number of Occupants Calculator divides rent
+            according to how many people live in each room or household group.
+          </p>
+
+          <p>
+            Each person receives an equal share of the total monthly rent. A couple,
+            family, or shared room pays more as a group because more people live in that group,
+            while the per-person amount remains equal.
+          </p>
+
+          <h3>How to use this calculator</h3>
+
+          <ul>
+            <li>Enter the total monthly rent and choose a currency.</li>
+            <li>Add one row for each room or household group.</li>
+            <li>Enter the group name and number of occupants.</li>
+            <li>Calculate each group's total and the per-person payment.</li>
+          </ul>
+
+          <p>
+            This method works best when bedroom differences are not important and the
+            household wants to divide rent strictly by headcount.
+          </p>
+        </section>
+
+        <section class="content-section" id="faqs">
+          <h2>Occupant-Based Rent Split FAQs</h2>
+          <p>
+            These answers explain how to divide rent between singles, couples,
+            families, and shared rooms based on the number of occupants.
+          </p>
+
+          <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is a rent split by number of occupants calculator?</summary>
+            <div class="faq-answer"><p>It divides monthly rent according to how many people live in each room or household group. A room with more occupants receives a larger share of the rent.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How does this calculator work?</summary>
+            <div class="faq-answer"><p>Enter the total rent, add each room or group, and specify the number of occupants. The calculator divides rent in proportion to the total number of people.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is splitting rent by number of occupants fair?</summary>
+            <div class="faq-answer"><p>It can be fair when everyone has similar private space and mainly differs by how many people use the home. It is especially useful for couples and shared rooms.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How is each group's rent calculated?</summary>
+            <div class="faq-answer"><p>Each group pays the same fraction of rent as its fraction of the total occupants. For example, two people in a three-person home pay two-thirds of the rent.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How is the per-person amount calculated?</summary>
+            <div class="faq-answer"><p>The calculator divides each group's total by the number of occupants in that group.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can couples use this calculator?</summary>
+            <div class="faq-answer"><p>Yes. Add the couple as one room or group and enter two occupants.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can more than two people share a room?</summary>
+            <div class="faq-answer"><p>Yes. Enter the correct number of occupants for that room or group.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I add single roommates and couples together?</summary>
+            <div class="faq-answer"><p>Yes. Add one row for each room or household group and enter the number of people in each.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if all occupants should pay the same amount?</summary>
+            <div class="faq-answer"><p>This calculator naturally gives every person the same per-person share because the rent is divided by the total number of occupants.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if one person has a larger room?</summary>
+            <div class="faq-answer"><p>This calculator does not adjust for room size. Use a room-size calculator if bedroom differences should affect rent.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if one room has a private bathroom?</summary>
+            <div class="faq-answer"><p>This calculator does not adjust for amenities. Use a private-bathroom or room-quality calculator if those differences should matter.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use this for a family sharing one room?</summary>
+            <div class="faq-answer"><p>Yes. Enter the family or group as one row and include the total number of occupants.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use this for student housing?</summary>
+            <div class="faq-answer"><p>Yes. It works well for student houses, shared apartments, and other homes where rent is divided by headcount.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does this calculator include utilities?</summary>
+            <div class="faq-answer"><p>No. It calculates rent only. Utilities can also be divided by occupants using the same general method.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I choose a currency?</summary>
+            <div class="faq-answer"><p>Yes. Select the currency symbol you want displayed in the results.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I add many rooms or groups?</summary>
+            <div class="faq-answer"><p>Yes. Add as many rows as needed up to the calculator's room limit.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What happens if one room is empty?</summary>
+            <div class="faq-answer"><p>A room with zero occupants should not be included. Add only occupied rooms or groups.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Do all group totals add up to the full rent?</summary>
+            <div class="faq-answer"><p>Yes. The calculator distributes the full monthly rent across all occupants, subject only to minor display rounding.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I copy the result?</summary>
+            <div class="faq-answer"><p>Yes. Use the Copy Result button after calculating.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the result legally binding?</summary>
+            <div class="faq-answer"><p>No. It is an estimate for household discussions. Everyone should agree to the final arrangement and follow the lease.</p></div>
+          </details>
+          </div>
+        </section>
+      </div>
+
+      <aside class="ad-column" aria-label="Advertisement space">
+        <div class="ad-space">
+          <!-- Place your desktop AdSense ad code here. -->
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    function money(value){
+      const symbol=document.getElementById('currencySymbol').value;
+      return symbol+Number(value||0).toLocaleString(undefined,{
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      });
+    }
+
+    function getNumber(id){
+      return parseFloat(document.getElementById(id).value)||0;
+    }
+
+    function groupTemplate(index){
+      return `
+        <div class="group-row">
+          <div class="group-row-head">
+            <span class="group-label">Group ${index}</span>
+            <button aria-label="Remove group" class="remove" onclick="removeGroup(this)" type="button">×</button>
+          </div>
+
+          <div class="group-grid">
+            <div>
+              <label>Room / group name</label>
+              <input class="groupName" placeholder="Group ${index}" type="text">
+            </div>
+
+            <div>
+              <label>Number of occupants</label>
+              <input class="occupants" inputmode="numeric" min="1" max="20" value="1" type="number">
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function refreshGroupLabels(){
+      document.querySelectorAll('.group-row').forEach((row,index)=>{
+        row.querySelector('.group-label').textContent='Group '+(index+1);
+      });
+      document.getElementById('groupCount').value=document.querySelectorAll('.group-row').length;
+    }
+
+    function addGroup(){
+      const container=document.getElementById('groupRows');
+
+      if(container.children.length>=20){
+        alert('You can add up to 20 groups.');
+        return;
+      }
+
+      container.insertAdjacentHTML(
+        'beforeend',
+        groupTemplate(container.children.length+1)
+      );
+
+      refreshGroupLabels();
+    }
+
+    function removeGroup(button){
+      const rows=document.querySelectorAll('.group-row');
+
+      if(rows.length<=1){
+        alert('Keep at least one group.');
+        return;
+      }
+
+      button.closest('.group-row').remove();
+      refreshGroupLabels();
+    }
+
+    function syncGroupsFromCount(){
+      const requested=Math.min(
+        Math.max(parseInt(document.getElementById('groupCount').value)||1,1),
+        20
+      );
+
+      const container=document.getElementById('groupRows');
+
+      while(container.children.length<requested){
+        addGroup();
+      }
+
+      while(container.children.length>requested){
+        container.lastElementChild.remove();
+      }
+
+      refreshGroupLabels();
+    }
+
+    function collectGroups(){
+      return [...document.querySelectorAll('.group-row')].map((row,index)=>({
+        name:row.querySelector('.groupName').value.trim()||'Group '+(index+1),
+        occupants:Math.max(
+          parseInt(row.querySelector('.occupants').value)||1,
+          1
+        )
+      }));
+    }
+
+    function calculateRent(){
+      const rent=getNumber('totalRent');
+      const result=document.getElementById('result');
+      const groups=collectGroups();
+
+      if(rent<=0){
+        result.innerHTML='<p>Please enter a valid total rent amount.</p>';
+        return;
+      }
+
+      const totalOccupants=groups.reduce(
+        (sum,group)=>sum+group.occupants,
+        0
+      );
+
+      if(totalOccupants<=0){
+        result.innerHTML='<p>Please enter at least one occupant.</p>';
+        return;
+      }
+
+      const perPerson=rent/totalOccupants;
+
+      groups.forEach(group=>{
+        group.total=perPerson*group.occupants;
+        group.percent=(group.total/rent)*100;
+      });
+
+      const rows=groups.map(group=>`
+        <tr>
+          <td>${escapeHtml(group.name)}</td>
+          <td>${group.occupants}</td>
+          <td>${group.percent.toFixed(1)}%</td>
+          <td class="money-cell">${money(group.total)}</td>
+          <td>${money(perPerson)}</td>
+        </tr>
+      `).join('');
+
+      result.innerHTML=`
+        <div class="summary-line">
+          ${groups.length} groups ·
+          ${totalOccupants} total occupants ·
+          ${money(perPerson)} per person
+        </div>
+
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Room / group</th>
+              <th>Occupants</th>
+              <th>Rent share</th>
+              <th>Group total</th>
+              <th>Per person</th>
+            </tr>
+          </thead>
+
+          <tbody>${rows}</tbody>
+        </table>
+
+        <p class="note">
+          Rent is divided equally among all occupants. Each group's total equals
+          the per-person amount multiplied by the number of people in that group.
+        </p>
+      `;
+    }
+
+    function escapeHtml(value){
+      return String(value)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    async function copyResult(){
+      const result=document.getElementById('result');
+
+      if(!result.innerText.trim()){
+        alert('Calculate the rent split first.');
+        return;
+      }
+
+      try{
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      }catch(error){
+        const textarea=document.createElement('textarea');
+        textarea.value=result.innerText.trim();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        alert('Result copied.');
+      }
+    }
+
+    syncGroupsFromCount();
+  </script>
+
+  <div id="footer-container"></div>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
