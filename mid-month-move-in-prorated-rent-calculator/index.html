@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+
+  <meta
+    name="description"
+    content="Calculate prorated rent for a mid-month move-in or partial-month stay. Choose actual calendar days or a fixed 30-day method."
+  >
+
+  <title>Mid-Month Move-In Prorated Rent Calculator - WellSplit</title>
+
+  <link rel="stylesheet" href="/components/styles.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a prorated rent calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It calculates rent for only the days a tenant occupies the rental during a partial month."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does mid-month proration work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The monthly rent is converted to a daily rate, then multiplied by the number of billable days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What daily-rate method should I use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the actual days in the month unless your lease requires a fixed 30-day method."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the actual-days method?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It divides monthly rent by the number of calendar days in that month."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the 30-day method?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It divides monthly rent by 30, regardless of the month's actual length."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the move-in day included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. This calculator includes the move-in date as a billable day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the move-out day included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can choose whether the move-out day is included."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I calculate only a move-in proration?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Leave the move-out option off and the calculator will charge through the end of the month."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I calculate a partial stay within one month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Enable the move-out date and enter the last day of occupancy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can the move-out date be before move-in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The calculator will ask you to correct the dates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work for February?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The actual-days method automatically uses 28 or 29 days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use any currency?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Select the currency symbol you want displayed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this include deposits?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It calculates prorated rent only."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this include utilities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Utilities should be prorated separately if needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add a fixed fee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Add lease fees separately to keep the rent calculation clear."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many days are charged?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The calculator shows the exact billable-day count in the result."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do landlords always prorate rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not always. Check the lease and local rental rules."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I copy the result?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the Copy Result button."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the result exact?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is mathematically exact for the method selected, subject to currency rounding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the result legally binding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It is an estimate and should be checked against the lease."
+      }
+    }
+  ]
+}
+  </script>
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    :root{
+      --bg:#2f343c;
+      --panel:#3a4048;
+      --panel-2:#454c56;
+      --field:#505863;
+      --text:#f3f4f6;
+      --muted:#c6ccd4;
+      --border:#606977;
+      --accent:#7dd3fc;
+      --accent-2:#38bdf8;
+      --shadow:0 18px 50px rgba(0,0,0,.18);
+      --radius:16px
+    }
+
+    html[data-theme="light"]{
+      --bg:#f6f7f9;
+      --panel:#fff;
+      --panel-2:#f1f5f9;
+      --field:#fff;
+      --text:#111827;
+      --muted:#5e6b78;
+      --border:#dce3eb;
+      --accent:#0369a1;
+      --accent-2:#0284c7;
+      --shadow:0 18px 45px rgba(15,23,42,.08)
+    }
+
+    html{scroll-behavior:smooth}
+
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;
+      line-height:1.6
+    }
+
+    button,input,select{font:inherit}
+    main{padding:42px 6% 40px}
+
+    .content-layout{
+      width:min(100%,1180px);
+      display:grid;
+      grid-template-columns:minmax(0,720px) minmax(280px,1fr);
+      gap:34px;
+      align-items:start
+    }
+
+    .page-shell{width:100%;min-width:0}
+    .ad-space{min-height:600px}
+    .hero{margin-bottom:22px}
+
+    h1{
+      max-width:700px;
+      font-size:clamp(2rem,5vw,3.5rem);
+      line-height:1.02;
+      letter-spacing:-.06em;
+      margin-bottom:12px
+    }
+
+    .hero p{max-width:660px;color:var(--muted);font-size:.92rem}
+
+    .calculator,.content-section{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px
+    }
+
+    .section-title{
+      font-size:1.15rem;
+      line-height:1.25;
+      letter-spacing:-.035em;
+      margin-bottom:5px
+    }
+
+    .section-description{
+      color:var(--muted);
+      font-size:.84rem;
+      line-height:1.5;
+      margin-bottom:14px
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px
+    }
+
+    label{
+      display:block;
+      margin-bottom:4px;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800
+    }
+
+    input,select{
+      width:100%;
+      min-height:42px;
+      background:var(--field);
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:9px 10px;
+      outline:none;
+      font-size:.9rem
+    }
+
+    input:focus,select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)
+    }
+
+    .checkbox-row{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      min-height:42px;
+      padding:9px 10px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:var(--field)
+    }
+
+    .checkbox-row input{
+      width:auto;
+      min-height:auto
+    }
+
+    .checkbox-row label{
+      margin:0;
+      color:var(--text);
+      font-size:.86rem
+    }
+
+    .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius:10px;
+      padding:10px 13px;
+      font-size:.86rem;
+      font-weight:900;
+      transition:.16s
+    }
+
+    button:hover{transform:translateY(-1px)}
+    .primary{background:var(--accent);color:#061018}
+    .primary:hover{background:var(--accent-2)}
+    .secondary{background:var(--panel-2);color:var(--text);border:1px solid var(--border)}
+    .secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+    .result{
+      margin-top:14px;
+      padding:14px;
+      background:var(--panel-2);
+      border:1px solid var(--border);
+      border-radius:12px;
+      min-height:56px
+    }
+
+    .result:empty::before{
+      content:"Your prorated rent will appear here.";
+      color:var(--muted);
+      font-weight:600
+    }
+
+    .result-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px
+    }
+
+    .result-card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:12px
+    }
+
+    .result-label{
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800;
+      margin-bottom:4px
+    }
+
+    .result-value{
+      font-size:1.05rem;
+      font-weight:900
+    }
+
+    .total-card{
+      grid-column:1/-1
+    }
+
+    .total-card .result-value{
+      color:var(--accent);
+      font-size:1.45rem
+    }
+
+    .note{margin-top:12px;color:var(--muted);font-size:.8rem;line-height:1.5}
+
+    .content-section h2{
+      font-size:1.45rem;
+      line-height:1.2;
+      letter-spacing:-.035em;
+      margin-bottom:10px
+    }
+
+    .content-section h3{font-size:1.02rem;margin:18px 0 6px}
+    .content-section p{color:var(--muted);font-size:.9rem;margin-bottom:10px}
+    .content-section ul{margin:8px 0 10px 20px;color:var(--muted);font-size:.9rem}
+    .content-section li{margin-bottom:5px}
+
+    #faqs h2{font-size:1.45rem;margin-bottom:7px}
+
+    .faq-list{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:13px
+    }
+
+    .faq-item{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:11px;
+      overflow:hidden
+    }
+
+    .faq-item:hover{border-color:var(--accent)}
+    .faq-item[open]{background:var(--panel-2)}
+
+    .faq-item summary{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      list-style:none;
+      padding:10px 12px;
+      font-size:.85rem;
+      font-weight:750;
+      line-height:1.3
+    }
+
+    .faq-item summary::-webkit-details-marker{display:none}
+
+    .faq-item summary::before{
+      content:"▶";
+      font-size:.64rem;
+      transition:transform .2s
+    }
+
+    .faq-item[open] summary::before{transform:rotate(90deg)}
+    .faq-answer{padding:0 12px 12px 31px}
+    .faq-answer p{margin:0;font-size:.8rem;line-height:1.55;color:var(--muted)}
+
+    footer{
+      padding:24px 6%;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      font-size:.9rem;
+      text-align:center
+    }
+
+    @media(max-width:900px){
+      .content-layout{display:block;width:100%}
+      .ad-column{display:none}
+    }
+
+    @media(max-width:780px){
+      main{padding:34px 18px 26px}
+      h1{font-size:clamp(2rem,10vw,3rem)}
+      .calculator,.content-section{padding:15px}
+      .grid,.result-grid{grid-template-columns:1fr}
+      .btns button{flex:1 1 145px}
+      #faqs h2{font-size:1.32rem}
+      .faq-item summary{font-size:.82rem}
+      .faq-answer p{font-size:.78rem}
+    }
+
+    @media(max-width:420px){
+      .btns button{flex:1 1 100%}
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+
+        <section class="hero">
+          <h1>Mid-Month Move-In Prorated Rent Calculator</h1>
+          <p>
+            Calculate rent for a partial month using the move-in date and your lease's daily-rate method.
+          </p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">Prorated rent details</h2>
+          <p class="section-description">
+            Enter the monthly rent and occupancy dates. The move-in day is included.
+          </p>
+
+          <div class="grid">
+            <div>
+              <label for="monthlyRent">Full monthly rent</label>
+              <input id="monthlyRent" inputmode="decimal" min="0" placeholder="2400" type="number">
+            </div>
+
+            <div>
+              <label for="currencySymbol">Currency symbol</label>
+              <select id="currencySymbol">
+                <option value="$">$</option>
+                <option value="CA$">CA$</option>
+                <option value="US$">US$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="moveInDate">Move-in date</label>
+              <input id="moveInDate" type="date">
+            </div>
+
+            <div>
+              <label for="prorationMethod">Proration method</label>
+              <select id="prorationMethod">
+                <option value="actual" selected>Actual days in the month</option>
+                <option value="thirty">Fixed 30-day method</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Partial move-out</label>
+              <div class="checkbox-row">
+                <input id="useMoveOut" onchange="toggleMoveOut()" type="checkbox">
+                <label for="useMoveOut">Add a move-out date</label>
+              </div>
+            </div>
+
+            <div id="moveOutField" style="display:none">
+              <label for="moveOutDate">Move-out date</label>
+              <input id="moveOutDate" type="date">
+            </div>
+
+            <div id="includeMoveOutField" style="display:none">
+              <label>Move-out day billing</label>
+              <div class="checkbox-row">
+                <input id="includeMoveOut" type="checkbox">
+                <label for="includeMoveOut">Include the move-out day</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="btns">
+            <button class="primary" onclick="calculateProratedRent()" type="button">Calculate Prorated Rent</button>
+            <button class="secondary" onclick="copyResult()" type="button">Copy Result</button>
+          </div>
+
+          <div class="result" id="result"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Mid-Month Move-In Prorated Rent Calculator</h2>
+
+          <p>
+            This calculator estimates rent for tenants who move in after the first day of
+            the month or occupy a rental for only part of a month.
+          </p>
+
+          <p>
+            It supports the actual-days method and the fixed 30-day method. You can also
+            add a move-out date for a shorter partial-month stay.
+          </p>
+
+          <h3>How to use it</h3>
+
+          <ul>
+            <li>Enter the full monthly rent.</li>
+            <li>Select the move-in date.</li>
+            <li>Choose the lease's proration method.</li>
+            <li>Optionally add a move-out date.</li>
+            <li>Choose whether the move-out day is billed.</li>
+            <li>Calculate the daily rate and prorated amount.</li>
+          </ul>
+
+          <p>
+            Always compare the result with the lease because landlords may use a specific
+            proration rule.
+          </p>
+        </section>
+
+        <section class="content-section" id="faqs">
+          <h2>Prorated Rent Calculator FAQs</h2>
+          <p>Helpful answers about mid-month rent calculations.</p>
+
+          <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is a prorated rent calculator?</summary>
+            <div class="faq-answer"><p>It calculates rent for only the days a tenant occupies the rental during a partial month.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How does mid-month proration work?</summary>
+            <div class="faq-answer"><p>The monthly rent is converted to a daily rate, then multiplied by the number of billable days.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What daily-rate method should I use?</summary>
+            <div class="faq-answer"><p>Use the actual days in the month unless your lease requires a fixed 30-day method.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What is the actual-days method?</summary>
+            <div class="faq-answer"><p>It divides monthly rent by the number of calendar days in that month.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What is the 30-day method?</summary>
+            <div class="faq-answer"><p>It divides monthly rent by 30, regardless of the month's actual length.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the move-in day included?</summary>
+            <div class="faq-answer"><p>Yes. This calculator includes the move-in date as a billable day.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the move-out day included?</summary>
+            <div class="faq-answer"><p>You can choose whether the move-out day is included.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I calculate only a move-in proration?</summary>
+            <div class="faq-answer"><p>Yes. Leave the move-out option off and the calculator will charge through the end of the month.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I calculate a partial stay within one month?</summary>
+            <div class="faq-answer"><p>Yes. Enable the move-out date and enter the last day of occupancy.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can the move-out date be before move-in?</summary>
+            <div class="faq-answer"><p>No. The calculator will ask you to correct the dates.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does this work for February?</summary>
+            <div class="faq-answer"><p>Yes. The actual-days method automatically uses 28 or 29 days.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use any currency?</summary>
+            <div class="faq-answer"><p>Yes. Select the currency symbol you want displayed.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does this include deposits?</summary>
+            <div class="faq-answer"><p>No. It calculates prorated rent only.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does this include utilities?</summary>
+            <div class="faq-answer"><p>No. Utilities should be prorated separately if needed.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I add a fixed fee?</summary>
+            <div class="faq-answer"><p>No. Add lease fees separately to keep the rent calculation clear.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How many days are charged?</summary>
+            <div class="faq-answer"><p>The calculator shows the exact billable-day count in the result.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Do landlords always prorate rent?</summary>
+            <div class="faq-answer"><p>Not always. Check the lease and local rental rules.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I copy the result?</summary>
+            <div class="faq-answer"><p>Yes. Use the Copy Result button.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the result exact?</summary>
+            <div class="faq-answer"><p>It is mathematically exact for the method selected, subject to currency rounding.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the result legally binding?</summary>
+            <div class="faq-answer"><p>No. It is an estimate and should be checked against the lease.</p></div>
+          </details>
+          </div>
+        </section>
+      </div>
+
+      <aside class="ad-column" aria-label="Advertisement space">
+        <div class="ad-space">
+          <!-- Place your desktop AdSense ad code here. -->
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    function money(value){
+      const symbol=document.getElementById('currencySymbol').value;
+
+      return symbol+Number(value||0).toLocaleString(undefined,{
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      });
+    }
+
+    function toggleMoveOut(){
+      const enabled=document.getElementById('useMoveOut').checked;
+
+      document.getElementById('moveOutField').style.display=
+        enabled ? 'block' : 'none';
+
+      document.getElementById('includeMoveOutField').style.display=
+        enabled ? 'block' : 'none';
+    }
+
+    function parseLocalDate(value){
+      if(!value) return null;
+
+      const [year,month,day]=value.split('-').map(Number);
+      return new Date(year,month-1,day);
+    }
+
+    function daysInMonth(date){
+      return new Date(
+        date.getFullYear(),
+        date.getMonth()+1,
+        0
+      ).getDate();
+    }
+
+    function dayDifference(start,end){
+      const msPerDay=24*60*60*1000;
+      const startUtc=Date.UTC(start.getFullYear(),start.getMonth(),start.getDate());
+      const endUtc=Date.UTC(end.getFullYear(),end.getMonth(),end.getDate());
+
+      return Math.round((endUtc-startUtc)/msPerDay);
+    }
+
+    function formatDate(date){
+      return date.toLocaleDateString(undefined,{
+        year:'numeric',
+        month:'long',
+        day:'numeric'
+      });
+    }
+
+    function calculateProratedRent(){
+      const rent=parseFloat(document.getElementById('monthlyRent').value)||0;
+      const moveIn=parseLocalDate(document.getElementById('moveInDate').value);
+      const useMoveOut=document.getElementById('useMoveOut').checked;
+      const moveOut=parseLocalDate(document.getElementById('moveOutDate').value);
+      const includeMoveOut=document.getElementById('includeMoveOut').checked;
+      const method=document.getElementById('prorationMethod').value;
+      const result=document.getElementById('result');
+
+      if(rent<=0){
+        result.innerHTML='<p>Please enter a valid monthly rent.</p>';
+        return;
+      }
+
+      if(!moveIn){
+        result.innerHTML='<p>Please select a move-in date.</p>';
+        return;
+      }
+
+      let endDate;
+
+      if(useMoveOut){
+        if(!moveOut){
+          result.innerHTML='<p>Please select a move-out date.</p>';
+          return;
+        }
+
+        if(moveOut<moveIn){
+          result.innerHTML='<p>The move-out date cannot be before the move-in date.</p>';
+          return;
+        }
+
+        if(
+          moveOut.getFullYear()!==moveIn.getFullYear() ||
+          moveOut.getMonth()!==moveIn.getMonth()
+        ){
+          result.innerHTML='<p>This calculator handles dates within the same billing month.</p>';
+          return;
+        }
+
+        endDate=moveOut;
+      }else{
+        endDate=new Date(
+          moveIn.getFullYear(),
+          moveIn.getMonth()+1,
+          0
+        );
+      }
+
+      let billableDays;
+
+      if(useMoveOut){
+        billableDays=
+          dayDifference(moveIn,endDate)+
+          (includeMoveOut?1:0);
+
+        if(billableDays<0){
+          billableDays=0;
+        }
+      }else{
+        billableDays=
+          dayDifference(moveIn,endDate)+1;
+      }
+
+      const divisor=
+        method==='actual'
+          ? daysInMonth(moveIn)
+          : 30;
+
+      const dailyRate=rent/divisor;
+      const proratedRent=dailyRate*billableDays;
+
+      const methodLabel=
+        method==='actual'
+          ? divisor+' actual days in the month'
+          : 'fixed 30-day method';
+
+      const dateRange=
+        formatDate(moveIn)+' to '+formatDate(endDate);
+
+      result.innerHTML=`
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="result-label">Billing period</div>
+            <div class="result-value">${dateRange}</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-label">Billable days</div>
+            <div class="result-value">${billableDays}</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-label">Daily rent rate</div>
+            <div class="result-value">${money(dailyRate)}</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-label">Proration method</div>
+            <div class="result-value">${methodLabel}</div>
+          </div>
+
+          <div class="result-card total-card">
+            <div class="result-label">Prorated rent due</div>
+            <div class="result-value">${money(proratedRent)}</div>
+          </div>
+        </div>
+
+        <p class="note">
+          The move-in day is included.
+          ${useMoveOut
+            ? includeMoveOut
+              ? 'The move-out day is also included.'
+              : 'The move-out day is not included.'
+            : 'Rent is calculated through the final day of the month.'
+          }
+        </p>
+      `;
+    }
+
+    async function copyResult(){
+      const result=document.getElementById('result');
+
+      if(!result.innerText.trim()){
+        alert('Calculate the prorated rent first.');
+        return;
+      }
+
+      try{
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      }catch(error){
+        const textarea=document.createElement('textarea');
+
+        textarea.value=result.innerText.trim();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+
+        alert('Result copied.');
+      }
+    }
+
+    toggleMoveOut();
+  </script>
+
+  <div id="footer-container"></div>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
