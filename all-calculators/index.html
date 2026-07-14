@@ -2,14 +2,21 @@
 <html data-theme="light" lang="en">
 <head>
   <!-- Google AdSense tag -->
-  <script async crossorigin="anonymous"
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"></script>
+  <script
+    async
+    crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+  ></script>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
     gtag("js", new Date());
     gtag("config", "G-VR5ESWGW9Y");
   </script>
@@ -20,11 +27,11 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta
-    content="Browse WellSplit rent split tools and couple money split calculators."
+    content="Browse all WellSplit rent split tools and couple money split calculators by category."
     name="description"
   >
 
-  <title>All Splitters - WellSplit</title>
+  <title>All Splitting Calculators - WellSplit</title>
 
   <style>
     * {
@@ -74,7 +81,16 @@
       min-height: 100vh;
       background: var(--bg);
       color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
       line-height: 1.5;
     }
 
@@ -102,11 +118,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
+      color: var(--text);
       font-size: 1rem;
       font-weight: 800;
       letter-spacing: -0.035em;
-      color: var(--text);
-      min-width: 0;
       text-decoration: none;
     }
 
@@ -137,8 +153,11 @@
       cursor: pointer;
       font-size: 0.88rem;
       font-weight: 800;
-      transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
       white-space: nowrap;
+      transition:
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
     }
 
     .theme-toggle:hover {
@@ -169,7 +188,9 @@
       height: 2px;
       background: var(--text);
       border-radius: 999px;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
     }
 
     .menu-toggle.active span:nth-child(1) {
@@ -209,7 +230,11 @@
       font-weight: 800;
       line-height: 1;
       white-space: nowrap;
-      transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+      transition:
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease,
+        background 0.18s ease;
     }
 
     .nav-link:hover {
@@ -234,10 +259,10 @@
 
     h1 {
       max-width: 900px;
+      margin-bottom: 12px;
       font-size: clamp(2rem, 5vw, 3.65rem);
       line-height: 1.02;
       letter-spacing: -0.065em;
-      margin-bottom: 12px;
     }
 
     .hero p {
@@ -262,17 +287,17 @@
     }
 
     .category-card h2 {
+      margin-bottom: 5px;
       font-size: 1.35rem;
       line-height: 1.2;
       letter-spacing: -0.04em;
-      margin-bottom: 5px;
     }
 
     .category-description {
+      max-width: 760px;
       color: var(--muted);
       font-size: 0.84rem;
       line-height: 1.45;
-      max-width: 760px;
     }
 
     .tool-list {
@@ -312,11 +337,12 @@
       color: var(--muted);
       border-top: 1px solid var(--border);
       font-size: 0.9rem;
+      text-align: center;
     }
 
     .footer-links {
-      text-align: center;
-      margin-top: 40px;
+      padding-top: 0;
+      border-top: 0;
     }
 
     .footer-links a {
@@ -356,7 +382,9 @@
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transition: opacity 0.2s ease, visibility 0.2s ease;
+        transition:
+          opacity 0.2s ease,
+          visibility 0.2s ease;
       }
 
       .mobile-menu-backdrop.show {
@@ -433,17 +461,13 @@
       .all-splitters-link::after {
         content: "›";
         margin-left: auto;
+        color: var(--muted);
         font-size: 1.35rem;
         line-height: 1;
-        color: var(--muted);
       }
 
       main {
         padding: 34px 18px 26px;
-      }
-
-      .page-shell {
-        width: 100%;
       }
 
       h1 {
@@ -508,8 +532,13 @@
     </button>
 
     <div class="nav-actions" id="navActions">
-      <a class="nav-link all-splitters-link" href="/all-calculators/">Other Calculators</a>
-      <a class="nav-link" href="/blog/">Blog</a>
+      <a class="nav-link all-splitters-link" href="/all-calculators/">
+        Other Calculators
+      </a>
+
+      <a class="nav-link" href="/blog/">
+        Blog
+      </a>
 
       <button
         aria-label="Switch color theme"
@@ -532,10 +561,8 @@
   <main>
     <div class="page-shell">
       <section class="hero">
-
-
-        
         <h1>All Splitting Calculators</h1>
+
         <p>
           Browse all WellSplit calculators by category. Select any underlined tool
           to open its calculator page.
@@ -543,60 +570,98 @@
       </section>
 
       <section class="category-grid" aria-label="Calculator categories">
+        
+        
+        
+        
+         <!-- =========================================================
+             CATEGORY 1: COUPLE MONEY SPLIT TOOLS
+             Add new couple calculators inside this category's tool-list.
+             ========================================================= -->
         <article class="category-card">
           <div class="category-head">
-<div>
-              <h2>Rent Split Tools</h2>
-              <p class="category-description">
-                Calculators for rent, rooms, occupants, amenities, deposits, and shared housing costs.
-              </p>
-            </div>
+            <h2>Couple Money Split Tools</h2>
+
+            <p class="category-description">
+              Calculators for income-based contributions, shared budgets,
+              savings, bills, and financial planning.
+            </p>
           </div>
 
           <ul class="tool-list">
-            <li><a class="tool-link" href="/fair-rent-split-calculator/">Fair Rent Splitter</a></li>
-            <li><a class="tool-link" href="/unequal-room-rent-calculator/">Unequal Room Rent Calculator</a></li>
-            <li><a class="tool-link" href="/couple+single-roommate-rent-split-calculator/">Couple + Single Roommate Rent Split Calculator</a></li>
-            <li><a class="tool-link" href="/multiple-couples-and-singles-rent-split-calculator/">Multiple Couples and Singles Rent Split Calculator</a></li>
-            <li><a class="tool-link" href="/rent-split-by-room-size-calculator/">Rent Split by Room Size Calculator</a></li>
-            <li><a class="tool-link" href="/rent-split-by-room-size+private-bathroom-calculator/">Rent Split by Room Size + Private Bathroom Calculator</a></li>
-            <li><a class="tool-link" href="/rent-split-by-room-size+parking-spot-calculator/">Rent Split by Room Size + Parking Spot Calculator</a></li>
-            <li><a class="tool-link" href="/rent-split-by-room-quality-score-calculator/">Rent Split by Room Quality Score Calculator</a></li>
-            <li><a class="tool-link" href="/rent-split-by-number-of-occupants-calculator/">Rent Split by Number of Occupants Calculator</a></li>
-            <li><a class="tool-link" href="/rent-split-by-income-calculator/">Rent Split by Income Calculator</a></li>
-            <li><a class="tool-link" href="/rent-split-by-income+room-size-hybrid-calculator/">Rent Split by Income + Room Size Hybrid Calculator</a></li>
-            <li><a class="tool-link" href="/overnight-guest-rent-adjustment-calculator/">Overnight Guest Rent Adjustment Calculator</a></li>
-            <li><a class="tool-link" href="/work-from-home-rent-adjustment-calculator/">Work-From-Home Rent Adjustment Calculator</a></li>
-            <li><a class="tool-link" href="/storage-garage-access-rent-adjustment-calculator/">Storage / Garage Access Rent Adjustment Calculator</a></li>
-            <li><a class="tool-link" href="/furnished-vs-unfurnished-room-rent-calculator/">Furnished vs Unfurnished Room Rent Calculator</a></li>
-            <li><a class="tool-link" href="/basement-private-floor-rent-split-calculator/">Basement / Private Floor Rent Split Calculator</a></li>
-            <li><a class="tool-link" href="/utilities-included-rent-splitting-calculator/">Utilities-Included Rent Splitting Calculator</a></li>
-            <li><a class="tool-link" href="/mid-month-move-in-prorated-rent-calculator/">Mid-Month Move-In Prorated Rent Calculator</a></li>
-            <li><a class="tool-link" href="/mid-month-move-out-prorated-rent-calculator/">Mid-Month Move-Out Prorated Rent Calculator</a></li>
-            <li><a class="tool-link" href="/shared-housing-all-in-split-calculator/">Shared Housing All-In Split Calculator</a></li>
-         
-          
-             <h1>Couple Money Split Tools</h1>
-              <p class="category-description">
-                Calculators for income-based contributions, shared budgets, savings, bills, and financial planning.
-              </p>
-            </div>
-          </div>
+            <li>
+              <a class="tool-link" href="/couples-expense-fairness-calculator/">
+                Couples Expense Fairness Calculator
+              </a>
+            </li>
 
-          <ul class="tool-list">
-            <li><a class="tool-link" href="/couples-expense-fairness-calculator/">Couples Expense Fairness Calculator</a></li>
-            <li><a class="tool-link" href="/split-bills-by-income-calculator/">Split Bills by Income Calculator</a></li>
-            <li><a class="tool-link" href="/50-50-vs-income-based-split-comparison-calculator/">50/50 vs Income-Based Split Comparison Calculator</a></li>
-            <li><a class="tool-link" href="/shared-household-contribution-calculator/">Shared Household Contribution Calculator</a></li>
-            <li><a class="tool-link" href="/joint-account-contribution-calculator/">Joint Account Contribution Calculator</a></li>
-            <li><a class="tool-link" href="/personal-spending-allowance-calculator-for-couples/">Personal Spending Allowance Calculator for Couples</a></li>
-            <li><a class="tool-link" href="/savings-goal-split-calculator-for-couples/">Savings Goal Split Calculator for Couples</a></li>
-            <li><a class="tool-link" href="/rent-bills-split-calculator-for-unequal-incomes/">Rent + Bills Split Calculator for Unequal Incomes</a></li>
-            <li><a class="tool-link" href="/move-in-together-budget-calculator/">Move-In Together Budget Calculator</a></li>
-            <li><a class="tool-link" href="/income-gap-fairness-calculator/">Income Gap Fairness Calculator</a></li>
-            <li><a class="tool-link" href="/one-pays-rent-one-pays-everything-else-calculator/">“One Pays Rent, One Pays Everything Else” Calculator</a></li>
-            <li><a class="tool-link" href="/child-free-vs-with-kids-contribution-calculator/">Child-Free vs With-Kids Contribution Calculator</a></li>
-          <!--  <li><a class="tool-link" href="/unequal-debt-fairness-calculator/">Unequal Debt Fairness Calculator</a></li>
+            <li>
+              <a class="tool-link" href="/split-bills-by-income-calculator/">
+                Split Bills by Income Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/50-50-vs-income-based-split-comparison-calculator/">
+                50/50 vs Income-Based Split Comparison Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/shared-household-contribution-calculator/">
+                Shared Household Contribution Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/joint-account-contribution-calculator/">
+                Joint Account Contribution Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/personal-spending-allowance-calculator-for-couples/">
+                Personal Spending Allowance Calculator for Couples
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/savings-goal-split-calculator-for-couples/">
+                Savings Goal Split Calculator for Couples
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/rent-bills-split-calculator-for-unequal-incomes/">
+                Rent + Bills Split Calculator for Unequal Incomes
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/move-in-together-budget-calculator/">
+                Move-In Together Budget Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/income-gap-fairness-calculator/">
+                Income Gap Fairness Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/one-pays-rent-one-pays-everything-else-calculator/">
+                “One Pays Rent, One Pays Everything Else” Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/child-free-vs-with-kids-contribution-calculator/">
+                Child-Free vs With-Kids Contribution Calculator
+              </a>
+            </li>
+            
+            <li><a class="tool-link" href="/unequal-debt-fairness-calculator/">Unequal Debt Fairness Calculator</a></li>
             <li><a class="tool-link" href="/emergency-fund-contribution-split-calculator/">Emergency Fund Contribution Split Calculator</a></li>
             <li><a class="tool-link" href="/vacation-budget-split-calculator-for-couples/">Vacation Budget Split Calculator for Couples</a></li>
             <li><a class="tool-link" href="/grocery-fairness-calculator-for-couples/">Grocery Fairness Calculator for Couples</a></li>
@@ -608,17 +673,182 @@
             <li><a class="tool-link" href="/split-mortgage-bills-fairness-calculator/">Split Mortgage + Bills Fairness Calculator</a></li>
             <li><a class="tool-link" href="/stay-at-home-partner-contribution-planner/">Stay-at-Home Partner Contribution Planner</a></li>
             <li><a class="tool-link" href="/breakup-budget-separation-calculator/">Breakup Budget Separation Calculator</a></li>
-           <li><a class="tool-link" href="/post-breakup-shared-bills-separation-calculator/">Post-Breakup Shared Bills Separation Calculator</a></li> -->
-
-          
+           <li><a class="tool-link" href="/post-breakup-shared-bills-separation-calculator/">Post-Breakup Shared Bills Separation Calculator</a></li>
+            
           </ul>
         </article>
+
+        <!-- =========================================================
+             CATEGORY 2: RENT SPLIT TOOLS
+             Add new rent calculators inside this category's tool-list.
+             ========================================================= -->
+        <article class="category-card">
+          <div class="category-head">
+            <h2>Rent Split Tools</h2>
+
+            <p class="category-description">
+              Calculators for rent, rooms, occupants, amenities, deposits,
+              and shared housing costs.
+            </p>
+          </div>
+
+          <ul class="tool-list">
+            <li>
+              <a class="tool-link" href="/fair-rent-split-calculator/">
+                Fair Rent Splitter
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/unequal-room-rent-calculator/">
+                Unequal Room Rent Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/couple+single-roommate-rent-split-calculator/">
+                Couple + Single Roommate Rent Split Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/multiple-couples-and-singles-rent-split-calculator/">
+                Multiple Couples and Singles Rent Split Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/rent-split-by-room-size-calculator/">
+                Rent Split by Room Size Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/rent-split-by-room-size+private-bathroom-calculator/">
+                Rent Split by Room Size + Private Bathroom Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/rent-split-by-room-size+parking-spot-calculator/">
+                Rent Split by Room Size + Parking Spot Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/rent-split-by-room-quality-score-calculator/">
+                Rent Split by Room Quality Score Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/rent-split-by-number-of-occupants-calculator/">
+                Rent Split by Number of Occupants Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/rent-split-by-income-calculator/">
+                Rent Split by Income Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/rent-split-by-income+room-size-hybrid-calculator/">
+                Rent Split by Income + Room Size Hybrid Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/overnight-guest-rent-adjustment-calculator/">
+                Overnight Guest Rent Adjustment Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/work-from-home-rent-adjustment-calculator/">
+                Work-From-Home Rent Adjustment Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/storage-garage-access-rent-adjustment-calculator/">
+                Storage / Garage Access Rent Adjustment Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/furnished-vs-unfurnished-room-rent-calculator/">
+                Furnished vs Unfurnished Room Rent Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/basement-private-floor-rent-split-calculator/">
+                Basement / Private Floor Rent Split Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/utilities-included-rent-splitting-calculator/">
+                Utilities-Included Rent Splitting Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/mid-month-move-in-prorated-rent-calculator/">
+                Mid-Month Move-In Prorated Rent Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/mid-month-move-out-prorated-rent-calculator/">
+                Mid-Month Move-Out Prorated Rent Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/shared-housing-all-in-split-calculator/">
+                Shared Housing All-In Split Calculator
+              </a>
+            </li>
+          </ul>
+        </article>
+
+       
+
+        <!-- =========================================================
+             FUTURE CATEGORY TEMPLATE
+             Copy the full article below, paste it above the closing
+             </section>, remove the comment marks, and edit the content.
 
         <article class="category-card">
           <div class="category-head">
-<div>
+            <h2>New Category Name</h2>
+
+            <p class="category-description">
+              Add a short description of this calculator category.
+            </p>
+          </div>
+
+          <ul class="tool-list">
+            <li>
+              <a class="tool-link" href="/first-new-calculator/">
+                First New Calculator
+              </a>
+            </li>
+
+            <li>
+              <a class="tool-link" href="/second-new-calculator/">
+                Second New Calculator
+              </a>
+            </li>
           </ul>
         </article>
+
+             END FUTURE CATEGORY TEMPLATE
+             ========================================================= -->
+
       </section>
     </div>
   </main>
@@ -628,22 +858,24 @@
   </footer>
 
   <footer class="footer-links">
-    <a href="/about/">About</a> |
-    <a href="/contact/">Contact</a> |
+    <a href="/about/">About</a>
+    |
+    <a href="/contact/">Contact</a>
+    |
     <a href="/privacy-policy/">Privacy Policy</a>
   </footer>
 
   <script>
     function toggleTheme() {
       const html = document.documentElement;
-      const btn = document.querySelector(".theme-toggle");
+      const button = document.querySelector(".theme-toggle");
 
       if (html.dataset.theme === "light") {
         html.dataset.theme = "dark";
-        btn.innerHTML = "☾ Dark";
+        button.innerHTML = "☾ Dark";
       } else {
         html.dataset.theme = "light";
-        btn.innerHTML = "☀ Light";
+        button.innerHTML = "☀ Light";
       }
     }
 
@@ -685,10 +917,9 @@
     });
 
     document.addEventListener("keydown", event => {
-      if (
-        event.key === "Escape" &&
-        document.getElementById("navActions").classList.contains("open")
-      ) {
+      const menu = document.getElementById("navActions");
+
+      if (event.key === "Escape" && menu.classList.contains("open")) {
         closeMobileMenu();
         document.querySelector(".menu-toggle").focus();
       }
