@@ -2,138 +2,1141 @@
 <html data-theme="light" lang="en">
 <head>
 
- <!-- Google adsense tag -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
-     crossorigin="anonymous"></script>
-  
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
 
-  gtag('config', 'G-VR5ESWGW9Y');
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
 
-  <!-- favicon -->
-<link rel="icon" type="image/png" href="/files/favicon.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
 
-
-  
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="Split rent fairly using room size, shared space, bathrooms, balconies, parking, storage, furnishings, work-from-home use, guests, occupants, and custom weights." name="description">
-  <title>Fair Rent Split Calculator - WellSplit</title>
+  <meta name="robots" content="index, follow">
+  <meta
+    content="Use this free fair rent split calculator to divide rent by bedroom size, shared space, and occupants. Ideal for roommates, couples, and shared houses."
+    name="description"
+  >
+  <title>Fair Rent Split Calculator for Roommates and Couples | WellSplit</title>
+
   <link rel="stylesheet" href="/components/styles.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a fair rent split calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A fair rent split calculator helps roommates divide monthly rent using bedroom size and the number of people sharing the home. It provides a clear room total and per-person payment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does this rent split calculator work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter the total rent, choose the shared-space percentage, and add each bedroom with its size and occupants. Private-room rent is divided by bedroom size, while shared-space rent is divided by person or equally by bedroom."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should roommates split rent when rooms are different sizes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A practical method is to divide the private-bedroom portion in proportion to room size. Larger bedrooms pay more of that portion and smaller bedrooms pay less."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should rent be split by room or by person?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Private bedroom value is usually divided by room. Shared areas such as the kitchen and living room can be divided by person. This calculator supports both person-based and room-based shared-space splits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do couples split rent with single roommates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter the couple as one bedroom group with two occupants. Their private-room share is based on bedroom size, and their shared-space share can account for two people using the common areas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a couple always pay more than a single roommate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not always. A couple usually pays more shared-space rent when it is divided by person, but the final amount also depends on bedroom sizes and the chosen shared-space percentage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What percentage of rent should be assigned to shared space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is no universal rule. Many households choose between 30% and 60%, depending on how much of the home is shared and how important the common areas are."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What counts as shared space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Shared space normally includes the kitchen, living room, dining area, hallways, laundry area, and shared bathrooms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use square feet or square metres?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Either unit works because the calculation compares room-size proportions. Use the same measurement unit for every bedroom."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need exact bedroom measurements?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Exact measurements give the most accurate result, but reasonable estimates can still help. Measure length and width and multiply them to find the room area."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate bedroom square footage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a rectangular room, multiply length by width. A 12-foot by 10-foot bedroom is 120 square feet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the private-room portion calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The calculator adds all bedroom sizes, finds each room’s percentage of the total bedroom area, and assigns the same percentage of private-room rent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is shared-space rent calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When divided by person, each room group pays according to its occupants. When divided equally by bedroom, every bedroom group pays the same shared-space amount."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if two people share one bedroom?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose Couple for that bedroom. The calculator treats the room as two occupants and shows both the group total and the amount per person."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can this calculator handle multiple couples and singles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Add one bedroom for each couple or single roommate. The calculator can handle several couples and singles in the same home."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use it for three or more roommates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Add the number of bedrooms needed and enter the correct occupancy type and room size for each one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if all bedrooms are the same size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The private-room portion will be equal across bedrooms. The shared-space method and number of occupants may still create different final totals."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if one roommate has the largest bedroom?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The largest bedroom pays the largest share of private-room rent. The difference depends on room size and the percentage assigned to private space."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator include utilities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It calculates rent only. Utilities can be split separately by person, usage, or another household agreement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the calculated rent split legally binding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The result is an estimate for discussion. Roommates should agree to the final split and follow their lease and local rental rules."
+      }
+    }
+  ]
+}
+  </script>
+
+
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{--bg:#2f343c;--panel:#3a4048;--panel-2:#454c56;--field:#505863;--text:#f3f4f6;--muted:#c6ccd4;--border:#606977;--accent:#7dd3fc;--accent-2:#38bdf8;--danger:#f87171;--shadow:0 18px 50px rgba(0,0,0,.18);--radius:16px}
-    html[data-theme="light"]{--bg:#f6f7f9;--panel:#fff;--panel-2:#f1f5f9;--field:#fff;--text:#111827;--muted:#5e6b78;--border:#dce3eb;--accent:#0369a1;--accent-2:#0284c7;--danger:#b91c1c;--shadow:0 18px 45px rgba(15,23,42,.08)}
-    html{scroll-behavior:smooth}
-    body{min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;line-height:1.5}
-    button,input,select{font:inherit}
-    main{padding:42px 6% 32px}.page-shell{width:min(100%,1180px)}.hero{margin-bottom:22px}
-    h1{max-width:760px;font-size:clamp(2rem,5vw,3.65rem);line-height:1.02;letter-spacing:-.065em;margin-bottom:12px}
-    .hero p{max-width:760px;color:var(--muted);font-size:.9rem}
-    .calculator{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
-    .section-title{font-size:1.08rem;line-height:1.2;letter-spacing:-.035em;margin-bottom:4px}.section-description{color:var(--muted);font-size:.82rem;line-height:1.45;margin-bottom:14px}
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-    label{display:block;margin-bottom:4px;color:var(--muted);font-size:.72rem;font-weight:800}
-    input,select{width:100%;min-height:40px;background:var(--field);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:9px 10px;outline:none;font-size:.9rem}
-    input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
-    input[type="range"]{min-height:auto;padding:0;border:0;box-shadow:none;accent-color:var(--accent)}
-    .range-wrap{padding:10px;background:color-mix(in srgb,var(--panel-2) 66%,transparent);border:1px solid var(--border);border-radius:11px}
-    .range-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}.range-head label{margin:0}.range-value{color:var(--accent);font-size:.78rem;font-weight:900}
-    .room-list{display:grid;gap:10px;margin-top:14px}.room-row{padding:12px;background:color-mix(in srgb,var(--panel-2) 66%,transparent);border:1px solid var(--border);border-radius:13px}
-    .room-row-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.room-label{font-size:.9rem;font-weight:850}
-    .room-grid{display:grid;grid-template-columns:1.2fr repeat(8,minmax(90px,1fr));gap:8px;align-items:end}
-    .remove{width:38px;height:38px;padding:0;border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:10px;cursor:pointer;font-size:1rem;font-weight:900}.remove:hover{color:var(--danger);border-color:var(--danger)}
-    .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}button{border:0;cursor:pointer;border-radius:10px;padding:10px 13px;font-size:.86rem;font-weight:900;transition:.16s}button:hover{transform:translateY(-1px)}
-    .primary{background:var(--accent);color:#061018}.primary:hover{background:var(--accent-2)}.secondary{background:var(--panel-2);color:var(--text);border:1px solid var(--border)}.secondary:hover{border-color:var(--accent);color:var(--accent)}
-    .result{margin-top:14px;padding:14px;background:var(--panel-2);border:1px solid var(--border);border-radius:12px;color:var(--text);min-height:56px}.result:empty::before{content:"Your rent split will appear here.";color:var(--muted);font-weight:600}
-    .summary-line{color:var(--muted);font-size:.82rem;margin-bottom:12px}.result-table{width:100%;border-collapse:collapse;font-size:.86rem}.result-table th,.result-table td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}.result-table th{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em}.result-table tr:last-child td{border-bottom:0}.money-cell{font-weight:900;color:var(--accent);white-space:nowrap}.note{margin-top:12px;color:var(--muted);font-size:.8rem;line-height:1.45}
-    footer{padding:24px 6%;color:var(--muted);border-top:1px solid var(--border);font-size:.9rem;text-align:center}
-    @media(max-width:1050px){.room-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-    @media(max-width:780px){main{padding:34px 18px 26px}.page-shell{width:100%}h1{font-size:clamp(2rem,10vw,3rem)}.calculator{padding:15px}.grid,.grid.two,.room-grid{grid-template-columns:1fr}.btns button{flex:1 1 145px}.result{overflow-x:auto}}
-    @media(max-width:420px){.btns button{flex:1 1 100%}}
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0
+    }
+
+    :root{
+      --bg:#2f343c;
+      --panel:#3a4048;
+      --panel-2:#454c56;
+      --field:#505863;
+      --text:#f3f4f6;
+      --muted:#c6ccd4;
+      --border:#606977;
+      --accent:#7dd3fc;
+      --accent-2:#38bdf8;
+      --danger:#f87171;
+      --shadow:0 18px 50px rgba(0,0,0,.18);
+      --radius:16px
+    }
+
+    html[data-theme="light"]{
+      --bg:#f6f7f9;
+      --panel:#fff;
+      --panel-2:#f1f5f9;
+      --field:#fff;
+      --text:#111827;
+      --muted:#5e6b78;
+      --border:#dce3eb;
+      --accent:#0369a1;
+      --accent-2:#0284c7;
+      --danger:#b91c1c;
+      --shadow:0 18px 45px rgba(15,23,42,.08)
+    }
+
+    html{
+      scroll-behavior:smooth
+    }
+
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;
+      line-height:1.5
+    }
+
+    button,
+    input,
+    select{
+      font:inherit
+    }
+
+    main{
+      padding:42px 6% 32px
+    }
+
+    .content-layout{
+      width:min(100%,1180px);
+      display:grid;
+      grid-template-columns:minmax(0,800px) minmax(280px,1fr);
+      gap:34px;
+      align-items:start
+    }
+
+    .page-shell{
+      width:100%;
+      min-width:0
+    }
+
+    .ad-space{
+      min-height:600px
+    }
+
+    .hero{
+      margin-bottom:22px
+    }
+
+    h1{
+      max-width:780px;
+      font-size:clamp(2rem,5vw,3.55rem);
+      line-height:1.02;
+      letter-spacing:-.06em;
+      margin-bottom:12px
+    }
+
+    .hero p{
+      max-width:720px;
+      color:var(--muted);
+      font-size:.9rem
+    }
+
+    .calculator{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px
+    }
+
+    .section-title{
+      font-size:1.08rem;
+      line-height:1.2;
+      letter-spacing:-.035em;
+      margin-bottom:4px
+    }
+
+    .section-description{
+      color:var(--muted);
+      font-size:.82rem;
+      line-height:1.45;
+      margin-bottom:14px
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px
+    }
+
+    label{
+      display:block;
+      margin-bottom:4px;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800
+    }
+
+    input,
+    select{
+      width:100%;
+      min-height:42px;
+      background:var(--field);
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:9px 10px;
+      outline:none;
+      font-size:.9rem
+    }
+
+    input:focus,
+    select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)
+    }
+
+    .group-list{
+      display:grid;
+      gap:10px
+    }
+
+    .group-row{
+      padding:12px;
+      background:color-mix(in srgb,var(--panel-2) 66%,transparent);
+      border:1px solid var(--border);
+      border-radius:13px
+    }
+
+    .group-row-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px
+    }
+
+    .group-label{
+      font-size:.9rem;
+      font-weight:850
+    }
+
+    .group-grid{
+      display:grid;
+      grid-template-columns:1.4fr 1fr 1fr;
+      gap:8px;
+      align-items:end
+    }
+
+    .remove{
+      width:38px;
+      height:38px;
+      padding:0;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--muted);
+      border-radius:10px;
+      cursor:pointer;
+      font-size:1rem;
+      font-weight:900
+    }
+
+    .remove:hover{
+      color:var(--danger);
+      border-color:var(--danger)
+    }
+
+    .btns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px
+    }
+
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius:10px;
+      padding:10px 13px;
+      font-size:.86rem;
+      font-weight:900;
+      transition:.16s
+    }
+
+    button:hover{
+      transform:translateY(-1px)
+    }
+
+    .primary{
+      background:var(--accent);
+      color:#061018
+    }
+
+    .primary:hover{
+      background:var(--accent-2)
+    }
+
+    .secondary{
+      background:var(--panel-2);
+      color:var(--text);
+      border:1px solid var(--border)
+    }
+
+    .secondary:hover{
+      border-color:var(--accent);
+      color:var(--accent)
+    }
+
+    .result{
+      margin-top:14px;
+      padding:14px;
+      background:var(--panel-2);
+      border:1px solid var(--border);
+      border-radius:12px;
+      min-height:56px;
+      overflow-x:auto
+    }
+
+    .result:empty::before{
+      content:"Your rent split will appear here.";
+      color:var(--muted);
+      font-weight:600
+    }
+
+    .summary-line{
+      color:var(--muted);
+      font-size:.82rem;
+      margin-bottom:12px
+    }
+
+    .result-table{
+      width:100%;
+      min-width:680px;
+      border-collapse:collapse;
+      font-size:.86rem
+    }
+
+    .result-table th,
+    .result-table td{
+      padding:9px 8px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
+      vertical-align:top
+    }
+
+    .result-table th{
+      color:var(--muted);
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.04em
+    }
+
+    .result-table tr:last-child td{
+      border-bottom:0
+    }
+
+    .money-cell{
+      font-weight:900;
+      color:var(--accent);
+      white-space:nowrap
+    }
+
+    .note{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:.8rem;
+      line-height:1.45
+    }
+
+
+    .content-section{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+    .content-section h2{font-size:1.45rem;line-height:1.2;letter-spacing:-.035em;margin-bottom:10px}
+    .content-section h3{font-size:1.02rem;margin:18px 0 6px}
+    .content-section p{color:var(--muted);font-size:.9rem;margin-bottom:10px}
+    .content-section ul{margin:8px 0 10px 20px;color:var(--muted);font-size:.9rem}
+    .content-section li{margin-bottom:5px}
+    #faqs h2{
+      font-size:1.8rem;
+      margin-bottom:8px;
+      letter-spacing:-.03em
+    }
+
+    .faq-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:18px
+    }
+
+    .faq-item{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      transition:border-color .2s ease,background .2s ease
+    }
+
+    .faq-item:hover{
+      border-color:var(--accent)
+    }
+
+    .faq-item[open]{
+      background:var(--panel-2)
+    }
+
+    .faq-item summary{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      cursor:pointer;
+      list-style:none;
+      user-select:none;
+      padding:16px 20px;
+      font-size:1rem;
+      font-weight:750;
+      line-height:1.35;
+      color:var(--text)
+    }
+
+    .faq-item summary::-webkit-details-marker{
+      display:none
+    }
+
+    .faq-item summary::before{
+      content:"▶";
+      font-size:.82rem;
+      flex-shrink:0;
+      color:var(--text);
+      transition:transform .22s ease
+    }
+
+    .faq-item[open] summary::before{
+      transform:rotate(90deg)
+    }
+
+    .faq-item summary::after{
+      display:none
+    }
+
+.faq-answer{
+      padding:0 26px 24px 58px
+    }
+
+    .faq-answer p{
+      margin:0;
+      color:var(--muted);
+      font-size:.96rem;
+      line-height:1.75
+    }
+    footer{
+      padding:24px 6%;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      font-size:.9rem;
+      text-align:center
+    }
+
+    @media(max-width:900px){
+      .content-layout{
+        display:block;
+        width:100%
+      }
+
+      .ad-column{
+        display:none
+      }
+    }
+
+    @media(max-width:780px){
+      main{
+        padding:34px 18px 26px
+      }
+
+      h1{
+        font-size:clamp(2rem,10vw,3rem)
+      }
+
+      .calculator,
+      .content-section{
+        padding:15px
+      }
+
+      .grid,
+      .group-grid{
+        grid-template-columns:1fr
+      }
+
+      .btns button{
+        flex:1 1 145px
+      }
+
+      .faq-answer{
+        padding:0 16px 16px 40px
+      }
+
+      .faq-answer p{
+        font-size:.9rem
+      }
+
+
+      #faqs h2{
+        font-size:1.55rem
+      }
+
+      .faq-list{
+        gap:10px
+      }
+
+      .faq-item{
+        border-radius:14px
+      }
+
+      .faq-item summary{
+        padding:15px 16px;
+        gap:10px;
+        font-size:.95rem
+      }
+
+      .faq-item summary::before{
+        font-size:.76rem
+      }
+
+.faq-answer{
+        padding:0 18px 18px 44px
+      }
+
+      .faq-answer p{
+        font-size:.9rem;
+        line-height:1.65
+      }
+    }
+
+    @media(max-width:420px){
+      .btns button{
+        flex:1 1 100%
+      }
+    }
   </style>
 </head>
+
 <body>
   <div id="navbar-container"></div>
-<main>
-    <div class="page-shell">
-      <section class="hero">
-        <h1>Fair Rent Splitter</h1>
-        <p>Compare equal, weighted, and hybrid rent splits using room size, shared space, amenities, occupancy, work-from-home use, guest frequency, and custom weights.</p>
-      </section>
 
-      <section class="calculator">
-        <h2 class="section-title">1. Rent and split method</h2>
-        <p class="section-description">Choose how much of the rent should be divided equally and how much should reflect room differences.</p>
-        <div class="grid">
-          <div><label for="totalRent">Total monthly rent</label><input id="totalRent" inputmode="decimal" min="0" placeholder="3000" type="number"></div>
-          <div><label for="roommateCount">Number of rooms / roommate groups</label><input id="roommateCount" inputmode="numeric" min="1" max="12" value="3" type="number"></div>
-          <div><label for="splitMethod">Split method</label><select id="splitMethod" onchange="updateMethodVisibility()"><option value="equal">Equal split</option><option value="weighted" selected>Weighted split</option><option value="hybrid">Hybrid split</option></select></div>
-          <div><label for="sharedSpace">Total shared-space size</label><input id="sharedSpace" inputmode="decimal" min="0" placeholder="900" type="number"></div>
-          <div id="hybridField"><label for="equalPercent">Equal portion of hybrid split</label><input id="equalPercent" max="100" min="0" oninput="updateHybridLabel()" type="range" value="40"><div class="range-head"><span></span><span class="range-value" id="equalPercentValue">40% equal / 60% weighted</span></div></div>
-          <div><label for="currencySymbol">Currency symbol</label><select id="currencySymbol"><option value="$">$</option><option value="CA$">CA$</option><option value="US$">US$</option><option value="€">€</option><option value="£">£</option></select></div>
-        </div>
-      </section>
+  <main>
+    <div class="content-layout">
 
-      <section class="calculator">
-        <h2 class="section-title">2. Custom weight sliders</h2>
-        <p class="section-description">Increase a slider when that feature should have a stronger effect on the weighted portion of rent.</p>
-        <div class="grid two">
-          <div class="range-wrap"><div class="range-head"><label for="roomSizeWeight">Room size importance</label><span class="range-value" id="roomSizeWeightValue">100%</span></div><input id="roomSizeWeight" max="200" min="0" oninput="updateRangeValue(this)" type="range" value="100"></div>
-          <div class="range-wrap"><div class="range-head"><label for="sharedSpaceWeight">Shared-space importance</label><span class="range-value" id="sharedSpaceWeightValue">35%</span></div><input id="sharedSpaceWeight" max="200" min="0" oninput="updateRangeValue(this)" type="range" value="35"></div>
-          <div class="range-wrap"><div class="range-head"><label for="bathroomWeight">Private bathroom premium</label><span class="range-value" id="bathroomWeightValue">20%</span></div><input id="bathroomWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="20"></div>
-          <div class="range-wrap"><div class="range-head"><label for="balconyWeight">Balcony / patio premium</label><span class="range-value" id="balconyWeightValue">8%</span></div><input id="balconyWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="8"></div>
-          <div class="range-wrap"><div class="range-head"><label for="parkingWeight">Parking premium</label><span class="range-value" id="parkingWeightValue">12%</span></div><input id="parkingWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="12"></div>
-          <div class="range-wrap"><div class="range-head"><label for="storageWeight">Closet / storage premium</label><span class="range-value" id="storageWeightValue">6%</span></div><input id="storageWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="6"></div>
-          <div class="range-wrap"><div class="range-head"><label for="furnishedWeight">Furnished-room premium</label><span class="range-value" id="furnishedWeightValue">10%</span></div><input id="furnishedWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="10"></div>
-          <div class="range-wrap"><div class="range-head"><label for="wfhWeight">Work-from-home adjustment</label><span class="range-value" id="wfhWeightValue">5%</span></div><input id="wfhWeight" max="50" min="0" oninput="updateRangeValue(this)" type="range" value="5"></div>
-          <div class="range-wrap"><div class="range-head"><label for="guestWeight">Guest-frequency adjustment</label><span class="range-value" id="guestWeightValue">4%</span></div><input id="guestWeight" max="50" min="0" oninput="updateRangeValue(this)" type="range" value="4"></div>
-          <div class="range-wrap"><div class="range-head"><label for="occupancyWeight">Additional-occupant adjustment</label><span class="range-value" id="occupancyWeightValue">25%</span></div><input id="occupancyWeight" max="100" min="0" oninput="updateRangeValue(this)" type="range" value="25"></div>
-        </div>
-      </section>
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Fair Rent Split Calculator</h1>
+          <p>
+            Divide rent fairly between roommates, couples, and shared bedrooms using bedroom size and each person’s use of common space.
+          </p>
+        </section>
 
-      <section class="calculator">
-        <h2 class="section-title">3. Room details</h2>
-        <p class="section-description">Add one row per bedroom or roommate group. A couple sharing one room should use one row with two occupants.</p>
-        <div class="room-list" id="roomRows"></div>
-        <div class="btns">
-          <button class="secondary" onclick="addRoom()" type="button">Add Room</button>
-          <button class="secondary" onclick="syncRoomsFromCount()" type="button">Apply Room Count</button>
-          <button class="primary" onclick="calculateRent()" type="button">Calculate Fair Split</button>
-          <button class="secondary" onclick="copyResult()" type="button">Copy Result</button>
+        <section class="calculator">
+          <h2 class="section-title">1. Rent details</h2>
+          <p class="section-description">
+            Choose how much of the rent represents shared space and how that portion should be divided.
+          </p>
+
+          <div class="grid">
+            <div>
+              <label for="totalRent">Total monthly rent</label>
+              <input id="totalRent" inputmode="decimal" min="0" placeholder="4000" type="number">
+            </div>
+
+            <div>
+              <label for="currencySymbol">Currency symbol</label>
+              <select id="currencySymbol">
+                <option value="$">$</option>
+                <option value="CA$">CA$</option>
+                <option value="US$">US$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sizeUnit">Room-size measurement</label>
+              <select id="sizeUnit">
+                <option value="sq ft">Square feet (sq ft)</option>
+                <option value="m²">Square metres (m²)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="groupCount">Number of bedrooms</label>
+              <input id="groupCount" inputmode="numeric" min="1" max="12" value="4" type="number">
+            </div>
+
+            <div>
+              <label for="sharedPercent">Shared-space portion of rent</label>
+              <select id="sharedPercent">
+                <option value="30">30%</option>
+                <option value="40" selected>40%</option>
+                <option value="50">50%</option>
+                <option value="60">60%</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sharedMethod">Split shared-space rent</label>
+              <select id="sharedMethod">
+                <option value="person" selected>By person</option>
+                <option value="group">Equally by room / group</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Bedroom details</h2>
+          <p class="section-description">
+            Add one row for each bedroom. Choose “Couple” when two people share the room.
+          </p>
+
+          <div class="group-list" id="groupRows"></div>
+
+          <div class="btns">
+            <button class="secondary" onclick="addGroup()" type="button">Add Bedroom</button>
+            <button class="secondary" onclick="syncGroupsFromCount()" type="button">Apply Bedroom Count</button>
+            <button class="primary" onclick="calculateRent()" type="button">Calculate Rent Split</button>
+            <button class="secondary" onclick="copyResult()" type="button">Copy Result</button>
+          </div>
+
+          <div class="result" id="result"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Fair Rent Split Calculator</h2>
+          <p>The WellSplit Fair Rent Split Calculator is a free roommate rent calculator for homes with unequal bedrooms, couples sharing rooms, and different numbers of occupants. It separates monthly rent into a private-bedroom portion and a shared-space portion so the result reflects both room value and common-area use.</p>
+          <p>The private-bedroom portion is divided according to bedroom size. Larger rooms pay more of this portion and smaller rooms pay less. The shared-space portion represents areas such as the kitchen, living room, hallways, laundry area, and shared bathrooms. You can divide it by person or equally by bedroom.</p>
+          <h3>How to use this roommate rent calculator</h3>
+          <ul>
+            <li>Enter the total monthly rent and choose a currency.</li>
+            <li>Select square feet or square metres for all bedroom measurements.</li>
+            <li>Choose how much rent represents shared space.</li>
+            <li>Select whether shared-space rent is divided by person or bedroom.</li>
+            <li>Add each bedroom, choose Single or Couple, and enter its size.</li>
+            <li>Calculate each room total and each person’s monthly payment.</li>
+          </ul>
+          <p>This approach is useful for roommates with unequal rooms, couples living with single roommates, multiple couples and singles, and shared houses with different occupancy levels. The result is a practical starting point for a fair household agreement.</p>
+        </section>
+
+        <section class="content-section" id="faqs">
+          <h2>Fair Rent Split Calculator FAQs</h2>
+          <p>Find answers about splitting rent by room size, occupants, couples, and shared space.</p>
+          <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is a fair rent split calculator?</summary>
+            <div class="faq-answer"><p>A fair rent split calculator helps roommates divide monthly rent using bedroom size and the number of people sharing the home. It provides a clear room total and per-person payment.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How does this rent split calculator work?</summary>
+            <div class="faq-answer"><p>Enter the total rent, choose the shared-space percentage, and add each bedroom with its size and occupants. Private-room rent is divided by bedroom size, while shared-space rent is divided by person or equally by bedroom.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How should roommates split rent when rooms are different sizes?</summary>
+            <div class="faq-answer"><p>A practical method is to divide the private-bedroom portion in proportion to room size. Larger bedrooms pay more of that portion and smaller bedrooms pay less.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should rent be split by room or by person?</summary>
+            <div class="faq-answer"><p>Private bedroom value is usually divided by room. Shared areas such as the kitchen and living room can be divided by person. This calculator supports both person-based and room-based shared-space splits.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How do couples split rent with single roommates?</summary>
+            <div class="faq-answer"><p>Enter the couple as one bedroom group with two occupants. Their private-room share is based on bedroom size, and their shared-space share can account for two people using the common areas.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does a couple always pay more than a single roommate?</summary>
+            <div class="faq-answer"><p>Not always. A couple usually pays more shared-space rent when it is divided by person, but the final amount also depends on bedroom sizes and the chosen shared-space percentage.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What percentage of rent should be assigned to shared space?</summary>
+            <div class="faq-answer"><p>There is no universal rule. Many households choose between 30% and 60%, depending on how much of the home is shared and how important the common areas are.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What counts as shared space?</summary>
+            <div class="faq-answer"><p>Shared space normally includes the kitchen, living room, dining area, hallways, laundry area, and shared bathrooms.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use square feet or square metres?</summary>
+            <div class="faq-answer"><p>Yes. Either unit works because the calculation compares room-size proportions. Use the same measurement unit for every bedroom.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need exact bedroom measurements?</summary>
+            <div class="faq-answer"><p>Exact measurements give the most accurate result, but reasonable estimates can still help. Measure length and width and multiply them to find the room area.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How do I calculate bedroom square footage?</summary>
+            <div class="faq-answer"><p>For a rectangular room, multiply length by width. A 12-foot by 10-foot bedroom is 120 square feet.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How is the private-room portion calculated?</summary>
+            <div class="faq-answer"><p>The calculator adds all bedroom sizes, finds each room’s percentage of the total bedroom area, and assigns the same percentage of private-room rent.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How is shared-space rent calculated?</summary>
+            <div class="faq-answer"><p>When divided by person, each room group pays according to its occupants. When divided equally by bedroom, every bedroom group pays the same shared-space amount.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if two people share one bedroom?</summary>
+            <div class="faq-answer"><p>Choose Couple for that bedroom. The calculator treats the room as two occupants and shows both the group total and the amount per person.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can this calculator handle multiple couples and singles?</summary>
+            <div class="faq-answer"><p>Yes. Add one bedroom for each couple or single roommate. The calculator can handle several couples and singles in the same home.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use it for three or more roommates?</summary>
+            <div class="faq-answer"><p>Yes. Add the number of bedrooms needed and enter the correct occupancy type and room size for each one.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if all bedrooms are the same size?</summary>
+            <div class="faq-answer"><p>The private-room portion will be equal across bedrooms. The shared-space method and number of occupants may still create different final totals.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if one roommate has the largest bedroom?</summary>
+            <div class="faq-answer"><p>The largest bedroom pays the largest share of private-room rent. The difference depends on room size and the percentage assigned to private space.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does this calculator include utilities?</summary>
+            <div class="faq-answer"><p>No. It calculates rent only. Utilities can be split separately by person, usage, or another household agreement.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the calculated rent split legally binding?</summary>
+            <div class="faq-answer"><p>No. The result is an estimate for discussion. Roommates should agree to the final split and follow their lease and local rental rules.</p></div>
+          </details>
+          </div>
+        </section>
+      </div>
+
+      <aside class="ad-column" aria-label="Advertisement space">
+        <div class="ad-space">
+          <!-- Place your desktop AdSense ad code here. -->
         </div>
-        <div class="result" id="result"></div>
-      </section>
+      </aside>
+
     </div>
   </main>
-<script>
-    const guestFactors={never:0,occasional:.5,regular:1,frequent:2};
-    function money(value){const symbol=document.getElementById('currencySymbol').value;return symbol+Number(value||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
-    function getNumber(id){return parseFloat(document.getElementById(id).value)||0}
-    function updateRangeValue(input){document.getElementById(input.id+'Value').textContent=input.value+'%'}
-    function updateHybridLabel(){const equal=Number(document.getElementById('equalPercent').value);document.getElementById('equalPercentValue').textContent=equal+'% equal / '+(100-equal)+'% weighted'}
-    function updateMethodVisibility(){document.getElementById('hybridField').style.display=document.getElementById('splitMethod').value==='hybrid'?'block':'none'}
-    function roomTemplate(index){return `<div class="room-row"><div class="room-row-head"><span class="room-label">Room ${index}</span><button aria-label="Remove room" class="remove" onclick="removeRoom(this)" type="button">×</button></div><div class="room-grid"><div><label>Room / roommate name</label><input class="roomName" placeholder="Room ${index}" type="text"></div><div><label>Room size</label><input class="roomSize" inputmode="decimal" min="0" placeholder="150" type="number"></div><div><label>Occupants</label><input class="occupants" inputmode="numeric" min="1" value="1" type="number"></div><div><label>Private bathroom</label><select class="privateBathroom"><option value="0">No</option><option value="1">Yes</option></select></div><div><label>Balcony / patio</label><select class="balcony"><option value="0">No</option><option value="1">Yes</option></select></div><div><label>Parking</label><select class="parking"><option value="0">No</option><option value="1">Yes</option></select></div><div><label>Closet / storage</label><select class="storage"><option value="0">Standard</option><option value="0.5">Above average</option><option value="1">Large / private</option></select></div><div><label>Furnished</label><select class="furnished"><option value="0">No</option><option value="1">Yes</option></select></div><div><label>Works from home</label><select class="wfh"><option value="0">No</option><option value="0.5">Sometimes</option><option value="1">Regularly</option></select></div><div><label>Guest frequency</label><select class="guests"><option value="never">Never</option><option value="occasional">Occasional</option><option value="regular">Regular</option><option value="frequent">Frequent</option></select></div><div><label>Custom room weight</label><input class="customWeight" max="200" min="50" type="range" value="100"></div></div></div>`}
-    function refreshRoomLabels(){document.querySelectorAll('.room-row').forEach((row,index)=>row.querySelector('.room-label').textContent='Room '+(index+1));document.getElementById('roommateCount').value=document.querySelectorAll('.room-row').length}
-    function addRoom(){const container=document.getElementById('roomRows');container.insertAdjacentHTML('beforeend',roomTemplate(container.children.length+1));refreshRoomLabels()}
-    function removeRoom(button){const rows=document.querySelectorAll('.room-row');if(rows.length<=1){alert('Keep at least one room.');return}button.closest('.room-row').remove();refreshRoomLabels()}
-    function syncRoomsFromCount(){const requested=Math.min(Math.max(parseInt(document.getElementById('roommateCount').value)||1,1),12),container=document.getElementById('roomRows');while(container.children.length<requested)addRoom();while(container.children.length>requested)container.lastElementChild.remove();refreshRoomLabels()}
-    function collectRooms(){return [...document.querySelectorAll('.room-row')].map((row,index)=>({name:row.querySelector('.roomName').value.trim()||'Room '+(index+1),roomSize:parseFloat(row.querySelector('.roomSize').value)||0,occupants:Math.max(parseInt(row.querySelector('.occupants').value)||1,1),privateBathroom:Number(row.querySelector('.privateBathroom').value),balcony:Number(row.querySelector('.balcony').value),parking:Number(row.querySelector('.parking').value),storage:Number(row.querySelector('.storage').value),furnished:Number(row.querySelector('.furnished').value),wfh:Number(row.querySelector('.wfh').value),guests:guestFactors[row.querySelector('.guests').value]||0,customWeight:Number(row.querySelector('.customWeight').value)/100}))}
-    function calculateRent(){const rent=getNumber('totalRent'),sharedSpace=getNumber('sharedSpace'),method=document.getElementById('splitMethod').value,result=document.getElementById('result'),rooms=collectRooms();if(rent<=0){result.innerHTML='<p>Please enter a valid total rent amount.</p>';return}const totalOccupants=rooms.reduce((s,r)=>s+r.occupants,0),totalRoomSize=rooms.reduce((s,r)=>s+r.roomSize,0);if(method!=='equal'&&totalRoomSize<=0){result.innerHTML='<p>Please enter room sizes for a weighted or hybrid split.</p>';return}const weights={roomSize:getNumber('roomSizeWeight')/100,sharedSpace:getNumber('sharedSpaceWeight')/100,bathroom:getNumber('bathroomWeight')/100,balcony:getNumber('balconyWeight')/100,parking:getNumber('parkingWeight')/100,storage:getNumber('storageWeight')/100,furnished:getNumber('furnishedWeight')/100,wfh:getNumber('wfhWeight')/100,guest:getNumber('guestWeight')/100,occupancy:getNumber('occupancyWeight')/100},averageRoomSize=totalRoomSize>0?totalRoomSize/rooms.length:1,sharedSpacePerPerson=totalOccupants>0?sharedSpace/totalOccupants:0;rooms.forEach(room=>{const normalizedRoomSize=totalRoomSize>0?room.roomSize/averageRoomSize:1,roomComponent=normalizedRoomSize*weights.roomSize,sharedComponent=(sharedSpacePerPerson*room.occupants/Math.max(averageRoomSize,1))*weights.sharedSpace,featureMultiplier=1+room.privateBathroom*weights.bathroom+room.balcony*weights.balcony+room.parking*weights.parking+room.storage*weights.storage+room.furnished*weights.furnished+room.wfh*weights.wfh+room.guests*weights.guest+Math.max(room.occupants-1,0)*weights.occupancy;room.score=Math.max((roomComponent+sharedComponent)*featureMultiplier*room.customWeight,.0001)});const totalScore=rooms.reduce((s,r)=>s+r.score,0),equalRoomShare=rent/rooms.length,equalPercent=method==='equal'?100:method==='weighted'?0:Number(document.getElementById('equalPercent').value),equalRatio=equalPercent/100,weightedRatio=1-equalRatio;rooms.forEach(room=>{const weightedShare=rent*(room.score/totalScore);room.total=equalRoomShare*equalRatio+weightedShare*weightedRatio;room.perPerson=room.total/room.occupants;room.percent=room.total/rent*100});const methodLabel=method==='equal'?'Equal split':method==='weighted'?'Weighted split':`Hybrid split (${equalPercent}% equal / ${100-equalPercent}% weighted)`,rows=rooms.map(room=>`<tr><td>${escapeHtml(room.name)}</td><td>${room.occupants}</td><td>${room.roomSize.toLocaleString()}</td><td>${room.percent.toFixed(1)}%</td><td class="money-cell">${money(room.total)}</td><td>${money(room.perPerson)}</td></tr>`).join('');result.innerHTML=`<div class="summary-line">${methodLabel} · ${rooms.length} room groups · ${totalOccupants} total occupants</div><table class="result-table"><thead><tr><th>Room</th><th>Occupants</th><th>Room size</th><th>Rent share</th><th>Room total</th><th>Per person</th></tr></thead><tbody>${rows}</tbody></table><p class="note">Weighted results combine room size, each room's occupant-based share of common space, selected amenities, work-from-home use, guest frequency, occupancy, and the custom room slider. Use the sliders to match what your household considers fair.</p>`}
-    function escapeHtml(value){return String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')}
-    async function copyResult(){const result=document.getElementById('result');if(!result.innerText.trim()){alert('Calculate the rent split first.');return}try{await navigator.clipboard.writeText(result.innerText.trim());alert('Result copied.')}catch(error){const textarea=document.createElement('textarea');textarea.value=result.innerText.trim();document.body.appendChild(textarea);textarea.select();document.execCommand('copy');textarea.remove();alert('Result copied.')}}
-    syncRoomsFromCount();updateMethodVisibility();updateHybridLabel();
+
+  <script>
+    function money(value){
+      const symbol=document.getElementById('currencySymbol').value;
+
+      return symbol+Number(value||0).toLocaleString(undefined,{
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      });
+    }
+
+    function getNumber(id){
+      return parseFloat(document.getElementById(id).value)||0;
+    }
+
+    function groupTemplate(index){
+      return `
+        <div class="group-row">
+          <div class="group-row-head">
+            <span class="group-label">Room ${index}</span>
+
+            <button
+              aria-label="Remove room"
+              class="remove"
+              onclick="removeGroup(this)"
+              type="button"
+            >×</button>
+          </div>
+
+          <div class="group-grid">
+            <div>
+              <label>Room / roommate name</label>
+              <input class="groupName" placeholder="Room ${index}" type="text">
+            </div>
+
+            <div>
+              <label>Occupancy type</label>
+              <select class="groupType">
+                <option value="single">Single</option>
+                <option value="couple">Couple</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Room size</label>
+              <input
+                class="roomSize"
+                inputmode="decimal"
+                min="0"
+                placeholder="150"
+                type="number"
+              >
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function refreshGroupLabels(){
+      document.querySelectorAll('.group-row').forEach((row,index)=>{
+        row.querySelector('.group-label').textContent='Room '+(index+1);
+      });
+
+      document.getElementById('groupCount').value=
+        document.querySelectorAll('.group-row').length;
+    }
+
+    function addGroup(){
+      const container=document.getElementById('groupRows');
+
+      container.insertAdjacentHTML(
+        'beforeend',
+        groupTemplate(container.children.length+1)
+      );
+
+      refreshGroupLabels();
+    }
+
+    function removeGroup(button){
+      const rows=document.querySelectorAll('.group-row');
+
+      if(rows.length<=1){
+        alert('Keep at least one room.');
+        return;
+      }
+
+      button.closest('.group-row').remove();
+      refreshGroupLabels();
+    }
+
+    function syncGroupsFromCount(){
+      const requested=Math.min(
+        Math.max(parseInt(document.getElementById('groupCount').value)||1,1),
+        12
+      );
+
+      const container=document.getElementById('groupRows');
+
+      while(container.children.length<requested){
+        addGroup();
+      }
+
+      while(container.children.length>requested){
+        container.lastElementChild.remove();
+      }
+
+      refreshGroupLabels();
+    }
+
+    function collectGroups(){
+      return [...document.querySelectorAll('.group-row')].map((row,index)=>{
+        const type=row.querySelector('.groupType').value;
+
+        return {
+          name:row.querySelector('.groupName').value.trim()||'Room '+(index+1),
+          type,
+          occupants:type==='couple'?2:1,
+          roomSize:parseFloat(row.querySelector('.roomSize').value)||0
+        };
+      });
+    }
+
+    function calculateRent(){
+      const rent=getNumber('totalRent');
+      const result=document.getElementById('result');
+      const sizeUnit=document.getElementById('sizeUnit').value;
+      const groups=collectGroups();
+
+      if(rent<=0){
+        result.innerHTML='<p>Please enter a valid total rent amount.</p>';
+        return;
+      }
+
+      if(groups.some(group=>group.roomSize<=0)){
+        result.innerHTML='<p>Please enter a valid room size for every room.</p>';
+        return;
+      }
+
+      const sharedRatio=getNumber('sharedPercent')/100;
+      const privateRatio=1-sharedRatio;
+
+      const sharedRent=rent*sharedRatio;
+      const privateRent=rent*privateRatio;
+
+      const totalRoomSize=groups.reduce(
+        (sum,group)=>sum+group.roomSize,
+        0
+      );
+
+      const totalOccupants=groups.reduce(
+        (sum,group)=>sum+group.occupants,
+        0
+      );
+
+      const sharedMethod=document.getElementById('sharedMethod').value;
+
+      groups.forEach(group=>{
+        group.privateShare=
+          privateRent*(group.roomSize/totalRoomSize);
+
+        group.sharedShare=
+          sharedMethod==='person'
+            ? sharedRent*(group.occupants/totalOccupants)
+            : sharedRent/groups.length;
+
+        group.total=group.privateShare+group.sharedShare;
+        group.perPerson=group.total/group.occupants;
+        group.percent=(group.total/rent)*100;
+      });
+
+      const sharedMethodLabel=
+        sharedMethod==='person'
+          ? 'Shared-space rent split by person'
+          : 'Shared-space rent split equally by room / group';
+
+      const rows=groups.map(group=>`
+        <tr>
+          <td>${escapeHtml(group.name)}</td>
+          <td>${group.type==='couple'?'Couple':'Single'}</td>
+          <td>${group.occupants}</td>
+          <td>${formatNumber(group.roomSize)} ${sizeUnit}</td>
+          <td>${money(group.privateShare)}</td>
+          <td>${money(group.sharedShare)}</td>
+          <td class="money-cell">${money(group.total)}</td>
+          <td>${money(group.perPerson)}</td>
+        </tr>
+      `).join('');
+
+      result.innerHTML=`
+        <div class="summary-line">
+          ${groups.length} rooms ·
+          ${totalOccupants} people ·
+          ${Math.round(sharedRatio*100)}% shared-space rent ·
+          ${Math.round(privateRatio*100)}% private-room rent ·
+          ${sharedMethodLabel}
+        </div>
+
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Room / group</th>
+              <th>Type</th>
+              <th>People</th>
+              <th>Room size</th>
+              <th>Private-room share</th>
+              <th>Shared-space share</th>
+              <th>Group total</th>
+              <th>Per person</th>
+            </tr>
+          </thead>
+
+          <tbody>${rows}</tbody>
+        </table>
+
+        <p class="note">
+          The private-room portion is divided according to bedroom size.
+          The shared-space portion is divided by person or equally by room,
+          depending on the method selected. A couple's total is split equally
+          between both partners.
+        </p>
+      `;
+    }
+
+    function formatNumber(value){
+      return Number(value||0).toLocaleString(undefined,{
+        maximumFractionDigits:2
+      });
+    }
+
+    function escapeHtml(value){
+      return String(value)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    async function copyResult(){
+      const result=document.getElementById('result');
+
+      if(!result.innerText.trim()){
+        alert('Calculate the rent split first.');
+        return;
+      }
+
+      try{
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      }catch(error){
+        const textarea=document.createElement('textarea');
+
+        textarea.value=result.innerText.trim();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+
+        alert('Result copied.');
+      }
+    }
+
+    syncGroupsFromCount();
   </script>
 
   <div id="footer-container"></div>
 
   <script src="/components/shared.js"></script>
-  
 </body>
 </html>
