@@ -324,7 +324,313 @@
         flex:1 1 100%
       }
     }
+
+    .content-section{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px
+    }
+
+    .content-section h2{
+      font-size:1.45rem;
+      line-height:1.2;
+      letter-spacing:-.035em;
+      margin-bottom:10px
+    }
+
+    .content-section h3{
+      font-size:1.02rem;
+      margin:18px 0 6px
+    }
+
+    .content-section p{
+      color:var(--muted);
+      font-size:.9rem;
+      line-height:1.65;
+      margin-bottom:10px
+    }
+
+    .content-section ul{
+      margin:8px 0 10px 20px;
+      color:var(--muted);
+      font-size:.9rem
+    }
+
+    .content-section li{
+      margin-bottom:5px
+    }
+
+    #faqs h2{
+      font-size:1.55rem;
+      margin-bottom:8px;
+      letter-spacing:-.03em
+    }
+
+    .faq-list{
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+      margin-top:15px
+    }
+
+    .faq-item{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:13px;
+      overflow:hidden;
+      transition:border-color .2s ease,background .2s ease
+    }
+
+    .faq-item:hover{
+      border-color:var(--accent)
+    }
+
+    .faq-item[open]{
+      background:var(--panel-2)
+    }
+
+    .faq-item summary{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      cursor:pointer;
+      list-style:none;
+      user-select:none;
+      padding:12px 14px;
+      font-size:.9rem;
+      font-weight:750;
+      line-height:1.35;
+      color:var(--text)
+    }
+
+    .faq-item summary::-webkit-details-marker{
+      display:none
+    }
+
+    .faq-item summary::before{
+      content:"▶";
+      font-size:.7rem;
+      flex-shrink:0;
+      color:var(--text);
+      transition:transform .2s ease
+    }
+
+    .faq-item[open] summary::before{
+      transform:rotate(90deg)
+    }
+
+    .faq-answer{
+      padding:0 14px 13px 35px
+    }
+
+    .faq-answer p{
+      margin:0;
+      font-size:.83rem;
+      line-height:1.6;
+      color:var(--muted)
+    }
+
+    @media(max-width:780px){
+      .content-section{
+        padding:15px
+      }
+
+      #faqs h2{
+        font-size:1.4rem
+      }
+
+      .faq-list{
+        gap:8px
+      }
+
+      .faq-item summary{
+        padding:11px 13px;
+        font-size:.87rem
+      }
+
+      .faq-answer{
+        padding:0 13px 12px 33px
+      }
+
+      .faq-answer p{
+        font-size:.81rem
+      }
+    }
+
   </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How should a couple and one roommate split rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A practical method is to separate rent into a private-room portion and a shared-space portion. The private-room portion is divided by bedroom size, while the shared-space portion is divided using the method the household agrees on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should a couple pay more rent than a single roommate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually, yes, because two people use the kitchen, living room, bathroom, and other common areas. However, the exact amount should also reflect bedroom size and the chosen shared-space split."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does this couple and roommate rent calculator work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter the total rent, both bedroom sizes, the shared-space percentage, and the preferred shared-space split. The calculator then shows the couple's total, each partner's share, and the single roommate's payment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the private-room portion of rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The private-room portion represents the value of the bedrooms. It is divided according to the size of the couple's room and the single roommate's room."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the shared-space portion of rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The shared-space portion represents the kitchen, living room, hallways, laundry area, and shared bathrooms. It can be divided by person or according to another agreed ratio."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What percentage of rent should be assigned to shared space?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is no universal rule. Many households choose 30% to 60%, depending on how much of the home consists of common areas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does 'by person: couple pays 2/3' mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It means the couple is treated as two people and the single roommate as one person. The couple pays two-thirds of the shared-space rent, while the single roommate pays one-third."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does 'couple pays half' mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It means the shared-space rent is split equally between the couple as one group and the single roommate as the other group."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does 'couple pays 1/3' mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It means the couple pays one-third of the shared-space rent and the single roommate pays the remaining two-thirds."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When would a couple pay only one-third of shared-space rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That option may be used when the single roommate receives more common-area value or when the household has a special agreement. It is less common than splitting by person or equally by group."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the couple's private-room share calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The calculator compares the couple's bedroom size with the total size of both bedrooms and assigns the same proportion of the private-room rent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the single roommate's private-room share calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The single roommate's share is based on that bedroom's percentage of the combined bedroom area."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the couple's total divided between partners?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The calculator divides the couple's total equally between both partners."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use square feet or square metres?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Select square feet or square metres. Use the same measurement unit for both bedrooms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I measure a bedroom?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Measure the room's length and width, then multiply them. For example, a 12-foot by 10-foot room is 120 square feet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if both bedrooms are the same size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The private-room portion will be divided equally. The selected shared-space method will determine whether the final totals are equal or different."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the couple has the larger bedroom?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The couple will pay a larger share of the private-room portion because their bedroom represents more of the total private space."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator include utilities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It calculates monthly rent only. Utilities can be divided separately, often equally by person or according to usage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do the calculated payments add up to the full rent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The couple's total and the single roommate's total together equal the full monthly rent, subject only to minor display rounding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this rent split legally binding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The result is an estimate for household discussions. Everyone should agree to the final split and follow the lease and applicable rental rules."
+      }
+    }
+  ]
+}
+  </script>
+
 </head>
 
 <body>
@@ -408,6 +714,174 @@
           </div>
 
           <div class="result" id="result"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Couple + Single Roommate Rent Split Calculator</h2>
+
+          <p>
+            The WellSplit Couple + Single Roommate Rent Split Calculator helps three-person
+            households divide rent when two partners share one bedroom and a single roommate
+            occupies another. It accounts for both private bedroom size and each group's use
+            of shared areas.
+          </p>
+
+          <p>
+            The calculator separates monthly rent into a private-room portion and a
+            shared-space portion. The private-room amount is divided according to bedroom
+            size. The shared-space amount can be divided by person, split equally between
+            the couple and the single roommate, or assigned using a one-third couple share.
+          </p>
+
+          <h3>How to use this couple and roommate rent calculator</h3>
+
+          <ul>
+            <li>Enter the total monthly rent and choose a currency.</li>
+            <li>Select square feet or square metres for both room measurements.</li>
+            <li>Choose the percentage of rent assigned to shared space.</li>
+            <li>Enter the couple's bedroom size and the single roommate's bedroom size.</li>
+            <li>Select how the shared-space portion should be divided.</li>
+            <li>Calculate the couple's total, each partner's payment, and the single roommate's rent.</li>
+          </ul>
+
+          <p>
+            This method is useful when an equal three-way split would ignore bedroom
+            differences or when the household wants the couple's common-area usage reflected
+            in the result. The calculation provides a clear starting point, but everyone
+            should review and agree to the final rent arrangement.
+          </p>
+        </section>
+
+        <section class="content-section" id="faqs">
+          <h2>Couple + Single Roommate Rent Split FAQs</h2>
+
+          <p>
+            These answers cover common questions about splitting rent between a couple
+            sharing one room and a single roommate.
+          </p>
+
+          <div class="faq-list">
+          <details class="faq-item">
+            <summary>How should a couple and one roommate split rent?</summary>
+            <div class="faq-answer">
+              <p>A practical method is to separate rent into a private-room portion and a shared-space portion. The private-room portion is divided by bedroom size, while the shared-space portion is divided using the method the household agrees on.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Should a couple pay more rent than a single roommate?</summary>
+            <div class="faq-answer">
+              <p>Usually, yes, because two people use the kitchen, living room, bathroom, and other common areas. However, the exact amount should also reflect bedroom size and the chosen shared-space split.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How does this couple and roommate rent calculator work?</summary>
+            <div class="faq-answer">
+              <p>Enter the total rent, both bedroom sizes, the shared-space percentage, and the preferred shared-space split. The calculator then shows the couple's total, each partner's share, and the single roommate's payment.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What is the private-room portion of rent?</summary>
+            <div class="faq-answer">
+              <p>The private-room portion represents the value of the bedrooms. It is divided according to the size of the couple's room and the single roommate's room.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What is the shared-space portion of rent?</summary>
+            <div class="faq-answer">
+              <p>The shared-space portion represents the kitchen, living room, hallways, laundry area, and shared bathrooms. It can be divided by person or according to another agreed ratio.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What percentage of rent should be assigned to shared space?</summary>
+            <div class="faq-answer">
+              <p>There is no universal rule. Many households choose 30% to 60%, depending on how much of the home consists of common areas.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What does 'by person: couple pays 2/3' mean?</summary>
+            <div class="faq-answer">
+              <p>It means the couple is treated as two people and the single roommate as one person. The couple pays two-thirds of the shared-space rent, while the single roommate pays one-third.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What does 'couple pays half' mean?</summary>
+            <div class="faq-answer">
+              <p>It means the shared-space rent is split equally between the couple as one group and the single roommate as the other group.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What does 'couple pays 1/3' mean?</summary>
+            <div class="faq-answer">
+              <p>It means the couple pays one-third of the shared-space rent and the single roommate pays the remaining two-thirds.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>When would a couple pay only one-third of shared-space rent?</summary>
+            <div class="faq-answer">
+              <p>That option may be used when the single roommate receives more common-area value or when the household has a special agreement. It is less common than splitting by person or equally by group.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How is the couple's private-room share calculated?</summary>
+            <div class="faq-answer">
+              <p>The calculator compares the couple's bedroom size with the total size of both bedrooms and assigns the same proportion of the private-room rent.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How is the single roommate's private-room share calculated?</summary>
+            <div class="faq-answer">
+              <p>The single roommate's share is based on that bedroom's percentage of the combined bedroom area.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How is the couple's total divided between partners?</summary>
+            <div class="faq-answer">
+              <p>The calculator divides the couple's total equally between both partners.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use square feet or square metres?</summary>
+            <div class="faq-answer">
+              <p>Yes. Select square feet or square metres. Use the same measurement unit for both bedrooms.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How do I measure a bedroom?</summary>
+            <div class="faq-answer">
+              <p>Measure the room's length and width, then multiply them. For example, a 12-foot by 10-foot room is 120 square feet.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What if both bedrooms are the same size?</summary>
+            <div class="faq-answer">
+              <p>The private-room portion will be divided equally. The selected shared-space method will determine whether the final totals are equal or different.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What if the couple has the larger bedroom?</summary>
+            <div class="faq-answer">
+              <p>The couple will pay a larger share of the private-room portion because their bedroom represents more of the total private space.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Does this calculator include utilities?</summary>
+            <div class="faq-answer">
+              <p>No. It calculates monthly rent only. Utilities can be divided separately, often equally by person or according to usage.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Do the calculated payments add up to the full rent?</summary>
+            <div class="faq-answer">
+              <p>Yes. The couple's total and the single roommate's total together equal the full monthly rent, subject only to minor display rounding.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Is this rent split legally binding?</summary>
+            <div class="faq-answer">
+              <p>No. The result is an estimate for household discussions. Everyone should agree to the final split and follow the lease and applicable rental rules.</p>
+            </div>
+          </details>
+          </div>
         </section>
       </div>
 
