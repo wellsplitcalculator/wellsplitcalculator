@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Fair contribution calculator for couples with and without children. Account for childcare costs, income changes, and household responsibilities.">
+  <title>Child-Free vs With-Kids Contribution Calculator · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your fair contribution analysis will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-table {
+      width: 100%; min-width: 480px; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .result-table th, .result-table td {
+      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .68rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .result-card .highlight {
+      color: var(--green);
+      font-weight: 700;
+    }
+    .result-card .negative {
+      color: var(--danger);
+      font-weight: 700;
+    }
+    .child-tag {
+      display: inline-block;
+      background: color-mix(in srgb, var(--accent) 20%, transparent);
+      border-radius: 20px;
+      padding: 0 10px;
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .no-child-tag {
+      display: inline-block;
+      background: color-mix(in srgb, var(--green) 20%, transparent);
+      border-radius: 20px;
+      padding: 0 10px;
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .adjustment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .adjustment-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+    .adjustment-item .label {
+      font-size: .7rem;
+      color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .adjustment-item .value {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-top: 2px;
+    }
+    @media (max-width:600px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .adjustment-grid { grid-template-columns: 1fr 1fr; }
+      .result-card .amount { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Child-Free vs With-Kids Contribution Calculator</h1>
+          <p>Fairly divide household expenses when one partner has children. Account for childcare costs, income changes, and shared household responsibilities.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Household details</h2>
+          <p class="section-description">Tell us about your household structure and income.</p>
+          <div class="grid">
+            <div>
+              <label for="person1Name5">Partner 1 (Child-Free)</label>
+              <input id="person1Name5" type="text" placeholder="Alex" value="Alex">
+            </div>
+            <div>
+              <label for="person2Name5">Partner 2 (Has Children)</label>
+              <input id="person2Name5" type="text" placeholder="Jordan" value="Jordan">
+            </div>
+            <div>
+              <label for="person1Income5">Partner 1 monthly income</label>
+              <input id="person1Income5" type="number" inputmode="decimal" min="0" placeholder="4000" value="">
+            </div>
+            <div>
+              <label for="person2Income5">Partner 2 monthly income</label>
+              <input id="person2Income5" type="number" inputmode="decimal" min="0" placeholder="3500" value="">
+            </div>
+            <div>
+              <label for="currencySymbol5">Currency</label>
+              <select id="currencySymbol5">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+              </select>
+            </div>
+            <div>
+              <label for="numberOfChildren">Number of children</label>
+              <select id="numberOfChildren">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5+</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Monthly expenses</h2>
+          <p class="section-description">Enter your shared expenses and child-related costs.</p>
+          <div class="grid">
+            <div>
+              <label for="sharedRent">Shared rent / mortgage</label>
+              <input id="sharedRent" type="number" inputmode="decimal" min="0" placeholder="2000" value="">
+            </div>
+            <div>
+              <label for="sharedBills">Shared utilities &amp; bills</label>
+              <input id="sharedBills" type="number" inputmode="decimal" min="0" placeholder="400" value="">
+            </div>
+            <div>
+              <label for="childcareCosts">Monthly childcare costs</label>
+              <input id="childcareCosts" type="number" inputmode="decimal" min="0" placeholder="1200" value="">
+            </div>
+            <div>
+              <label for="childExtras">Child extras (activities, clothes, etc.)</label>
+              <input id="childExtras" type="number" inputmode="decimal" min="0" placeholder="300" value="">
+            </div>
+            <div>
+              <label for="childSupport">Child support received (optional)</label>
+              <input id="childSupport" type="number" inputmode="decimal" min="0" placeholder="500" value="0">
+            </div>
+            <div>
+              <label for="groceries">Groceries &amp; household supplies</label>
+              <input id="groceries" type="number" inputmode="decimal" min="0" placeholder="600" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">3. Contribution method</h2>
+          <p class="section-description">Choose how you want to split shared expenses.</p>
+          <div class="grid">
+            <div>
+              <label for="splitMethod5">Split method for shared expenses</label>
+              <select id="splitMethod5">
+                <option value="equal">Equal split (50/50)</option>
+                <option value="income">Proportional by income</option>
+                <option value="custom">Custom percentage</option>
+                <option value="fair">Fair method (child-adjusted)</option>
+              </select>
+            </div>
+            <div id="customPercentDiv5" style="display:none;">
+              <label for="customPercent5">Partner 1's share (%)</label>
+              <input id="customPercent5" type="number" min="0" max="100" placeholder="60" value="" step="1">
+            </div>
+            <div>
+              <label for="childCostSplit">How to split child costs</label>
+              <select id="childCostSplit">
+                <option value="parent">Parent covers all child costs</option>
+                <option value="shared">Split child costs proportionally</option>
+                <option value="equal_child">Split child costs equally</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculateChildSplit()" type="button">Calculate</button>
+            <button class="secondary" onclick="copyResult5()" type="button">Copy result</button>
+          </div>
+          <div class="result" id="result5"></div>
+        </section>
+
+        <section class="content-section" id="about5">
+          <h2>About the Child-Free vs With-Kids Contribution Calculator</h2>
+          <p>When one partner has children from a previous relationship, it can be challenging to divide household expenses fairly. This calculator helps couples navigate this sensitive topic by considering:</p>
+          <ul>
+            <li><strong>Childcare costs</strong> – Daycare, after-school care, etc.</li>
+            <li><strong>Child extras</strong> – Activities, clothing, school supplies</li>
+            <li><strong>Child support</strong> – Income received from other parent</li>
+            <li><strong>Shared expenses</strong> – Rent, utilities, groceries</li>
+            <li><strong>Income differences</strong> – Each partner's earning capacity</li>
+          </ul>
+          <h3>How to use this calculator</h3>
+          <ul>
+            <li>Enter each partner's income and household details.</li>
+            <li>Add all shared expenses and child-related costs.</li>
+            <li>Choose your preferred split method.</li>
+            <li>Calculate to see each partner's fair contribution.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs5">
+          <h2>Child-Free vs With-Kids FAQs</h2>
+          <p>Common questions about splitting expenses when one partner has children.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>Should the parent pay all child-related costs?</summary><div class="faq-answer"><p>Many couples choose this approach since the children are the parent's responsibility. However, some couples agree to share certain costs if the child-free partner chooses to take on a parental role. The calculator offers both options so you can compare.</p></div></details>
+            <details class="faq-item"><summary>What's the "fair method" for splitting expenses?</summary><div class="faq-answer"><p>The fair method adjusts shared expenses based on the number of people benefiting from them. For example, rent and utilities benefit everyone, while child costs benefit only the children and parent. This method ensures the child-free partner isn't subsidizing child-related costs.</p></div></details>
+            <details class="faq-item"><summary>Should groceries be split differently?</summary><div class="faq-answer"><p>Yes! Many couples split groceries based on the number of people consuming them. For example, if there are 4 people total (2 partners + 2 children), the child-free partner might pay 25% of groceries, or they might split food costs differently if the parent covers children's specific items.</p></div></details>
+            <details class="faq-item"><summary>Does the parent's child support count as income?</summary><div class="faq-answer"><p>Yes, child support should be included as income for the parent since it's used to cover child-related expenses. This provides a more accurate picture of the parent's financial situation and their ability to contribute to shared expenses.</p></div></details>
+            <details class="faq-item"><summary>What if the children live with us part-time?</summary><div class="faq-answer"><p>You can adjust the calculations by estimating the percentage of time children are present. For example, if they're there 50% of the time, you might split certain expenses (like groceries) at 50% of what they'd be if the children were there full-time. The calculator's numbers can be adjusted accordingly.</p></div></details>
+            <details class="faq-item"><summary>How do we handle housing costs?</summary><div class="faq-answer"><p>Housing costs like rent or mortgage typically benefit everyone living in the home. Some couples split housing costs equally, while others use proportional income splitting or adjust based on bedroom usage (e.g., children needing their own rooms). The calculator offers multiple methods.</p></div></details>
+            <details class="faq-item"><summary>Should the child-free partner contribute to childcare?</summary><div class="faq-answer"><p>This is a personal decision. Some child-free partners are happy to help with childcare costs, especially if they're taking on a parental role. Others prefer not to, viewing it as the parent's responsibility. The calculator helps you compare different approaches.</p></div></details>
+            <details class="faq-item"><summary>What about vacations and fun activities?</summary><div class="faq-answer"><p>This depends on your arrangement. Some couples include all family activities in shared expenses, others split based on who participates. For example, if only the parent and children go on a trip, the child-free partner might not pay. Clear communication is key.</p></div></details>
+            <details class="faq-item"><summary>How do we split utility bills?</summary><div class="faq-answer"><p>Utilities like electricity, water, and gas benefit everyone in the household. Many couples split them equally, use proportional income splitting, or adjust based on the number of people. The calculator lets you choose your preferred method.</p></div></details>
+            <details class="faq-item"><summary>What if the child-free partner works from home?</summary><div class="faq-answer"><p>Working from home may increase utility usage, which could affect how you split bills. Some couples adjust the utility split to account for this, while others keep it equal since the benefit of working from home (no commute costs) offsets the increased utility usage.</p></div></details>
+            <details class="faq-item"><summary>Should the child-free partner pay for children's food?</summary><div class="faq-answer"><p>This depends on how you handle groceries. Some couples split grocery costs based on the number of people eating, meaning the child-free partner pays a smaller share. Others keep food costs in the shared expenses category and split them equally or proportionally.</p></div></details>
+            <details class="faq-item"><summary>What if one partner earns significantly less?</summary><div class="faq-answer"><p>Proportional income splitting is particularly helpful when incomes are unequal. The higher earner contributes more to shared expenses, while the lower earner contributes less. This ensures both partners have similar disposable income percentages.</p></div></details>
+            <details class="faq-item"><summary>How do we handle extracurricular activities?</summary><div class="faq-answer"><p>These are typically child-related expenses that the parent covers. However, if the child-free partner enjoys participating in the activities or wants to support the children, they might choose to contribute. The calculator treats these as child extras.</p></div></details>
+            <details class="faq-item"><summary>What about school-related expenses?</summary><div class="faq-answer"><p>School supplies, field trips, and uniforms are usually child-related expenses. If the parent covers these, they're included in child extras. If you share these costs, you can use the shared child costs option in the calculator.</p></div></details>
+            <details class="faq-item"><summary>Should we include debt payments?</summary><div class="faq-answer"><p>This calculator focuses on monthly living expenses. Debt payments (student loans, credit cards) are typically individual responsibilities, though some couples choose to pay off debt together. You might want to exclude them from shared expenses.</p></div></details>
+            <details class="faq-item"><summary>What if the children's other parent contributes financially?</summary><div class="faq-answer"><p>Child support received from the other parent should be included as income for the parent. This money is specifically for child-related expenses and should be factored into the parent's ability to contribute to shared household expenses.</p></div></details>
+            <details class="faq-item"><summary>How often should we review our arrangement?</summary><div class="faq-answer"><p>Review your arrangement quarterly or whenever there's a change in income, living situation, or child-related expenses. Regular check-ins help prevent resentment and ensure the arrangement still works for everyone.</p></div></details>
+            <details class="faq-item"><summary>What if the child-free partner wants to contribute more?</summary><div class="faq-answer"><p>That's great! Some child-free partners genuinely enjoy being part of the family and want to contribute financially. The custom percentage method allows for this, and you can always manually adjust the numbers to reflect a more generous contribution.</p></div></details>
+            <details class="faq-item"><summary>Can this calculator handle multiple children?</summary><div class="faq-answer"><p>Yes! You can select the number of children, and the calculator adjusts the recommendations accordingly. The more children, the higher the child-related expenses, which affects the fair split.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe financial fairness in blended families is important and shouldn't cost money. The calculator is supported by ads to keep it accessible.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money5(value) {
+      const sym = document.getElementById('currencySymbol5').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber5(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- show/hide custom percent ----
+    document.getElementById('splitMethod5').addEventListener('change', function() {
+      document.getElementById('customPercentDiv5').style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+
+    // ---- main calculation ----
+    function calculateChildSplit() {
+      const p1Name = document.getElementById('person1Name5').value.trim() || 'Partner 1';
+      const p2Name = document.getElementById('person2Name5').value.trim() || 'Partner 2';
+      const p1Income = getNumber5('person1Income5');
+      const p2Income = getNumber5('person2Income5');
+      const totalIncome = p1Income + p2Income;
+
+      const rent = getNumber5('sharedRent');
+      const bills = getNumber5('sharedBills');
+      const groceries = getNumber5('groceries');
+      const childcare = getNumber5('childcareCosts');
+      const childExtras = getNumber5('childExtras');
+      const childSupport = getNumber5('childSupport');
+      const numChildren = parseInt(document.getElementById('numberOfChildren').value) || 2;
+
+      const totalShared = rent + bills + groceries;
+      const totalChildCosts = childcare + childExtras;
+      const totalExpenses = totalShared + totalChildCosts;
+
+      const splitMethod = document.getElementById('splitMethod5').value;
+      const childCostMethod = document.getElementById('childCostSplit').value;
+
+      // Effective income for p2 (including child support)
+      const p2Effective = p2Income + childSupport;
+      const totalEffective = p1Income + p2Effective;
+
+      if (totalExpenses <= 0) {
+        document.getElementById('result5').innerHTML = '<p>Please enter at least some expenses.</p>';
+        return;
+      }
+
+      // Calculate shared expense split
+      let p1SharedPct, p2SharedPct;
+      if (splitMethod === 'equal') {
+        p1SharedPct = 50;
+        p2SharedPct = 50;
+      } else if (splitMethod === 'custom') {
+        const customPct = getNumber5('customPercent5');
+        if (customPct <= 0 || customPct >= 100) {
+          document.getElementById('result5').innerHTML = '<p>Please enter a valid custom percentage (1-99).</p>';
+          return;
+        }
+        p1SharedPct = customPct;
+        p2SharedPct = 100 - customPct;
+      } else if (splitMethod === 'fair') {
+        // Fair method: adjust for children in shared expenses
+        // Children count as 0.5 person for shared expenses
+        const totalPeople = 2 + (numChildren * 0.5);
+        p1SharedPct = (1 / totalPeople) * 100;
+        p2SharedPct = ((1 + numChildren * 0.5) / totalPeople) * 100;
+      } else { // income
+        if (totalEffective <= 0) {
+          document.getElementById('result5').innerHTML = '<p>Please enter valid incomes for both partners.</p>';
+          return;
+        }
+        p1SharedPct = (p1Income / totalEffective) * 100;
+        p2SharedPct = (p2Effective / totalEffective) * 100;
+      }
+
+      // Child cost split
+      let p1ChildPct, p2ChildPct;
+      if (childCostMethod === 'parent') {
+        p1ChildPct = 0;
+        p2ChildPct = 100;
+      } else if (childCostMethod === 'equal_child') {
+        p1ChildPct = 50;
+        p2ChildPct = 50;
+      } else { // shared (proportional)
+        if (totalEffective <= 0) {
+          p1ChildPct = 50;
+          p2ChildPct = 50;
+        } else {
+          p1ChildPct = (p1Income / totalEffective) * 100;
+          p2ChildPct = (p2Effective / totalEffective) * 100;
+        }
+      }
+
+      // Calculate final contributions
+      const p1Shared = totalShared * (p1SharedPct / 100);
+      const p2Shared = totalShared * (p2SharedPct / 100);
+      const p1Child = totalChildCosts * (p1ChildPct / 100);
+      const p2Child = totalChildCosts * (p2ChildPct / 100);
+
+      const p1Total = p1Shared + p1Child;
+      const p2Total = p2Shared + p2Child;
+
+      const p1PctOfTotal = (p1Total / totalExpenses) * 100;
+      const p2PctOfTotal = (p2Total / totalExpenses) * 100;
+
+      // Remaining income after expenses
+      const p1Remaining = p1Income - p1Total;
+      const p2Remaining = p2Effective - p2Total;
+
+      const resultDiv = document.getElementById('result5');
+
+      let methodLabel = '';
+      if (splitMethod === 'equal') methodLabel = 'Equal split (50/50)';
+      else if (splitMethod === 'income') methodLabel = 'Proportional by income';
+      else if (splitMethod === 'custom') methodLabel = 'Custom percentage';
+      else methodLabel = 'Fair method (child-adjusted)';
+
+      let childLabel = '';
+      if (childCostMethod === 'parent') childLabel = 'Parent covers all child costs';
+      else if (childCostMethod === 'equal_child') childLabel = 'Child costs split equally';
+      else childLabel = 'Child costs split proportionally';
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          ${numChildren} child${numChildren > 1 ? 'ren' : ''} · 
+          Total expenses: ${money5(totalExpenses)} · 
+          Shared: ${money5(totalShared)} · 
+          Child costs: ${money5(totalChildCosts)}
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label"><span class="no-child-tag">CHILD-FREE</span> ${p1Name}</div>
+            <div class="amount">${money5(p1Total)}</div>
+            <div class="detail">${p1PctOfTotal.toFixed(1)}% of total expenses</div>
+            <div class="detail">Shared: ${money5(p1Shared)}</div>
+            <div class="detail">Child costs: ${money5(p1Child)}</div>
+            <div class="detail" style="color: ${p1Remaining > 0 ? 'var(--green)' : 'var(--danger)'};">
+              Remaining: ${money5(p1Remaining)}
+            </div>
+          </div>
+          <div class="result-card">
+            <div class="label"><span class="child-tag">WITH KIDS</span> ${p2Name}</div>
+            <div class="amount">${money5(p2Total)}</div>
+            <div class="detail">${p2PctOfTotal.toFixed(1)}% of total expenses</div>
+            <div class="detail">Shared: ${money5(p2Shared)}</div>
+            <div class="detail">Child costs: ${money5(p2Child)}</div>
+            <div class="detail" style="color: ${p2Remaining > 0 ? 'var(--green)' : 'var(--danger)'};">
+              Remaining: ${money5(p2Remaining)}
+            </div>
+          </div>
+        </div>
+
+        <div class="adjustment-grid">
+          <div class="adjustment-item">
+            <div class="label">Split method</div>
+            <div class="value" style="font-size: .8rem; font-weight: 600;">${methodLabel}</div>
+          </div>
+          <div class="adjustment-item">
+            <div class="label">Child costs</div>
+            <div class="value" style="font-size: .8rem; font-weight: 600;">${childLabel}</div>
+          </div>
+          <div class="adjustment-item">
+            <div class="label">Income balance</div>
+            <div class="value" style="font-size: .8rem; font-weight: 600; color: ${p1Remaining > p2Remaining ? 'var(--accent)' : 'var(--muted)'};">
+              ${p1Remaining > p2Remaining ? p1Name + ' has more left' : p2Name + ' has more left'}
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <strong>💡 Key insight:</strong>
+          ${p1Remaining > p2Remaining 
+            ? `${p1Name} has ${money5(p1Remaining - p2Remaining)} more remaining income after expenses. Consider adjusting contributions to achieve a more balanced financial outcome.`
+            : p2Remaining > p1Remaining
+              ? `${p2Name} has ${money5(p2Remaining - p1Remaining)} more remaining income after expenses. Consider adjusting contributions to achieve a more balanced financial outcome.`
+              : 'Both partners have equal remaining income — a perfectly balanced arrangement!'}
+        </div>
+
+        <p class="note">
+          <strong>How this works:</strong> The calculator separates shared expenses (rent, bills, groceries) from child-related costs (childcare, activities, etc.).
+          ${splitMethod === 'fair' ? 'The fair method adjusts shared expenses based on household size.' : ''}
+          ${childCostMethod === 'parent' ? 'Child costs are fully covered by the parent.' : childCostMethod === 'equal_child' ? 'Child costs are split equally between partners.' : 'Child costs are split proportionally by income.'}
+          <br><br>
+          <strong>Child support:</strong> ${childSupport > 0 ? `$${childSupport.toFixed(2)}/month is included in ${p2Name}'s effective income.` : 'No child support entered.'}
+        </p>
+      `;
+    }
+
+    async function copyResult5() {
+      const result = document.getElementById('result5');
+      if (!result.innerText.trim()) { alert('Calculate the split first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
