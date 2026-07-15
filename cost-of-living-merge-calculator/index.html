@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Cost-of-living merge calculator for couples moving in together. Compare current expenses, find savings, and plan your combined budget.">
+  <title>Cost-of-Living Merge Calculator for Couples · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .grid-person {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 10px;
+      background: color-mix(in srgb, var(--panel-2) 50%, transparent);
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .grid-person .person-label {
+      grid-column: 1 / -1;
+      font-weight: 700;
+      font-size: .85rem;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your cost-of-living merge analysis will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-table {
+      width: 100%; min-width: 520px; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .result-table th, .result-table td {
+      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .68rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .savings-cell { font-weight: 900; color: var(--green); white-space: nowrap; }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3, .grid-person { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .amount.savings {
+      color: var(--green);
+    }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+    }
+    .comparison-row:last-child { border-bottom: 0; }
+    .comparison-label { color: var(--muted); }
+    .comparison-current { font-weight: 600; }
+    .comparison-new { font-weight: 600; color: var(--accent); }
+    .comparison-savings { font-weight: 700; color: var(--green); }
+    @media (max-width:600px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .result-card .amount { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Cost-of-Living Merge Calculator</h1>
+          <p>See how much you'll save (or spend) when moving in together. Compare current expenses with your new combined budget.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Your current living situation</h2>
+          <p class="section-description">Enter each person's current monthly expenses before moving in together.</p>
+
+          <div class="grid-person">
+            <div class="person-label">🏠 Partner 1</div>
+            <div>
+              <label for="p1Rent">Rent / mortgage</label>
+              <input id="p1Rent" type="number" inputmode="decimal" min="0" placeholder="1200" value="">
+            </div>
+            <div>
+              <label for="p1Utilities">Utilities (electric, water, gas)</label>
+              <input id="p1Utilities" type="number" inputmode="decimal" min="0" placeholder="150" value="">
+            </div>
+            <div>
+              <label for="p1Internet">Internet &amp; phone</label>
+              <input id="p1Internet" type="number" inputmode="decimal" min="0" placeholder="80" value="">
+            </div>
+            <div>
+              <label for="p1Groceries">Groceries</label>
+              <input id="p1Groceries" type="number" inputmode="decimal" min="0" placeholder="400" value="">
+            </div>
+            <div>
+              <label for="p1Transport">Transportation</label>
+              <input id="p1Transport" type="number" inputmode="decimal" min="0" placeholder="200" value="">
+            </div>
+            <div>
+              <label for="p1Insurance">Insurance (renters/car)</label>
+              <input id="p1Insurance" type="number" inputmode="decimal" min="0" placeholder="100" value="">
+            </div>
+            <div>
+              <label for="p1Other">Other monthly expenses</label>
+              <input id="p1Other" type="number" inputmode="decimal" min="0" placeholder="150" value="">
+            </div>
+          </div>
+
+          <div class="grid-person">
+            <div class="person-label">🏠 Partner 2</div>
+            <div>
+              <label for="p2Rent">Rent / mortgage</label>
+              <input id="p2Rent" type="number" inputmode="decimal" min="0" placeholder="1000" value="">
+            </div>
+            <div>
+              <label for="p2Utilities">Utilities (electric, water, gas)</label>
+              <input id="p2Utilities" type="number" inputmode="decimal" min="0" placeholder="120" value="">
+            </div>
+            <div>
+              <label for="p2Internet">Internet &amp; phone</label>
+              <input id="p2Internet" type="number" inputmode="decimal" min="0" placeholder="60" value="">
+            </div>
+            <div>
+              <label for="p2Groceries">Groceries</label>
+              <input id="p2Groceries" type="number" inputmode="decimal" min="0" placeholder="350" value="">
+            </div>
+            <div>
+              <label for="p2Transport">Transportation</label>
+              <input id="p2Transport" type="number" inputmode="decimal" min="0" placeholder="150" value="">
+            </div>
+            <div>
+              <label for="p2Insurance">Insurance (renters/car)</label>
+              <input id="p2Insurance" type="number" inputmode="decimal" min="0" placeholder="80" value="">
+            </div>
+            <div>
+              <label for="p2Other">Other monthly expenses</label>
+              <input id="p2Other" type="number" inputmode="decimal" min="0" placeholder="100" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Your new shared living costs</h2>
+          <p class="section-description">Enter the estimated costs for your new shared home.</p>
+          <div class="grid">
+            <div>
+              <label for="newRent">New shared rent / mortgage</label>
+              <input id="newRent" type="number" inputmode="decimal" min="0" placeholder="1800" value="">
+            </div>
+            <div>
+              <label for="newUtilities">New shared utilities</label>
+              <input id="newUtilities" type="number" inputmode="decimal" min="0" placeholder="200" value="">
+            </div>
+            <div>
+              <label for="newInternet">New internet &amp; phone</label>
+              <input id="newInternet" type="number" inputmode="decimal" min="0" placeholder="100" value="">
+            </div>
+            <div>
+              <label for="newGroceries">New shared groceries</label>
+              <input id="newGroceries" type="number" inputmode="decimal" min="0" placeholder="500" value="">
+            </div>
+            <div>
+              <label for="newTransport">New combined transport</label>
+              <input id="newTransport" type="number" inputmode="decimal" min="0" placeholder="300" value="">
+            </div>
+            <div>
+              <label for="newInsurance">New combined insurance</label>
+              <input id="newInsurance" type="number" inputmode="decimal" min="0" placeholder="150" value="">
+            </div>
+            <div>
+              <label for="newOther">New other expenses</label>
+              <input id="newOther" type="number" inputmode="decimal" min="0" placeholder="200" value="">
+            </div>
+            <div>
+              <label for="newOneTime">One-time move-in costs (furniture, moving, etc.)</label>
+              <input id="newOneTime" type="number" inputmode="decimal" min="0" placeholder="2000" value="">
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="currencySymbol7">Currency</label>
+              <select id="currencySymbol7">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+              </select>
+            </div>
+            <div>
+              <label for="splitMethod7">How to split shared costs</label>
+              <select id="splitMethod7">
+                <option value="equal">Equal split (50/50)</option>
+                <option value="income">Proportional by income</option>
+                <option value="custom">Custom percentage</option>
+              </select>
+            </div>
+            <div id="customPercentDiv7" style="display:none;">
+              <label for="customPercent7">Partner 1's share (%)</label>
+              <input id="customPercent7" type="number" min="0" max="100" placeholder="60" value="" step="1">
+            </div>
+            <div>
+              <label for="p1Income7">Partner 1 monthly income</label>
+              <input id="p1Income7" type="number" inputmode="decimal" min="0" placeholder="4000" value="">
+            </div>
+            <div>
+              <label for="p2Income7">Partner 2 monthly income</label>
+              <input id="p2Income7" type="number" inputmode="decimal" min="0" placeholder="3000" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculateMerge()" type="button">Calculate</button>
+            <button class="secondary" onclick="copyResult7()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetMerge()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result7"></div>
+        </section>
+
+        <section class="content-section" id="about7">
+          <h2>About the Cost-of-Living Merge Calculator</h2>
+          <p>Moving in together is an exciting milestone, but it also means combining finances and figuring out your new cost of living. This calculator helps couples understand the financial impact of merging households — showing exactly how much you'll save (or spend) and helping you plan your new budget.</p>
+          <h3>How to use this merge calculator</h3>
+          <ul>
+            <li>Enter each person's current monthly expenses in their current living situation.</li>
+            <li>Enter the estimated costs for your new shared home.</li>
+            <li>Choose how to split the new costs (equal, by income, or custom).</li>
+            <li>Calculate to see your combined savings, new budget, and comparison.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs7">
+          <h2>Cost-of-Living Merge FAQs</h2>
+          <p>Common questions about combining finances when moving in together.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>How much do couples typically save when moving in together?</summary><div class="faq-answer"><p>Couples typically save 20-40% on monthly living expenses when moving in together. The savings come from sharing rent, utilities, internet, and groceries. This calculator shows your specific savings based on your current and new expenses.</p></div></details>
+            <details class="faq-item"><summary>What expenses are included in the merge calculation?</summary><div class="faq-answer"><p>The calculator includes rent/mortgage, utilities, internet/phone, groceries, transportation, insurance, and other monthly expenses. You can also add one-time move-in costs for a complete financial picture.</p></div></details>
+            <details class="faq-item"><summary>Should we split everything 50/50 when moving in together?</summary><div class="faq-answer"><p>Not necessarily. While 50/50 is common, many couples prefer proportional by income if there's a significant income gap. The calculator lets you compare different split methods to find what feels fair to both of you.</p></div></details>
+            <details class="faq-item"><summary>What about one-time moving costs?</summary><div class="faq-answer"><p>The calculator includes a field for one-time move-in costs like furniture, moving truck, deposits, and initial setup. These costs can be significant, so it's helpful to plan for them alongside your monthly budget.</p></div></details>
+            <details class="faq-item"><summary>How do we handle different spending habits?</summary><div class="faq-answer"><p>This calculator focuses on shared essential expenses. Personal discretionary spending (entertainment, shopping, hobbies) should be discussed separately. Many couples keep personal spending separate while sharing essential costs.</p></div></details>
+            <details class="faq-item"><summary>What if one person owns their current home?</summary><div class="faq-answer"><p>If one person owns their home, they might have a mortgage instead of rent. The calculator works the same way — just enter the mortgage amount instead of rent. The financial analysis still shows the impact of merging.</p></div></details>
+            <details class="faq-item"><summary>Should we include debt payments in the merge?</summary><div class="faq-answer"><p>This calculator focuses on living expenses. Personal debt payments (student loans, credit cards) are typically individual responsibilities and not included in shared expenses. You might want to discuss them separately as part of your overall financial plan.</p></div></details>
+            <details class="faq-item"><summary>What about pet expenses?</summary><div class="faq-answer"><p>If you have pets together, include pet-related costs (food, vet, insurance) in the "other expenses" category. If only one person has a pet, you might want to exclude it from shared costs or discuss how to handle it.</p></div></details>
+            <details class="faq-item"><summary>How do we handle groceries?</summary><div class="faq-answer"><p>Combined grocery expenses often decrease when moving in together because you can buy in bulk and reduce waste. The calculator shows this savings — many couples save 20-30% on groceries after merging.</p></div></details>
+            <details class="faq-item"><summary>What about transportation costs?</summary><div class="faq-answer"><p>Transportation costs may change when moving. You might be closer to work, share a car, or use public transit more. The calculator helps you compare current vs. new transportation expenses.</p></div></details>
+            <details class="faq-item"><summary>Should we combine bank accounts right away?</summary><div class="faq-answer"><p>Many couples keep separate accounts at first while sharing expenses. The calculator helps you determine fair contributions regardless of how you structure your accounts. Start with a shared expenses approach and consider combining accounts when you're both comfortable.</p></div></details>
+            <details class="faq-item"><summary>What if we have different incomes?</summary><div class="faq-answer"><p>Proportional by income is the fairest approach when incomes differ significantly. The higher earner contributes more to shared expenses, ensuring both partners have similar disposable income percentages after bills.</p></div></details>
+            <details class="faq-item"><summary>How do we handle someone moving into the other's place?</summary><div class="faq-answer"><p>If one person moves into the other's existing home, the new costs might be lower than both current costs combined. The person staying might have higher "new" costs since they're sharing their space, but overall the household saves money.</p></div></details>
+            <details class="faq-item"><summary>What about cost-of-living differences between cities?</summary><div class="faq-answer"><p>Moving to a different city can significantly change your cost of living. Adjust your new cost estimates based on the destination's cost of living. The calculator works for any location — just enter accurate estimates.</p></div></details>
+            <details class="faq-item"><summary>How often should we review our merged budget?</summary><div class="faq-answer"><p>Review your budget monthly for the first 3 months after moving in, then quarterly. Expenses may fluctuate as you settle in. Regular check-ins help you adjust and prevent financial stress.</p></div></details>
+            <details class="faq-item"><summary>What if we have different expectations about spending?</summary><div class="faq-answer"><p>Open communication is key. Use the calculator as a starting point for discussions about money. It helps you see the numbers objectively, which can reduce emotional tension around financial decisions.</p></div></details>
+            <details class="faq-item"><summary>Should we include savings goals in the budget?</summary><div class="faq-answer"><p>Yes! While not included in this calculator, it's important to discuss savings goals (emergency fund, vacation, down payment) separately. Many couples add a savings category to their shared budget.</p></div></details>
+            <details class="faq-item"><summary>What if one partner has children?</summary><div class="faq-answer"><p>Child-related expenses should be considered separately. Use our Child-Free vs With-Kids Contribution Calculator for a more detailed analysis of blended family finances.</p></div></details>
+            <details class="faq-item"><summary>How do we handle utilities?</summary><div class="faq-answer"><p>Utilities typically cost less per person when shared. Enter your current utility costs and your estimated new combined utility costs to see the savings. The calculator handles this comparison automatically.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe financial planning for couples should be accessible. The calculator is supported by ads to keep it free for everyone.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money7(value) {
+      const sym = document.getElementById('currencySymbol7').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber7(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- show/hide custom percent ----
+    document.getElementById('splitMethod7').addEventListener('change', function() {
+      document.getElementById('customPercentDiv7').style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+
+    // ---- main calculation ----
+    function calculateMerge() {
+      const p1Name = 'Partner 1';
+      const p2Name = 'Partner 2';
+
+      // Get current expenses
+      const p1Current = {
+        rent: getNumber7('p1Rent'),
+        utilities: getNumber7('p1Utilities'),
+        internet: getNumber7('p1Internet'),
+        groceries: getNumber7('p1Groceries'),
+        transport: getNumber7('p1Transport'),
+        insurance: getNumber7('p1Insurance'),
+        other: getNumber7('p1Other')
+      };
+      const p2Current = {
+        rent: getNumber7('p2Rent'),
+        utilities: getNumber7('p2Utilities'),
+        internet: getNumber7('p2Internet'),
+        groceries: getNumber7('p2Groceries'),
+        transport: getNumber7('p2Transport'),
+        insurance: getNumber7('p2Insurance'),
+        other: getNumber7('p2Other')
+      };
+
+      const p1Total = Object.values(p1Current).reduce((a, b) => a + b, 0);
+      const p2Total = Object.values(p2Current).reduce((a, b) => a + b, 0);
+      const currentCombined = p1Total + p2Total;
+
+      // Get new expenses
+      const newExpenses = {
+        rent: getNumber7('newRent'),
+        utilities: getNumber7('newUtilities'),
+        internet: getNumber7('newInternet'),
+        groceries: getNumber7('newGroceries'),
+        transport: getNumber7('newTransport'),
+        insurance: getNumber7('newInsurance'),
+        other: getNumber7('newOther')
+      };
+      const oneTime = getNumber7('newOneTime');
+      const newTotal = Object.values(newExpenses).reduce((a, b) => a + b, 0);
+
+      if (currentCombined <= 0 && newTotal <= 0) {
+        document.getElementById('result7').innerHTML = '<p>Please enter at least some expenses.</p>';
+        return;
+      }
+
+      // Split method
+      const method = document.getElementById('splitMethod7').value;
+      let p1Pct = 50;
+      let p2Pct = 50;
+
+      if (method === 'equal') {
+        p1Pct = 50;
+        p2Pct = 50;
+      } else if (method === 'custom') {
+        const customPct = getNumber7('customPercent7');
+        if (customPct <= 0 || customPct >= 100) {
+          document.getElementById('result7').innerHTML = '<p>Please enter a valid custom percentage (1-99).</p>';
+          return;
+        }
+        p1Pct = customPct;
+        p2Pct = 100 - customPct;
+      } else { // income
+        const p1Inc = getNumber7('p1Income7');
+        const p2Inc = getNumber7('p2Income7');
+        const total = p1Inc + p2Inc;
+        if (total <= 0) {
+          document.getElementById('result7').innerHTML = '<p>Please enter valid incomes for both partners.</p>';
+          return;
+        }
+        p1Pct = (p1Inc / total) * 100;
+        p2Pct = (p2Inc / total) * 100;
+      }
+
+      const p1NewShare = newTotal * (p1Pct / 100);
+      const p2NewShare = newTotal * (p2Pct / 100);
+
+      // Savings calculations
+      const p1Savings = p1Total - p1NewShare;
+      const p2Savings = p2Total - p2NewShare;
+      const totalSavings = currentCombined - newTotal;
+      const pctSavings = currentCombined > 0 ? (totalSavings / currentCombined) * 100 : 0;
+
+      // Per person daily savings (if moved in together)
+      const p1DailySavings = p1Savings / 30;
+      const p2DailySavings = p2Savings / 30;
+
+      // Build comparison table
+      const categories = [
+        { key: 'rent', label: 'Rent / Mortgage' },
+        { key: 'utilities', label: 'Utilities' },
+        { key: 'internet', label: 'Internet & Phone' },
+        { key: 'groceries', label: 'Groceries' },
+        { key: 'transport', label: 'Transportation' },
+        { key: 'insurance', label: 'Insurance' },
+        { key: 'other', label: 'Other Expenses' }
+      ];
+
+      let comparisonRows = categories.map(cat => {
+        const p1Cur = p1Current[cat.key] || 0;
+        const p2Cur = p2Current[cat.key] || 0;
+        const curTotal = p1Cur + p2Cur;
+        const newTotalCat = newExpenses[cat.key] || 0;
+        const savings = curTotal - newTotalCat;
+        return `
+          <div class="comparison-row">
+            <span class="comparison-label">${cat.label}</span>
+            <span class="comparison-current">${money7(curTotal)}</span>
+            <span class="comparison-new">${money7(newTotalCat)}</span>
+            <span class="comparison-savings">${savings >= 0 ? '+' : ''}${money7(savings)}</span>
+          </div>
+        `;
+      }).join('');
+
+      // Method label
+      const methodLabels = {
+        'equal': 'Equal split (50/50)',
+        'income': 'Proportional by income',
+        'custom': 'Custom percentage'
+      };
+
+      const resultDiv = document.getElementById('result7');
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          📊 Merge analysis · ${methodLabels[method] || 'Custom split'}
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">💰 Current combined</div>
+            <div class="amount">${money7(currentCombined)}</div>
+            <div class="detail">Per month</div>
+          </div>
+          <div class="result-card">
+            <div class="label">🏠 New combined</div>
+            <div class="amount">${money7(newTotal)}</div>
+            <div class="detail">Per month</div>
+          </div>
+          <div class="result-card">
+            <div class="label">✨ Monthly savings</div>
+            <div class="amount savings">${money7(totalSavings)}</div>
+            <div class="detail">${pctSavings.toFixed(1)}% reduction</div>
+          </div>
+        </div>
+
+        ${oneTime > 0 ? `
+          <div class="highlight-box" style="border-left-color: var(--orange); background: color-mix(in srgb, var(--orange) 15%, transparent);">
+            <strong>📦 One-time move-in costs:</strong> ${money7(oneTime)}
+            ${totalSavings > 0 ? ` · This would take ${Math.ceil(oneTime / Math.max(totalSavings, 1))} months of savings to recover.` : ''}
+          </div>
+        ` : ''}
+
+        <div class="result-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="result-card">
+            <div class="label">${p1Name} current</div>
+            <div class="amount">${money7(p1Total)}</div>
+            <div class="detail">New share: ${money7(p1NewShare)} (${p1Pct.toFixed(1)}%)</div>
+            <div class="detail" style="color: ${p1Savings >= 0 ? 'var(--green)' : 'var(--danger)'};">
+              ${p1Savings >= 0 ? 'Saves' : 'Spends extra'} ${money7(Math.abs(p1Savings))}/month
+            </div>
+            <div class="detail">${money7(Math.abs(p1Savings) / 30)}/day</div>
+          </div>
+          <div class="result-card">
+            <div class="label">${p2Name} current</div>
+            <div class="amount">${money7(p2Total)}</div>
+            <div class="detail">New share: ${money7(p2NewShare)} (${p2Pct.toFixed(1)}%)</div>
+            <div class="detail" style="color: ${p2Savings >= 0 ? 'var(--green)' : 'var(--danger)'};">
+              ${p2Savings >= 0 ? 'Saves' : 'Spends extra'} ${money7(Math.abs(p2Savings))}/month
+            </div>
+            <div class="detail">${money7(Math.abs(p2Savings) / 30)}/day</div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <strong>💡 Key insight:</strong>
+          ${totalSavings > 0 
+            ? `You'll save ${money7(totalSavings)} per month (${pctSavings.toFixed(0)}%) by living together! ${p1Savings >= 0 && p2Savings >= 0 ? 'Both partners benefit.' : p1Savings >= 0 ? p1Name + ' benefits more.' : p2Name + ' benefits more.'}`
+            : totalSavings < 0
+              ? `Your combined expenses increase by ${money7(Math.abs(totalSavings))} per month. Review if you can reduce costs or adjust expectations.`
+              : 'Your combined expenses stay the same. Consider if there are other benefits to living together.'}
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Expense comparison (current combined → new combined)</div>
+          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+            <span>Category</span>
+            <span>Current</span>
+            <span>New</span>
+            <span>Savings</span>
+          </div>
+          ${comparisonRows}
+        </div>
+
+        <p class="note">
+          <strong>Method:</strong> ${methodLabels[method] || 'Custom'}.
+          ${p1Pct > p2Pct ? `${p1Name} pays ${(p1Pct - p2Pct).toFixed(0)}% more of shared costs` : p2Pct > p1Pct ? `${p2Name} pays ${(p2Pct - p1Pct).toFixed(0)}% more of shared costs` : 'Both partners pay equally'}.
+          ${oneTime > 0 ? ` · One-time costs: ${money7(oneTime)}` : ''}
+        </p>
+      `;
+    }
+
+    function resetMerge() {
+      document.querySelectorAll('.calculator input[type="number"]').forEach(input => {
+        if (input.id !== 'numTravelers') {
+          input.value = '';
+        }
+      });
+      document.getElementById('result7').innerHTML = '';
+    }
+
+    async function copyResult7() {
+      const result = document.getElementById('result7');
+      if (!result.innerText.trim()) { alert('Calculate the merge first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
