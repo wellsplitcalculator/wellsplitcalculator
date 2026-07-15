@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Compare separate vs pooled finances for couples. See which approach works better for your relationship and financial goals.">
+  <title>Separate vs Pooled Finances Comparison Calculator · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+      --purple: #c4b5fd;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .grid-person {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 10px;
+      background: color-mix(in srgb, var(--panel-2) 50%, transparent);
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .grid-person .person-label {
+      grid-column: 1 / -1;
+      font-weight: 700;
+      font-size: .85rem;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your finance comparison results will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-table {
+      width: 100%; min-width: 520px; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .result-table th, .result-table td {
+      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .68rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .savings-cell { font-weight: 900; color: var(--green); white-space: nowrap; }
+    .purple-cell { font-weight: 900; color: var(--purple); white-space: nowrap; }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3, .grid-person { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .highlight-box.success {
+      background: color-mix(in srgb, var(--green) 15%, transparent);
+      border-left-color: var(--green);
+    }
+    .highlight-box.purple {
+      background: color-mix(in srgb, var(--purple) 15%, transparent);
+      border-left-color: var(--purple);
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .amount.success { color: var(--green); }
+    .result-card .amount.purple { color: var(--purple); }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+    }
+    .comparison-row:last-child { border-bottom: 0; }
+    .comparison-label { color: var(--muted); }
+    .comparison-value { font-weight: 600; }
+    .comparison-value.separate { color: var(--accent); }
+    .comparison-value.pooled { color: var(--purple); }
+    .comparison-value.better { color: var(--green); font-weight: 700; }
+    .method-tag {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .method-separate { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent); }
+    .method-pooled { background: color-mix(in srgb, var(--purple) 20%, transparent); color: var(--purple); }
+    .method-hybrid { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    @media (max-width:600px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .result-card .amount { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Separate vs Pooled Finances Comparison Calculator</h1>
+          <p>Compare two approaches to managing money as a couple. See which method leaves you with more savings and better financial health.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Your current financial setup</h2>
+          <p class="section-description">Enter each partner's income, expenses, and savings habits.</p>
+
+          <div class="grid-person">
+            <div class="person-label">👤 Partner 1</div>
+            <div>
+              <label for="p1Name9">Name</label>
+              <input id="p1Name9" type="text" placeholder="Alex" value="Alex">
+            </div>
+            <div>
+              <label for="p1Income9">Monthly income</label>
+              <input id="p1Income9" type="number" inputmode="decimal" min="0" placeholder="4000" value="">
+            </div>
+            <div>
+              <label for="p1SharedExp">Shared expenses paid</label>
+              <input id="p1SharedExp" type="number" inputmode="decimal" min="0" placeholder="1500" value="">
+            </div>
+            <div>
+              <label for="p1PersonalExp">Personal expenses</label>
+              <input id="p1PersonalExp" type="number" inputmode="decimal" min="0" placeholder="800" value="">
+            </div>
+            <div>
+              <label for="p1SavingsRate">Savings rate (%)</label>
+              <input id="p1SavingsRate" type="number" min="0" max="100" placeholder="20" value="" step="1">
+            </div>
+            <div>
+              <label for="p1Debt">Monthly debt payments</label>
+              <input id="p1Debt" type="number" inputmode="decimal" min="0" placeholder="300" value="">
+            </div>
+          </div>
+
+          <div class="grid-person">
+            <div class="person-label">👤 Partner 2</div>
+            <div>
+              <label for="p2Name9">Name</label>
+              <input id="p2Name9" type="text" placeholder="Jordan" value="Jordan">
+            </div>
+            <div>
+              <label for="p2Income9">Monthly income</label>
+              <input id="p2Income9" type="number" inputmode="decimal" min="0" placeholder="3500" value="">
+            </div>
+            <div>
+              <label for="p2SharedExp">Shared expenses paid</label>
+              <input id="p2SharedExp" type="number" inputmode="decimal" min="0" placeholder="1500" value="">
+            </div>
+            <div>
+              <label for="p2PersonalExp">Personal expenses</label>
+              <input id="p2PersonalExp" type="number" inputmode="decimal" min="0" placeholder="700" value="">
+            </div>
+            <div>
+              <label for="p2SavingsRate">Savings rate (%)</label>
+              <input id="p2SavingsRate" type="number" min="0" max="100" placeholder="15" value="" step="1">
+            </div>
+            <div>
+              <label for="p2Debt">Monthly debt payments</label>
+              <input id="p2Debt" type="number" inputmode="decimal" min="0" placeholder="200" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Currency &amp; comparison settings</h2>
+          <p class="section-description">Choose your currency and how to handle shared expenses.</p>
+          <div class="grid">
+            <div>
+              <label for="currencySymbol9">Currency</label>
+              <select id="currencySymbol9">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+                <option value="Mex$">Mex$ (MXN)</option>
+                <option value="₪">₪ (ILS)</option>
+              </select>
+            </div>
+            <div>
+              <label for="sharedTotal">Total shared expenses (if different from sum above)</label>
+              <input id="sharedTotal" type="number" inputmode="decimal" min="0" placeholder="3000" value="">
+            </div>
+            <div>
+              <label for="pooledSplitMethod">Pooled finances split method</label>
+              <select id="pooledSplitMethod">
+                <option value="equal">Equal split (50/50)</option>
+                <option value="income">Proportional by income</option>
+                <option value="needs">Needs-based (weighted)</option>
+              </select>
+            </div>
+            <div>
+              <label for="pooledSavingsRate">Pooled savings rate (%)</label>
+              <input id="pooledSavingsRate" type="number" min="0" max="100" placeholder="20" value="" step="1">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculateComparison()" type="button">Compare</button>
+            <button class="secondary" onclick="copyResult9()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetComparison()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result9"></div>
+        </section>
+
+        <section class="content-section" id="about9">
+          <h2>About the Separate vs Pooled Finances Comparison Calculator</h2>
+          <p>One of the biggest financial decisions couples face is whether to keep money separate or pool it together. This calculator helps you compare both approaches side-by-side so you can make an informed decision based on your specific situation.</p>
+          <h3>How to use this comparison calculator</h3>
+          <ul>
+            <li>Enter each partner's income, expenses, and savings habits.</li>
+            <li>Choose your currency and pooled split method.</li>
+            <li>Compare separate finances vs. fully pooled finances.</li>
+            <li>See which approach maximizes savings and financial fairness.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs9">
+          <h2>Separate vs Pooled Finances FAQs</h2>
+          <p>Common questions about managing money as a couple.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>What's the difference between separate and pooled finances?</summary><div class="faq-answer"><p>Separate finances means each partner keeps their own accounts and contributes to shared expenses individually. Pooled finances means all income goes into joint accounts, and all expenses are paid from the shared pool. Each approach has pros and cons depending on your relationship and financial situation.</p></div></details>
+            <details class="faq-item"><summary>Which is better: separate or pooled finances?</summary><div class="faq-answer"><p>There's no universal answer. Separate finances offer more independence and privacy, while pooled finances build trust and simplify budgeting. The best approach depends on your income levels, spending habits, relationship dynamics, and financial goals. This calculator helps you compare the numbers objectively.</p></div></details>
+            <details class="faq-item"><summary>Can we do a hybrid approach?</summary><div class="faq-answer"><p>Yes! Many couples use a hybrid: they have a joint account for shared expenses while keeping separate accounts for personal spending. This combines the benefits of both approaches — shared responsibility with individual independence. The calculator focuses on the two extremes but you can use the results to design your own hybrid.</p></div></details>
+            <details class="faq-item"><summary>How does income inequality affect the choice?</summary><div class="faq-answer"><p>When incomes are very different, pooled finances with proportional splitting tends to be fairer. The higher earner contributes more, and both partners have similar disposable income. Separate finances can leave the lower earner with less personal spending money, which may cause resentment.</p></div></details>
+            <details class="faq-item"><summary>What about debt — should it be separate or pooled?</summary><div class="faq-answer"><p>This depends on whether the debt is shared or individual. In pooled finances, all debts are often treated as shared. In separate finances, individual debts stay separate. The calculator shows how each approach affects disposable income and savings.</p></div></details>
+            <details class="faq-item"><summary>How do savings rates compare between approaches?</summary><div class="faq-answer"><p>The calculator compares savings rates. With separate finances, each partner saves individually. With pooled finances, savings come from the combined income after all expenses. The calculator shows which approach leads to higher total savings.</p></div></details>
+            <details class="faq-item"><summary>What's the "needs-based" split method?</summary><div class="faq-answer"><p>This method weights contributions based on each person's financial needs. For example, if one partner has significant debt or dependents, they contribute proportionally less to shared expenses. It's a compassionate approach that considers individual circumstances.</p></div></details>
+            <details class="faq-item"><summary>Does pooling finances affect credit scores?</summary><div class="faq-answer"><p>Simply pooling money in joint accounts doesn't affect credit scores. However, joint credit cards or loans will appear on both credit reports. The calculator focuses on budgeting, not credit reporting.</p></div></details>
+            <details class="faq-item"><summary>How do we handle unequal spending habits?</summary><div class="faq-answer"><p>This is a key consideration. The calculator shows how different spending habits affect each approach. With separate finances, you maintain control over your own spending. With pooled finances, you need to agree on spending rules. The results help you see the financial impact of each approach.</p></div></details>
+            <details class="faq-item"><summary>What if one partner is a spender and the other is a saver?</summary><div class="faq-answer"><p>This dynamic is common. The calculator shows how each approach affects total savings. Separate finances allow each partner to manage their own money, while pooled finances require compromise. The results help you see which approach better protects your shared savings goals.</p></div></details>
+            <details class="faq-item"><summary>Should we combine accounts before marriage?</summary><div class="faq-answer"><p>Many couples wait until marriage, but some combine accounts earlier. The calculator helps you compare approaches regardless of marital status. The key is open communication and agreement on how to handle money.</p></div></details>
+            <details class="faq-item"><summary>How do we handle gifts and personal purchases?</summary><div class="faq-answer"><p>With separate finances, gifts and personal purchases come from individual accounts. With pooled finances, you need to agree on rules — some couples have a "no-questions-asked" personal spending allowance. The calculator shows how each approach affects your overall budget.</p></div></details>
+            <details class="faq-item"><summary>What about retirement savings?</summary><div class="faq-answer"><p>Retirement savings can be individual or joint. The calculator shows savings rates for each approach. Many couples with pooled finances still maintain individual retirement accounts but contribute jointly. The results help you plan accordingly.</p></div></details>
+            <details class="faq-item"><summary>Can we switch between approaches later?</summary><div class="faq-answer"><p>Yes, many couples start with separate finances and move to pooled finances over time. The calculator helps you compare approaches at any stage. Regular financial check-ins are a great way to evaluate if your current system still works.</p></div></details>
+            <details class="faq-item"><summary>How does having children affect this choice?</summary><div class="faq-answer"><p>Children often make pooled finances more practical because of shared childcare and family expenses. However, some couples with children still keep separate finances. The calculator works for both situations — just enter your expenses accordingly.</p></div></details>
+            <details class="faq-item"><summary>What if we have different risk tolerances?</summary><div class="faq-answer"><p>This is a common difference. Separate finances allow each partner to manage investments according to their own risk tolerance. Pooled finances require compromise on investment decisions. The calculator focuses on budgeting, not investing, but the savings rate comparison is relevant.</p></div></details>
+            <details class="faq-item"><summary>How do we handle tax implications?</summary><div class="faq-answer"><p>Tax implications vary by country and marital status. The calculator focuses on monthly budgeting and savings. For tax advice, consult a professional. However, the savings rate comparison is still valid regardless of tax treatment.</p></div></details>
+            <details class="faq-item"><summary>What about financial infidelity concerns?</summary><div class="faq-answer"><p>Financial infidelity (hiding spending or debt) can damage trust. Pooled finances promote transparency, while separate finances require trust in each other's money management. The calculator helps you see the numbers, but building trust requires open communication beyond the numbers.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe helping couples make informed financial decisions is important and shouldn't cost money. The calculator is supported by ads to keep it accessible.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money9(value) {
+      const sym = document.getElementById('currencySymbol9').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber9(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- main calculation ----
+    function calculateComparison() {
+      const p1Name = document.getElementById('p1Name9').value.trim() || 'Partner 1';
+      const p2Name = document.getElementById('p2Name9').value.trim() || 'Partner 2';
+
+      const p1Income = getNumber9('p1Income9');
+      const p2Income = getNumber9('p2Income9');
+      const p1Shared = getNumber9('p1SharedExp');
+      const p2Shared = getNumber9('p2SharedExp');
+      const p1Personal = getNumber9('p1PersonalExp');
+      const p2Personal = getNumber9('p2PersonalExp');
+      const p1Debt = getNumber9('p1Debt');
+      const p2Debt = getNumber9('p2Debt');
+      const p1SavingsRate = getNumber9('p1SavingsRate') / 100;
+      const p2SavingsRate = getNumber9('p2SavingsRate') / 100;
+
+      const sharedTotal = getNumber9('sharedTotal') || (p1Shared + p2Shared);
+      const pooledSplit = document.getElementById('pooledSplitMethod').value;
+      const pooledSavingsRate = getNumber9('pooledSavingsRate') / 100;
+
+      const totalIncome = p1Income + p2Income;
+
+      if (totalIncome <= 0) {
+        document.getElementById('result9').innerHTML = '<p>Please enter valid incomes for both partners.</p>';
+        return;
+      }
+
+      // ---- Separate finances ----
+      const p1TotalExp = p1Shared + p1Personal + p1Debt;
+      const p2TotalExp = p2Shared + p2Personal + p2Debt;
+      const p1Remaining = p1Income - p1TotalExp;
+      const p2Remaining = p2Income - p2TotalExp;
+      const p1Savings = p1Remaining * p1SavingsRate;
+      const p2Savings = p2Remaining * p2SavingsRate;
+      const p1Disposable = p1Remaining - p1Savings;
+      const p2Disposable = p2Remaining - p2Savings;
+      const totalSeparateSavings = p1Savings + p2Savings;
+      const totalSeparateDisposable = p1Disposable + p2Disposable;
+
+      // ---- Pooled finances ----
+      let p1PooledShare, p2PooledShare;
+      if (pooledSplit === 'equal') {
+        p1PooledShare = 50;
+        p2PooledShare = 50;
+      } else if (pooledSplit === 'income') {
+        p1PooledShare = (p1Income / totalIncome) * 100;
+        p2PooledShare = (p2Income / totalIncome) * 100;
+      } else { // needs-based
+        // Weighted: lower income gets more favorable share
+        const avgIncome = totalIncome / 2;
+        const p1Weight = p1Income < avgIncome ? 1.2 : 0.8;
+        const p2Weight = p2Income < avgIncome ? 1.2 : 0.8;
+        const totalWeight = p1Weight + p2Weight;
+        p1PooledShare = (p1Weight / totalWeight) * 100;
+        p2PooledShare = (p2Weight / totalWeight) * 100;
+      }
+
+      const p1PooledExp = sharedTotal * (p1PooledShare / 100) + p1Personal + p1Debt;
+      const p2PooledExp = sharedTotal * (p2PooledShare / 100) + p2Personal + p2Debt;
+
+      // Pooled savings are taken from remaining income after expenses
+      const p1PooledRemaining = p1Income - p1PooledExp;
+      const p2PooledRemaining = p2Income - p2PooledExp;
+      const pooledCombinedRemaining = p1PooledRemaining + p2PooledRemaining;
+      const pooledSavings = pooledCombinedRemaining * pooledSavingsRate;
+      const pooledDisposable = pooledCombinedRemaining - pooledSavings;
+
+      // Per-person pooled disposable (split equally from remaining after savings)
+      const p1PooledDisposable = pooledDisposable / 2;
+      const p2PooledDisposable = pooledDisposable / 2;
+      const p1PooledSavings = pooledSavings / 2;
+      const p2PooledSavings = pooledSavings / 2;
+
+      // Compare savings
+      const savingsDiff = totalSeparateSavings - pooledSavings;
+      const betterMethod = savingsDiff > 0 ? 'Separate finances' : savingsDiff < 0 ? 'Pooled finances' : 'Equal';
+
+      const resultDiv = document.getElementById('result9');
+
+      // Method labels
+      const splitLabels = {
+        'equal': 'Equal split (50/50)',
+        'income': 'Proportional by income',
+        'needs': 'Needs-based (weighted)'
+      };
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          📊 Separate vs Pooled Finances Comparison · ${splitLabels[pooledSplit] || 'Custom'}
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">💰 Total income</div>
+            <div class="amount">${money9(totalIncome)}</div>
+            <div class="detail">${p1Name}: ${money9(p1Income)} · ${p2Name}: ${money9(p2Income)}</div>
+          </div>
+          <div class="result-card" style="border-color: var(--accent);">
+            <div class="label">🔹 Separate finances</div>
+            <div class="amount">${money9(totalSeparateSavings)}</div>
+            <div class="detail">Monthly savings</div>
+            <div class="detail">${p1Name}: ${money9(p1Savings)} · ${p2Name}: ${money9(p2Savings)}</div>
+          </div>
+          <div class="result-card" style="border-color: var(--purple);">
+            <div class="label">🔸 Pooled finances</div>
+            <div class="amount purple">${money9(pooledSavings)}</div>
+            <div class="detail">Monthly savings</div>
+            <div class="detail">${p1Name}: ${money9(p1PooledSavings)} · ${p2Name}: ${money9(p2PooledSavings)}</div>
+          </div>
+        </div>
+
+        <div class="highlight-box ${savingsDiff > 0 ? 'success' : savingsDiff < 0 ? 'purple' : ''}">
+          <strong>🏆 Winner:</strong> ${betterMethod} 
+          ${savingsDiff !== 0 ? `· ${money9(Math.abs(savingsDiff))} more per month (${((Math.abs(savingsDiff) / Math.max(totalSeparateSavings, pooledSavings, 1)) * 100).toFixed(0)}% better)` : '· Both approaches are equal'}
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Detailed comparison</div>
+          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+            <span>Category</span>
+            <span>Separate</span>
+            <span>Pooled</span>
+            <span>Difference</span>
+          </div>
+          <div class="comparison-row">
+            <span>${p1Name} remaining</span>
+            <span class="comparison-value separate">${money9(p1Remaining)}</span>
+            <span class="comparison-value pooled">${money9(p1PooledRemaining)}</span>
+            <span>${money9(p1Remaining - p1PooledRemaining)}</span>
+          </div>
+          <div class="comparison-row">
+            <span>${p2Name} remaining</span>
+            <span class="comparison-value separate">${money9(p2Remaining)}</span>
+            <span class="comparison-value pooled">${money9(p2PooledRemaining)}</span>
+            <span>${money9(p2Remaining - p2PooledRemaining)}</span>
+          </div>
+          <div class="comparison-row">
+            <span>Combined remaining</span>
+            <span class="comparison-value separate">${money9(p1Remaining + p2Remaining)}</span>
+            <span class="comparison-value pooled">${money9(p1PooledRemaining + p2PooledRemaining)}</span>
+            <span>${money9((p1Remaining + p2Remaining) - (p1PooledRemaining + p2PooledRemaining))}</span>
+          </div>
+          <div class="comparison-row" style="font-weight:700; border-top:1px solid var(--border);">
+            <span>Total monthly savings</span>
+            <span class="comparison-value separate" style="color: var(--accent);">${money9(totalSeparateSavings)}</span>
+            <span class="comparison-value pooled" style="color: var(--purple);">${money9(pooledSavings)}</span>
+            <span class="${savingsDiff > 0 ? 'comparison-value better' : savingsDiff < 0 ? 'comparison-value better' : ''}">
+              ${savingsDiff > 0 ? '👍' : savingsDiff < 0 ? '👍' : '='} ${money9(Math.abs(savingsDiff))}
+            </span>
+          </div>
+          <div class="comparison-row">
+            <span>${p1Name} disposable income</span>
+            <span class="comparison-value separate">${money9(p1Disposable)}</span>
+            <span class="comparison-value pooled">${money9(p1PooledDisposable)}</span>
+            <span>${money9(p1Disposable - p1PooledDisposable)}</span>
+          </div>
+          <div class="comparison-row">
+            <span>${p2Name} disposable income</span>
+            <span class="comparison-value separate">${money9(p2Disposable)}</span>
+            <span class="comparison-value pooled">${money9(p2PooledDisposable)}</span>
+            <span>${money9(p2Disposable - p2PooledDisposable)}</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="background: color-mix(in srgb, var(--accent) 10%, transparent); padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="font-weight:700; font-size:.8rem; color: var(--accent);">🔹 Separate finances</div>
+            <div style="font-size:.78rem; color: var(--muted); margin-top: 4px;">
+              ${p1Name} savings rate: ${(p1SavingsRate * 100).toFixed(0)}% · 
+              ${p2Name} savings rate: ${(p2SavingsRate * 100).toFixed(0)}%
+              <br>
+              ${p1Name} disposable: ${money9(p1Disposable)} · ${p2Name} disposable: ${money9(p2Disposable)}
+            </div>
+          </div>
+          <div style="background: color-mix(in srgb, var(--purple) 10%, transparent); padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="font-weight:700; font-size:.8rem; color: var(--purple);">🔸 Pooled finances</div>
+            <div style="font-size:.78rem; color: var(--muted); margin-top: 4px;">
+              Pooled savings rate: ${(pooledSavingsRate * 100).toFixed(0)}% · 
+              Split: ${splitLabels[pooledSplit] || 'Custom'}
+              <br>
+              ${p1Name} disposable: ${money9(p1PooledDisposable)} · ${p2Name} disposable: ${money9(p2PooledDisposable)}
+            </div>
+          </div>
+        </div>
+
+        <p class="note">
+          <strong>How to interpret:</strong> Separate finances show each partner's individual savings. Pooled finances show combined savings.
+          ${savingsDiff > 0 ? 'Separate finances leave more total savings.' : savingsDiff < 0 ? 'Pooled finances leave more total savings.' : 'Both approaches are equal for total savings.'}
+          <br><br>
+          <strong>Recommendation:</strong> 
+          ${savingsDiff > 0 
+            ? 'Consider keeping separate finances if independence is important to you, or use a hybrid with a joint account for shared expenses.' 
+            : savingsDiff < 0 
+              ? 'Consider pooling finances to maximize combined savings and build shared financial goals.' 
+              : 'Both approaches work — choose based on your relationship style and comfort level.'}
+          ${Math.abs(p1Disposable - p2Disposable) > 200 ? ` Note: ${p1Disposable > p2Disposable ? p1Name : p2Name} has significantly more disposable income in the separate approach, which may cause tension.` : ''}
+        </p>
+      `;
+    }
+
+    function resetComparison() {
+      document.querySelectorAll('.calculator input[type="number"]').forEach(input => {
+        input.value = '';
+      });
+      document.getElementById('result9').innerHTML = '';
+    }
+
+    async function copyResult9() {
+      const result = document.getElementById('result9');
+      if (!result.innerText.trim()) { alert('Run the comparison first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
