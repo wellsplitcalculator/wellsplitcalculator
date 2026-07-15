@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Shared pet cost calculator. Fairly split expenses for pets including food, vet care, grooming, and supplies.">
+  <title>Shared Pet Cost Calculator · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+      --purple: #c4b5fd;
+      --pink: #f9a8d4;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+      --pink: #db2777;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your pet cost split will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-table {
+      width: 100%; min-width: 520px; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .result-table th, .result-table td {
+      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .68rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .highlight-box.success {
+      background: color-mix(in srgb, var(--green) 15%, transparent);
+      border-left-color: var(--green);
+    }
+    .highlight-box.warning {
+      background: color-mix(in srgb, var(--orange) 15%, transparent);
+      border-left-color: var(--orange);
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .amount.surplus { color: var(--green); }
+    .result-card .amount.deficit { color: var(--orange); }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+    }
+    .comparison-row:last-child { border-bottom: 0; }
+    .comparison-label { color: var(--muted); }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .status-fair { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .status-partial { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .status-unfair { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
+    @media (max-width:600px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .result-card .amount { font-size: 1.3rem; }
+    }
+    .item-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      padding: 4px 0;
+    }
+    .item-row input[type="text"] { flex: 2; }
+    .item-row input[type="number"] { width: 100px; }
+    .item-row select { width: 120px; }
+    .item-row .remove-item {
+      background: transparent;
+      border: none;
+      color: var(--danger);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0 4px;
+    }
+    .item-row .remove-item:hover { transform: scale(1.2); }
+    .category-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .65rem;
+      font-weight: 700;
+    }
+    .cat-food { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .cat-vet { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
+    .cat-grooming { background: color-mix(in srgb, var(--purple) 20%, transparent); color: var(--purple); }
+    .cat-supplies { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent); }
+    .cat-meds { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .cat-other { background: color-mix(in srgb, var(--muted) 20%, transparent); color: var(--muted); }
+    .pet-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .65rem;
+      font-weight: 700;
+      background: color-mix(in srgb, var(--pink) 20%, transparent);
+      color: var(--pink);
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Shared Pet Cost Calculator</h1>
+          <p>Fairly split expenses for pets including food, vet care, grooming, supplies, and more. Perfect for couples and roommates sharing pet ownership.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Pet &amp; owner details</h2>
+          <p class="section-description">Tell us about your pets and who shares their care.</p>
+          <div class="grid">
+            <div>
+              <label for="p1Name17">Person 1 name</label>
+              <input id="p1Name17" type="text" placeholder="e.g. Alex" value="">
+            </div>
+            <div>
+              <label for="p2Name17">Person 2 name</label>
+              <input id="p2Name17" type="text" placeholder="e.g. Jordan" value="">
+            </div>
+            <div>
+              <label for="petName17">Pet's name</label>
+              <input id="petName17" type="text" placeholder="e.g. Max" value="">
+            </div>
+            <div>
+              <label for="petType17">Pet type</label>
+              <select id="petType17">
+                <option value="dog">🐕 Dog</option>
+                <option value="cat">🐈 Cat</option>
+                <option value="bird">🐦 Bird</option>
+                <option value="fish">🐟 Fish</option>
+                <option value="rabbit">🐰 Rabbit</option>
+                <option value="other">🐾 Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="p1Care17">Person 1 care percentage (%)</label>
+              <input id="p1Care17" type="number" min="0" max="100" placeholder="e.g. 50" value="" step="1">
+            </div>
+            <div>
+              <label for="p2Care17">Person 2 care percentage (%)</label>
+              <input id="p2Care17" type="number" min="0" max="100" placeholder="e.g. 50" value="" step="1">
+            </div>
+            <div>
+              <label for="currencySymbol17">Currency</label>
+              <select id="currencySymbol17">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top: 8px;">
+            <button class="secondary" onclick="addPet17()" type="button" style="font-size:.78rem;">+ Add Pet</button>
+          </div>
+          <div id="extraPets17"></div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Pet expenses</h2>
+          <p class="section-description">Add each pet expense with its cost, category, and who it's for.</p>
+          
+          <div style="margin-bottom: 8px;">
+            <button class="secondary" onclick="addPetItemTop17()" type="button" style="font-size:.78rem;">+ Add Expense (top)</button>
+            <button class="secondary" onclick="addSamplePetItems17()" type="button" style="font-size:.78rem;">📋 Add Sample Expenses</button>
+          </div>
+          
+          <div id="petItemList17">
+            <!-- Items will be added here dynamically -->
+          </div>
+
+          <div class="grid" style="margin-top: 8px;">
+            <div>
+              <label for="taxRate17">Tax rate (%)</label>
+              <input id="taxRate17" type="number" min="0" max="20" placeholder="e.g. 8" value="" step="0.1">
+            </div>
+            <div>
+              <label for="splitMethod17">Split method</label>
+              <select id="splitMethod17">
+                <option value="equal">Equal split (50/50)</option>
+                <option value="care">By care percentage</option>
+                <option value="income">Proportional by income</option>
+                <option value="custom">Custom percentage</option>
+              </select>
+            </div>
+            <div id="customPetDiv17" style="display:none;">
+              <label for="customPetPct17">Person 1's share (%)</label>
+              <input id="customPetPct17" type="number" min="0" max="100" placeholder="e.g. 60" value="" step="1">
+            </div>
+            <div>
+              <label for="p1Income17">Person 1 monthly income (for income-based split)</label>
+              <input id="p1Income17" type="number" inputmode="decimal" min="0" placeholder="e.g. 4000" value="">
+            </div>
+            <div>
+              <label for="p2Income17">Person 2 monthly income</label>
+              <input id="p2Income17" type="number" inputmode="decimal" min="0" placeholder="e.g. 3500" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculatePetCost()" type="button">Calculate Split</button>
+            <button class="secondary" onclick="copyResult17()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetPetCost()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result17"></div>
+        </section>
+
+        <section class="content-section" id="about17">
+          <h2>About the Shared Pet Cost Calculator</h2>
+          <p>Pets are family, but their costs can add up quickly. This calculator helps couples and roommates fairly split pet expenses including food, vet care, grooming, supplies, and more — accounting for who provides care and who can afford what.</p>
+          <h3>How to use this pet cost splitter</h3>
+          <ul>
+            <li>Add each pet and their owners with care percentages.</li>
+            <li>Add pet expenses with prices, categories, and who they're for.</li>
+            <li>Choose your split method (equal, by care, by income, or custom).</li>
+            <li>Add tax if applicable.</li>
+            <li>Calculate to see each person's fair share.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs17">
+          <h2>Shared Pet Cost FAQs</h2>
+          <p>Common questions about splitting pet expenses.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>What pet expenses should we split?</summary><div class="faq-answer"><p>Common shared pet expenses include food, treats, vet visits, vaccinations, medications, grooming, toys, beds, litter, waste bags, boarding/pet sitting, and pet insurance. The calculator covers all these categories.</p></div></details>
+            <details class="faq-item"><summary>How should we split pet costs if we share ownership?</summary><div class="faq-answer"><p>If you share ownership equally, an equal split works. If one person does more caregiving, the "By care percentage" method ensures fair division. The calculator also offers income-based splitting for couples with different earning capacities.</p></div></details>
+            <details class="faq-item"><summary>What if one person had the pet before the relationship?</summary><div class="faq-answer"><p>If one person owned the pet before, they might take primary responsibility for costs. However, if the other person shares care and benefits from the pet, a partial split may be fair. The calculator's custom percentage method lets you decide.</p></div></details>
+            <details class="faq-item"><summary>Should we include pet insurance in the split?</summary><div class="faq-answer"><p>Yes, pet insurance is a recurring cost that should be split if the pet is shared. The calculator includes it in the "Other" category or you can add it as a specific expense.</p></div></details>
+            <details class="faq-item"><summary>What about emergency vet visits?</summary><div class="faq-answer"><p>Emergency vet visits can be expensive. They should be split according to your agreed method. The calculator includes vet care as a category. Some couples also set up a shared pet emergency fund to cover unexpected costs.</p></div></details>
+            <details class="faq-item"><summary>How do we handle multiple pets?</summary><div class="faq-answer"><p>You can add each pet separately using the "Add Pet" button. Each pet can have different owners or care percentages. Expenses can be assigned to specific pets or shared across all pets.</p></div></details>
+            <details class="faq-item"><summary>What if one person does most of the caregiving?</summary><div class="faq-answer"><p>Use the "By care percentage" method. Enter the percentage of care each person provides (e.g., 70/30). The person who provides more care pays less of the costs, recognizing their time and effort.</p></div></details>
+            <details class="faq-item"><summary>Should we split annual costs (like vaccines) differently?</summary><div class="faq-answer"><p>Annual costs like vaccines and checkups can be added as one-time expenses and split according to your method. Some people prefer to divide annual costs by 12 and add them to monthly budgets.</p></div></details>
+            <details class="faq-item"><summary>What about pet-related damage or cleaning?</summary><div class="faq-answer"><p>Damage caused by pets (chewed furniture, carpet stains) can be handled case-by-case. The calculator focuses on regular pet expenses, but you can add cleaning supplies or repair costs as "Other" expenses.</p></div></details>
+            <details class="faq-item"><summary>How do we split costs for pet sitting when we travel?</summary><div class="faq-answer"><p>Pet sitting costs can be split based on your regular method. If one person travels more, they might contribute more. The calculator's custom percentage or income-based methods can account for this.</p></div></details>
+            <details class="faq-item"><summary>What if one partner is allergic but still shares the pet?</summary><div class="faq-answer"><p>This calculator focuses on financial costs, not health considerations. You might want to discuss additional costs like allergy medications separately. The standard split method can still apply to shared costs.</p></div></details>
+            <details class="faq-item"><summary>Should we include pet toys and enrichment?</summary><div class="faq-answer"><p>Yes, toys and enrichment items are part of pet care costs. They can be split like any other expense. The calculator's supplies category covers these items.</p></div></details>
+            <details class="faq-item"><summary>What about grooming costs?</summary><div class="faq-answer"><p>Grooming is an important pet expense, especially for dogs and cats. It's included as a separate category in the calculator. Some pets require more frequent grooming, which can be tracked by adding individual grooming appointments.</p></div></details>
+            <details class="faq-item"><summary>How do we handle dietary supplements or special food?</summary><div class="faq-answer"><p>Special food and supplements are included in the food category. If one pet has specific dietary needs, you can add those items separately and assign them to that pet.</p></div></details>
+            <details class="faq-item"><summary>What if we take turns buying pet supplies?</summary><div class="faq-answer"><p>If you take turns, you might want to track expenses over time to ensure fairness. The calculator can help you see if costs are balancing out, or you can use it for each shopping trip and settle up monthly.</p></div></details>
+            <details class="faq-item"><summary>Should we include pet registration and licensing fees?</summary><div class="faq-answer"><p>Yes, registration and licensing fees are annual costs that should be split. Add them as a one-time expense in the "Other" category.</p></div></details>
+            <details class="faq-item"><summary>What about the cost of pet supplies like litter boxes or crates?</summary><div class="faq-answer"><p>Initial setup costs (crates, beds, litter boxes, carriers) are one-time purchases. You can add them as separate expenses or include them in the "Supplies" category. The calculator handles both one-time and recurring costs.</p></div></details>
+            <details class="faq-item"><summary>How do we split costs if we have a joint pet account?</summary><div class="faq-answer"><p>If you have a joint account for pet expenses, you can use the calculator to determine each person's monthly contribution to the account. The calculator shows each person's share, which can be used to set up automatic transfers.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe fair pet cost sharing should be accessible to all pet parents. The calculator is supported by ads to keep it free.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money17(value) {
+      const sym = document.getElementById('currencySymbol17').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber17(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- extra pets ----
+    let petCount17 = 1;
+
+    function addPet17() {
+      petCount17++;
+      const container = document.getElementById('extraPets17');
+      const div = document.createElement('div');
+      div.className = 'grid';
+      div.id = 'epet' + petCount17;
+      div.style.marginTop = '8px';
+      div.style.padding = '8px';
+      div.style.borderTop = '1px solid var(--border)';
+      div.innerHTML = `
+        <div style="grid-column: 1 / -1; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:700; font-size:.85rem;">🐾 Pet ${petCount17}</span>
+          <button onclick="removePet17('epet${petCount17}')" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:.9rem;">✕</button>
+        </div>
+        <div>
+          <label>Pet name</label>
+          <input class="epName17" type="text" placeholder="e.g. Pet ${petCount17}" value="">
+        </div>
+        <div>
+          <label>Pet type</label>
+          <select class="epType17">
+            <option value="dog">🐕 Dog</option>
+            <option value="cat">🐈 Cat</option>
+            <option value="bird">🐦 Bird</option>
+            <option value="fish">🐟 Fish</option>
+            <option value="rabbit">🐰 Rabbit</option>
+            <option value="other">🐾 Other</option>
+          </select>
+        </div>
+        <div>
+          <label>Person 1 care %</label>
+          <input class="epCare117" type="number" min="0" max="100" placeholder="e.g. 50" value="" step="1">
+        </div>
+        <div>
+          <label>Person 2 care %</label>
+          <input class="epCare217" type="number" min="0" max="100" placeholder="e.g. 50" value="" step="1">
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function removePet17(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function collectPets17() {
+      const pets = [];
+      const p1 = document.getElementById('p1Name17').value.trim() || 'Person 1';
+      const p2 = document.getElementById('p2Name17').value.trim() || 'Person 2';
+      
+      pets.push({
+        name: document.getElementById('petName17').value.trim() || 'Pet 1',
+        type: document.getElementById('petType17').value,
+        care1: getNumber17('p1Care17') || 50,
+        care2: getNumber17('p2Care17') || 50
+      });
+      document.querySelectorAll('#extraPets17 .grid').forEach(el => {
+        const name = el.querySelector('.epName17').value.trim() || 'Pet';
+        const type = el.querySelector('.epType17').value;
+        const care1 = parseFloat(el.querySelector('.epCare117').value) || 50;
+        const care2 = parseFloat(el.querySelector('.epCare217').value) || 50;
+        pets.push({ name, type, care1, care2 });
+      });
+      return pets;
+    }
+
+    // ---- items ----
+    let petItemCount17 = 0;
+
+    function addPetItemTop17(name = '', price = 0, category = 'food', assigned = 'shared') {
+      petItemCount17++;
+      const container = document.getElementById('petItemList17');
+      const div = document.createElement('div');
+      div.className = 'item-row';
+      div.id = 'pitem' + petItemCount17;
+      const people = collectPeople17();
+      const pets = collectPets17();
+      div.innerHTML = `
+        <input class="pItemName17" type="text" placeholder="Item name" value="${name}">
+        <input class="pItemPrice17" type="number" inputmode="decimal" min="0" placeholder="Price" value="${price}" step="0.01">
+        <select class="pItemCategory17">
+          <option value="food" ${category === 'food' ? 'selected' : ''}>🍖 Food</option>
+          <option value="vet" ${category === 'vet' ? 'selected' : ''}>🏥 Vet</option>
+          <option value="grooming" ${category === 'grooming' ? 'selected' : ''}>✂️ Grooming</option>
+          <option value="supplies" ${category === 'supplies' ? 'selected' : ''}>🧸 Supplies</option>
+          <option value="meds" ${category === 'meds' ? 'selected' : ''}>💊 Medications</option>
+          <option value="other" ${category === 'other' ? 'selected' : ''}>📦 Other</option>
+        </select>
+        <select class="pItemAssigned17">
+          <option value="shared" ${assigned === 'shared' ? 'selected' : ''}>👥 Shared</option>
+          ${people.map(p => `<option value="${p}" ${assigned === p ? 'selected' : ''}>${p}</option>`).join('')}
+        </select>
+        <select class="pItemPet17">
+          ${pets.map(pet => `<option value="${pet.name}" ${assigned === pet.name ? 'selected' : ''}>🐾 ${pet.name}</option>`).join('')}
+          <option value="all_pets" selected>All pets</option>
+        </select>
+        <button class="remove-item" onclick="removePetItem17('pitem${petItemCount17}')">✕</button>
+      `;
+      container.insertBefore(div, container.firstChild);
+    }
+
+    function removePetItem17(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function collectPeople17() {
+      const p1 = document.getElementById('p1Name17').value.trim() || 'Person 1';
+      const p2 = document.getElementById('p2Name17').value.trim() || 'Person 2';
+      return [p1, p2];
+    }
+
+    function addSamplePetItems17() {
+      const samples = [
+        ['Premium dog food (bag)', 45.99, 'food', 'shared'],
+        ['Wet food cans (24 pack)', 28.99, 'food', 'shared'],
+        ['Annual vet checkup', 120.00, 'vet', 'shared'],
+        ['Vaccinations', 85.00, 'vet', 'shared'],
+        ['Flea & tick prevention', 45.00, 'meds', 'shared'],
+        ['Heartworm medication', 35.00, 'meds', 'shared'],
+        ['Grooming appointment', 60.00, 'grooming', 'shared'],
+        ['Dog toys (3 pack)', 24.99, 'supplies', 'shared'],
+        ['New dog bed', 55.00, 'supplies', 'shared'],
+        ['Poop bags (120ct)', 12.99, 'supplies', 'shared']
+      ];
+      const people = collectPeople17();
+      if (people.length >= 2) {
+        samples.push([`${people[0]}'s special treats`, 19.99, 'food', people[0]]);
+        samples.push([`${people[1]}'s grooming brush`, 14.99, 'supplies', people[1]]);
+      }
+      samples.reverse().forEach(([name, price, category, assigned]) => {
+        addPetItemTop17(name, price, category, assigned);
+      });
+    }
+
+    // ---- show/hide custom ----
+    document.getElementById('splitMethod17').addEventListener('change', function() {
+      document.getElementById('customPetDiv17').style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+
+    // ---- main calculation ----
+    function calculatePetCost() {
+      const p1Name = document.getElementById('p1Name17').value.trim() || 'Person 1';
+      const p2Name = document.getElementById('p2Name17').value.trim() || 'Person 2';
+      const pets = collectPets17();
+      const method = document.getElementById('splitMethod17').value;
+      const taxRate = getNumber17('taxRate17') / 100;
+      const p1Income = getNumber17('p1Income17');
+      const p2Income = getNumber17('p2Income17');
+      const totalIncome = p1Income + p2Income;
+
+      // Get items
+      const items = [];
+      document.querySelectorAll('#petItemList17 .item-row').forEach(el => {
+        const name = el.querySelector('.pItemName17').value.trim() || 'Item';
+        const price = parseFloat(el.querySelector('.pItemPrice17').value) || 0;
+        const category = el.querySelector('.pItemCategory17').value;
+        const assigned = el.querySelector('.pItemAssigned17').value;
+        const pet = el.querySelector('.pItemPet17').value;
+        if (price > 0) {
+          items.push({ name, price, category, assigned, pet });
+        }
+      });
+
+      if (items.length === 0) {
+        document.getElementById('result17').innerHTML = '<p>Please add at least one pet expense.</p>';
+        return;
+      }
+
+      if (pets.length === 0) {
+        document.getElementById('result17').innerHTML = '<p>Please add at least one pet.</p>';
+        return;
+      }
+
+      // Calculate totals
+      let subtotal = items.reduce((sum, item) => sum + item.price, 0);
+      const tax = subtotal * taxRate;
+      const total = subtotal + tax;
+
+      // Calculate split percentages
+      let p1Pct = 50;
+      let p2Pct = 50;
+      let methodLabel = '';
+
+      if (method === 'equal') {
+        p1Pct = 50;
+        p2Pct = 50;
+        methodLabel = 'Equal split (50/50)';
+      } else if (method === 'care') {
+        // Average care percentage across all pets
+        let totalCare1 = 0;
+        let totalCare2 = 0;
+        pets.forEach(pet => {
+          totalCare1 += pet.care1;
+          totalCare2 += pet.care2;
+        });
+        const avgCare1 = totalCare1 / pets.length;
+        const avgCare2 = totalCare2 / pets.length;
+        p1Pct = (100 * avgCare1) / (avgCare1 + avgCare2);
+        p2Pct = (100 * avgCare2) / (avgCare1 + avgCare2);
+        methodLabel = 'By care percentage';
+      } else if (method === 'income') {
+        if (totalIncome <= 0) {
+          document.getElementById('result17').innerHTML = '<p>Please enter valid incomes for both partners.</p>';
+          return;
+        }
+        p1Pct = (p1Income / totalIncome) * 100;
+        p2Pct = (p2Income / totalIncome) * 100;
+        methodLabel = 'Proportional by income';
+      } else { // custom
+        const customPct = getNumber17('customPetPct17');
+        if (customPct <= 0 || customPct >= 100) {
+          document.getElementById('result17').innerHTML = '<p>Please enter a valid custom percentage (1-99).</p>';
+          return;
+        }
+        p1Pct = customPct;
+        p2Pct = 100 - customPct;
+        methodLabel = 'Custom percentage';
+      }
+
+      const p1Total = total * (p1Pct / 100);
+      const p2Total = total * (p2Pct / 100);
+
+      // Build item breakdown
+      let itemRows = items.map(item => {
+        const catClass = `cat-${item.category}`;
+        const petDisplay = item.pet === 'all_pets' ? 'All pets' : '🐾 ' + item.pet;
+        return `
+          <div class="comparison-row">
+            <span class="comparison-label">${item.name}</span>
+            <span>${money17(item.price)}</span>
+            <span><span class="category-tag ${catClass}">${item.category}</span></span>
+            <span>${item.assigned === 'shared' ? '👥 Shared' : item.assigned}</span>
+            <span style="font-size:.7rem;">${petDisplay}</span>
+          </div>
+        `;
+      }).join('');
+
+      // Build pet summary
+      let petSummary = pets.map(pet => `
+        <span style="display:inline-block; background:color-mix(in srgb, var(--pink) 15%, transparent); padding:2px 12px; border-radius:12px; margin:2px; font-size:.75rem;">
+          🐾 ${pet.name} (${pet.type}) · Care: ${pet.care1.toFixed(0)}%/${pet.care2.toFixed(0)}%
+        </span>
+      `).join('');
+
+      const resultDiv = document.getElementById('result17');
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          🐾 Pet Cost Split · ${methodLabel} · ${pets.length} pet${pets.length > 1 ? 's' : ''} · ${items.length} expenses
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">📊 Subtotal</div>
+            <div class="amount">${money17(subtotal)}</div>
+            <div class="detail">${items.length} items</div>
+          </div>
+          <div class="result-card">
+            <div class="label">🧾 Tax</div>
+            <div class="amount" style="color: var(--orange);">${money17(tax)}</div>
+            <div class="detail">${(taxRate * 100).toFixed(0)}%</div>
+          </div>
+          <div class="result-card">
+            <div class="label">💰 Total pet costs</div>
+            <div class="amount">${money17(total)}</div>
+            <div class="detail">${p1Name}: ${p1Pct.toFixed(0)}% · ${p2Name}: ${p2Pct.toFixed(0)}%</div>
+          </div>
+        </div>
+
+        <div class="result-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="result-card" style="border-color: var(--accent);">
+            <div class="label">${p1Name}</div>
+            <div class="amount">${money17(p1Total)}</div>
+            <div class="detail">${p1Pct.toFixed(1)}% of total</div>
+            ${method === 'care' ? `<div class="detail">Avg care: ${(pets.reduce((sum, p) => sum + p.care1, 0) / pets.length).toFixed(0)}%</div>` : ''}
+            ${method === 'income' ? `<div class="detail">Income: ${money17(p1Income)}</div>` : ''}
+          </div>
+          <div class="result-card" style="border-color: var(--purple);">
+            <div class="label">${p2Name}</div>
+            <div class="amount" style="color: var(--purple);">${money17(p2Total)}</div>
+            <div class="detail">${p2Pct.toFixed(1)}% of total</div>
+            ${method === 'care' ? `<div class="detail">Avg care: ${(pets.reduce((sum, p) => sum + p.care2, 0) / pets.length).toFixed(0)}%</div>` : ''}
+            ${method === 'income' ? `<div class="detail">Income: ${money17(p2Income)}</div>` : ''}
+          </div>
+        </div>
+
+        <div style="margin: 8px 0; padding: 6px; background: color-mix(in srgb, var(--pink) 10%, transparent); border-radius: 8px;">
+          <div style="font-weight:700; font-size:.78rem; color: var(--pink);">🐾 Pets</div>
+          <div style="font-size:.78rem;">${petSummary}</div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Expense breakdown</div>
+          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+            <span>Item</span>
+            <span>Price</span>
+            <span>Category</span>
+            <span>Assigned to</span>
+            <span>Pet</span>
+          </div>
+          ${itemRows}
+        </div>
+
+        <p class="note">
+          <strong>How it works:</strong> 
+          ${method === 'equal' ? 'All pet costs are split equally between both partners.' : 
+            method === 'care' ? 'Costs are split based on the care percentage each person provides.' : 
+            method === 'income' ? 'Costs are split proportionally based on each person\'s income.' : 
+            'A custom percentage split has been applied.'}
+          ${taxRate > 0 ? ` Tax (${(taxRate * 100).toFixed(0)}%) is added to the total.` : ''}
+          <br><br>
+          <strong>Recommendation:</strong> 
+          ${Math.abs(p1Pct - p2Pct) < 10 
+            ? 'Your pet cost split is well-balanced. Consider reviewing it annually or when pet care needs change.' 
+            : `There's a significant difference in contributions (${Math.round(Math.abs(p1Pct - p2Pct))}%). Consider discussing if the current method reflects your agreement on pet ownership and care responsibilities.`}
+        </p>
+      `;
+    }
+
+    function resetPetCost() {
+      document.querySelectorAll('.calculator input[type="number"]').forEach(input => {
+        if (input.id !== 'splitMethod17' && input.id !== 'petType17') {
+          input.value = '';
+        }
+      });
+      document.querySelectorAll('#extraPets17 .grid').forEach(el => el.remove());
+      document.querySelectorAll('#petItemList17 .item-row').forEach(el => el.remove());
+      petCount17 = 1;
+      petItemCount17 = 0;
+      document.getElementById('result17').innerHTML = '';
+    }
+
+    async function copyResult17() {
+      const result = document.getElementById('result17');
+      if (!result.innerText.trim()) { alert('Calculate the pet cost split first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+
+    // Initialize with sample items
+    document.addEventListener('DOMContentLoaded', function() {
+      addSamplePetItems17();
+    });
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
