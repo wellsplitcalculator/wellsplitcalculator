@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Fair personal spending allowance calculator for couples. Split shared income into personal guilt-free money, joint bills, and savings.">
+  <title>Personal Spending Allowance for Couples · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 800px) minmax(280px, 1fr);
+      gap: 34px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 22px; }
+    h1 {
+      max-width: 780px; font-size: clamp(2rem, 5vw, 3.55rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 12px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .9rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px;
+      box-shadow: var(--shadow); margin-bottom: 16px;
+    }
+    .section-title { font-size: 1.08rem; letter-spacing: -.035em; margin-bottom: 4px; }
+    .section-description {
+      color: var(--muted); font-size: .82rem;
+      line-height: 1.45; margin-bottom: 14px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    label {
+      display: block; margin-bottom: 4px; color: var(--muted);
+      font-size: .72rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 42px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 9px 10px; outline: none;
+      font-size: .9rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .group-list { display: grid; gap: 10px; }
+    .group-row {
+      padding: 12px; background: color-mix(in srgb, var(--panel-2) 66%, transparent);
+      border: 1px solid var(--border); border-radius: 13px;
+    }
+    .group-row-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 10px;
+    }
+    .group-label { font-size: .9rem; font-weight: 850; }
+    .group-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 8px; align-items: end;
+    }
+    .remove {
+      width: 38px; height: 38px; padding: 0;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--muted); border-radius: 10px; cursor: pointer;
+      font-size: 1rem; font-weight: 900;
+    }
+    .remove:hover { color: var(--danger); border-color: var(--danger); }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 10px 13px; font-size: .86rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .result {
+      margin-top: 14px; padding: 14px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 56px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your personal spending plan will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .82rem; margin-bottom: 12px;
+    }
+    .result-table {
+      width: 100%; min-width: 580px; border-collapse: collapse;
+      font-size: .86rem;
+    }
+    .result-table th, .result-table td {
+      padding: 9px 8px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .72rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .note {
+      margin-top: 12px; color: var(--muted); font-size: .8rem;
+      line-height: 1.45;
+    }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px;
+      box-shadow: var(--shadow); margin-bottom: 16px;
+    }
+    .content-section h2 { font-size: 1.45rem; letter-spacing: -.035em; margin-bottom: 10px; }
+    .content-section h3 { font-size: 1.02rem; margin: 18px 0 6px; }
+    .content-section p { color: var(--muted); font-size: .9rem; margin-bottom: 10px; }
+    .content-section ul { margin: 8px 0 10px 20px; color: var(--muted); font-size: .9rem; }
+    .content-section li { margin-bottom: 5px; }
+    #faqs h2 { font-size: 1.8rem; margin-bottom: 8px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 12px; cursor: pointer;
+      list-style: none; user-select: none; padding: 16px 20px;
+      font-size: 1rem; font-weight: 750; line-height: 1.35; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .82rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 26px 24px 58px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .96rem; line-height: 1.75; }
+    footer { padding: 24px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .9rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 34px 18px 26px; }
+      h1 { font-size: clamp(2rem, 10vw, 3rem); }
+      .calculator, .content-section { padding: 15px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 145px; }
+      .faq-answer { padding: 0 16px 16px 40px; }
+      .faq-answer p { font-size: .9rem; }
+      #faqs h2 { font-size: 1.55rem; }
+      .faq-list { gap: 10px; }
+      .faq-item { border-radius: 14px; }
+      .faq-item summary { padding: 15px 16px; gap: 10px; font-size: .95rem; }
+      .faq-item summary::before { font-size: .76rem; }
+      .faq-answer { padding: 0 18px 18px 44px; }
+      .faq-answer p { font-size: .9rem; line-height: 1.65; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .mode-selector {
+      display: flex; gap: 8px; align-items: center;
+    }
+    .mode-selector select {
+      flex: 0 0 70px;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Personal Spending Allowance for Couples</h1>
+          <p>Stop fighting over money. Split your combined income into joint bills, shared savings, and equal personal spending — guilt‑free.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Income &amp; priorities</h2>
+          <p class="section-description">Enter your combined monthly take‑home pay and choose how much goes to shared expenses, savings, and personal allowance.</p>
+          <div class="grid">
+            <div>
+              <label for="totalIncome">Combined monthly income (after tax)</label>
+              <input id="totalIncome" type="number" inputmode="decimal" min="0" placeholder="6000" value="">
+            </div>
+            <div>
+              <label for="currencySymbol2">Currency</label>
+              <select id="currencySymbol2">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="R$">R$ (BRL)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="₪">₪ (ILS)</option>
+                <option value="₩">₩ (KRW)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+                <option value="Mex$">Mex$ (MXN)</option>
+                <option value="₦">₦ (NGN)</option>
+                <option value="₱">₱ (PHP)</option>
+                <option value="฿">฿ (THB)</option>
+                <option value="₺">₺ (TRY)</option>
+                <option value="د.إ">د.إ (AED)</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="jointMode">Joint bills &amp; essentials</label>
+              <div class="mode-selector">
+                <select id="jointMode">
+                  <option value="percent">% Percentage</option>
+                  <option value="cash">$ Cash amount</option>
+                </select>
+                <input id="jointValue" type="number" min="0" placeholder="60" value="" step="1">
+              </div>
+            </div>
+            <div>
+              <label for="savingsMode">Savings &amp; goals</label>
+              <div class="mode-selector">
+                <select id="savingsMode">
+                  <option value="percent">% Percentage</option>
+                  <option value="cash">$ Cash amount</option>
+                </select>
+                <input id="savingsValue" type="number" min="0" placeholder="20" value="" step="1">
+              </div>
+            </div>
+            <div>
+              <label for="fixedPersonal">Fixed personal allowance each (optional)</label>
+              <input id="fixedPersonal" type="number" inputmode="decimal" min="0" placeholder="e.g. 400" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Partner details</h2>
+          <p class="section-description">Add each partner. You can adjust their personal allowance share (e.g. if one has higher work expenses). By default, leftover is split equally.</p>
+          <div class="group-list" id="partnerRows"></div>
+          <div class="btns">
+            <button class="secondary" onclick="addPartner()" type="button">Add partner</button>
+            <button class="primary" onclick="calculateAllowance()" type="button">Calculate</button>
+            <button class="secondary" onclick="copyResult2()" type="button">Copy result</button>
+          </div>
+          <div class="result" id="result2"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Personal Spending Allowance Calculator</h2>
+          <p>The WellSplit Personal Spending Allowance Calculator helps couples fairly divide their combined income into three clear categories: joint bills and essentials, shared savings and goals, and individual personal spending money. This approach reduces money conflicts and gives each partner financial autonomy while maintaining shared financial responsibilities.</p>
+          <p>By separating joint expenses from personal spending, couples can avoid the common pitfall of feeling guilty about individual purchases. Each partner gets a predetermined amount of "no-questions-asked" money to spend on hobbies, clothing, dining out with friends, or anything else they choose.</p>
+          <h3>How to use this personal allowance calculator</h3>
+          <ul>
+            <li>Enter your combined monthly take-home income.</li>
+            <li>Choose what percentage goes to joint bills and essentials (rent, groceries, utilities).</li>
+            <li>Choose what percentage goes to savings and shared goals (emergency fund, vacation, down payment).</li>
+            <li>Optionally set a fixed personal allowance amount for each partner.</li>
+            <li>Add each partner and optionally override their share or account for extra personal expenses.</li>
+            <li>Calculate to see each partner's monthly personal spending money.</li>
+          </ul>
+          <p>This approach works whether you pool all income, earn different amounts, or prefer to keep some finances separate. The result provides a clear, fair starting point for household financial discussions.</p>
+        </section>
+
+        <section class="content-section" id="about2">
+          <h2>How this personal spending calculator helps couples</h2>
+          <p>Many couples combine incomes but struggle with "fair" personal money. This calculator separates your joint income into three buckets:</p>
+          <ul>
+            <li><strong>Joint bills &amp; essentials</strong> – rent, groceries, utilities, insurance.</li>
+            <li><strong>Savings &amp; goals</strong> – emergency fund, vacation, down payment.</li>
+            <li><strong>Personal spending</strong> – guilt‑free money for each partner.</li>
+          </ul>
+          <p>You can set a fixed equal allowance (e.g. $400 each) or let the calculator split the remaining income equally. If one partner has extra work‑related costs, you can manually adjust their share.</p>
+          <p>The result shows exactly how much each person gets for hobbies, clothes, dining out, or anything else — no questions asked.</p>
+        </section>
+
+        <section class="content-section" id="faqs2">
+          <h2>Personal spending allowance FAQs</h2>
+          <p>Common questions about splitting spending money fairly.</p>
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>What is a personal spending allowance?</summary>
+              <div class="faq-answer"><p>A personal spending allowance is a set amount of money each partner gets to spend however they want, completely separate from joint bills and savings. This financial arrangement reduces money conflicts and gives each person autonomy over their own spending. It's essentially "guilt-free money" that doesn't require discussion or approval from your partner, which can significantly reduce relationship tension around finances.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Should personal allowance be equal for both partners?</summary>
+              <div class="faq-answer"><p>In most cases, yes, especially if both partners work full-time or contribute equally to household responsibilities. Equal personal allowances promote financial fairness and prevent resentment. However, if one partner has significantly higher work-related expenses (like commuting costs or professional clothing requirements), you can adjust their share using the override feature. The calculator also lets you account for extra expenses separately so they don't reduce personal spending money.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>What percentage of income should go to personal spending?</summary>
+              <div class="faq-answer"><p>There's no universal rule, but a common approach is to allocate 50-70% to joint bills, 10-20% to savings, and the remainder (typically 10-30%) to personal spending. The right percentage depends on your cost of living, financial goals, and personal preferences. This calculator lets you experiment with different percentages and cash amounts to find what works best for your situation.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>What if one partner earns significantly more than the other?</summary>
+              <div class="faq-answer"><p>This calculator uses combined income, regardless of who earns what. Many couples choose to pool all income and split personal allowances equally to promote financial partnership and avoid power imbalances. If you prefer a proportional approach, you can manually adjust each partner's share in the second step. The key is open communication about what feels fair to both of you.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Can I use this if we keep separate bank accounts?</summary>
+              <div class="faq-answer"><p>Absolutely. Use the calculator as a planning tool to determine how much each person should transfer to joint accounts for shared expenses and savings. The remaining amount stays in each person's personal account for their individual spending. This hybrid approach gives you the benefits of shared financial planning while maintaining some financial independence.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>What about debt payments — should they be joint or personal?</summary>
+              <div class="faq-answer"><p>This depends on the nature of the debt. Shared debts (like a mortgage or joint credit cards) should be included in joint bills. Individual debts (like personal student loans or credit cards from before the relationship) can be paid from personal allowances. The calculator is flexible — you can either include them in the joint percentage or account for them through the "extra expenses" field for each partner.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>How often should we review our personal allowance amounts?</summary>
+              <div class="faq-answer"><p>Most financial experts recommend reviewing your budget and personal allowances quarterly or whenever there's a significant change in income or expenses. Life changes like new jobs, raises, moving, or having children are all good times to revisit your spending plan. Regular check-ins help maintain financial harmony and ensure your arrangements still work for both partners.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>What if we have different spending habits?</summary>
+              <div class="faq-answer"><p>Different spending habits are one of the main reasons couples use personal allowances. By having separate "no-questions-asked" money, each partner can spend on their own priorities without judgment. The joint bills and savings are protected, while personal choices remain personal. This approach respects individual preferences while maintaining shared financial stability.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Should we include groceries in joint bills or personal spending?</summary>
+              <div class="faq-answer"><p>Most couples include groceries in joint bills since it's a shared household expense. However, if one partner has special dietary needs or both partners eat very differently, you might allocate a portion to personal spending. The beauty of this system is that you can customize it to your situation. Just be clear about what's included in each category to avoid confusion.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>What about vacations and date nights?</summary>
+              <div class="faq-answer"><p>This is a personal choice. Some couples include vacations in the savings category, others use their personal allowances for fun activities, and many do a combination of both. Using the savings category for shared experiences like vacations can help you build memories together, while using personal allowances for individual hobbies or treats maintains independence.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Can we change our percentages later?</summary>
+              <div class="faq-answer"><p>Absolutely. The calculator is designed to be flexible. You can experiment with different percentages or cash amounts until you find a balance that feels right. Many couples adjust their allocations over time as their income and priorities change. Regular financial check-ins are a healthy habit for any relationship.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Is it okay for one partner to have more personal spending?</summary>
+              <div class="faq-answer"><p>That's a conversation for you and your partner. While equal allowances are recommended for fairness, every relationship is different. Some couples agree to unequal allowances due to work-related expenses, debt obligations, or other valid reasons. The key is that both partners feel the arrangement is fair and communicate openly about their needs.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>What if we have irregular income?</summary>
+              <div class="faq-answer"><p>If your income varies (freelancers, commission-based workers, etc.), base your calculations on a conservative monthly average. You can use the fixed personal allowance option to ensure consistent spending money each month, and adjust the joint and savings percentages based on your average income. Consider building a larger emergency fund during high-income months to cover leaner periods.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Should children's expenses come from joint or personal money?</summary>
+              <div class="faq-answer"><p>Children's expenses are typically considered joint bills, especially for essential items like food, clothing, education, and healthcare. Personal allowances might be used for discretionary children's expenses like toys, entertainment, or extracurricular activities that one partner chooses to cover. The important thing is to agree on what's essential versus optional for your family.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>What about gifts for each other?</summary>
+              <div class="faq-answer"><p>This varies by couple. Some use personal allowances to buy gifts for their partner, which keeps the surprise element and ensures gifts come from "individual" money. Others have a separate gift budget in their joint bills. The calculator can support either approach — just decide what works best for your relationship.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>How does this differ from the 50/30/20 rule?</summary>
+              <div class="faq-answer"><p>The 50/30/20 rule suggests 50% for needs, 30% for wants, and 20% for savings. Our calculator is similar but tailored specifically for couples. It separates "needs" into joint bills (which couples share) and "wants" into personal allowances (which individuals control). This structure helps couples maintain shared financial responsibilities while preserving individual financial freedom.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>What if we have joint savings goals?</summary>
+              <div class="faq-answer"><p>Joint savings goals are perfect for the "Savings &amp; goals" category. Whether you're saving for a down payment, vacation, or emergency fund, allocating a percentage of your combined income to these goals ensures you make progress together. The remaining personal allowances can be used for individual goals or completely discretionary spending.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Can this calculator handle more than two partners?</summary>
+              <div class="faq-answer"><p>Yes! While designed for couples, the calculator can handle any number of partners. You can add multiple partners and adjust their shares individually. This makes it useful for polyamorous relationships, shared living situations, or any group that wants to split income fairly while maintaining personal spending money.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>What if our expenses change month to month?</summary>
+              <div class="faq-answer"><p>Variable expenses are common. Use the fixed personal allowance option if you want consistent personal spending each month. For joint bills and savings, you can either use percentage-based allocations (which adjust automatically with your income) or cash amounts. The calculator's flexibility lets you adapt to changing circumstances.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Is this calculator free to use?</summary>
+              <div class="faq-answer"><p>Yes, the WellSplit Personal Spending Allowance Calculator is completely free to use. There are no hidden charges, subscriptions, or limitations. We believe that financial peace in relationships shouldn't cost money. The calculator is supported by ads to keep it free for everyone.</p></div>
+            </details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code can be placed here --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    // ---- helpers ----
+    function money2(value) {
+      const sym = document.getElementById('currencySymbol2').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber2(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- partner rows ----
+    function partnerTemplate(index) {
+      return `
+        <div class="group-row">
+          <div class="group-row-head">
+            <span class="group-label">Partner ${index}</span>
+            <button aria-label="Remove partner" class="remove" onclick="removePartner(this)" type="button">×</button>
+          </div>
+          <div class="group-grid">
+            <div><label>Name</label><input class="partnerName" placeholder="Partner ${index}" type="text" value="Partner ${index}"></div>
+            <div><label>Personal share (override)</label><input class="partnerShare" type="number" inputmode="decimal" min="0" placeholder="leave blank for equal" value=""></div>
+            <div><label>Extra expenses</label><input class="partnerExtra" type="number" inputmode="decimal" min="0" placeholder="e.g. 50" value="0"></div>
+          </div>
+        </div>
+      `;
+    }
+    function refreshPartnerLabels() {
+      document.querySelectorAll('.group-row').forEach((row, i) => {
+        row.querySelector('.group-label').textContent = 'Partner ' + (i + 1);
+        const nameInput = row.querySelector('.partnerName');
+        if (!nameInput.value.trim()) nameInput.value = 'Partner ' + (i + 1);
+      });
+    }
+    function addPartner() {
+      const container = document.getElementById('partnerRows');
+      container.insertAdjacentHTML('beforeend', partnerTemplate(container.children.length + 1));
+      refreshPartnerLabels();
+    }
+    function removePartner(btn) {
+      const rows = document.querySelectorAll('.group-row');
+      if (rows.length <= 1) { alert('Keep at least one partner.'); return; }
+      btn.closest('.group-row').remove();
+      refreshPartnerLabels();
+    }
+    function collectPartners() {
+      return [...document.querySelectorAll('.group-row')].map((row, i) => {
+        const name = row.querySelector('.partnerName').value.trim() || 'Partner ' + (i + 1);
+        const shareOverride = parseFloat(row.querySelector('.partnerShare').value);
+        const extra = parseFloat(row.querySelector('.partnerExtra').value) || 0;
+        return { name, shareOverride, extra };
+      });
+    }
+
+    // ---- main calculation ----
+    function calculateAllowance() {
+      const totalIncome = getNumber2('totalIncome');
+      const fixedPersonal = getNumber2('fixedPersonal');
+      const partners = collectPartners();
+
+      // Get joint value based on mode
+      const jointMode = document.getElementById('jointMode').value;
+      const jointInput = getNumber2('jointValue');
+      let jointAmount = 0;
+      let jointPct = 0;
+      if (jointMode === 'percent') {
+        jointPct = jointInput;
+        jointAmount = totalIncome * (jointPct / 100);
+      } else {
+        jointAmount = jointInput;
+        jointPct = totalIncome > 0 ? (jointAmount / totalIncome) * 100 : 0;
+      }
+
+      // Get savings value based on mode
+      const savingsMode = document.getElementById('savingsMode').value;
+      const savingsInput = getNumber2('savingsValue');
+      let savingsAmount = 0;
+      let savingsPct = 0;
+      if (savingsMode === 'percent') {
+        savingsPct = savingsInput;
+        savingsAmount = totalIncome * (savingsPct / 100);
+      } else {
+        savingsAmount = savingsInput;
+        savingsPct = totalIncome > 0 ? (savingsAmount / totalIncome) * 100 : 0;
+      }
+
+      if (totalIncome <= 0) {
+        document.getElementById('result2').innerHTML = '<p>Please enter a valid total income.</p>';
+        return;
+      }
+      if (jointAmount + savingsAmount > totalIncome) {
+        document.getElementById('result2').innerHTML = '<p>Joint bills + savings cannot exceed your total income. Please adjust your amounts.</p>';
+        return;
+      }
+      if (partners.length < 1) {
+        document.getElementById('result2').innerHTML = '<p>Add at least one partner.</p>';
+        return;
+      }
+
+      let leftover = totalIncome - jointAmount - savingsAmount;
+
+      // if fixed personal is set, use that
+      let useFixed = false;
+      let fixedEach = 0;
+      if (fixedPersonal > 0 && partners.length > 0) {
+        const totalFixed = fixedPersonal * partners.length;
+        if (totalFixed <= leftover) {
+          useFixed = true;
+          fixedEach = fixedPersonal;
+        }
+      }
+
+      // calculate personal amounts
+      let totalPersonalAllocated = 0;
+      const results = partners.map((p) => {
+        let personal = 0;
+        if (useFixed) {
+          personal = fixedEach;
+        } else {
+          const equalShare = leftover / partners.length;
+          personal = (p.shareOverride !== undefined && !isNaN(p.shareOverride) && p.shareOverride >= 0) 
+            ? p.shareOverride 
+            : equalShare;
+        }
+        personal = Math.max(0, personal - p.extra);
+        totalPersonalAllocated += personal;
+        return { ...p, personal, extra: p.extra };
+      });
+
+      if (!useFixed && totalPersonalAllocated > leftover && leftover > 0) {
+        const ratio = leftover / totalPersonalAllocated;
+        results.forEach(r => { r.personal = r.personal * ratio; });
+        totalPersonalAllocated = results.reduce((sum, r) => sum + r.personal, 0);
+      }
+
+      // show result
+      const resultDiv = document.getElementById('result2');
+      const rows = results.map(r => `
+        <tr>
+          <td>${escapeHtml(r.name)}</td>
+          <td class="money-cell">${money2(r.personal)}</td>
+          <td>${money2(r.extra)}</td>
+          <td>${money2(r.personal + r.extra)}</td>
+        </tr>
+      `).join('');
+
+      const totalJoint = money2(jointAmount);
+      const totalSavings = money2(savingsAmount);
+      const totalLeft = money2(leftover);
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          Combined income: ${money2(totalIncome)} · 
+          Joint bills (${jointPct.toFixed(1)}%): ${totalJoint} · 
+          Savings (${savingsPct.toFixed(1)}%): ${totalSavings} · 
+          Personal pool: ${totalLeft}
+          ${useFixed ? ` · Fixed allowance: ${money2(fixedEach)} each` : ' · Equal split by default'}
+        </div>
+        <table class="result-table">
+          <thead><tr><th>Partner</th><th>Personal spending</th><th>Extra expenses</th><th>Total personal</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <p class="note">
+          <strong>How it works:</strong> Joint bills and savings are deducted first. The remaining pool is split equally (or by override). 
+          Extra expenses reduce personal allowance so they don't come from shared funds.
+          ${!useFixed ? 'To set a custom amount for a partner, fill in "Personal share (override)".' : ''}
+        </p>
+      `;
+    }
+
+    function escapeHtml(value) {
+      return String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+    }
+
+    async function copyResult2() {
+      const result = document.getElementById('result2');
+      if (!result.innerText.trim()) { alert('Calculate the allowance first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+
+    // init with 2 partners
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('partnerRows');
+      container.innerHTML = partnerTemplate(1) + partnerTemplate(2);
+      refreshPartnerLabels();
+    });
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
