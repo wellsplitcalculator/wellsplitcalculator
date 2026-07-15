@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Utilities split calculator by days present at home. Fairly divide utility bills based on actual time spent at home.">
+  <title>Utilities Split by Days Present at Home · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+      --purple: #c4b5fd;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .grid-person {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 10px;
+      background: color-mix(in srgb, var(--panel-2) 50%, transparent);
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .grid-person .person-label {
+      grid-column: 1 / -1;
+      font-weight: 700;
+      font-size: .85rem;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your utility split results will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-table {
+      width: 100%; min-width: 520px; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .result-table th, .result-table td {
+      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .68rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .savings-cell { font-weight: 900; color: var(--green); white-space: nowrap; }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3, .grid-person { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .highlight-box.success {
+      background: color-mix(in srgb, var(--green) 15%, transparent);
+      border-left-color: var(--green);
+    }
+    .highlight-box.warning {
+      background: color-mix(in srgb, var(--orange) 15%, transparent);
+      border-left-color: var(--orange);
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .amount.surplus { color: var(--green); }
+    .result-card .amount.deficit { color: var(--orange); }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+    }
+    .comparison-row:last-child { border-bottom: 0; }
+    .comparison-label { color: var(--muted); }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .status-fair { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .status-partial { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .status-unfair { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
+    .days-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .days-high { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .days-medium { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .days-low { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
+    @media (max-width:600px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .result-card .amount { font-size: 1.3rem; }
+    }
+    .utility-type {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+      background: color-mix(in srgb, var(--accent) 15%, transparent);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Utilities Split by Days Present at Home</h1>
+          <p>Fairly divide utility bills based on how many days each person actually spends at home. Perfect for roommates, couples, or shared households with different schedules.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Household members &amp; days present</h2>
+          <p class="section-description">Add each person and enter how many days they were present at home during the billing period.</p>
+          
+          <div class="grid-person">
+            <div class="person-label">👤 Person 1</div>
+            <div>
+              <label for="p1Name14">Name</label>
+              <input id="p1Name14" type="text" placeholder="Alex" value="Alex">
+            </div>
+            <div>
+              <label for="p1Days14">Days present at home this month</label>
+              <input id="p1Days14" type="number" min="0" max="31" placeholder="30" value="">
+            </div>
+            <div>
+              <label for="p1Weight14">Usage weight (1 = normal, higher = more usage)</label>
+              <input id="p1Weight14" type="number" min="0.1" max="5" placeholder="1" value="" step="0.1">
+            </div>
+          </div>
+
+          <div class="grid-person">
+            <div class="person-label">👤 Person 2</div>
+            <div>
+              <label for="p2Name14">Name</label>
+              <input id="p2Name14" type="text" placeholder="Jordan" value="Jordan">
+            </div>
+            <div>
+              <label for="p2Days14">Days present at home this month</label>
+              <input id="p2Days14" type="number" min="0" max="31" placeholder="20" value="">
+            </div>
+            <div>
+              <label for="p2Weight14">Usage weight (1 = normal, higher = more usage)</label>
+              <input id="p2Weight14" type="number" min="0.1" max="5" placeholder="1.2" value="" step="0.1">
+            </div>
+          </div>
+
+          <div style="margin-top: 8px;">
+            <button class="secondary" onclick="addPerson14()" type="button" style="font-size:.78rem;">+ Add Person</button>
+          </div>
+          <div id="extraPersons14"></div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Utility bills &amp; settings</h2>
+          <p class="section-description">Enter your utility bills and choose how to handle fixed vs. variable portions.</p>
+          <div class="grid">
+            <div>
+              <label for="electricity14">Electricity bill</label>
+              <input id="electricity14" type="number" inputmode="decimal" min="0" placeholder="120" value="">
+            </div>
+            <div>
+              <label for="water14">Water bill</label>
+              <input id="water14" type="number" inputmode="decimal" min="0" placeholder="80" value="">
+            </div>
+            <div>
+              <label for="gas14">Gas bill</label>
+              <input id="gas14" type="number" inputmode="decimal" min="0" placeholder="60" value="">
+            </div>
+            <div>
+              <label for="internet14">Internet / Cable</label>
+              <input id="internet14" type="number" inputmode="decimal" min="0" placeholder="100" value="">
+            </div>
+            <div>
+              <label for="trash14">Trash / Recycling</label>
+              <input id="trash14" type="number" inputmode="decimal" min="0" placeholder="30" value="">
+            </div>
+            <div>
+              <label for="otherUtil14">Other utilities</label>
+              <input id="otherUtil14" type="number" inputmode="decimal" min="0" placeholder="50" value="">
+            </div>
+            <div>
+              <label for="currencySymbol14">Currency</label>
+              <select id="currencySymbol14">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+              </select>
+            </div>
+            <div>
+              <label for="billingPeriod14">Billing period (days)</label>
+              <input id="billingPeriod14" type="number" min="1" max="365" placeholder="30" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">3. Split settings</h2>
+          <p class="section-description">Choose how to handle fixed costs and usage weighting.</p>
+          <div class="grid">
+            <div>
+              <label for="fixedCostPct14">Fixed cost portion (%)</label>
+              <select id="fixedCostPct14">
+                <option value="0">0% (all variable)</option>
+                <option value="20">20%</option>
+                <option value="30" selected>30%</option>
+                <option value="40">40%</option>
+                <option value="50">50%</option>
+                <option value="60">60%</option>
+                <option value="70">70%</option>
+                <option value="80">80%</option>
+                <option value="100">100% (all fixed)</option>
+              </select>
+            </div>
+            <div>
+              <label for="splitMethod14">Base split method</label>
+              <select id="splitMethod14">
+                <option value="days">By days present</option>
+                <option value="days_weighted">By days present + usage weight</option>
+                <option value="equal">Equal split (ignore days)</option>
+                <option value="custom">Custom percentage</option>
+              </select>
+            </div>
+            <div id="customDiv14" style="display:none;">
+              <label for="customPct14">Person 1's share (%)</label>
+              <input id="customPct14" type="number" min="0" max="100" placeholder="60" value="" step="1">
+            </div>
+            <div>
+              <label for="minimumDays14">Minimum days threshold (0 to ignore)</label>
+              <input id="minimumDays14" type="number" min="0" max="31" placeholder="0" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculateDaysSplit()" type="button">Calculate Split</button>
+            <button class="secondary" onclick="copyResult14()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetDaysSplit()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result14"></div>
+        </section>
+
+        <section class="content-section" id="about14">
+          <h2>About the Utilities Split by Days Present Calculator</h2>
+          <p>Utility bills can be tricky to split fairly when household members have different schedules. This calculator divides utility costs based on actual days spent at home, ensuring everyone pays their fair share based on usage.</p>
+          <h3>How to use this utility splitter</h3>
+          <ul>
+            <li>Add each household member and enter days they were present at home.</li>
+            <li>Enter your utility bills (electricity, water, gas, internet, etc.).</li>
+            <li>Choose what percentage of bills are fixed vs. variable.</li>
+            <li>Select your split method (by days, weighted, equal, or custom).</li>
+            <li>Calculate to see each person's fair share.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs14">
+          <h2>Utilities Split by Days FAQs</h2>
+          <p>Common questions about splitting utilities based on time at home.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>Why split utilities by days present?</summary><div class="faq-answer"><p>When household members have different schedules (travel, work, school), some use more utilities than others. Splitting by days present ensures that people who are home less pay less, which is more fair than equal splitting.</p></div></details>
+            <details class="faq-item"><summary>What's the difference between fixed and variable costs?</summary><div class="faq-answer"><p>Fixed costs are the base charges that apply regardless of usage (service fees, connection charges). Variable costs depend on actual usage (electricity consumption, water usage). The fixed portion is split equally, while the variable portion is split by days present.</p></div></details>
+            <details class="faq-item"><summary>What percentage of utilities is typically fixed?</summary><div class="faq-answer"><p>It varies by utility and location. Electricity and gas typically have 20-40% fixed costs, while internet is usually 100% fixed. A good rule of thumb is 30-40% fixed for most households.</p></div></details>
+            <details class="faq-item"><summary>What is usage weight?</summary><div class="faq-answer"><p>Usage weight adjusts for different consumption habits. For example, someone who works from home might use more electricity than someone who works in an office. A weight of 1.2 means they use 20% more than average.</p></div></details>
+            <details class="faq-item"><summary>Should we include internet in the days-based split?</summary><div class="faq-answer"><p>Internet is usually a fixed cost that doesn't vary by days present. You can set the fixed portion to 100% for internet, or split it equally regardless of days. The calculator lets you set fixed cost percentage for all bills combined.</p></div></details>
+            <details class="faq-item"><summary>What if someone was home but didn't use utilities?</summary><div class="faq-answer"><p>This is rare. Even if someone is home, they still benefit from heat, light, and other utilities. The days-based method assumes presence equals some level of usage. For extreme cases, adjust the usage weight.</p></div></details>
+            <details class="faq-item"><summary>How do we handle vacation periods?</summary><div class="faq-answer"><p>During vacation, enter 0 days present. The calculator will reduce their share accordingly. This is especially useful for roommates who travel frequently.</p></div></details>
+            <details class="faq-item"><summary>What's the minimum days threshold?</summary><div class="faq-answer"><p>This prevents someone with very few days from paying nothing. If set to 5 days, anyone with less than 5 days is treated as if they have 0 days. This avoids unrealistic splits for very short stays.</p></div></details>
+            <details class="faq-item"><summary>Should utilities be split by person or by household?</summary><div class="faq-answer"><p>This calculator splits by person based on their individual days present. This is fairer than household-level splits when people have different schedules.</p></div></details>
+            <details class="faq-item"><summary>What about seasonal variation?</summary><div class="faq-answer"><p>Utility usage often varies by season (more heating in winter, more cooling in summer). The calculator works for any month — just enter the actual days and bills for that period.</p></div></details>
+            <details class="faq-item"><summary>Can this calculator handle more than 2 people?</summary><div class="faq-answer"><p>Yes! You can add as many people as needed using the "Add Person" button. This is great for shared houses with multiple roommates.</p></div></details>
+            <details class="faq-item"><summary>How do we handle utility credits or refunds?</summary><div class="faq-answer"><p>Enter the net bill amount after credits. If you receive a refund, enter it as a negative amount or split it according to the same method.</p></div></details>
+            <details class="faq-item"><summary>What if someone works from home?</summary><div class="faq-answer"><p>Increase their usage weight to reflect higher electricity and internet usage during work hours. For example, weight of 1.3-1.5 for full-time remote workers.</p></div></details>
+            <details class="faq-item"><summary>Should we include garbage/trash in the split?</summary><div class="faq-answer"><p>Trash pickup is typically a fixed cost. It can be split equally or based on days present depending on your preference. The calculator includes it as a utility category.</p></div></details>
+            <details class="faq-item"><summary>What about solar panels or energy credits?</summary><div class="faq-answer"><p>If your household has solar panels, enter the net bill amount after credits. If you receive credits, they effectively reduce everyone's share proportionally based on the split method.</p></div></details>
+            <details class="faq-item"><summary>How do we handle month-to-month billing differences?</summary><div class="faq-answer"><p>Utility bills vary month to month. This calculator works for each billing period — just enter the actual bills for that period and the days present during that period.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator fair for couples with different work schedules?</summary><div class="faq-answer"><p>Yes, this is ideal for couples with different schedules. It accounts for actual time spent at home, making the split more equitable than simple 50/50.</p></div></details>
+            <details class="faq-item"><summary>What if someone uses significantly more utilities?</summary><div class="faq-answer"><p>Use the usage weight feature to adjust for individual consumption habits. For example, someone who takes long showers might have a higher water weight.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe fair utility splitting should be accessible to everyone. The calculator is supported by ads to keep it free.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money14(value) {
+      const sym = document.getElementById('currencySymbol14').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber14(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- extra persons ----
+    let personCount14 = 2;
+
+    function addPerson14() {
+      personCount14++;
+      const container = document.getElementById('extraPersons14');
+      const div = document.createElement('div');
+      div.className = 'grid-person';
+      div.id = 'person' + personCount14;
+      div.innerHTML = `
+        <div class="person-label">👤 Person ${personCount14} <button onclick="removePerson14('person${personCount14}')" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:.8rem;padding:0 4px;">✕</button></div>
+        <div>
+          <label>Name</label>
+          <input class="pName14" type="text" placeholder="Person ${personCount14}" value="Person ${personCount14}">
+        </div>
+        <div>
+          <label>Days present</label>
+          <input class="pDays14" type="number" min="0" max="31" placeholder="25" value="">
+        </div>
+        <div>
+          <label>Usage weight</label>
+          <input class="pWeight14" type="number" min="0.1" max="5" placeholder="1" value="" step="0.1">
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function removePerson14(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function collectPeople14() {
+      const people = [];
+      // Person 1
+      people.push({
+        name: document.getElementById('p1Name14').value.trim() || 'Person 1',
+        days: getNumber14('p1Days14'),
+        weight: getNumber14('p1Weight14') || 1
+      });
+      // Person 2
+      people.push({
+        name: document.getElementById('p2Name14').value.trim() || 'Person 2',
+        days: getNumber14('p2Days14'),
+        weight: getNumber14('p2Weight14') || 1
+      });
+      // Extra persons
+      document.querySelectorAll('#extraPersons14 .grid-person').forEach(el => {
+        const name = el.querySelector('.pName14').value.trim() || 'Person';
+        const days = parseFloat(el.querySelector('.pDays14').value) || 0;
+        const weight = parseFloat(el.querySelector('.pWeight14').value) || 1;
+        people.push({ name, days, weight });
+      });
+      return people;
+    }
+
+    // ---- show/hide custom ----
+    document.getElementById('splitMethod14').addEventListener('change', function() {
+      document.getElementById('customDiv14').style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+
+    // ---- main calculation ----
+    function calculateDaysSplit() {
+      const people = collectPeople14();
+      const billingPeriod = getNumber14('billingPeriod14') || 30;
+      const fixedPct = getNumber14('fixedCostPct14') / 100;
+      const minDays = getNumber14('minimumDays14');
+      const method = document.getElementById('splitMethod14').value;
+
+      // Bills
+      const electricity = getNumber14('electricity14');
+      const water = getNumber14('water14');
+      const gas = getNumber14('gas14');
+      const internet = getNumber14('internet14');
+      const trash = getNumber14('trash14');
+      const otherUtil = getNumber14('otherUtil14');
+      const totalBills = electricity + water + gas + internet + trash + otherUtil;
+
+      if (totalBills <= 0) {
+        document.getElementById('result14').innerHTML = '<p>Please enter at least one utility bill.</p>';
+        return;
+      }
+
+      if (people.length < 2) {
+        document.getElementById('result14').innerHTML = '<p>Please add at least 2 people.</p>';
+        return;
+      }
+
+      // Apply minimum days threshold
+      let validPeople = people.map(p => ({
+        ...p,
+        effectiveDays: p.days < minDays ? 0 : p.days
+      }));
+
+      // Calculate fixed and variable portions
+      const fixedAmount = totalBills * fixedPct;
+      const variableAmount = totalBills * (1 - fixedPct);
+
+      // Calculate shares
+      let totalWeightedDays = 0;
+      let totalWeight = 0;
+
+      if (method === 'equal') {
+        // Equal split - ignore days
+        const equalShare = totalBills / validPeople.length;
+        validPeople = validPeople.map(p => ({
+          ...p,
+          share: equalShare,
+          pct: (equalShare / totalBills) * 100
+        }));
+      } else if (method === 'custom') {
+        const customPct = getNumber14('customPct14');
+        if (customPct <= 0 || customPct >= 100) {
+          document.getElementById('result14').innerHTML = '<p>Please enter a valid custom percentage (1-99).</p>';
+          return;
+        }
+        const p1Share = totalBills * (customPct / 100);
+        const p2Share = totalBills - p1Share;
+        validPeople = validPeople.map((p, idx) => ({
+          ...p,
+          share: idx === 0 ? p1Share : p2Share,
+          pct: idx === 0 ? customPct : 100 - customPct
+        }));
+      } else {
+        // Days-based or days_weighted
+        let effectiveDays = validPeople.map(p => p.effectiveDays);
+        let weights = validPeople.map(p => p.weight);
+
+        if (method === 'days_weighted') {
+          // Weighted by days * weight
+          totalWeightedDays = validPeople.reduce((sum, p) => sum + (p.effectiveDays * p.weight), 0);
+          validPeople = validPeople.map(p => {
+            const pct = totalWeightedDays > 0 ? ((p.effectiveDays * p.weight) / totalWeightedDays) * 100 : 0;
+            const share = totalBills * (pct / 100);
+            return { ...p, share, pct };
+          });
+        } else {
+          // Just days
+          const totalDays = validPeople.reduce((sum, p) => sum + p.effectiveDays, 0);
+          validPeople = validPeople.map(p => {
+            const pct = totalDays > 0 ? (p.effectiveDays / totalDays) * 100 : 0;
+            const share = totalBills * (pct / 100);
+            return { ...p, share, pct };
+          });
+        }
+      }
+
+      // Build bill breakdown
+      const billItems = [
+        { label: 'Electricity', amount: electricity },
+        { label: 'Water', amount: water },
+        { label: 'Gas', amount: gas },
+        { label: 'Internet / Cable', amount: internet },
+        { label: 'Trash / Recycling', amount: trash },
+        { label: 'Other Utilities', amount: otherUtil }
+      ];
+
+      let billRows = billItems.filter(b => b.amount > 0).map(b => `
+        <div class="comparison-row">
+          <span class="comparison-label">${b.label}</span>
+          <span>${money14(b.amount)}</span>
+          ${validPeople.map(p => `<span>${money14(b.amount * (p.pct / 100))}</span>`).join('')}
+        </div>
+      `).join('');
+
+      // Build header for bill table
+      let headerRow = `<span>Bill</span><span>Total</span>`;
+      validPeople.forEach(p => { headerRow += `<span>${p.name}</span>`; });
+
+      // Fairness assessment
+      const shares = validPeople.map(p => p.share);
+      const maxShare = Math.max(...shares);
+      const minShare = Math.min(...shares);
+      const diff = maxShare - minShare;
+      const fairnessScore = totalBills > 0 ? Math.min(100, Math.max(0, 100 - (diff / (totalBills / validPeople.length)) * 50)) : 100;
+      let fairnessStatus, fairnessClass;
+      if (fairnessScore >= 75) {
+        fairnessStatus = 'Fair';
+        fairnessClass = 'status-fair';
+      } else if (fairnessScore >= 50) {
+        fairnessStatus = 'Partial';
+        fairnessClass = 'status-partial';
+      } else {
+        fairnessStatus = 'Unfair';
+        fairnessClass = 'status-unfair';
+      }
+
+      const resultDiv = document.getElementById('result14');
+
+      // Method label
+      const methodLabels = {
+        'equal': 'Equal split',
+        'days': 'By days present',
+        'days_weighted': 'By days + usage weight',
+        'custom': 'Custom percentage'
+      };
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          ⚡ Utility Split · ${methodLabels[method] || 'Custom'} · ${fixedPct * 100}% fixed costs
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">📊 Total utilities</div>
+            <div class="amount">${money14(totalBills)}</div>
+            <div class="detail">${billingPeriod} day period</div>
+          </div>
+          <div class="result-card">
+            <div class="label">🏠 Fixed portion</div>
+            <div class="amount">${money14(fixedAmount)}</div>
+            <div class="detail">${(fixedPct * 100).toFixed(0)}% of total</div>
+          </div>
+          <div class="result-card">
+            <div class="label">📈 Variable portion</div>
+            <div class="amount" style="color: var(--orange);">${money14(variableAmount)}</div>
+            <div class="detail">${((1 - fixedPct) * 100).toFixed(0)}% of total</div>
+          </div>
+        </div>
+
+        <div class="result-grid" style="grid-template-columns: repeat(${Math.min(validPeople.length, 4)}, 1fr);">
+          ${validPeople.map((p, idx) => `
+            <div class="result-card" style="border-color: ${idx === 0 ? 'var(--accent)' : 'var(--purple)'};">
+              <div class="label">${p.name}</div>
+              <div class="amount">${money14(p.share)}</div>
+              <div class="detail">${p.pct.toFixed(1)}% of bills</div>
+              <div class="detail">
+                <span class="days-badge ${p.effectiveDays >= 20 ? 'days-high' : p.effectiveDays >= 10 ? 'days-medium' : 'days-low'}">
+                  ${p.effectiveDays} days
+                </span>
+                ${p.weight !== 1 ? ` · weight ${p.weight.toFixed(1)}` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="highlight-box ${fairnessScore >= 75 ? 'success' : fairnessScore >= 50 ? 'warning' : ''}">
+          <strong>⚖️ Fairness score: ${fairnessScore.toFixed(0)}%</strong>
+          <span class="status-badge ${fairnessClass}">${fairnessStatus}</span>
+          <br>
+          ${fairnessScore >= 75 
+            ? 'This split is well-balanced and fair for everyone.' 
+            : fairnessScore >= 50 
+              ? 'This split is partially fair. Consider adjusting weights or the fixed cost percentage.' 
+              : 'This split is significantly unbalanced. Consider using a different method or adjusting days/weights.'}
+          ${validPeople.some(p => p.effectiveDays === 0) ? ' Note: Some people have 0 effective days (below minimum threshold).' : ''}
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Bill breakdown</div>
+          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+            ${headerRow}
+          </div>
+          ${billRows}
+        </div>
+
+        <p class="note">
+          <strong>How it works:</strong> 
+          ${method === 'equal' ? 'All bills are split equally regardless of days present.' : 
+            method === 'days' ? 'Bills are split proportionally to days present at home.' : 
+            method === 'days_weighted' ? 'Days present are adjusted by usage weight to reflect different consumption habits.' : 
+            'A custom percentage split has been applied.'}
+          ${fixedPct > 0 ? ` ${(fixedPct * 100).toFixed(0)}% of bills are fixed (split equally), and ${((1 - fixedPct) * 100).toFixed(0)}% are variable (split by ${method === 'equal' ? 'equally' : 'days present'}).` : ''}
+          <br><br>
+          <strong>Recommendation:</strong> 
+          ${fairnessScore >= 75 
+            ? 'Your current split is fair. Consider reviewing it quarterly or when schedules change.' 
+            : fairnessScore >= 50 
+              ? 'Review your fixed cost percentage or usage weights to achieve a more balanced split.' 
+              : 'Consider using the "days present + usage weight" method for a more accurate split.'}
+        </p>
+      `;
+    }
+
+    function resetDaysSplit() {
+      document.querySelectorAll('.calculator input[type="number"]').forEach(input => {
+        if (input.id !== 'splitMethod14' && input.id !== 'fixedCostPct14') {
+          input.value = '';
+        }
+      });
+      document.querySelectorAll('#extraPersons14 .grid-person').forEach(el => el.remove());
+      personCount14 = 2;
+      document.getElementById('result14').innerHTML = '';
+    }
+
+    async function copyResult14() {
+      const result = document.getElementById('result14');
+      if (!result.innerText.trim()) { alert('Calculate the split first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
