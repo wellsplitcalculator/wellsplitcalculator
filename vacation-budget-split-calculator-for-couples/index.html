@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Fair vacation budget split calculator for couples. Plan and divide trip costs by flights, accommodation, activities, and more.">
+  <title>Vacation Budget Split Calculator for Couples · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your vacation budget split will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-table {
+      width: 100%; min-width: 520px; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .result-table th, .result-table td {
+      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .68rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .category-tag {
+      display: inline-block;
+      background: color-mix(in srgb, var(--accent) 15%, transparent);
+      border-radius: 20px;
+      padding: 0 10px;
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .expense-breakdown {
+      margin: 8px 0;
+    }
+    .expense-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+    }
+    .expense-row:last-child { border-bottom: 0; }
+    .expense-label { color: var(--muted); }
+    .expense-amount { font-weight: 700; }
+    .split-indicator {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .split-equal { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .split-income { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent); }
+    .split-custom { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .split-item { background: color-mix(in srgb, var(--orange) 15%, transparent); color: var(--orange); }
+    .per-day {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    @media (max-width:600px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .result-card .amount { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Vacation Budget Split Calculator for Couples</h1>
+          <p>Plan and split your trip costs fairly. Account for flights, accommodation, activities, dining, and more — with multiple splitting methods.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Trip details</h2>
+          <p class="section-description">Tell us about your vacation and budget preferences.</p>
+          <div class="grid">
+            <div>
+              <label for="tripName">Trip name / destination</label>
+              <input id="tripName" type="text" placeholder="Paris Anniversary Trip" value="">
+            </div>
+            <div>
+              <label for="currencySymbol6">Currency</label>
+              <select id="currencySymbol6">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+                <option value="Mex$">Mex$ (MXN)</option>
+                <option value="₪">₪ (ILS)</option>
+              </select>
+            </div>
+            <div>
+              <label for="tripDuration">Trip duration (days)</label>
+              <input id="tripDuration" type="number" min="1" placeholder="7" value="">
+            </div>
+            <div>
+              <label for="numTravelers">Number of travelers</label>
+              <input id="numTravelers" type="number" min="2" placeholder="2" value="2">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Expense categories</h2>
+          <p class="section-description">Enter your estimated costs for each category.</p>
+          <div class="grid">
+            <div>
+              <label for="flights">Flights / Transportation</label>
+              <input id="flights" type="number" inputmode="decimal" min="0" placeholder="1200" value="">
+            </div>
+            <div>
+              <label for="accommodation">Accommodation</label>
+              <input id="accommodation" type="number" inputmode="decimal" min="0" placeholder="1500" value="">
+            </div>
+            <div>
+              <label for="food">Food &amp; dining</label>
+              <input id="food" type="number" inputmode="decimal" min="0" placeholder="700" value="">
+            </div>
+            <div>
+              <label for="activities">Activities &amp; tours</label>
+              <input id="activities" type="number" inputmode="decimal" min="0" placeholder="400" value="">
+            </div>
+            <div>
+              <label for="transport">Local transport</label>
+              <input id="transport" type="number" inputmode="decimal" min="0" placeholder="200" value="">
+            </div>
+            <div>
+              <label for="shopping">Shopping &amp; souvenirs</label>
+              <input id="shopping" type="number" inputmode="decimal" min="0" placeholder="300" value="">
+            </div>
+            <div>
+              <label for="insurance">Travel insurance</label>
+              <input id="insurance" type="number" inputmode="decimal" min="0" placeholder="100" value="">
+            </div>
+            <div>
+              <label for="misc">Miscellaneous</label>
+              <input id="misc" type="number" inputmode="decimal" min="0" placeholder="150" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">3. Split method</h2>
+          <p class="section-description">Choose how to divide each expense category.</p>
+          <div class="grid">
+            <div>
+              <label for="globalSplitMethod">Global split method</label>
+              <select id="globalSplitMethod">
+                <option value="equal">Equal split (50/50)</option>
+                <option value="income">Proportional by income</option>
+                <option value="custom">Custom percentage</option>
+                <option value="category">Split by category (advanced)</option>
+              </select>
+            </div>
+            <div id="customPercentDiv6" style="display:none;">
+              <label for="customPercent6">Partner 1's share (%)</label>
+              <input id="customPercent6" type="number" min="0" max="100" placeholder="60" value="" step="1">
+            </div>
+          </div>
+
+          <!-- Category-specific split (shown when "Split by category" is selected) -->
+          <div id="categorySplitDiv" style="display:none; margin-top: 10px;">
+            <p style="font-size:.78rem; color:var(--muted); margin-bottom:8px;">Choose how to split each expense category:</p>
+            <div class="grid-3">
+              <div>
+                <label for="splitFlights">Flights</label>
+                <select id="splitFlights">
+                  <option value="equal">Equal</option>
+                  <option value="income">By income</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div id="customFlightsDiv" style="display:none;">
+                <label for="customFlightsPct">P1 %</label>
+                <input id="customFlightsPct" type="number" min="0" max="100" placeholder="60" value="">
+              </div>
+              <div>
+                <label for="splitAccommodation">Accommodation</label>
+                <select id="splitAccommodation">
+                  <option value="equal">Equal</option>
+                  <option value="income">By income</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div id="customAccommodationDiv" style="display:none;">
+                <label for="customAccommodationPct">P1 %</label>
+                <input id="customAccommodationPct" type="number" min="0" max="100" placeholder="60" value="">
+              </div>
+              <div>
+                <label for="splitFood">Food</label>
+                <select id="splitFood">
+                  <option value="equal">Equal</option>
+                  <option value="income">By income</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div id="customFoodDiv" style="display:none;">
+                <label for="customFoodPct">P1 %</label>
+                <input id="customFoodPct" type="number" min="0" max="100" placeholder="60" value="">
+              </div>
+              <div>
+                <label for="splitActivities">Activities</label>
+                <select id="splitActivities">
+                  <option value="equal">Equal</option>
+                  <option value="income">By income</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div id="customActivitiesDiv" style="display:none;">
+                <label for="customActivitiesPct">P1 %</label>
+                <input id="customActivitiesPct" type="number" min="0" max="100" placeholder="60" value="">
+              </div>
+              <div>
+                <label for="splitTransport">Local transport</label>
+                <select id="splitTransport">
+                  <option value="equal">Equal</option>
+                  <option value="income">By income</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div id="customTransportDiv" style="display:none;">
+                <label for="customTransportPct">P1 %</label>
+                <input id="customTransportPct" type="number" min="0" max="100" placeholder="60" value="">
+              </div>
+              <div>
+                <label for="splitShopping">Shopping</label>
+                <select id="splitShopping">
+                  <option value="equal">Equal</option>
+                  <option value="income">By income</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div id="customShoppingDiv" style="display:none;">
+                <label for="customShoppingPct">P1 %</label>
+                <input id="customShoppingPct" type="number" min="0" max="100" placeholder="60" value="">
+              </div>
+              <div>
+                <label for="splitInsurance">Insurance</label>
+                <select id="splitInsurance">
+                  <option value="equal">Equal</option>
+                  <option value="income">By income</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div id="customInsuranceDiv" style="display:none;">
+                <label for="customInsurancePct">P1 %</label>
+                <input id="customInsurancePct" type="number" min="0" max="100" placeholder="60" value="">
+              </div>
+              <div>
+                <label for="splitMisc">Miscellaneous</label>
+                <select id="splitMisc">
+                  <option value="equal">Equal</option>
+                  <option value="income">By income</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div id="customMiscDiv" style="display:none;">
+                <label for="customMiscPct">P1 %</label>
+                <input id="customMiscPct" type="number" min="0" max="100" placeholder="60" value="">
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:10px;">
+            <label for="income1">Partner 1 monthly income (for income-based split)</label>
+            <input id="income1" type="number" inputmode="decimal" min="0" placeholder="4000" value="">
+          </div>
+          <div>
+            <label for="income2">Partner 2 monthly income</label>
+            <input id="income2" type="number" inputmode="decimal" min="0" placeholder="3500" value="">
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculateVacationSplit()" type="button">Calculate</button>
+            <button class="secondary" onclick="copyResult6()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetVacation()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result6"></div>
+        </section>
+
+        <section class="content-section" id="about6">
+          <h2>About the Vacation Budget Split Calculator</h2>
+          <p>Planning a vacation together is exciting, but splitting costs can sometimes be stressful. This calculator helps couples plan and divide vacation expenses fairly, whether you're taking a weekend getaway or a month-long adventure.</p>
+          <h3>How to use this vacation cost splitter</h3>
+          <ul>
+            <li>Enter your trip details and estimated costs for each category.</li>
+            <li>Choose your preferred split method: equal, by income, custom, or category-specific.</li>
+            <li>If using income-based splitting, enter each partner's monthly income.</li>
+            <li>Calculate to see each person's share, total cost, and daily breakdown.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs6">
+          <h2>Vacation Budget Split FAQs</h2>
+          <p>Common questions about splitting vacation costs fairly.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>What's the fairest way to split vacation costs?</summary><div class="faq-answer"><p>The fairest method depends on your situation. Equal splitting works well when incomes are similar. Proportional by income is fairer when there's a significant income gap. Category-specific splitting lets you decide individually for each expense type — for example, splitting flights equally but activities by income.</p></div></details>
+            <details class="faq-item"><summary>Should we split flights and accommodation equally?</summary><div class="faq-answer"><p>Many couples split these major expenses equally, especially if both benefit equally from the trip. However, if one partner prefers luxury accommodation or specific flight times, they might contribute more. The category-specific method lets you decide per expense.</p></div></details>
+            <details class="faq-item"><summary>What about meals and dining out?</summary><div class="faq-answer"><p>Food costs can be split equally if you generally eat together. If one partner has special dietary preferences or often orders more expensive items, you might want to track meals separately or use a different split method for this category.</p></div></details>
+            <details class="faq-item"><summary>How do we handle personal shopping?</summary><div class="faq-answer"><p>Personal shopping and souvenirs are typically individual expenses. The calculator lets you include them in the total, and you can choose a split method that works — many couples split this category equally or by who buys what, with the calculator helping balance overall contributions.</p></div></details>
+            <details class="faq-item"><summary>What if one partner earns significantly more?</summary><div class="faq-answer"><p>Proportional by income is the fairest approach when there's a large income gap. The higher earner contributes more to shared expenses, ensuring both partners can enjoy the vacation without financial stress. Many couples use this method for bigger trips.</p></div></details>
+            <details class="faq-item"><summary>Should we include pre-trip expenses?</summary><div class="faq-answer"><p>Yes! Include visa fees, travel insurance, new luggage, and other pre-trip costs in the miscellaneous category. This gives you a complete picture of the total vacation budget.</p></div></details>
+            <details class="faq-item"><summary>How do we split costs for group trips with friends?</summary><div class="faq-answer"><p>This calculator is designed for couples, but you can adapt it for groups by setting the number of travelers and using equal splitting for shared expenses. For larger groups, you might want to use a dedicated group expense splitter.</p></div></details>
+            <details class="faq-item"><summary>What if one partner plans more of the trip?</summary><div class="faq-answer"><p>If one partner does more planning, you might adjust the split slightly as a way to value that effort. However, many couples keep the financial split separate from the planning effort, valuing both contributions differently.</p></div></details>
+            <details class="faq-item"><summary>How do we handle currency differences?</summary><div class="faq-answer"><p>Use a single currency for the entire budget (your home currency or the trip currency). The calculator shows all amounts in your chosen currency, making it easy to compare and split. If you're traveling internationally, consider exchange rates when estimating costs.</p></div></details>
+            <details class="faq-item"><summary>Should we include daily spending money?</summary><div class="faq-answer"><p>Yes! Include daily spending money for incidentals, snacks, tips, and unexpected expenses in the miscellaneous category. A good rule of thumb is $50-100 per day per person for extras.</p></div></details>
+            <details class="faq-item"><summary>What if we have different travel styles?</summary><div class="faq-answer"><p>This is where category-specific splitting shines. If one partner prefers luxury hotels and the other prefers budget hostels, split accommodation differently. If one loves fine dining and the other prefers street food, split food costs accordingly. The calculator gives you full flexibility.</p></div></details>
+            <details class="faq-item"><summary>How do we handle flight upgrades?</summary><div class="faq-answer"><p>Flight upgrades are a personal choice. If one partner wants a premium seat, they typically cover the upgrade cost. The calculator lets you split the base flight cost one way and add the upgrade separately if needed.</p></div></details>
+            <details class="faq-item"><summary>What about activity costs that only one person participates in?</summary><div class="faq-answer"><p>If only one person participates in an activity, that person should typically cover the full cost. Remove that activity from shared expenses or have the participating partner pay it separately. The calculator's flexibility allows for this.</p></div></details>
+            <details class="faq-item"><summary>How do we split costs for special occasion trips?</summary><div class="faq-answer"><p>For birthday or anniversary trips, some couples split costs equally, while others have one partner treat the other. Discuss expectations beforehand — the calculator can help you compare different scenarios.</p></div></details>
+            <details class="faq-item"><summary>Should we include tipping in our budget?</summary><div class="faq-answer"><p>Yes, include tips in the food and dining category or as a separate miscellaneous expense. Tipping norms vary by destination, so research ahead of time and budget accordingly.</p></div></details>
+            <details class="faq-item"><summary>What about souvenirs and gifts for others?</summary><div class="faq-answer"><p>Personal gifts and souvenirs are typically individual expenses. You can include them in the shopping category or handle them separately outside the calculator. Be clear about what's included.</p></div></details>
+            <details class="faq-item"><summary>How do we handle booking fees?</summary><div class="faq-answer"><p>Booking fees and credit card charges should be included in the relevant expense category or in miscellaneous. These small costs add up, and including them gives you a more accurate total.</p></div></details>
+            <details class="faq-item"><summary>What if we need to cancel or change plans?</summary><div class="faq-answer"><p>Check your travel insurance policy and booking cancellation policies before booking. If you need to cancel, decide how to split any cancellation fees. Travel insurance can protect against some of these costs.</p></div></details>
+            <details class="faq-item"><summary>Should we use a joint account for vacation spending?</summary><div class="faq-answer"><p>A joint account or shared credit card can simplify vacation spending. Both partners contribute their share, and all trip expenses are paid from the joint account. The calculator helps determine the fair contribution for each person.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe fair financial planning for vacations shouldn't cost money. The calculator is supported by ads to keep it accessible to everyone.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money6(value) {
+      const sym = document.getElementById('currencySymbol6').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber6(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- show/hide custom percent ----
+    document.getElementById('globalSplitMethod').addEventListener('change', function() {
+      document.getElementById('customPercentDiv6').style.display = this.value === 'custom' ? 'block' : 'none';
+      document.getElementById('categorySplitDiv').style.display = this.value === 'category' ? 'block' : 'none';
+    });
+
+    // ---- category split helpers ----
+    function getCategorySplit(category) {
+      const method = document.getElementById('split' + category).value;
+      if (method === 'equal') return 50;
+      if (method === 'income') {
+        const p1 = getNumber6('income1');
+        const p2 = getNumber6('income2');
+        const total = p1 + p2;
+        return total > 0 ? (p1 / total) * 100 : 50;
+      }
+      return getNumber6('custom' + category + 'Pct') || 50;
+    }
+
+    // ---- show/hide custom category inputs ----
+    ['Flights','Accommodation','Food','Activities','Transport','Shopping','Insurance','Misc'].forEach(cat => {
+      const selectId = 'split' + cat;
+      const divId = 'custom' + cat + 'Div';
+      document.addEventListener('change', function(e) {
+        if (e.target.id === selectId) {
+          document.getElementById(divId).style.display = e.target.value === 'custom' ? 'block' : 'none';
+        }
+      });
+      // Initial state
+      const initialSelect = document.getElementById(selectId);
+      if (initialSelect) {
+        document.getElementById(divId).style.display = initialSelect.value === 'custom' ? 'block' : 'none';
+      }
+    });
+
+    // ---- main calculation ----
+    function calculateVacationSplit() {
+      const p1Name = 'Partner 1';
+      const p2Name = 'Partner 2';
+
+      const tripName = document.getElementById('tripName').value.trim() || 'Vacation';
+      const duration = getNumber6('tripDuration') || 7;
+      const travelers = parseInt(document.getElementById('numTravelers').value) || 2;
+
+      // Get all expenses
+      const expenses = {
+        flights: getNumber6('flights'),
+        accommodation: getNumber6('accommodation'),
+        food: getNumber6('food'),
+        activities: getNumber6('activities'),
+        transport: getNumber6('transport'),
+        shopping: getNumber6('shopping'),
+        insurance: getNumber6('insurance'),
+        misc: getNumber6('misc')
+      };
+
+      const totalExpense = Object.values(expenses).reduce((a, b) => a + b, 0);
+
+      if (totalExpense <= 0) {
+        document.getElementById('result6').innerHTML = '<p>Please enter at least one expense category.</p>';
+        return;
+      }
+
+      const method = document.getElementById('globalSplitMethod').value;
+
+      let p1Pct = 50;
+      let p2Pct = 50;
+
+      if (method === 'equal') {
+        p1Pct = 50;
+        p2Pct = 50;
+      } else if (method === 'custom') {
+        const customPct = getNumber6('customPercent6');
+        if (customPct <= 0 || customPct >= 100) {
+          document.getElementById('result6').innerHTML = '<p>Please enter a valid custom percentage (1-99).</p>';
+          return;
+        }
+        p1Pct = customPct;
+        p2Pct = 100 - customPct;
+      } else if (method === 'income') {
+        const p1 = getNumber6('income1');
+        const p2 = getNumber6('income2');
+        const total = p1 + p2;
+        if (total <= 0) {
+          document.getElementById('result6').innerHTML = '<p>Please enter valid incomes for both partners.</p>';
+          return;
+        }
+        p1Pct = (p1 / total) * 100;
+        p2Pct = (p2 / total) * 100;
+      } else { // category
+        // Calculate per category
+        let p1Total = 0;
+        let p2Total = 0;
+        const categoryDetails = [];
+
+        const cats = [
+          { id: 'flights', label: 'Flights / Transportation' },
+          { id: 'accommodation', label: 'Accommodation' },
+          { id: 'food', label: 'Food & Dining' },
+          { id: 'activities', label: 'Activities & Tours' },
+          { id: 'transport', label: 'Local Transport' },
+          { id: 'shopping', label: 'Shopping & Souvenirs' },
+          { id: 'insurance', label: 'Travel Insurance' },
+          { id: 'misc', label: 'Miscellaneous' }
+        ];
+
+        cats.forEach(cat => {
+          const amount = expenses[cat.id] || 0;
+          if (amount > 0) {
+            const pct = getCategorySplit(cat.id.charAt(0).toUpperCase() + cat.id.slice(1));
+            const p1Share = amount * (pct / 100);
+            const p2Share = amount - p1Share;
+            p1Total += p1Share;
+            p2Total += p2Share;
+            categoryDetails.push({
+              label: cat.label,
+              amount: amount,
+              p1Share: p1Share,
+              p2Share: p2Share,
+              pct: pct
+            });
+          }
+        });
+
+        const p1PctCalc = (p1Total / totalExpense) * 100;
+        const p2PctCalc = (p2Total / totalExpense) * 100;
+
+        // Build category breakdown HTML
+        let categoryHTML = categoryDetails.map(c => `
+          <div class="expense-row">
+            <span class="expense-label">${c.label}</span>
+            <span>${money6(c.amount)} · ${c.pct.toFixed(0)}% / ${(100-c.pct).toFixed(0)}%</span>
+            <span>${money6(c.p1Share)} / ${money6(c.p2Share)}</span>
+          </div>
+        `).join('');
+
+        // Show result with category breakdown
+        const resultDiv = document.getElementById('result6');
+        const perDay = totalExpense / duration;
+
+        resultDiv.innerHTML = `
+          <div class="summary-line">
+            🏝️ ${tripName} · ${duration} days · ${travelers} travelers
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <div class="label">${p1Name}</div>
+              <div class="amount">${money6(p1Total)}</div>
+              <div class="detail">${p1PctCalc.toFixed(1)}% of total</div>
+              <div class="per-day">${money6(p1Total / duration)}/day</div>
+            </div>
+            <div class="result-card">
+              <div class="label">${p2Name}</div>
+              <div class="amount">${money6(p2Total)}</div>
+              <div class="detail">${p2PctCalc.toFixed(1)}% of total</div>
+              <div class="per-day">${money6(p2Total / duration)}/day</div>
+            </div>
+          </div>
+
+          <div class="highlight-box">
+            <strong>Total budget:</strong> ${money6(totalExpense)} · 
+            <strong>Per day:</strong> ${money6(perDay)} · 
+            <strong>Split:</strong> ${p1PctCalc.toFixed(0)}% / ${p2PctCalc.toFixed(0)}%
+          </div>
+
+          <div class="expense-breakdown">
+            <div class="expense-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+              <span>Category</span>
+              <span>Total · Split</span>
+              <span>${p1Name} / ${p2Name}</span>
+            </div>
+            ${categoryHTML}
+          </div>
+
+          <p class="note">
+            <strong>Category-specific split:</strong> Each category is split according to your preferences.
+            ${p1PctCalc > p2PctCalc ? `${p1Name} pays more overall` : p2PctCalc > p1PctCalc ? `${p2Name} pays more overall` : 'Both partners pay equally overall'}.
+          </p>
+        `;
+        return;
+      }
+
+      // Equal, custom, or income method
+      const p1Total = totalExpense * (p1Pct / 100);
+      const p2Total = totalExpense * (p2Pct / 100);
+      const perDay = totalExpense / duration;
+
+      const methodLabels = {
+        'equal': 'Equal split (50/50)',
+        'income': 'Proportional by income',
+        'custom': 'Custom percentage'
+      };
+
+      const resultDiv = document.getElementById('result6');
+
+      // Build expense breakdown
+      const expenseRows = Object.entries(expenses).filter(([key, val]) => val > 0).map(([key, val]) => {
+        const labels = {
+          flights: 'Flights / Transportation',
+          accommodation: 'Accommodation',
+          food: 'Food & Dining',
+          activities: 'Activities & Tours',
+          transport: 'Local Transport',
+          shopping: 'Shopping & Souvenirs',
+          insurance: 'Travel Insurance',
+          misc: 'Miscellaneous'
+        };
+        return `
+          <div class="expense-row">
+            <span class="expense-label">${labels[key] || key}</span>
+            <span>${money6(val)}</span>
+            <span>${money6(val * (p1Pct / 100))} / ${money6(val * (p2Pct / 100))}</span>
+          </div>
+        `;
+      }).join('');
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          🏝️ ${tripName} · ${duration} days · ${travelers} travelers · ${methodLabels[method] || 'Custom split'}
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">${p1Name}</div>
+            <div class="amount">${money6(p1Total)}</div>
+            <div class="detail">${p1Pct.toFixed(1)}% of total</div>
+            <div class="per-day">${money6(p1Total / duration)}/day</div>
+          </div>
+          <div class="result-card">
+            <div class="label">${p2Name}</div>
+            <div class="amount">${money6(p2Total)}</div>
+            <div class="detail">${p2Pct.toFixed(1)}% of total</div>
+            <div class="per-day">${money6(p2Total / duration)}/day</div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <strong>Total budget:</strong> ${money6(totalExpense)} · 
+          <strong>Per day:</strong> ${money6(perDay)} · 
+          <strong>Per person per day:</strong> ${money6(perDay / travelers)}
+        </div>
+
+        <div class="expense-breakdown">
+          <div class="expense-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+            <span>Category</span>
+            <span>Total</span>
+            <span>${p1Name} / ${p2Name}</span>
+          </div>
+          ${expenseRows}
+        </div>
+
+        <p class="note">
+          <strong>Split method:</strong> ${methodLabels[method] || 'Custom'}.
+          ${p1Pct > p2Pct ? `${p1Name} pays ${(p1Pct - p2Pct).toFixed(0)}% more` : p2Pct > p1Pct ? `${p2Name} pays ${(p2Pct - p1Pct).toFixed(0)}% more` : 'Both partners pay equally'}.
+        </p>
+      `;
+    }
+
+    function resetVacation() {
+      document.querySelectorAll('.calculator input[type="number"], .calculator input[type="text"]').forEach(input => {
+        if (input.id !== 'numTravelers' && input.id !== 'tripDuration') {
+          input.value = '';
+        }
+      });
+      document.getElementById('numTravelers').value = 2;
+      document.getElementById('result6').innerHTML = '';
+    }
+
+    async function copyResult6() {
+      const result = document.getElementById('result6');
+      if (!result.innerText.trim()) { alert('Calculate the split first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
