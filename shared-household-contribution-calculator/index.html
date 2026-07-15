@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+
+  <!-- Google AdSense tag -->
+  <script
+    async
+    crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+  ></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-VR5ESWGW9Y");
+  </script>
+
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+
+  <meta
+    name="description"
+    content="Calculate fair shared household contributions using income-based or equal splitting. Include monthly expenses and a shared savings goal."
+  >
+
+  <title>Shared Household Contribution Calculator - WellSplit</title>
+
+  <link rel="stylesheet" href="/components/styles.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a shared household contribution calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It calculates how much each person should contribute toward shared household costs based on income or an equal split."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the calculator work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter each person's monthly income, shared expenses, and optional savings goal. The calculator assigns a recommended contribution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can couples use this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. It is designed for couples and other two-person households."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can roommates use this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Any two people sharing household costs can use it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What expenses should be included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Include shared housing, utilities, groceries, transportation, insurance, and other agreed household costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can shared savings be included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Add a monthly shared savings goal to include it in the recommended contributions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an income-based contribution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each person contributes according to their percentage of combined household income."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an equal contribution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each person contributes half of the total shared household amount."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which method is fairer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Income-based contributions can feel fairer when incomes differ, while equal contributions are simpler."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use take-home income?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Take-home income is usually best because it reflects money actually available."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use gross income?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but both people should use the same income type."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if both incomes are equal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Income-based and equal contributions will produce the same result."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if one person has no income?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The income-based method assigns them no contribution unless the household agrees otherwise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the calculator show money left over?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. It shows estimated income remaining after the recommended contribution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is contribution burden?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the percentage of each person's income used for shared household costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can personal expenses be included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Only include expenses shared by the household."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do the contributions cover the full total?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Recommended contributions add up to all shared expenses and savings entered."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change the method later?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Switch between income-based and equal splitting at any time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I copy the result?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the Copy Result button after calculating."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the result legally binding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It is a planning tool for household discussions."
+      }
+    }
+  ]
+}
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #2f343c;
+      --panel: #3a4048;
+      --panel-2: #454c56;
+      --field: #505863;
+      --text: #f3f4f6;
+      --muted: #c6ccd4;
+      --border: #606977;
+      --accent: #7dd3fc;
+      --accent-2: #38bdf8;
+      --good: #86efac;
+      --danger: #f87171;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+      --radius: 16px;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --panel-2: #f1f5f9;
+      --field: #ffffff;
+      --text: #111827;
+      --muted: #5e6b78;
+      --border: #dce3eb;
+      --accent: #0369a1;
+      --accent-2: #0284c7;
+      --good: #15803d;
+      --danger: #b91c1c;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    main {
+      padding: 42px 6% 40px;
+    }
+
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .page-shell {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .ad-space {
+      min-height: 600px;
+    }
+
+    .hero {
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+    }
+
+    .hero p {
+      max-width: 700px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .calculator,
+    .content-section {
+      margin-bottom: 16px;
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      margin-bottom: 5px;
+      font-size: 1.15rem;
+      line-height: 1.25;
+      letter-spacing: -0.035em;
+    }
+
+    .section-description {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .partner-card {
+      padding: 12px;
+      background: color-mix(in srgb, var(--panel-2) 66%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+    }
+
+    .partner-card h3 {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 42px;
+      padding: 9px 10px;
+      background: var(--field);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.86rem;
+      font-weight: 900;
+      transition: 0.16s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #061018;
+    }
+
+    .primary:hover {
+      background: var(--accent-2);
+    }
+
+    .secondary {
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .result {
+      min-height: 56px;
+      margin-top: 14px;
+      padding: 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    .result:empty::before {
+      content: "Your household contribution plan will appear here.";
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .summary-card {
+      padding: 12px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .summary-label {
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .summary-value {
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .result-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+
+    .result-table th,
+    .result-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .result-table th {
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .result-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .money-cell {
+      color: var(--accent);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .good {
+      color: var(--good);
+      font-weight: 850;
+    }
+
+    .danger {
+      color: var(--danger);
+      font-weight: 850;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .content-section h2 {
+      margin-bottom: 10px;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+    }
+
+    .content-section h3 {
+      margin: 18px 0 6px;
+      font-size: 1.02rem;
+    }
+
+    .content-section p {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .content-section ul {
+      margin: 8px 0 10px 20px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .content-section li {
+      margin-bottom: 5px;
+    }
+
+    #faqs h2 {
+      margin-bottom: 7px;
+      font-size: 1.45rem;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-top: 13px;
+    }
+
+    .faq-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+    }
+
+    .faq-item:hover {
+      border-color: var(--accent);
+    }
+
+    .faq-item[open] {
+      background: var(--panel-2);
+    }
+
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.85rem;
+      font-weight: 750;
+      line-height: 1.3;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::before {
+      content: "▶";
+      flex-shrink: 0;
+      font-size: 0.64rem;
+      transition: transform 0.2s;
+    }
+
+    .faq-item[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    .faq-answer {
+      padding: 0 12px 11px 31px;
+    }
+
+    .faq-answer p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.79rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 24px 6%;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .content-layout {
+        display: block;
+        width: 100%;
+      }
+
+      .ad-column {
+        display: none;
+      }
+    }
+
+    @media (max-width: 780px) {
+      main {
+        padding: 34px 18px 26px;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+
+      .calculator,
+      .content-section {
+        padding: 15px;
+      }
+
+      .grid,
+      .summary-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .btns button {
+        flex: 1 1 145px;
+      }
+
+      #faqs h2 {
+        font-size: 1.32rem;
+      }
+
+      .faq-item summary {
+        font-size: 0.82rem;
+      }
+
+      .faq-answer p {
+        font-size: 0.77rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .btns button {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+
+        <section class="hero">
+          <h1>Shared Household Contribution Calculator</h1>
+
+          <p>
+            Calculate how much each person should contribute toward shared
+            expenses and savings using an equal or income-based method.
+          </p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Household members</h2>
+
+          <p class="section-description">
+            Enter each person's monthly income using the same income type.
+          </p>
+
+          <div class="grid">
+            <div class="partner-card">
+              <h3>Person A</h3>
+
+              <label for="personAName">Name</label>
+              <input id="personAName" placeholder="Person A" type="text">
+
+              <div style="margin-top:10px">
+                <label for="personAIncome">Monthly income</label>
+                <input
+                  id="personAIncome"
+                  inputmode="decimal"
+                  min="0"
+                  placeholder="5000"
+                  type="number"
+                >
+              </div>
+            </div>
+
+            <div class="partner-card">
+              <h3>Person B</h3>
+
+              <label for="personBName">Name</label>
+              <input id="personBName" placeholder="Person B" type="text">
+
+              <div style="margin-top:10px">
+                <label for="personBIncome">Monthly income</label>
+                <input
+                  id="personBIncome"
+                  inputmode="decimal"
+                  min="0"
+                  placeholder="3000"
+                  type="number"
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Shared household costs</h2>
+
+          <p class="section-description">
+            Add the monthly expenses and optional shared savings goal.
+          </p>
+
+          <div class="grid">
+            <div>
+              <label for="housing">Rent / mortgage</label>
+              <input id="housing" inputmode="decimal" min="0" placeholder="2200" type="number">
+            </div>
+
+            <div>
+              <label for="utilities">Utilities</label>
+              <input id="utilities" inputmode="decimal" min="0" placeholder="300" type="number">
+            </div>
+
+            <div>
+              <label for="groceries">Groceries</label>
+              <input id="groceries" inputmode="decimal" min="0" placeholder="600" type="number">
+            </div>
+
+            <div>
+              <label for="transportation">Shared transportation</label>
+              <input id="transportation" inputmode="decimal" min="0" placeholder="250" type="number">
+            </div>
+
+            <div>
+              <label for="insurance">Shared insurance</label>
+              <input id="insurance" inputmode="decimal" min="0" placeholder="150" type="number">
+            </div>
+
+            <div>
+              <label for="otherCosts">Other shared costs</label>
+              <input id="otherCosts" inputmode="decimal" min="0" placeholder="200" type="number">
+            </div>
+
+            <div>
+              <label for="sharedSavings">Shared monthly savings goal</label>
+              <input id="sharedSavings" inputmode="decimal" min="0" placeholder="500" type="number">
+            </div>
+
+            <div>
+              <label for="contributionMethod">Contribution method</label>
+              <select id="contributionMethod">
+                <option value="income" selected>Income-based contribution</option>
+                <option value="equal">Equal 50 / 50 contribution</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="incomeType">Income type</label>
+              <select id="incomeType">
+                <option value="net" selected>Monthly take-home income</option>
+                <option value="gross">Monthly gross income</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="currencySymbol">Currency symbol</label>
+              <select id="currencySymbol">
+                <option value="$">$</option>
+                <option value="CA$">CA$</option>
+                <option value="US$">US$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="btns">
+            <button class="primary" onclick="calculateContribution()" type="button">
+              Calculate Contributions
+            </button>
+
+            <button class="secondary" onclick="copyResult()" type="button">
+              Copy Result
+            </button>
+          </div>
+
+          <div class="result" id="result"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Shared Household Contribution Calculator</h2>
+
+          <p>
+            The WellSplit Shared Household Contribution Calculator helps two people
+            create a clear monthly contribution plan for shared household expenses
+            and savings.
+          </p>
+
+          <p>
+            The calculator supports an equal 50/50 method and an income-based method.
+            Under the income-based method, each person contributes according to their
+            percentage of combined household income.
+          </p>
+
+          <h3>What can be included</h3>
+
+          <ul>
+            <li>Rent or mortgage payments.</li>
+            <li>Utilities and groceries.</li>
+            <li>Shared transportation and insurance.</li>
+            <li>Other agreed household costs.</li>
+            <li>A shared monthly savings goal.</li>
+          </ul>
+
+          <p>
+            The result shows each person's recommended contribution, contribution
+            percentage, contribution burden, and estimated income remaining afterward.
+            This helps couples and households compare affordability while keeping the
+            full household budget funded.
+          </p>
+        </section>
+
+        <section class="content-section" id="faqs">
+          <h2>Shared Household Contribution FAQs</h2>
+
+          <p>
+            Quick answers about dividing shared household costs and savings.
+          </p>
+
+          <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is a shared household contribution calculator?</summary>
+            <div class="faq-answer"><p>It calculates how much each person should contribute toward shared household costs based on income or an equal split.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How does the calculator work?</summary>
+            <div class="faq-answer"><p>Enter each person's monthly income, shared expenses, and optional savings goal. The calculator assigns a recommended contribution.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can couples use this calculator?</summary>
+            <div class="faq-answer"><p>Yes. It is designed for couples and other two-person households.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can roommates use this calculator?</summary>
+            <div class="faq-answer"><p>Yes. Any two people sharing household costs can use it.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What expenses should be included?</summary>
+            <div class="faq-answer"><p>Include shared housing, utilities, groceries, transportation, insurance, and other agreed household costs.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can shared savings be included?</summary>
+            <div class="faq-answer"><p>Yes. Add a monthly shared savings goal to include it in the recommended contributions.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What is an income-based contribution?</summary>
+            <div class="faq-answer"><p>Each person contributes according to their percentage of combined household income.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What is an equal contribution?</summary>
+            <div class="faq-answer"><p>Each person contributes half of the total shared household amount.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Which method is fairer?</summary>
+            <div class="faq-answer"><p>Income-based contributions can feel fairer when incomes differ, while equal contributions are simpler.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should I use take-home income?</summary>
+            <div class="faq-answer"><p>Take-home income is usually best because it reflects money actually available.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use gross income?</summary>
+            <div class="faq-answer"><p>Yes, but both people should use the same income type.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if both incomes are equal?</summary>
+            <div class="faq-answer"><p>Income-based and equal contributions will produce the same result.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if one person has no income?</summary>
+            <div class="faq-answer"><p>The income-based method assigns them no contribution unless the household agrees otherwise.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does the calculator show money left over?</summary>
+            <div class="faq-answer"><p>Yes. It shows estimated income remaining after the recommended contribution.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What is contribution burden?</summary>
+            <div class="faq-answer"><p>It is the percentage of each person's income used for shared household costs.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can personal expenses be included?</summary>
+            <div class="faq-answer"><p>No. Only include expenses shared by the household.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Do the contributions cover the full total?</summary>
+            <div class="faq-answer"><p>Yes. Recommended contributions add up to all shared expenses and savings entered.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I change the method later?</summary>
+            <div class="faq-answer"><p>Yes. Switch between income-based and equal splitting at any time.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I copy the result?</summary>
+            <div class="faq-answer"><p>Yes. Use the Copy Result button after calculating.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the result legally binding?</summary>
+            <div class="faq-answer"><p>No. It is a planning tool for household discussions.</p></div>
+          </details>
+          </div>
+        </section>
+      </div>
+
+      <aside class="ad-column" aria-label="Advertisement space">
+        <div class="ad-space">
+          <!-- Place your desktop AdSense ad code here. -->
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    function getNumber(id) {
+      return parseFloat(document.getElementById(id).value) || 0;
+    }
+
+    function money(value) {
+      const symbol = document.getElementById("currencySymbol").value;
+
+      return symbol + Number(value || 0).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function calculateContribution() {
+      const result = document.getElementById("result");
+
+      const nameA =
+        document.getElementById("personAName").value.trim() || "Person A";
+
+      const nameB =
+        document.getElementById("personBName").value.trim() || "Person B";
+
+      const incomeA = getNumber("personAIncome");
+      const incomeB = getNumber("personBIncome");
+      const totalIncome = incomeA + incomeB;
+
+      const expenses = [
+        "housing",
+        "utilities",
+        "groceries",
+        "transportation",
+        "insurance",
+        "otherCosts"
+      ].reduce((sum, id) => sum + getNumber(id), 0);
+
+      const savings = getNumber("sharedSavings");
+      const totalHouseholdNeed = expenses + savings;
+      const method = document.getElementById("contributionMethod").value;
+
+      if (totalHouseholdNeed <= 0) {
+        result.innerHTML =
+          "<p>Please enter at least one shared expense or savings amount.</p>";
+        return;
+      }
+
+      if (method === "income" && totalIncome <= 0) {
+        result.innerHTML =
+          "<p>Please enter at least one income greater than zero.</p>";
+        return;
+      }
+
+      let shareA;
+      let shareB;
+
+      if (method === "equal") {
+        shareA = 0.5;
+        shareB = 0.5;
+      } else {
+        shareA = incomeA / totalIncome;
+        shareB = incomeB / totalIncome;
+      }
+
+      const contributionA = totalHouseholdNeed * shareA;
+      const contributionB = totalHouseholdNeed * shareB;
+
+      const expensePartA = expenses * shareA;
+      const expensePartB = expenses * shareB;
+
+      const savingsPartA = savings * shareA;
+      const savingsPartB = savings * shareB;
+
+      const burdenA =
+        incomeA > 0 ? (contributionA / incomeA) * 100 : 0;
+
+      const burdenB =
+        incomeB > 0 ? (contributionB / incomeB) * 100 : 0;
+
+      const remainingA = incomeA - contributionA;
+      const remainingB = incomeB - contributionB;
+
+      const methodLabel =
+        method === "income"
+          ? "Income-based contribution"
+          : "Equal 50 / 50 contribution";
+
+      const incomeLabel =
+        document.getElementById("incomeType").value === "net"
+          ? "take-home income"
+          : "gross income";
+
+      result.innerHTML = `
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="summary-label">Shared expenses</div>
+            <div class="summary-value">${money(expenses)}</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-label">Shared savings</div>
+            <div class="summary-value">${money(savings)}</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-label">Total household contribution</div>
+            <div class="summary-value">${money(totalHouseholdNeed)}</div>
+          </div>
+        </div>
+
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Monthly income</th>
+              <th>Contribution share</th>
+              <th>Expense contribution</th>
+              <th>Savings contribution</th>
+              <th>Total contribution</th>
+              <th>Income burden</th>
+              <th>Income remaining</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>${escapeHtml(nameA)}</td>
+              <td>${money(incomeA)}</td>
+              <td>${(shareA * 100).toFixed(1)}%</td>
+              <td>${money(expensePartA)}</td>
+              <td>${money(savingsPartA)}</td>
+              <td class="money-cell">${money(contributionA)}</td>
+              <td>${burdenA.toFixed(1)}%</td>
+              <td class="${remainingA >= 0 ? "good" : "danger"}">
+                ${money(remainingA)}
+              </td>
+            </tr>
+
+            <tr>
+              <td>${escapeHtml(nameB)}</td>
+              <td>${money(incomeB)}</td>
+              <td>${(shareB * 100).toFixed(1)}%</td>
+              <td>${money(expensePartB)}</td>
+              <td>${money(savingsPartB)}</td>
+              <td class="money-cell">${money(contributionB)}</td>
+              <td>${burdenB.toFixed(1)}%</td>
+              <td class="${remainingB >= 0 ? "good" : "danger"}">
+                ${money(remainingB)}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note">
+          ${methodLabel} using monthly ${incomeLabel}.
+          Recommended contributions fully cover the entered shared expenses
+          and savings goal.
+        </p>
+      `;
+    }
+
+    async function copyResult() {
+      const result = document.getElementById("result");
+
+      if (!result.innerText.trim()) {
+        alert("Calculate the contributions first.");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert("Result copied.");
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+
+        textarea.value = result.innerText.trim();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+
+        alert("Result copied.");
+      }
+    }
+  </script>
+
+  <div id="footer-container"></div>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
