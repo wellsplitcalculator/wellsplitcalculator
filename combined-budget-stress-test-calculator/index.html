@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Budget stress-test calculator for couples. Test your financial resilience against job loss, emergencies, and unexpected expenses.">
+  <title>Combined Budget Stress-Test Calculator · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+      --red: #f87171;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+      --red: #dc2626;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your budget stress-test results will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-table {
+      width: 100%; min-width: 480px; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .result-table th, .result-table td {
+      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .68rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .pass-cell { font-weight: 900; color: var(--green); }
+    .fail-cell { font-weight: 900; color: var(--red); }
+    .warning-cell { font-weight: 900; color: var(--orange); }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .highlight-box.danger {
+      background: color-mix(in srgb, var(--red) 15%, transparent);
+      border-left-color: var(--red);
+    }
+    .highlight-box.warning {
+      background: color-mix(in srgb, var(--orange) 15%, transparent);
+      border-left-color: var(--orange);
+    }
+    .highlight-box.success {
+      background: color-mix(in srgb, var(--green) 15%, transparent);
+      border-left-color: var(--green);
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .amount.success { color: var(--green); }
+    .result-card .amount.warning { color: var(--orange); }
+    .result-card .amount.danger { color: var(--red); }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .status-pass { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .status-warning { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .status-fail { background: color-mix(in srgb, var(--red) 20%, transparent); color: var(--red); }
+    @media (max-width:600px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .result-card .amount { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Combined Budget Stress-Test Calculator</h1>
+          <p>Test your financial resilience as a couple. See how long you can survive job loss, emergencies, and unexpected expenses.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Your combined finances</h2>
+          <p class="section-description">Enter your combined monthly income, expenses, and savings.</p>
+          <div class="grid">
+            <div>
+              <label for="combinedIncome">Combined monthly take-home income</label>
+              <input id="combinedIncome" type="number" inputmode="decimal" min="0" placeholder="7000" value="">
+            </div>
+            <div>
+              <label for="currencySymbol8">Currency</label>
+              <select id="currencySymbol8">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+              </select>
+            </div>
+            <div>
+              <label for="fixedExpenses">Fixed monthly expenses (rent, bills, debt payments)</label>
+              <input id="fixedExpenses" type="number" inputmode="decimal" min="0" placeholder="3500" value="">
+            </div>
+            <div>
+              <label for="variableExpenses">Variable monthly expenses (groceries, transport, entertainment)</label>
+              <input id="variableExpenses" type="number" inputmode="decimal" min="0" placeholder="1500" value="">
+            </div>
+            <div>
+              <label for="emergencyFund">Current emergency fund / savings</label>
+              <input id="emergencyFund" type="number" inputmode="decimal" min="0" placeholder="10000" value="">
+            </div>
+            <div>
+              <label for="otherSavings">Other savings (investments, retirement, etc.)</label>
+              <input id="otherSavings" type="number" inputmode="decimal" min="0" placeholder="5000" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Income loss scenarios</h2>
+          <p class="section-description">Test different income loss scenarios to see how your budget holds up.</p>
+          <div class="grid">
+            <div>
+              <label for="p1IncomePct">Partner 1 income (% of total)</label>
+              <input id="p1IncomePct" type="number" min="0" max="100" placeholder="60" value="" step="1">
+            </div>
+            <div>
+              <label for="p2IncomePct">Partner 2 income (% of total)</label>
+              <input id="p2IncomePct" type="number" min="0" max="100" placeholder="40" value="" step="1">
+            </div>
+            <div>
+              <label for="jobLossScenario">Job loss scenario</label>
+              <select id="jobLossScenario">
+                <option value="partner1">Partner 1 loses job</option>
+                <option value="partner2">Partner 2 loses job</option>
+                <option value="both">Both lose jobs</option>
+                <option value="custom">Custom income reduction</option>
+              </select>
+            </div>
+            <div id="customIncomeDiv" style="display:none;">
+              <label for="customIncomePct">New total income (% of original)</label>
+              <input id="customIncomePct" type="number" min="0" max="100" placeholder="50" value="" step="1">
+            </div>
+            <div>
+              <label for="benefitsMonths">Months of unemployment benefits</label>
+              <input id="benefitsMonths" type="number" min="0" max="24" placeholder="6" value="">
+            </div>
+            <div>
+              <label for="benefitsAmount">Monthly unemployment benefits</label>
+              <input id="benefitsAmount" type="number" inputmode="decimal" min="0" placeholder="1500" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">3. Emergency scenarios</h2>
+          <p class="section-description">Test how your budget handles unexpected expenses.</p>
+          <div class="grid">
+            <div>
+              <label for="emergencyCost">Emergency expense amount (one-time)</label>
+              <input id="emergencyCost" type="number" inputmode="decimal" min="0" placeholder="2000" value="">
+            </div>
+            <div>
+              <label for="monthlyExtra">Ongoing extra monthly expense</label>
+              <input id="monthlyExtra" type="number" inputmode="decimal" min="0" placeholder="300" value="">
+            </div>
+            <div>
+              <label for="expenseDuration">Duration of extra expense (months)</label>
+              <input id="expenseDuration" type="number" min="1" placeholder="6" value="">
+            </div>
+            <div>
+              <label for="inflationPct">Monthly inflation rate (%)</label>
+              <input id="inflationPct" type="number" min="0" max="20" placeholder="0.5" value="" step="0.1">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculateStressTest()" type="button">Run Stress Test</button>
+            <button class="secondary" onclick="copyResult8()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetStressTest()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result8"></div>
+        </section>
+
+        <section class="content-section" id="about8">
+          <h2>About the Combined Budget Stress-Test Calculator</h2>
+          <p>Life is unpredictable. This calculator helps couples understand their financial vulnerability and build resilience. It tests your combined budget against job loss, emergencies, and unexpected expenses so you can plan ahead.</p>
+          <h3>How to use this stress-test calculator</h3>
+          <ul>
+            <li>Enter your combined income, expenses, and savings.</li>
+            <li>Set up income loss scenarios (job loss, reduction, etc.).</li>
+            <li>Add emergency expenses or ongoing extra costs.</li>
+            <li>Run the stress test to see your financial runway and recommendations.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs8">
+          <h2>Budget Stress-Test FAQs</h2>
+          <p>Common questions about stress-testing your combined budget.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>Why should couples stress-test their budget?</summary><div class="faq-answer"><p>Stress-testing helps you prepare for financial shocks like job loss, medical emergencies, or unexpected expenses. It reveals vulnerabilities in your budget and shows how long you can survive on savings, giving you peace of mind and time to plan.</p></div></details>
+            <details class="faq-item"><summary>How much emergency fund should couples have?</summary><div class="faq-answer"><p>Financial experts recommend 3-6 months of essential expenses. This calculator shows your actual runway based on your specific income, expenses, and savings, helping you determine if your emergency fund is adequate.</p></div></details>
+            <details class="faq-item"><summary>What's a good "survival" time for a couple?</summary><div class="faq-answer"><p>3-6 months is considered a good cushion. Less than 3 months is concerning, while 6+ months provides strong financial security. The calculator shows your specific survival time and rates it as pass, warning, or fail.</p></div></details>
+            <details class="faq-item"><summary>Should both partners have income protection?</summary><div class="faq-answer"><p>Yes, ideally. Income protection insurance can replace a portion of lost income during job loss or disability. This calculator shows the impact of job loss scenarios so you can decide if additional protection is needed.</p></div></details>
+            <details class="faq-item"><summary>What expenses should we cut first in a crisis?</summary><div class="faq-answer"><p>Start with discretionary spending: dining out, subscriptions, entertainment, and luxury purchases. Then look at variable expenses like groceries and transportation. The calculator assumes fixed expenses remain but highlights where you could potentially cut.</p></div></details>
+            <details class="faq-item"><summary>How do unemployment benefits affect our survival time?</summary><div class="faq-answer"><p>Unemployment benefits extend your runway significantly. Enter the monthly benefit amount and duration to see the exact impact. Even partial benefits can make a big difference in how long your savings last.</p></div></details>
+            <details class="faq-item"><summary>What if one partner can't work due to illness?</summary><div class="faq-answer"><p>This scenario is similar to job loss but may include additional medical expenses. Use the custom income reduction option and add medical costs as an ongoing extra expense to get an accurate picture.</p></div></details>
+            <details class="faq-item"><summary>How does inflation affect our budget stress test?</summary><div class="faq-answer"><p>Inflation reduces purchasing power over time, meaning your expenses increase while income stays the same. The calculator can simulate monthly inflation to show how it reduces your survival time.</p></div></details>
+            <details class="faq-item"><summary>What's the difference between fixed and variable expenses?</summary><div class="faq-answer"><p>Fixed expenses remain constant month-to-month (rent, insurance, debt payments). Variable expenses fluctuate (groceries, entertainment, dining out). In a crisis, variable expenses are easier to cut, which this calculator accounts for.</p></div></details>
+            <details class="faq-item"><summary>Should we include investments in our emergency fund?</summary><div class="faq-answer"><p>No, emergency funds should be in easily accessible accounts (savings, money market). Investments can lose value if sold during a downturn. The calculator separates emergency savings from other savings for this reason.</p></div></details>
+            <details class="faq-item"><summary>What if both partners lose their jobs at the same time?</summary><div class="faq-answer"><p>This is the worst-case scenario. The calculator includes a "both lose jobs" option that shows your survival time with zero income (minus any unemployment benefits). It's a valuable stress test for your budget's resilience.</p></div></details>
+            <details class="faq-item"><summary>How do one-time emergency expenses affect our budget?</summary><div class="faq-answer"><p>One-time emergencies (car repairs, medical bills) reduce your emergency fund immediately. The calculator shows the impact on your survival time and whether you need to adjust your emergency fund target.</p></div></details>
+            <details class="faq-item"><summary>What about ongoing extra expenses like childcare?</summary><div class="faq-answer"><p>Ongoing expenses that aren't in your regular budget can strain your finances. The calculator lets you add these and see how they reduce your runway over time, helping you plan accordingly.</p></div></details>
+            <details class="faq-item"><summary>How often should couples stress-test their budget?</summary><div class="faq-answer"><p>Run a stress test quarterly or whenever your financial situation changes — new job, raise, move, or major purchase. Regular testing helps you stay prepared and adjust your savings goals.</p></div></details>
+            <details class="faq-item"><summary>What if we have different risk tolerances?</summary><div class="faq-answer"><p>This is a common dynamic. The calculator provides objective numbers to facilitate discussion. Use the results to find a compromise — maybe one partner wants a 6-month cushion while the other is comfortable with 3 months.</p></div></details>
+            <details class="faq-item"><summary>Should we include debt payments in the stress test?</summary><div class="faq-answer"><p>Yes, debt payments are fixed expenses that continue regardless of income. Include them in fixed expenses to get an accurate picture of your minimum required spending during a crisis.</p></div></details>
+            <details class="faq-item"><summary>What if we have a mortgage vs. rent?</summary><div class="faq-answer"><p>Both are fixed expenses included in the calculator. A mortgage might be harder to reduce than rent, but the calculator treats them the same — as essential monthly payments that continue during a crisis.</p></div></details>
+            <details class="faq-item"><summary>Can this calculator account for side income?</summary><div class="faq-answer"><p>Include regular side income in your combined monthly income. For irregular side income, you might want to exclude it from the stress test to be conservative, or add it as a lower number in a separate custom scenario.</p></div></details>
+            <details class="faq-item"><summary>What's the minimum emergency fund for couples?</summary><div class="faq-answer"><p>The absolute minimum is 3 months of essential expenses. However, if both partners work in unstable industries or have dependents, 6-12 months is safer. The calculator shows your specific situation so you can decide.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. Financial preparedness shouldn't cost money. The calculator is supported by ads to keep it accessible to everyone.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money8(value) {
+      const sym = document.getElementById('currencySymbol8').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber8(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- show/hide custom income ----
+    document.getElementById('jobLossScenario').addEventListener('change', function() {
+      document.getElementById('customIncomeDiv').style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+
+    // ---- main calculation ----
+    function calculateStressTest() {
+      const income = getNumber8('combinedIncome');
+      const fixed = getNumber8('fixedExpenses');
+      const variable = getNumber8('variableExpenses');
+      const totalExpenses = fixed + variable;
+      const emergencyFund = getNumber8('emergencyFund');
+      const otherSavings = getNumber8('otherSavings');
+      const totalSavings = emergencyFund + otherSavings;
+
+      const p1Pct = getNumber8('p1IncomePct');
+      const p2Pct = getNumber8('p2IncomePct');
+      const scenario = document.getElementById('jobLossScenario').value;
+      const benefitsMonths = getNumber8('benefitsMonths');
+      const benefitsAmount = getNumber8('benefitsAmount');
+      const customPct = getNumber8('customIncomePct');
+
+      const emergencyCost = getNumber8('emergencyCost');
+      const monthlyExtra = getNumber8('monthlyExtra');
+      const expenseDuration = getNumber8('expenseDuration') || 1;
+      const inflationPct = getNumber8('inflationPct') / 100;
+
+      if (income <= 0 || totalExpenses <= 0) {
+        document.getElementById('result8').innerHTML = '<p>Please enter valid income and expenses.</p>';
+        return;
+      }
+
+      if (p1Pct + p2Pct > 100 && (p1Pct > 0 || p2Pct > 0)) {
+        document.getElementById('result8').innerHTML = '<p>Income percentages must add up to 100%.</p>';
+        return;
+      }
+
+      // Calculate income loss
+      let newIncome = income;
+      let lossDescription = '';
+
+      if (scenario === 'partner1') {
+        const p1Income = income * (p1Pct / 100);
+        newIncome = income - p1Income;
+        lossDescription = `${p1Pct}% loss (Partner 1 loses job)`;
+      } else if (scenario === 'partner2') {
+        const p2Income = income * (p2Pct / 100);
+        newIncome = income - p2Income;
+        lossDescription = `${p2Pct}% loss (Partner 2 loses job)`;
+      } else if (scenario === 'both') {
+        newIncome = 0;
+        lossDescription = '100% loss (Both lose jobs)';
+      } else if (scenario === 'custom') {
+        if (customPct <= 0 || customPct > 100) {
+          document.getElementById('result8').innerHTML = '<p>Please enter a valid custom income percentage (1-100).</p>';
+          return;
+        }
+        newIncome = income * (customPct / 100);
+        lossDescription = `${(100 - customPct).toFixed(0)}% loss (Custom scenario)`;
+      }
+
+      // Add unemployment benefits
+      const effectiveIncome = newIncome + (benefitsAmount * (benefitsMonths > 0 ? 1 : 0));
+
+      // Calculate monthly deficit/surplus
+      const monthlyDeficit = totalExpenses - effectiveIncome + monthlyExtra;
+      const isDeficit = monthlyDeficit > 0;
+
+      // Savings after emergency
+      const savingsAfterEmergency = Math.max(0, totalSavings - emergencyCost);
+      const monthsSurvival = isDeficit ? Math.floor(savingsAfterEmergency / monthlyDeficit) : Infinity;
+
+      // Apply inflation effect (simplified)
+      let inflationSurvival = monthsSurvival;
+      if (isDeficit && inflationPct > 0 && monthsSurvival !== Infinity) {
+        let remaining = savingsAfterEmergency;
+        let months = 0;
+        let currentDeficit = monthlyDeficit;
+        while (remaining > 0 && months < 120) {
+          months++;
+          remaining -= currentDeficit;
+          currentDeficit *= (1 + inflationPct);
+        }
+        inflationSurvival = months;
+      }
+
+      // Status determination
+      let status, statusClass, statusText;
+      const effectiveMonths = inflationSurvival !== Infinity ? inflationSurvival : monthsSurvival;
+
+      if (effectiveMonths === Infinity) {
+        status = 'pass';
+        statusClass = 'success';
+        statusText = '✅ Strong: No deficit';
+      } else if (effectiveMonths >= 6) {
+        status = 'pass';
+        statusClass = 'success';
+        statusText = '✅ Pass: 6+ months';
+      } else if (effectiveMonths >= 3) {
+        status = 'warning';
+        statusClass = 'warning';
+        statusText = '⚠️ Warning: 3-6 months';
+      } else {
+        status = 'fail';
+        statusClass = 'danger';
+        statusText = '❌ Fail: Less than 3 months';
+      }
+
+      const resultDiv = document.getElementById('result8');
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          🧪 Budget Stress Test · ${lossDescription}
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">💰 Monthly income</div>
+            <div class="amount">${money8(income)}</div>
+            <div class="detail">↓ New: ${money8(effectiveIncome)}</div>
+          </div>
+          <div class="result-card">
+            <div class="label">📊 Monthly expenses</div>
+            <div class="amount">${money8(totalExpenses)}</div>
+            <div class="detail">Fixed: ${money8(fixed)} · Variable: ${money8(variable)}</div>
+          </div>
+          <div class="result-card">
+            <div class="label">🏦 Total savings</div>
+            <div class="amount">${money8(totalSavings)}</div>
+            <div class="detail">Emergency: ${money8(emergencyFund)} · Other: ${money8(otherSavings)}</div>
+          </div>
+        </div>
+
+        <div class="result-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+          <div class="result-card">
+            <div class="label">📉 Monthly deficit</div>
+            <div class="amount ${isDeficit ? 'danger' : 'success'}">
+              ${isDeficit ? money8(monthlyDeficit) : money8(0)}
+            </div>
+            <div class="detail">${isDeficit ? 'Spending more than income' : 'Income covers expenses'}</div>
+          </div>
+          <div class="result-card">
+            <div class="label">⏱️ Survival months</div>
+            <div class="amount ${statusClass}">
+              ${monthsSurvival === Infinity ? '∞' : monthsSurvival}
+            </div>
+            <div class="detail">${inflationPct > 0 ? `With inflation: ${inflationSurvival === Infinity ? '∞' : inflationSurvival} months` : ''}</div>
+          </div>
+          <div class="result-card">
+            <div class="label">📋 Status</div>
+            <div class="amount" style="font-size:1.2rem;">${statusText}</div>
+            <div class="detail"><span class="status-badge status-${status}">${status === 'pass' ? '✓ Pass' : status === 'warning' ? '⚠️ Warning' : '✗ Fail'}</span></div>
+          </div>
+        </div>
+
+        ${emergencyCost > 0 ? `
+          <div class="highlight-box ${statusClass}">
+            <strong>🚨 Emergency expense:</strong> ${money8(emergencyCost)} removed from savings.
+            ${savingsAfterEmergency <= 0 ? ' This would deplete all savings immediately!' : ` Remaining savings: ${money8(savingsAfterEmergency)}`}
+          </div>
+        ` : ''}
+
+        ${monthlyExtra > 0 ? `
+          <div class="highlight-box warning">
+            <strong>📌 Ongoing extra expense:</strong> ${money8(monthlyExtra)}/month for ${expenseDuration} months.
+            Total extra: ${money8(monthlyExtra * expenseDuration)}
+          </div>
+        ` : ''}
+
+        ${inflationPct > 0 ? `
+          <div class="highlight-box" style="border-left-color: var(--orange); background: color-mix(in srgb, var(--orange) 12%, transparent);">
+            <strong>📈 Inflation effect:</strong> ${(inflationPct * 100).toFixed(1)}% monthly inflation reduces survival time.
+            ${inflationSurvival !== Infinity ? `Survival drops from ${monthsSurvival} to ${inflationSurvival} months.` : ''}
+          </div>
+        ` : ''}
+
+        <div class="highlight-box ${statusClass}">
+          <strong>${status === 'pass' ? '💪 Good news!' : status === 'warning' ? '⚠️ Caution needed' : '❌ Immediate action required'}</strong>
+          ${status === 'pass' 
+            ? `Your combined budget is resilient. You have ${monthsSurvival === Infinity ? 'unlimited' : monthsSurvival + ' months'} of runway. Consider building a 6-month emergency fund if you don't have it already.`
+            : status === 'warning'
+              ? `Your budget has moderate risk. You have ${monthsSurvival} months of runway — aim for 6+ months. Consider reducing expenses or building more savings.`
+              : `Your budget is at serious risk! You have less than 3 months of savings. Prioritize building your emergency fund and consider reducing expenses or increasing income.`}
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Budget breakdown</div>
+          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border); padding:4px 0;">
+            <span>Category</span>
+            <span>Amount</span>
+            <span>% of income</span>
+          </div>
+          <div class="comparison-row" style="padding:4px 0;">
+            <span>Income</span>
+            <span>${money8(income)}</span>
+            <span>100%</span>
+          </div>
+          <div class="comparison-row" style="padding:4px 0;">
+            <span>Fixed expenses</span>
+            <span>${money8(fixed)}</span>
+            <span>${income > 0 ? ((fixed/income)*100).toFixed(1) : 0}%</span>
+          </div>
+          <div class="comparison-row" style="padding:4px 0;">
+            <span>Variable expenses</span>
+            <span>${money8(variable)}</span>
+            <span>${income > 0 ? ((variable/income)*100).toFixed(1) : 0}%</span>
+          </div>
+          <div class="comparison-row" style="padding:4px 0; font-weight:700; border-top:1px solid var(--border);">
+            <span>Monthly savings rate</span>
+            <span>${money8(Math.max(0, income - totalExpenses))}</span>
+            <span>${income > 0 ? ((Math.max(0, income - totalExpenses)/income)*100).toFixed(1) : 0}%</span>
+          </div>
+        </div>
+
+        <p class="note">
+          <strong>How this works:</strong> The stress test simulates income loss and emergency expenses to show your financial runway.
+          ${monthsSurvival === Infinity ? 'Your income covers expenses, so savings aren't being depleted.' : `You would survive ${monthsSurvival} months before savings run out.`}
+          ${benefitsAmount > 0 ? ` Unemployment benefits (${money8(benefitsAmount)}/month for ${benefitsMonths} months) are included.` : ''}
+          <br><br>
+          <strong>Recommendation:</strong> ${status === 'pass' ? 'Maintain your savings rate and consider investing surplus.' : status === 'warning' ? 'Aim to increase your emergency fund to 6 months of expenses.' : 'Priority: Build emergency fund to 3 months minimum, reduce expenses, or increase income.'}
+        </p>
+      `;
+    }
+
+    function resetStressTest() {
+      document.querySelectorAll('.calculator input[type="number"]').forEach(input => {
+        input.value = '';
+      });
+      document.getElementById('result8').innerHTML = '';
+    }
+
+    async function copyResult8() {
+      const result = document.getElementById('result8');
+      if (!result.innerText.trim()) { alert('Run the stress test first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
