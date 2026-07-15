@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Heavy usage utility adjustment calculator. Fairly adjust utility bills when some household members use significantly more electricity, water, or gas.">
+  <title>Heavy Usage Utility Adjustment Calculator · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+      --purple: #c4b5fd;
+      --pink: #f9a8d4;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+      --pink: #db2777;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your heavy usage utility adjustment will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .amount.green { color: var(--green); }
+    .result-card .amount.orange { color: var(--orange); }
+    .result-card .amount.red { color: var(--danger); }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .comparison-row:last-child { border-bottom: 0; }
+    .comparison-label { color: var(--muted); }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .status-fair { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .status-partial { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .status-unfair { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .highlight-box.success {
+      background: color-mix(in srgb, var(--green) 15%, transparent);
+      border-left-color: var(--green);
+    }
+    .highlight-box.warning {
+      background: color-mix(in srgb, var(--orange) 15%, transparent);
+      border-left-color: var(--orange);
+    }
+    .highlight-box.danger {
+      background: color-mix(in srgb, var(--danger) 15%, transparent);
+      border-left-color: var(--danger);
+    }
+    .usage-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .65rem;
+      font-weight: 700;
+    }
+    .usage-high { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
+    .usage-medium { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .usage-low { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+      .result-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .comparison-row {
+        flex-wrap: wrap;
+        gap: 2px;
+        padding: 4px 0;
+      }
+      .comparison-row span {
+        font-size: .75rem;
+      }
+      .highlight-box {
+        font-size: .78rem;
+        padding: 8px 10px;
+      }
+      .result-card .amount {
+        font-size: 1.2rem;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Heavy Usage Utility Adjustment</h1>
+          <p>Fairly adjust utility bills when some household members use significantly more electricity, water, or gas. Account for remote work, special equipment, and high-consumption habits.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Household members &amp; usage factors</h2>
+          <p class="section-description">Enter each person's name, usage factor, and days present.</p>
+          
+          <div class="grid">
+            <div>
+              <label for="p1Name21">Person 1 name</label>
+              <input id="p1Name21" type="text" placeholder="e.g. Alex" value="">
+            </div>
+            <div>
+              <label for="p1Factor21">Person 1 usage factor</label>
+              <input id="p1Factor21" type="number" min="0.1" max="10" placeholder="e.g. 1.0" value="" step="0.1">
+            </div>
+            <div>
+              <label for="p1Days21">Person 1 days present</label>
+              <input id="p1Days21" type="number" min="0" max="31" placeholder="e.g. 30" value="">
+            </div>
+            <div>
+              <label for="p2Name21">Person 2 name</label>
+              <input id="p2Name21" type="text" placeholder="e.g. Jordan" value="">
+            </div>
+            <div>
+              <label for="p2Factor21">Person 2 usage factor</label>
+              <input id="p2Factor21" type="number" min="0.1" max="10" placeholder="e.g. 1.5" value="" step="0.1">
+            </div>
+            <div>
+              <label for="p2Days21">Person 2 days present</label>
+              <input id="p2Days21" type="number" min="0" max="31" placeholder="e.g. 25" value="">
+            </div>
+            <div>
+              <label for="currencySymbol21">Currency</label>
+              <select id="currencySymbol21">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top: 8px;">
+            <button class="secondary" onclick="addPerson21()" type="button" style="font-size:.78rem;">+ Add Person</button>
+          </div>
+          <div id="extraPeople21"></div>
+
+          <!-- Usage factor summary -->
+          <div style="margin-top: 12px; background: var(--panel-2); border-radius: 10px; padding: 10px; border: 1px solid var(--border);">
+            <div style="font-weight:700; font-size:.8rem; margin-bottom:6px; color:var(--muted);">📊 Usage Factor Summary</div>
+            <div id="usageFactorList21"></div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Utility bills</h2>
+          <p class="section-description">Enter your monthly utility bills.</p>
+          <div class="grid">
+            <div>
+              <label for="electricBill21">Electricity bill</label>
+              <input id="electricBill21" type="number" inputmode="decimal" min="0" placeholder="e.g. 150" value="">
+            </div>
+            <div>
+              <label for="waterBill21">Water bill</label>
+              <input id="waterBill21" type="number" inputmode="decimal" min="0" placeholder="e.g. 80" value="">
+            </div>
+            <div>
+              <label for="gasBill21">Gas bill</label>
+              <input id="gasBill21" type="number" inputmode="decimal" min="0" placeholder="e.g. 60" value="">
+            </div>
+            <div>
+              <label for="otherUtility21">Other utilities</label>
+              <input id="otherUtility21" type="number" inputmode="decimal" min="0" placeholder="e.g. 50" value="">
+            </div>
+            <div>
+              <label for="billingPeriod21">Billing period (days)</label>
+              <input id="billingPeriod21" type="number" min="1" max="365" placeholder="e.g. 30" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">3. Adjustment settings</h2>
+          <p class="section-description">Choose how to apply usage adjustments.</p>
+          <div class="grid">
+            <div>
+              <label for="adjustmentMethod21">Adjustment method</label>
+              <select id="adjustmentMethod21">
+                <option value="weighted">Weighted by usage factor</option>
+                <option value="threshold">Threshold-based (heavy users pay more)</option>
+                <option value="equal">Equal split (ignore usage)</option>
+                <option value="custom">Custom percentage</option>
+              </select>
+            </div>
+            <div id="thresholdDiv21" style="display:none;">
+              <label for="thresholdFactor21">Heavy usage threshold (factor above this is heavy)</label>
+              <input id="thresholdFactor21" type="number" min="1" max="10" placeholder="e.g. 1.5" value="" step="0.1">
+            </div>
+            <div id="customAdjDiv21" style="display:none;">
+              <label for="customAdjPct21">Person 1's share (%)</label>
+              <input id="customAdjPct21" type="number" min="0" max="100" placeholder="e.g. 60" value="" step="1">
+            </div>
+            <div>
+              <label for="fixedCostPct21">Fixed cost portion (%)</label>
+              <select id="fixedCostPct21">
+                <option value="0">0% (all variable)</option>
+                <option value="20">20%</option>
+                <option value="30" selected>30%</option>
+                <option value="40">40%</option>
+                <option value="50">50%</option>
+                <option value="60">60%</option>
+                <option value="70">70%</option>
+                <option value="80">80%</option>
+                <option value="100">100% (all fixed)</option>
+              </select>
+            </div>
+            <div>
+              <label for="baseUsagePct21">Base usage adjustment (%)</label>
+              <input id="baseUsagePct21" type="number" min="0" max="200" placeholder="e.g. 10" value="" step="1">
+            </div>
+            <div>
+              <label for="minDays21">Minimum days threshold (ignore below)</label>
+              <input id="minDays21" type="number" min="0" max="31" placeholder="e.g. 5" value="" step="1">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculateUtilityAdjustment()" type="button">Calculate Adjustment</button>
+            <button class="secondary" onclick="copyResult21()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetUtilityAdjustment()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result21"></div>
+        </section>
+
+        <section class="content-section" id="about21">
+          <h2>About the Heavy Usage Utility Adjustment Calculator</h2>
+          <p>When some household members use significantly more utilities than others — due to remote work, special equipment, or different habits — fair splitting requires adjustment. This calculator helps you account for these differences and create a fair utility split.</p>
+          <h3>How to use this calculator</h3>
+          <ul>
+            <li>Add household members with their usage factors and days present.</li>
+            <li>Enter your utility bills (electricity, water, gas, etc.).</li>
+            <li>Set usage factors for each person (1 = average, higher = more usage).</li>
+            <li>Choose adjustment method (weighted, threshold-based, equal, or custom).</li>
+            <li>Calculate to see each person's fair share.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs21">
+          <h2>Heavy Usage Utility FAQs</h2>
+          <p>Common questions about adjusting utility bills for heavy usage.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>What is a usage factor?</summary><div class="faq-answer"><p>A usage factor represents how much someone uses utilities compared to average. A factor of 1.5 means they use 50% more than average. This is useful for adjusting bills when some people use significantly more.</p></div></details>
+            <details class="faq-item"><summary>Who should have a high usage factor?</summary><div class="faq-answer"><p>People who work from home, use energy-intensive equipment, take long showers, or have other high-consumption habits. The calculator helps quantify these differences.</p></div></details>
+            <details class="faq-item"><summary>What is the fixed cost portion?</summary><div class="faq-answer"><p>Fixed costs are base charges that apply regardless of usage (service fees, connection charges). These are split equally or by your chosen method, while variable costs are adjusted by usage factors.</p></div></details>
+            <details class="faq-item"><summary>How does the threshold method work?</summary><div class="faq-answer"><p>The threshold method identifies heavy users (above a certain usage factor) and applies a larger adjustment to their share. This is useful when one person uses significantly more than others.</p></div></details>
+            <details class="faq-item"><summary>What is a good usage factor for remote workers?</summary><div class="faq-answer"><p>Remote workers typically use 1.3-1.8 times more electricity and internet than office workers. This accounts for extra computer usage, lighting, and heating/cooling during work hours.</p></div></details>
+            <details class="faq-item"><summary>Should days present affect utility bills?</summary><div class="faq-answer"><p>Yes, people who are home more days use more utilities. The calculator allows you to enter days present, which affects the final adjustment.</p></div></details>
+            <details class="faq-item"><summary>What if someone has special medical equipment?</summary><div class="faq-answer"><p>Medical equipment can significantly increase electricity usage. Consider a usage factor of 1.5-2.5 for these individuals, depending on the equipment and usage frequency.</p></div></details>
+            <details class="faq-item"><summary>How do we handle seasonal variation?</summary><div class="faq-answer"><p>Usage factors can be adjusted seasonally. For example, heating usage is higher in winter, cooling in summer. The calculator works for any period — just adjust the factors accordingly.</p></div></details>
+            <details class="faq-item"><summary>What's the difference between weighted and threshold methods?</summary><div class="faq-answer"><p>Weighted method applies usage factors proportionally to everyone. Threshold method only applies adjustments to heavy users (above a threshold), keeping others at baseline.</p></div></details>
+            <details class="faq-item"><summary>Should internet be included in utility adjustment?</summary><div class="faq-answer"><p>Internet usage varies by person. Remote workers and gamers use more bandwidth. You can include it in "Other utilities" and apply usage factors accordingly.</p></div></details>
+            <details class="faq-item"><summary>What is the base usage adjustment?</summary><div class="faq-answer"><p>This is a percentage that adjusts the baseline usage for everyone. For example, 10% means each person's baseline usage is increased by 10% before applying usage factors. Useful for high-usage households.</p></div></details>
+            <details class="faq-item"><summary>Can this calculator handle more than 2 people?</summary><div class="faq-answer"><p>Yes! Use the "Add Person" button to add as many household members as needed.</p></div></details>
+            <details class="faq-item"><summary>How do we handle guests or temporary residents?</summary><div class="faq-answer"><p>Add them with the appropriate days present and usage factor. They contribute proportionally to utility costs during their stay.</p></div></details>
+            <details class="faq-item"><summary>What about EV charging?</summary><div class="faq-answer"><p>Electric vehicle charging can significantly increase electricity bills. Consider a usage factor of 2-3 for EV owners, or add a separate calculation for charging costs.</p></div></details>
+            <details class="faq-item"><summary>How do we split utilities if we're not all home equally?</summary><div class="faq-answer"><p>Use days present to adjust each person's share. The calculator combines usage factors with days present for a comprehensive adjustment.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe fair utility splitting should be accessible to everyone. The calculator is supported by ads to keep it free.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money21(value) {
+      const sym = document.getElementById('currencySymbol21').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber21(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- extra people ----
+    let personCount21 = 2;
+
+    function addPerson21() {
+      personCount21++;
+      const container = document.getElementById('extraPeople21');
+      const div = document.createElement('div');
+      div.className = 'grid';
+      div.id = 'uperson' + personCount21;
+      div.style.marginTop = '6px';
+      div.style.padding = '8px';
+      div.style.background = 'var(--panel-2)';
+      div.style.borderRadius = '10px';
+      div.style.border = '1px solid var(--border)';
+      div.innerHTML = `
+        <div style="grid-column: 1 / -1; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-weight:700; font-size:.85rem;">👤 Person ${personCount21}</span>
+          <button onclick="removePerson21('uperson${personCount21}')" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:.9rem;">✕</button>
+        </div>
+        <div>
+          <label>Name</label>
+          <input class="upName21" type="text" placeholder="Person ${personCount21}" value="">
+        </div>
+        <div>
+          <label>Usage factor</label>
+          <input class="upFactor21" type="number" min="0.1" max="10" placeholder="e.g. 1.2" value="" step="0.1">
+        </div>
+        <div>
+          <label>Days present</label>
+          <input class="upDays21" type="number" min="0" max="31" placeholder="e.g. 25" value="">
+        </div>
+      `;
+      container.appendChild(div);
+      updateUsageFactorList21();
+    }
+
+    function removePerson21(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+      updateUsageFactorList21();
+    }
+
+    function collectPeople21() {
+      const people = [];
+      // Get person 1
+      const p1Name = document.getElementById('p1Name21').value.trim() || 'Person 1';
+      const p1Factor = getNumber21('p1Factor21') || 1;
+      const p1Days = getNumber21('p1Days21') || 30;
+      people.push({ name: p1Name, factor: p1Factor, days: p1Days });
+      
+      // Get person 2
+      const p2Name = document.getElementById('p2Name21').value.trim() || 'Person 2';
+      const p2Factor = getNumber21('p2Factor21') || 1;
+      const p2Days = getNumber21('p2Days21') || 30;
+      people.push({ name: p2Name, factor: p2Factor, days: p2Days });
+      
+      // Get extra people
+      document.querySelectorAll('#extraPeople21 .grid').forEach(el => {
+        const name = el.querySelector('.upName21').value.trim() || 'Person';
+        const factor = parseFloat(el.querySelector('.upFactor21').value) || 1;
+        const days = parseFloat(el.querySelector('.upDays21').value) || 30;
+        people.push({ name, factor, days });
+      });
+      return people;
+    }
+
+    // ---- usage factor list ----
+    function updateUsageFactorList21() {
+      const people = collectPeople21();
+      const container = document.getElementById('usageFactorList21');
+      if (!container) return;
+      
+      container.innerHTML = people.map((p, idx) => {
+        const factor = p.factor || 1;
+        const days = p.days || 30;
+        let statusClass = 'usage-low';
+        let statusLabel = '🟢 Normal';
+        if (factor >= 2) { statusClass = 'usage-high'; statusLabel = '🔴 Heavy'; }
+        else if (factor >= 1.3) { statusClass = 'usage-medium'; statusLabel = '🟡 Moderate'; }
+        
+        return `
+          <div class="comparison-row" style="border-bottom: 1px solid var(--border); padding: 4px 0;">
+            <span class="comparison-label">${p.name}</span>
+            <span>${factor.toFixed(1)}x</span>
+            <span>${days} days</span>
+            <span><span class="usage-tag ${statusClass}">${statusLabel}</span></span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ---- show/hide custom ----
+    document.getElementById('adjustmentMethod21').addEventListener('change', function() {
+      document.getElementById('thresholdDiv21').style.display = this.value === 'threshold' ? 'block' : 'none';
+      document.getElementById('customAdjDiv21').style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+
+    // ---- main calculation ----
+    function calculateUtilityAdjustment() {
+      const people = collectPeople21();
+      const method = document.getElementById('adjustmentMethod21').value;
+      const fixedPct = getNumber21('fixedCostPct21') / 100;
+      const basePct = getNumber21('baseUsagePct21') / 100;
+      const minDays = getNumber21('minDays21');
+      const threshold = getNumber21('thresholdFactor21') || 1.5;
+      const billingPeriod = getNumber21('billingPeriod21') || 30;
+
+      // Get bills
+      const electric = getNumber21('electricBill21');
+      const water = getNumber21('waterBill21');
+      const gas = getNumber21('gasBill21');
+      const other = getNumber21('otherUtility21');
+      const totalBill = electric + water + gas + other;
+
+      if (totalBill <= 0) {
+        document.getElementById('result21').innerHTML = '<p>Please enter at least one utility bill.</p>';
+        return;
+      }
+
+      if (people.length < 2) {
+        document.getElementById('result21').innerHTML = '<p>Please add at least 2 people.</p>';
+        return;
+      }
+
+      // Apply minimum days threshold
+      let validPeople = people.map(p => ({
+        ...p,
+        effectiveDays: p.days < minDays ? 0 : p.days
+      }));
+
+      // Calculate usage weights
+      let totalWeight = 0;
+      let weightedPeople = validPeople.map(p => {
+        let weight = p.factor * (p.effectiveDays / billingPeriod);
+        if (method === 'threshold') {
+          if (p.factor > threshold) {
+            weight = weight * 1.5; // Extra weight for heavy users
+          }
+        }
+        totalWeight += weight;
+        return { ...p, weight };
+      });
+
+      // Calculate shares
+      let fixedAmount = totalBill * fixedPct;
+      let variableAmount = totalBill * (1 - fixedPct);
+
+      // Apply base usage adjustment to variable portion
+      variableAmount = variableAmount * (1 + basePct);
+
+      let results = [];
+
+      if (method === 'equal') {
+        // Equal split
+        const share = totalBill / people.length;
+        results = people.map(p => ({
+          ...p,
+          share: share,
+          variableShare: variableAmount / people.length,
+          fixedShare: fixedAmount / people.length,
+          pct: (share / totalBill) * 100
+        }));
+      } else if (method === 'custom') {
+        const customPct = getNumber21('customAdjPct21');
+        if (customPct <= 0 || customPct >= 100) {
+          document.getElementById('result21').innerHTML = '<p>Please enter a valid custom percentage (1-99).</p>';
+          return;
+        }
+        const p1Total = variableAmount * (customPct / 100) + fixedAmount / people.length;
+        const p2Total = variableAmount * ((100 - customPct) / 100) + fixedAmount / people.length;
+        results = people.map((p, idx) => {
+          const share = idx === 0 ? p1Total : p2Total;
+          return {
+            ...p,
+            share: share,
+            variableShare: idx === 0 ? variableAmount * (customPct / 100) : variableAmount * ((100 - customPct) / 100),
+            fixedShare: fixedAmount / people.length,
+            pct: (share / totalBill) * 100
+          };
+        });
+      } else {
+        // Weighted or threshold - both use weight-based calculation
+        if (totalWeight === 0) {
+          document.getElementById('result21').innerHTML = '<p>Total usage weight is zero. Check your factors and days.</p>';
+          return;
+        }
+        results = weightedPeople.map(p => {
+          const share = fixedAmount / people.length + variableAmount * (p.weight / totalWeight);
+          const variableShare = variableAmount * (p.weight / totalWeight);
+          const fixedShare = fixedAmount / people.length;
+          return {
+            ...p,
+            share: share,
+            variableShare: variableShare,
+            fixedShare: fixedShare,
+            pct: (share / totalBill) * 100
+          };
+        });
+      }
+
+      // Build result display
+      const resultDiv = document.getElementById('result21');
+
+      // Build people comparison rows
+      let peopleRows = results.map(p => {
+        const factor = p.factor || 1;
+        let statusClass = 'usage-low';
+        let statusLabel = '🟢 Normal';
+        if (factor >= 2) { statusClass = 'usage-high'; statusLabel = '🔴 Heavy'; }
+        else if (factor >= 1.3) { statusClass = 'usage-medium'; statusLabel = '🟡 Moderate'; }
+        
+        return `
+          <div class="comparison-row">
+            <span class="comparison-label">${p.name}</span>
+            <span>${factor.toFixed(1)}x</span>
+            <span>${p.effectiveDays || 0} days</span>
+            <span>${money21(p.share)}</span>
+            <span>${p.pct.toFixed(1)}%</span>
+            <span><span class="usage-tag ${statusClass}">${statusLabel}</span></span>
+          </div>
+        `;
+      }).join('');
+
+      // Calculate fairness score
+      const shares = results.map(p => p.share);
+      const maxShare = Math.max(...shares);
+      const minShare = Math.min(...shares);
+      const diff = maxShare - minShare;
+      const fairnessScore = totalBill > 0 ? Math.min(100, Math.max(0, 100 - (diff / (totalBill / people.length)) * 50)) : 100;
+      let fairnessStatus, fairnessClass;
+      if (fairnessScore >= 75) {
+        fairnessStatus = 'Fair';
+        fairnessClass = 'status-fair';
+      } else if (fairnessScore >= 50) {
+        fairnessStatus = 'Partial';
+        fairnessClass = 'status-partial';
+      } else {
+        fairnessStatus = 'Unfair';
+        fairnessClass = 'status-unfair';
+      }
+
+      const methodLabels = {
+        'weighted': 'Weighted by usage factor',
+        'threshold': `Threshold-based (${threshold}x heavy user)`,
+        'equal': 'Equal split (ignore usage)',
+        'custom': 'Custom percentage'
+      };
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          ⚡ Heavy Usage Utility Adjustment · ${methodLabels[method] || 'Custom'} · ${(fixedPct * 100).toFixed(0)}% fixed costs
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">📊 Total utilities</div>
+            <div class="amount">${money21(totalBill)}</div>
+            <div class="detail">${billingPeriod} day period</div>
+          </div>
+          <div class="result-card">
+            <div class="label">🏠 Fixed portion</div>
+            <div class="amount" style="color: var(--orange);">${money21(fixedAmount)}</div>
+            <div class="detail">${(fixedPct * 100).toFixed(0)}% of total</div>
+          </div>
+          <div class="result-card">
+            <div class="label">📈 Variable portion</div>
+            <div class="amount">${money21(variableAmount)}</div>
+            <div class="detail">${((1 - fixedPct) * 100).toFixed(0)}% with ${(basePct * 100).toFixed(0)}% base adj.</div>
+          </div>
+        </div>
+
+        <div class="result-grid" style="grid-template-columns: ${Math.min(people.length, 4) > 2 ? `repeat(${Math.min(people.length, 4)}, 1fr)` : '1fr 1fr'};">
+          ${results.map((p, idx) => `
+            <div class="result-card" style="border-color: ${idx === 0 ? 'var(--accent)' : idx === 1 ? 'var(--purple)' : 'var(--green)'};">
+              <div class="label">${p.name}</div>
+              <div class="amount">${money21(p.share)}</div>
+              <div class="detail">${p.pct.toFixed(1)}% of total</div>
+              <div class="detail">Factor: ${(p.factor || 1).toFixed(1)}x · ${p.effectiveDays || 0} days</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="highlight-box ${fairnessScore >= 75 ? 'success' : fairnessScore >= 50 ? 'warning' : 'danger'}">
+          <strong>⚖️ Fairness score: ${fairnessScore.toFixed(0)}%</strong>
+          <span class="status-badge ${fairnessClass}">${fairnessStatus}</span>
+          <br>
+          ${fairnessScore >= 75 
+            ? 'The utility adjustment is well-balanced and reflects actual usage patterns.' 
+            : fairnessScore >= 50 
+              ? 'The adjustment is partially fair. Consider reviewing usage factors or the adjustment method.' 
+              : 'The adjustment is significantly unbalanced. Consider using a different method or reviewing usage factors.'}
+          ${basePct > 0 ? ` A ${(basePct * 100).toFixed(0)}% base usage adjustment was applied.` : ''}
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Usage breakdown</div>
+          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+            <span>Person</span>
+            <span>Factor</span>
+            <span>Days</span>
+            <span>Share</span>
+            <span>%</span>
+            <span>Status</span>
+          </div>
+          ${peopleRows}
+        </div>
+
+        <p class="note">
+          <strong>How it works:</strong> 
+          ${method === 'weighted' ? 'Usage factors and days present determine each person\'s share.' : 
+            method === 'threshold' ? 'Heavy users (above the threshold) pay extra. Others pay a base share.' : 
+            method === 'equal' ? 'All bills are split equally regardless of usage.' : 
+            'A custom percentage split is applied to the adjustment.'}
+          ${fixedPct > 0 ? ` ${(fixedPct * 100).toFixed(0)}% of bills are fixed (split equally), and ${((1 - fixedPct) * 100).toFixed(0)}% are variable (adjusted by usage).` : ''}
+          <br><br>
+          <strong>Recommendation:</strong> 
+          ${fairnessScore >= 75 
+            ? 'Your utility adjustment is fair. Consider reviewing it quarterly or when usage patterns change.' 
+            : fairnessScore >= 50 
+              ? 'Review usage factors and the adjustment method to achieve a more balanced split.' 
+              : 'Consider using the weighted method for a more accurate representation of actual usage.'}
+        </p>
+      `;
+
+      // Update the usage factor list display
+      updateUsageFactorList21();
+    }
+
+    function resetUtilityAdjustment() {
+      document.querySelectorAll('.calculator input[type="number"]').forEach(input => {
+        if (input.id !== 'adjustmentMethod21' && input.id !== 'fixedCostPct21') {
+          input.value = '';
+        }
+      });
+      document.querySelectorAll('#extraPeople21 .grid').forEach(el => el.remove());
+      personCount21 = 2;
+      document.getElementById('result21').innerHTML = '';
+      updateUsageFactorList21();
+    }
+
+    async function copyResult21() {
+      const result = document.getElementById('result21');
+      if (!result.innerText.trim()) { alert('Calculate the adjustment first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set default values for person 1 & 2 factors
+      document.getElementById('p1Factor21').value = 1;
+      document.getElementById('p1Days21').value = 30;
+      document.getElementById('p2Factor21').value = 1;
+      document.getElementById('p2Days21').value = 30;
+      updateUsageFactorList21();
+      
+      // Add event listeners to update usage list
+      ['p1Name21', 'p1Factor21', 'p1Days21', 'p2Name21', 'p2Factor21', 'p2Days21'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateUsageFactorList21);
+        document.getElementById(id).addEventListener('change', updateUsageFactorList21);
+      });
+    });
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
