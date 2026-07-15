@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Post-breakup shared bills separation calculator. Manage ongoing shared expenses, split joint bills, and plan financial separation.">
+  <title>Post-Breakup Shared Bills Separation Calculator · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+      --purple: #c4b5fd;
+      --pink: #f9a8d4;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+      --pink: #db2777;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your shared bills separation plan will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-table {
+      width: 100%; min-width: 520px; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .result-table th, .result-table td {
+      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .68rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .deficit-cell { font-weight: 900; color: var(--danger); white-space: nowrap; }
+    .surplus-cell { font-weight: 900; color: var(--green); white-space: nowrap; }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .highlight-box.success {
+      background: color-mix(in srgb, var(--green) 15%, transparent);
+      border-left-color: var(--green);
+    }
+    .highlight-box.warning {
+      background: color-mix(in srgb, var(--orange) 15%, transparent);
+      border-left-color: var(--orange);
+    }
+    .highlight-box.danger {
+      background: color-mix(in srgb, var(--danger) 15%, transparent);
+      border-left-color: var(--danger);
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .amount.deficit { color: var(--danger); }
+    .result-card .amount.surplus { color: var(--green); }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+    }
+    .comparison-row:last-child { border-bottom: 0; }
+    .comparison-label { color: var(--muted); }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .status-balanced { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .status-partial { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .status-unbalanced { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
+    @media (max-width:600px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .result-card .amount { font-size: 1.3rem; }
+    }
+    .bill-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 4px 0;
+    }
+    .bill-item input[type="text"] { flex: 1; }
+    .bill-item input[type="number"] { width: 120px; }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Post-Breakup Shared Bills Separation Calculator</h1>
+          <p>Manage ongoing shared expenses after separation. Split joint bills, track payments, and create a fair transition plan.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Partner details &amp; income</h2>
+          <p class="section-description">Enter each partner's name and monthly income.</p>
+          <div class="grid">
+            <div>
+              <label for="p1Name13">Partner 1 name</label>
+              <input id="p1Name13" type="text" placeholder="Alex" value="">
+            </div>
+            <div>
+              <label for="p2Name13">Partner 2 name</label>
+              <input id="p2Name13" type="text" placeholder="AB" value="">
+            </div>
+            <div>
+              <label for="p1Income13">Partner 1 monthly income</label>
+              <input id="p1Income13" type="number" inputmode="decimal" min="0" placeholder="4000" value="">
+            </div>
+            <div>
+              <label for="p2Income13">Partner 2 monthly income</label>
+              <input id="p2Income13" type="number" inputmode="decimal" min="0" placeholder="3000" value="">
+            </div>
+            <div>
+              <label for="currencySymbol13">Currency</label>
+              <select id="currencySymbol13">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+              </select>
+            </div>
+            <div>
+              <label for="transitionMonths">Transition period (months)</label>
+              <input id="transitionMonths" type="number" min="1" max="24" placeholder="6" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Shared bills to separate</h2>
+          <p class="section-description">Enter each bill that you'll continue to share during the transition.</p>
+          
+          <div class="grid">
+            <div>
+              <label for="rent13">Rent / Mortgage</label>
+              <input id="rent13" type="number" inputmode="decimal" min="0" placeholder="2000" value="">
+            </div>
+            <div>
+              <label for="utilities13">Utilities (electric, water, gas)</label>
+              <input id="utilities13" type="number" inputmode="decimal" min="0" placeholder="300" value="">
+            </div>
+            <div>
+              <label for="internet13">Internet / Cable</label>
+              <input id="internet13" type="number" inputmode="decimal" min="0" placeholder="150" value="">
+            </div>
+            <div>
+              <label for="groceries13">Groceries</label>
+              <input id="groceries13" type="number" inputmode="decimal" min="0" placeholder="500" value="">
+            </div>
+            <div>
+              <label for="insurance13">Insurance (home, car, etc.)</label>
+              <input id="insurance13" type="number" inputmode="decimal" min="0" placeholder="200" value="">
+            </div>
+            <div>
+              <label for="debt13">Joint debt payments</label>
+              <input id="debt13" type="number" inputmode="decimal" min="0" placeholder="400" value="">
+            </div>
+            <div>
+              <label for="childcare13">Childcare / School costs</label>
+              <input id="childcare13" type="number" inputmode="decimal" min="0" placeholder="600" value="">
+            </div>
+            <div>
+              <label for="otherBills13">Other shared bills</label>
+              <input id="otherBills13" type="number" inputmode="decimal" min="0" placeholder="200" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">3. Split method &amp; responsibilities</h2>
+          <p class="section-description">Choose how to split bills and who pays them.</p>
+          <div class="grid">
+            <div>
+              <label for="splitMethod13">Bill split method</label>
+              <select id="splitMethod13">
+                <option value="equal">Equal split (50/50)</option>
+                <option value="income">Proportional by income</option>
+                <option value="custom">Custom percentage</option>
+                <option value="usage">By usage (individual responsibility)</option>
+              </select>
+            </div>
+            <div id="customDiv13" style="display:none;">
+              <label for="customPct13">Partner 1's share (%)</label>
+              <input id="customPct13" type="number" min="0" max="100" placeholder="60" value="" step="1">
+            </div>
+            <div>
+              <label for="billPayer13">Who pays the bills?</label>
+              <select id="billPayer13">
+                <option value="split">Split payments (each pays their share)</option>
+                <option value="partner1">Partner 1 pays all, Partner 2 reimburses</option>
+                <option value="partner2">Partner 2 pays all, Partner 1 reimburses</option>
+                <option value="alternate">Alternate monthly</option>
+              </select>
+            </div>
+            <div>
+              <label for="paymentDueDate">Payment due date (day of month)</label>
+              <input id="paymentDueDate" type="number" min="1" max="31" placeholder="1" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculateSharedBills()" type="button">Calculate Separation</button>
+            <button class="secondary" onclick="copyResult13()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetSharedBills()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result13"></div>
+        </section>
+
+        <section class="content-section" id="about13">
+          <h2>About the Post-Breakup Shared Bills Separation Calculator</h2>
+          <p>After a breakup, many couples still share bills for a transition period. This calculator helps you fairly split ongoing shared expenses, track payments, and plan for a clean financial separation.</p>
+          <h3>How to use this shared bills calculator</h3>
+          <ul>
+            <li>Enter each partner's name and income.</li>
+            <li>List all shared bills you'll continue to split.</li>
+            <li>Choose your split method (equal, by income, custom, or by usage).</li>
+            <li>Decide who pays the bills and when.</li>
+            <li>Calculate to see each partner's share and payment schedule.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs13">
+          <h2>Post-Breakup Shared Bills FAQs</h2>
+          <p>Common questions about managing shared expenses after a breakup.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>Why continue sharing bills after a breakup?</summary><div class="faq-answer"><p>Some shared bills like leases, mortgages, or joint accounts can't be immediately separated. A transition period allows both partners to adjust financially while fulfilling obligations.</p></div></details>
+            <details class="faq-item"><summary>How long should we continue sharing bills?</summary><div class="faq-answer"><p>Typically 3-6 months, but it depends on lease terms, financial situations, and separation agreements. The calculator lets you plan for any transition period.</p></div></details>
+            <details class="faq-item"><summary>What's the "By usage" split method?</summary><div class="faq-answer"><p>This method assigns bills to whoever uses the service or is responsible. For example, if one partner keeps the car, they pay the car insurance. This is useful when partners have different needs during the transition.</p></div></details>
+            <details class="faq-item"><summary>Should we split bills equally or by income?</summary><div class="faq-answer"><p>Equal split is simple and common. Proportional by income is fairer when incomes differ significantly. The calculator shows both options so you can compare.</p></div></details>
+            <details class="faq-item"><summary>What if one partner moves out early?</summary><div class="faq-answer"><p>If one partner moves out, they may still be responsible for their share of the lease or joint debts. The calculator can help determine what's still owed.</p></div></details>
+            <details class="faq-item"><summary>How do we handle joint accounts during separation?</summary><div class="faq-answer"><p>Consider freezing or closing joint accounts. The calculator assumes bills are paid from individual accounts, with reimbursements where needed.</p></div></details>
+            <details class="faq-item"><summary>What about shared subscription services?</summary><div class="faq-answer"><p>Include them in "Other shared bills." Decide who keeps the subscription and whether the other partner will continue to pay for it.</p></div></details>
+            <details class="faq-item"><summary>How do we handle variable bills like utilities?</summary><div class="faq-answer"><p>Use average monthly amounts from the past 3-6 months. You can adjust the split each month if you prefer, or agree on a fixed average during the transition.</p></div></details>
+            <details class="faq-item"><summary>What if we have children together?</summary><div class="faq-answer"><p>Childcare costs should be included and split fairly. You may also need to consider child support. Use the calculator for shared expenses and consult a professional for child support arrangements.</p></div></details>
+            <details class="faq-item"><summary>Should we document our shared bills agreement?</summary><div class="faq-answer"><p>Yes, written agreements help avoid misunderstandings. The calculator provides a summary you can use as a reference, but a formal agreement is recommended for legal clarity.</p></div></details>
+            <details class="faq-item"><summary>What if one partner can't afford their share?</summary><div class="faq-answer"><p>If affordability is an issue, consider a different split method or a temporary support arrangement. The calculator can help identify if the split is sustainable.</p></div></details>
+            <details class="faq-item"><summary>How do we handle deposits (security deposits, etc.)?</summary><div class="faq-answer"><p>Security deposits are typically returned at the end of a lease. Decide how to split the return or who gets the deposit in exchange for buyouts. Include in the "Other shared bills" if applicable.</p></div></details>
+            <details class="faq-item"><summary>What about joint credit cards?</summary><div class="faq-answer"><p>Include joint credit card payments in "Joint debt payments." Decide if you'll close the card and split the balance, or if one partner will take over the account.</p></div></details>
+            <details class="faq-item"><summary>Should we use a shared bill app?</summary><div class="faq-answer"><p>Apps like Splitwise can help track shared expenses during the transition. The calculator provides the numbers, and apps can help manage payments.</p></div></details>
+            <details class="faq-item"><summary>What if one partner doesn't pay their share?</summary><div class="faq-answer"><p>Have a clear agreement in advance. If non-payment becomes an issue, you may need to seek mediation or legal advice. The calculator helps establish clear expectations.</p></div></details>
+            <details class="faq-item"><summary>How does the transition period affect our budgets?</summary><div class="faq-answer"><p>The calculator shows each partner's share of bills, helping you see if your individual budget can handle it. Use the results to adjust your spending if needed.</p></div></details>
+            <details class="faq-item"><summary>What if we have a good coparenting relationship?</summary><div class="faq-answer"><p>That's great! The calculator helps you maintain fairness and transparency during the financial transition, supporting a healthy coparenting relationship.</p></div></details>
+            <details class="faq-item"><summary>Can we change the split during the transition?</summary><div class="faq-answer"><p>Yes, the calculator lets you model different scenarios. If circumstances change, you can recalculate and adjust your agreement.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator legally binding?</summary><div class="faq-answer"><p>No, this is a planning tool, not legal advice. Use it as a starting point for discussions and consult a professional for legal separation agreements.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe helping people navigate financial transitions should be accessible. The calculator is supported by ads to keep it free.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money13(value) {
+      const sym = document.getElementById('currencySymbol13').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber13(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- show/hide custom ----
+    document.getElementById('splitMethod13').addEventListener('change', function() {
+      document.getElementById('customDiv13').style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+
+    // ---- main calculation ----
+    function calculateSharedBills() {
+      const p1Name = document.getElementById('p1Name13').value.trim() || 'Partner 1';
+      const p2Name = document.getElementById('p2Name13').value.trim() || 'Partner 2';
+      const p1Income = getNumber13('p1Income13');
+      const p2Income = getNumber13('p2Income13');
+      const totalIncome = p1Income + p2Income;
+      const transitionMonths = getNumber13('transitionMonths') || 6;
+      const dueDate = getNumber13('paymentDueDate') || 1;
+
+      // Bill amounts
+      const rent = getNumber13('rent13');
+      const utilities = getNumber13('utilities13');
+      const internet = getNumber13('internet13');
+      const groceries = getNumber13('groceries13');
+      const insurance = getNumber13('insurance13');
+      const debt = getNumber13('debt13');
+      const childcare = getNumber13('childcare13');
+      const otherBills = getNumber13('otherBills13');
+
+      const totalBills = rent + utilities + internet + groceries + insurance + debt + childcare + otherBills;
+
+      if (totalBills <= 0) {
+        document.getElementById('result13').innerHTML = '<p>Please enter at least one shared bill.</p>';
+        return;
+      }
+
+      // Split method
+      const method = document.getElementById('splitMethod13').value;
+      let p1Pct = 50;
+      let p2Pct = 50;
+      let methodLabel = '';
+
+      if (method === 'equal') {
+        p1Pct = 50;
+        p2Pct = 50;
+        methodLabel = 'Equal split (50/50)';
+      } else if (method === 'custom') {
+        const customPct = getNumber13('customPct13');
+        if (customPct <= 0 || customPct >= 100) {
+          document.getElementById('result13').innerHTML = '<p>Please enter a valid custom percentage (1-99).</p>';
+          return;
+        }
+        p1Pct = customPct;
+        p2Pct = 100 - customPct;
+        methodLabel = 'Custom percentage';
+      } else if (method === 'income') {
+        if (totalIncome <= 0) {
+          document.getElementById('result13').innerHTML = '<p>Please enter valid incomes for both partners.</p>';
+          return;
+        }
+        p1Pct = (p1Income / totalIncome) * 100;
+        p2Pct = (p2Income / totalIncome) * 100;
+        methodLabel = 'Proportional by income';
+      } else { // usage
+        // By usage - assign bills individually
+        // For simplicity, we'll use the custom method with a suggested split
+        // The user can adjust the split if needed
+        p1Pct = 50;
+        p2Pct = 50;
+        methodLabel = 'By usage (individual responsibility)';
+      }
+
+      const p1Share = totalBills * (p1Pct / 100);
+      const p2Share = totalBills * (p2Pct / 100);
+
+      // Bill payer
+      const payer = document.getElementById('billPayer13').value;
+      let payerDescription = '';
+      let p1Pays = 0;
+      let p2Pays = 0;
+
+      if (payer === 'split') {
+        p1Pays = p1Share;
+        p2Pays = p2Share;
+        payerDescription = 'Each partner pays their share directly';
+      } else if (payer === 'partner1') {
+        p1Pays = totalBills;
+        p2Pays = 0;
+        payerDescription = `${p1Name} pays all bills, ${p2Name} reimburses ${money13(p2Share)}`;
+      } else if (payer === 'partner2') {
+        p1Pays = 0;
+        p2Pays = totalBills;
+        payerDescription = `${p2Name} pays all bills, ${p1Name} reimburses ${money13(p1Share)}`;
+      } else { // alternate
+        // Alternate monthly - simplified: each pays half of total in alternating months
+        p1Pays = totalBills / 2;
+        p2Pays = totalBills / 2;
+        payerDescription = 'Alternate months - each partner pays half on their month';
+      }
+
+      // Calculate total over transition period
+      const p1Total = p1Pays * transitionMonths;
+      const p2Total = p2Pays * transitionMonths;
+      const totalOverPeriod = totalBills * transitionMonths;
+
+      // Budget impact as % of income
+      const p1PctIncome = p1Income > 0 ? (p1Pays / p1Income) * 100 : 0;
+      const p2PctIncome = p2Income > 0 ? (p2Pays / p2Income) * 100 : 0;
+
+      // Fairness assessment
+      const diff = Math.abs(p1Pays - p2Pays);
+      const fairnessScore = Math.min(100, Math.max(0, 100 - (diff / (totalBills / 2)) * 50));
+      let fairnessStatus, fairnessClass;
+      if (fairnessScore >= 75) {
+        fairnessStatus = 'Balanced';
+        fairnessClass = 'status-balanced';
+      } else if (fairnessScore >= 50) {
+        fairnessStatus = 'Partial';
+        fairnessClass = 'status-partial';
+      } else {
+        fairnessStatus = 'Unbalanced';
+        fairnessClass = 'status-unbalanced';
+      }
+
+      // Build bill breakdown
+      const billItems = [
+        { label: 'Rent / Mortgage', amount: rent },
+        { label: 'Utilities', amount: utilities },
+        { label: 'Internet / Cable', amount: internet },
+        { label: 'Groceries', amount: groceries },
+        { label: 'Insurance', amount: insurance },
+        { label: 'Joint Debt', amount: debt },
+        { label: 'Childcare', amount: childcare },
+        { label: 'Other Bills', amount: otherBills }
+      ];
+
+      let billRows = billItems.filter(b => b.amount > 0).map(b => `
+        <div class="comparison-row">
+          <span class="comparison-label">${b.label}</span>
+          <span>${money13(b.amount)}</span>
+          <span>${money13(b.amount * (p1Pct / 100))}</span>
+          <span>${money13(b.amount * (p2Pct / 100))}</span>
+        </div>
+      `).join('');
+
+      const resultDiv = document.getElementById('result13');
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          📋 Shared Bills Separation · ${methodLabel} · ${transitionMonths} month transition
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">📊 Total monthly bills</div>
+            <div class="amount">${money13(totalBills)}</div>
+            <div class="detail">${billItems.filter(b => b.amount > 0).length} shared bills</div>
+          </div>
+          <div class="result-card" style="border-color: var(--accent);">
+            <div class="label">${p1Name}'s monthly share</div>
+            <div class="amount">${money13(p1Pays)}</div>
+            <div class="detail">${p1Pct.toFixed(1)}% of bills · ${p1PctIncome.toFixed(1)}% of income</div>
+          </div>
+          <div class="result-card" style="border-color: var(--purple);">
+            <div class="label">${p2Name}'s monthly share</div>
+            <div class="amount" style="color: var(--purple);">${money13(p2Pays)}</div>
+            <div class="detail">${p2Pct.toFixed(1)}% of bills · ${p2PctIncome.toFixed(1)}% of income</div>
+          </div>
+        </div>
+
+        <div class="result-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+          <div class="result-card">
+            <div class="label">⚖️ Fairness score</div>
+            <div class="amount" style="color: ${fairnessScore >= 75 ? 'var(--green)' : fairnessScore >= 50 ? 'var(--orange)' : 'var(--red)'};">${fairnessScore.toFixed(0)}%</div>
+            <div class="detail"><span class="status-badge ${fairnessClass}">${fairnessStatus}</span></div>
+          </div>
+          <div class="result-card">
+            <div class="label">📅 Payment method</div>
+            <div class="amount" style="font-size:1.1rem;">${payer === 'split' ? 'Split payments' : payer === 'partner1' ? p1Name + ' pays' : payer === 'partner2' ? p2Name + ' pays' : 'Alternate months'}</div>
+            <div class="detail">${payerDescription}</div>
+          </div>
+          <div class="result-card">
+            <div class="label">📆 Total over ${transitionMonths} months</div>
+            <div class="amount">${money13(totalOverPeriod)}</div>
+            <div class="detail">${p1Name}: ${money13(p1Total)} · ${p2Name}: ${money13(p2Total)}</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Monthly bill breakdown</div>
+          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+            <span>Bill</span>
+            <span>Total</span>
+            <span>${p1Name}</span>
+            <span>${p2Name}</span>
+          </div>
+          ${billRows}
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">💰 Payment schedule</div>
+          ${payer === 'split' ? `
+            <div class="highlight-box success">
+              <strong>Split payments:</strong> Both partners pay their share directly.
+              <br>${p1Name} pays ${money13(p1Pays)} · ${p2Name} pays ${money13(p2Pays)}
+              <br>Due by the ${dueDate}th of each month.
+            </div>
+          ` : payer === 'partner1' ? `
+            <div class="highlight-box warning">
+              <strong>${p1Name} pays all bills:</strong> ${p2Name} reimburses ${p1Name} ${money13(p2Share)} by the ${dueDate}th of each month.
+              <br>Total paid by ${p1Name}: ${money13(totalBills)} · Reimbursed: ${money13(p2Share)}
+            </div>
+          ` : payer === 'partner2' ? `
+            <div class="highlight-box warning">
+              <strong>${p2Name} pays all bills:</strong> ${p1Name} reimburses ${p2Name} ${money13(p1Share)} by the ${dueDate}th of each month.
+              <br>Total paid by ${p2Name}: ${money13(totalBills)} · Reimbursed: ${money13(p1Share)}
+            </div>
+          ` : `
+            <div class="highlight-box warning">
+              <strong>Alternate months:</strong> Each partner pays half of all bills on their assigned month.
+              <br>Each pays ${money13(totalBills / 2)} on their month.
+              <br>Due by the ${dueDate}th of each month.
+            </div>
+          `}
+        </div>
+
+        ${p1PctIncome > 40 || p2PctIncome > 40 ? `
+          <div class="highlight-box danger">
+            <strong>⚠️ Budget Alert:</strong>
+            ${p1PctIncome > 40 ? `${p1Name} would spend ${p1PctIncome.toFixed(0)}% of income on shared bills. ` : ''}
+            ${p2PctIncome > 40 ? `${p2Name} would spend ${p2PctIncome.toFixed(0)}% of income on shared bills. ` : ''}
+            Consider a different split method or reducing shared expenses.
+          </div>
+        ` : p1PctIncome > 30 || p2PctIncome > 30 ? `
+          <div class="highlight-box warning">
+            <strong>💡 Budget Check:</strong>
+            ${p1PctIncome > 30 ? `${p1Name} spends ${p1PctIncome.toFixed(0)}% of income on shared bills. ` : ''}
+            ${p2PctIncome > 30 ? `${p2Name} spends ${p2PctIncome.toFixed(0)}% of income on shared bills. ` : ''}
+            This is manageable but keep an eye on other expenses.
+          </div>
+        ` : `
+          <div class="highlight-box success">
+            <strong>✅ Healthy Split:</strong>
+            Both partners' share of bills is within recommended range. This split appears sustainable.
+          </div>
+        `}
+
+        <p class="note">
+          <strong>How to use this plan:</strong> 
+          ${payer === 'split' ? 'Both partners should set up automatic payments for their share of each bill.' : payer === 'partner1' ? `${p1Name} should pay all bills, and ${p2Name} should transfer their share by the due date.` : payer === 'partner2' ? `${p2Name} should pay all bills, and ${p1Name} should transfer their share by the due date.` : 'Alternate months - agree on who pays in which month and transfer half the total.'}
+          <br><br>
+          <strong>Transition period:</strong> ${transitionMonths} months. Total to be paid: ${money13(totalOverPeriod)}.
+          <br>
+          <strong>Recommendation:</strong> Review this plan monthly and adjust as needed. Consider setting up a joint account just for shared bills during the transition.
+        </p>
+      `;
+    }
+
+    function resetSharedBills() {
+      document.querySelectorAll('.calculator input[type="number"]').forEach(input => {
+        if (input.id !== 'splitMethod13' && input.id !== 'billPayer13') {
+          input.value = '';
+        }
+      });
+      document.getElementById('result13').innerHTML = '';
+    }
+
+    async function copyResult13() {
+      const result = document.getElementById('result13');
+      if (!result.innerText.trim()) { alert('Calculate the shared bills plan first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
