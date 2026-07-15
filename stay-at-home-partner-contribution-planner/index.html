@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Stay-at-home partner contribution planner. Value the financial worth of domestic work, childcare, and household management.">
+  <title>Stay-at-Home Partner Contribution Planner · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+      --purple: #c4b5fd;
+      --pink: #f9a8d4;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+      --pink: #db2777;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    main { padding: 42px 6% 32px; }
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 30px; align-items: start;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 600px; }
+    .ad-column { display: block; }
+    .hero { margin-bottom: 18px; }
+    h1 {
+      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+    }
+    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
+    .calculator {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-description {
+      color: var(--muted); font-size: .8rem;
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: .7rem; font-weight: 800;
+    }
+    input, select {
+      width: 100%; min-height: 38px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 10px; outline: none;
+      font-size: .85rem;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 12px; padding: 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 50px; overflow-x: auto;
+    }
+    .result:empty::before {
+      content: "Your contribution analysis will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+    }
+    .result-table {
+      width: 100%; min-width: 520px; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .result-table th, .result-table td {
+      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: .68rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .contribution-cell { font-weight: 900; color: var(--green); white-space: nowrap; }
+    .note {
+      margin-top: 10px; color: var(--muted); font-size: .76rem;
+      line-height: 1.4;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 10px;
+      padding: 8px 12px; font-size: .82rem; font-weight: 900;
+      transition: .16s;
+    }
+    button:hover { transform: translateY(-1px); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
+    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
+    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 10px 14px;
+      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 18px 12px 42px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
+    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
+    @media (max-width:780px) {
+      main { padding: 28px 14px 20px; }
+      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
+      .calculator, .content-section { padding: 12px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .btns button { flex: 1 1 130px; }
+      .faq-answer { padding: 0 14px 10px 34px; }
+      .faq-answer p { font-size: .82rem; }
+      #faqs h2 { font-size: 1.4rem; }
+      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
+    }
+    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
+      font-size: .85rem;
+    }
+    .highlight-box.success {
+      background: color-mix(in srgb, var(--green) 15%, transparent);
+      border-left-color: var(--green);
+    }
+    .highlight-box.warning {
+      background: color-mix(in srgb, var(--orange) 15%, transparent);
+      border-left-color: var(--orange);
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 800;
+    }
+    .result-card .amount {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .result-card .amount.contribution { color: var(--green); }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+    .comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+    }
+    .comparison-row:last-child { border-bottom: 0; }
+    .comparison-label { color: var(--muted); }
+    .comparison-value { font-weight: 600; }
+    .contribution-meter {
+      height: 8px;
+      background: var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 6px 0;
+    }
+    .contribution-meter .fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.3s;
+    }
+    .contribution-meter .fill.high { background: var(--green); }
+    .contribution-meter .fill.medium { background: var(--orange); }
+    .contribution-meter .fill.low { background: var(--danger); }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    .status-balanced { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .status-partial { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .status-unbalanced { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
+    @media (max-width:600px) {
+      .result-grid { grid-template-columns: 1fr; }
+      .result-card .amount { font-size: 1.3rem; }
+    }
+    .task-input-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .task-input-group input[type="number"] {
+      flex: 1;
+    }
+    .task-input-group .hours-label {
+      font-size: .7rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Stay-at-Home Partner Contribution Planner</h1>
+          <p>Value the financial worth of domestic work, childcare, and household management. See the true contribution of a stay-at-home partner.</p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Partner details</h2>
+          <p class="section-description">Enter each partner's name and the working partner's income.</p>
+          <div class="grid">
+            <div>
+              <label for="workingName">Working partner name</label>
+              <input id="workingName" type="text" placeholder="Alex" value="">
+            </div>
+            <div>
+              <label for="stayHomeName">Stay-at-home partner name</label>
+              <input id="stayHomeName" type="text" placeholder="AB" value="">
+            </div>
+            <div>
+              <label for="workingIncome">Working partner monthly income</label>
+              <input id="workingIncome" type="number" inputmode="decimal" min="0" placeholder="6000" value="">
+            </div>
+            <div>
+              <label for="currencySymbol11">Currency</label>
+              <select id="currencySymbol11">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Household tasks &amp; hours</h2>
+          <p class="section-description">Estimate weekly hours for each household task performed by the stay-at-home partner.</p>
+          <div class="grid">
+            <div>
+              <label for="childcareHours">Childcare (hours/week)</label>
+              <input id="childcareHours" type="number" min="0" placeholder="40" value="">
+            </div>
+            <div>
+              <label for="cleaningHours">Cleaning &amp; organizing (hours/week)</label>
+              <input id="cleaningHours" type="number" min="0" placeholder="10" value="">
+            </div>
+            <div>
+              <label for="cookingHours">Cooking &amp; meal prep (hours/week)</label>
+              <input id="cookingHours" type="number" min="0" placeholder="12" value="">
+            </div>
+            <div>
+              <label for="laundryHours">Laundry &amp; ironing (hours/week)</label>
+              <input id="laundryHours" type="number" min="0" placeholder="5" value="">
+            </div>
+            <div>
+              <label for="shoppingHours">Grocery &amp; household shopping (hours/week)</label>
+              <input id="shoppingHours" type="number" min="0" placeholder="4" value="">
+            </div>
+            <div>
+              <label for="adminHours">Admin &amp; management (bills, appointments, etc.)</label>
+              <input id="adminHours" type="number" min="0" placeholder="5" value="">
+            </div>
+            <div>
+              <label for="transportHours">Transportation (school runs, errands, etc.)</label>
+              <input id="transportHours" type="number" min="0" placeholder="6" value="">
+            </div>
+            <div>
+              <label for="otherHouseHours">Other household tasks</label>
+              <input id="otherHouseHours" type="number" min="0" placeholder="4" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">3. Professional replacement costs</h2>
+          <p class="section-description">Enter the hourly rates for professional services that replace these tasks.</p>
+          <div class="grid">
+            <div>
+              <label for="childcareRate">Childcare hourly rate</label>
+              <input id="childcareRate" type="number" inputmode="decimal" min="0" placeholder="20" value="">
+            </div>
+            <div>
+              <label for="cleaningRate">Cleaning hourly rate</label>
+              <input id="cleaningRate" type="number" inputmode="decimal" min="0" placeholder="25" value="">
+            </div>
+            <div>
+              <label for="cookingRate">Personal chef / meal prep hourly rate</label>
+              <input id="cookingRate" type="number" inputmode="decimal" min="0" placeholder="30" value="">
+            </div>
+            <div>
+              <label for="laundryRate">Laundry service hourly rate</label>
+              <input id="laundryRate" type="number" inputmode="decimal" min="0" placeholder="20" value="">
+            </div>
+            <div>
+              <label for="shoppingRate">Personal shopper hourly rate</label>
+              <input id="shoppingRate" type="number" inputmode="decimal" min="0" placeholder="25" value="">
+            </div>
+            <div>
+              <label for="adminRate">Administrative assistant hourly rate</label>
+              <input id="adminRate" type="number" inputmode="decimal" min="0" placeholder="30" value="">
+            </div>
+            <div>
+              <label for="transportRate">Personal driver hourly rate</label>
+              <input id="transportRate" type="number" inputmode="decimal" min="0" placeholder="25" value="">
+            </div>
+            <div>
+              <label for="otherHouseRate">Other tasks hourly rate</label>
+              <input id="otherHouseRate" type="number" inputmode="decimal" min="0" placeholder="20" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">4. Shared expenses &amp; contribution method</h2>
+          <p class="section-description">Enter monthly shared expenses and choose how to view contributions.</p>
+          <div class="grid">
+            <div>
+              <label for="sharedExpenses11">Monthly shared expenses (rent, bills, groceries, etc.)</label>
+              <input id="sharedExpenses11" type="number" inputmode="decimal" min="0" placeholder="3000" value="">
+            </div>
+            <div>
+              <label for="contributionMethod">Contribution evaluation method</label>
+              <select id="contributionMethod">
+                <option value="replacement">Replacement cost (professional rates)</option>
+                <option value="income">Income-equivalent value</option>
+                <option value="hybrid">Hybrid (combination)</option>
+              </select>
+            </div>
+            <div>
+              <label for="hybridPct">Hybrid: % replacement cost (rest income-equivalent)</label>
+              <input id="hybridPct" type="number" min="0" max="100" placeholder="70" value="" step="1">
+            </div>
+            <div>
+              <label for="workingHourlyRate">Working partner's hourly rate (for income-equivalent)</label>
+              <input id="workingHourlyRate" type="number" inputmode="decimal" min="0" placeholder="35" value="">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculateSAHP()" type="button">Calculate Contribution</button>
+            <button class="secondary" onclick="copyResult11()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetSAHP()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result11"></div>
+        </section>
+
+        <section class="content-section" id="about11">
+          <h2>About the Stay-at-Home Partner Contribution Planner</h2>
+          <p>Stay-at-home partners make invaluable contributions to households through childcare, cooking, cleaning, and household management. This calculator helps quantify these contributions financially, fostering appreciation and fair financial planning.</p>
+          <h3>How to use this contribution planner</h3>
+          <ul>
+            <li>Enter each partner's name and the working partner's income.</li>
+            <li>Estimate weekly hours for each household task.</li>
+            <li>Enter professional hourly rates for these services.</li>
+            <li>Choose how to value contributions (replacement cost, income-equivalent, or hybrid).</li>
+            <li>Calculate to see the total monthly financial contribution of the stay-at-home partner.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs11">
+          <h2>Stay-at-Home Partner FAQs</h2>
+          <p>Common questions about valuing stay-at-home contributions.</p>
+          <div class="faq-list">
+            <details class="faq-item"><summary>Why should we put a dollar value on stay-at-home work?</summary><div class="faq-answer"><p>Valuing domestic work helps both partners understand the financial significance of unpaid labor. It fosters appreciation, supports fair financial planning, and helps ensure the stay-at-home partner has financial security and recognition for their contributions.</p></div></details>
+            <details class="faq-item"><summary>Is stay-at-home work really worth that much?</summary><div class="faq-answer"><p>Yes, professional replacement costs are often substantial. A stay-at-home partner providing childcare, cooking, cleaning, and household management can save the family tens of thousands of dollars annually compared to hiring professionals.</p></div></details>
+            <details class="faq-item"><summary>What's the difference between replacement cost and income-equivalent value?</summary><div class="faq-answer"><p>Replacement cost values work at professional market rates for each task. Income-equivalent value assigns the working partner's hourly rate to the stay-at-home partner's hours. Hybrid combines both approaches for a balanced estimate.</p></div></details>
+            <details class="faq-item"><summary>How do we handle shared parenting responsibilities?</summary><div class="faq-answer"><p>If both partners share childcare, adjust the weekly hours to reflect only the stay-at-home partner's primary contribution. The calculator helps quantify their specific share of household labor.</p></div></details>
+            <details class="faq-item"><summary>Should we include mental load and planning?</summary><div class="faq-answer"><p>Yes, the "Admin &amp; management" category includes household planning, bill paying, appointment scheduling, and other invisible labor. This is a significant contribution often overlooked.</p></div></details>
+            <details class="faq-item"><summary>How does this affect financial planning?</summary><div class="faq-answer"><p>Understanding the value of stay-at-home work supports fair budget decisions, appropriate personal spending allowances, and helps both partners feel financially valued. It can also influence retirement planning and insurance decisions.</p></div></details>
+            <details class="faq-item"><summary>What about part-time work or freelancing?</summary><div class="faq-answer"><p>If the stay-at-home partner has part-time income, adjust the working partner's income accordingly. The calculator focuses on the household contribution value, not income earned outside the home.</p></div></details>
+            <details class="faq-item"><summary>How does the stay-at-home partner get financial security?</summary><div class="faq-answer"><p>This calculator helps start conversations about fair financial arrangements. Consider personal spending allowances, joint savings, retirement contributions, and discussions about returning to work if circumstances change.</p></div></details>
+            <details class="faq-item"><summary>What if the stay-at-home partner is also managing investments?</summary><div class="faq-answer"><p>Include financial management in the "Admin &amp; management" category. If it's substantial, you might add a separate category or adjust the hours accordingly.</p></div></details>
+            <details class="faq-item"><summary>Should we include emotional labor?</summary><div class="faq-answer"><p>Emotional labor (supporting family members' emotional needs) is difficult to quantify but important. The calculator focuses on tangible tasks, but don't forget to discuss and appreciate emotional contributions separately.</p></div></details>
+            <details class="faq-item"><summary>What if both partners work?</summary><div class="faq-answer"><p>This calculator is designed for couples with one stay-at-home partner. For dual-income households, consider using our other calculators to split shared expenses and personal spending.</p></div></details>
+            <details class="faq-item"><summary>How often should we review our contribution understanding?</summary><div class="faq-answer"><p>Review annually or whenever circumstances change (new job, child arrival, moving). Regular check-ins help maintain appreciation and ensure financial arrangements remain fair.</p></div></details>
+            <details class="faq-item"><summary>What about extended family caregiving?</summary><div class="faq-answer"><p>Include eldercare or other caregiving in the "Other household tasks" category. Adjust the hourly rate to reflect specialized caregiving rates if appropriate.</p></div></details>
+            <details class="faq-item"><summary>How do we handle yard work and home maintenance?</summary><div class="faq-answer"><p>Include these in the "Other household tasks" category. If significant, you might add a separate category with appropriate hourly rates for landscaping or handyman services.</p></div></details>
+            <details class="faq-item"><summary>Is the replacement cost method always accurate?</summary><div class="faq-answer"><p>It's an estimate. Use local market rates for professional services and adjust based on your specific circumstances. The calculator provides a reasonable baseline for discussion.</p></div></details>
+            <details class="faq-item"><summary>How does this affect insurance and taxes?</summary><div class="faq-answer"><p>For tax purposes, domestic work isn't typically income, but understanding its value can influence decisions about life insurance, disability insurance, and retirement planning. Consult a professional for specific advice.</p></div></details>
+            <details class="faq-item"><summary>What if the stay-at-home partner wants to return to work?</summary><div class="faq-answer"><p>This calculator can help plan for the transition by showing what costs would be incurred if domestic tasks were outsourced. It supports informed discussions about returning to work.</p></div></details>
+            <details class="faq-item"><summary>Should we include pet care?</summary><div class="faq-answer"><p>Yes, include pet care in the "Other household tasks" category. Professional pet sitting or dog walking rates can be used for valuation.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe recognizing and valuing domestic work is important. The calculator is supported by ads to keep it accessible.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    function money11(value) {
+      const sym = document.getElementById('currencySymbol11').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber11(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+    // ---- main calculation ----
+    function calculateSAHP() {
+      const workingName = document.getElementById('workingName').value.trim() || 'Working Partner';
+      const stayName = document.getElementById('stayHomeName').value.trim() || 'Stay-at-Home Partner';
+      const workingIncome = getNumber11('workingIncome');
+      const sharedExpenses = getNumber11('sharedExpenses11');
+
+      // Hours per week
+      const hours = {
+        childcare: getNumber11('childcareHours'),
+        cleaning: getNumber11('cleaningHours'),
+        cooking: getNumber11('cookingHours'),
+        laundry: getNumber11('laundryHours'),
+        shopping: getNumber11('shoppingHours'),
+        admin: getNumber11('adminHours'),
+        transport: getNumber11('transportHours'),
+        other: getNumber11('otherHouseHours')
+      };
+
+      // Rates
+      const rates = {
+        childcare: getNumber11('childcareRate'),
+        cleaning: getNumber11('cleaningRate'),
+        cooking: getNumber11('cookingRate'),
+        laundry: getNumber11('laundryRate'),
+        shopping: getNumber11('shoppingRate'),
+        admin: getNumber11('adminRate'),
+        transport: getNumber11('transportRate'),
+        other: getNumber11('otherHouseRate')
+      };
+
+      const taskNames = {
+        childcare: 'Childcare',
+        cleaning: 'Cleaning & Organizing',
+        cooking: 'Cooking & Meal Prep',
+        laundry: 'Laundry & Ironing',
+        shopping: 'Grocery & Household Shopping',
+        admin: 'Admin & Management',
+        transport: 'Transportation',
+        other: 'Other Household Tasks'
+      };
+
+      const totalHours = Object.values(hours).reduce((a, b) => a + b, 0);
+
+      if (totalHours <= 0) {
+        document.getElementById('result11').innerHTML = '<p>Please enter at least some weekly hours for household tasks.</p>';
+        return;
+      }
+
+      // Calculate replacement cost value
+      let totalReplacement = 0;
+      const taskDetails = [];
+      Object.keys(hours).forEach(key => {
+        const weeklyHours = hours[key] || 0;
+        const rate = rates[key] || 0;
+        const monthlyHours = weeklyHours * 4.33;
+        const monthlyValue = monthlyHours * rate;
+        taskDetails.push({
+          name: taskNames[key],
+          hours: weeklyHours,
+          rate: rate,
+          monthlyValue: monthlyValue
+        });
+        totalReplacement += monthlyValue;
+      });
+
+      // Calculate income-equivalent value
+      const workingHourly = getNumber11('workingHourlyRate');
+      const monthlyHours = totalHours * 4.33;
+      const incomeEquivalent = monthlyHours * workingHourly;
+
+      // Method
+      const method = document.getElementById('contributionMethod').value;
+      const hybridPct = getNumber11('hybridPct') / 100;
+
+      let totalContribution = 0;
+      let methodLabel = '';
+
+      if (method === 'replacement') {
+        totalContribution = totalReplacement;
+        methodLabel = 'Replacement Cost Method';
+      } else if (method === 'income') {
+        totalContribution = incomeEquivalent;
+        methodLabel = 'Income-Equivalent Method';
+      } else { // hybrid
+        totalContribution = (totalReplacement * hybridPct) + (incomeEquivalent * (1 - hybridPct));
+        methodLabel = `Hybrid Method (${(hybridPct * 100).toFixed(0)}% replacement, ${((1 - hybridPct) * 100).toFixed(0)}% income-equivalent)`;
+      }
+
+      // Comparison to working income
+      const pctOfIncome = workingIncome > 0 ? (totalContribution / workingIncome) * 100 : 0;
+      const contributionVsShared = sharedExpenses > 0 ? (totalContribution / sharedExpenses) * 100 : 0;
+
+      // Fairness assessment
+      let status, statusClass, statusText;
+      if (pctOfIncome >= 80) {
+        status = 'balanced';
+        statusClass = 'status-balanced';
+        statusText = '✅ Highly Valued';
+      } else if (pctOfIncome >= 50) {
+        status = 'partial';
+        statusClass = 'status-partial';
+        statusText = '⚠️ Moderately Valued';
+      } else {
+        status = 'unbalanced';
+        statusClass = 'status-unbalanced';
+        statusText = '❌ Undervalued';
+      }
+
+      const resultDiv = document.getElementById('result11');
+
+      // Build task breakdown table
+      let taskRows = taskDetails.filter(t => t.hours > 0).map(t => `
+        <div class="comparison-row">
+          <span class="comparison-label">${t.name}</span>
+          <span>${t.hours.toFixed(1)} hrs/wk</span>
+          <span>${money11(t.rate)}/hr</span>
+          <span class="money-cell">${money11(t.monthlyValue)}</span>
+        </div>
+      `).join('');
+
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          🏡 ${stayName}'s Contribution Analysis · ${methodLabel}
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">⏱️ Total weekly hours</div>
+            <div class="amount">${totalHours.toFixed(1)}</div>
+            <div class="detail">${(totalHours / 7).toFixed(1)} hours/day</div>
+          </div>
+          <div class="result-card">
+            <div class="label">💰 Total monthly value</div>
+            <div class="amount contribution">${money11(totalContribution)}</div>
+            <div class="detail">${pctOfIncome.toFixed(0)}% of ${workingName}'s income</div>
+          </div>
+          <div class="result-card">
+            <div class="label">📊 Value status</div>
+            <div class="amount" style="font-size:1.2rem;">${statusText}</div>
+            <div class="detail"><span class="status-badge ${statusClass}">${status === 'balanced' ? '✓ Balanced' : status === 'partial' ? '⚠️ Partial' : '✗ Unbalanced'}</span></div>
+          </div>
+        </div>
+
+        <div class="contribution-meter">
+          <div class="fill ${pctOfIncome >= 80 ? 'high' : pctOfIncome >= 50 ? 'medium' : 'low'}" style="width: ${Math.min(pctOfIncome, 100)}%;"></div>
+        </div>
+
+        <div class="result-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+          <div class="result-card" style="border-color: var(--accent);">
+            <div class="label">💵 ${workingName}'s income</div>
+            <div class="amount">${money11(workingIncome)}</div>
+            <div class="detail">Working partner</div>
+          </div>
+          <div class="result-card" style="border-color: var(--green);">
+            <div class="label">🏠 ${stayName}'s contribution</div>
+            <div class="amount contribution">${money11(totalContribution)}</div>
+            <div class="detail">${pctOfIncome.toFixed(0)}% of income</div>
+          </div>
+          <div class="result-card" style="border-color: var(--purple);">
+            <div class="label">📋 Shared expenses</div>
+            <div class="amount" style="color: var(--purple);">${money11(sharedExpenses)}</div>
+            <div class="detail">${contributionVsShared.toFixed(0)}% of shared expenses</div>
+          </div>
+        </div>
+
+        ${sharedExpenses > 0 ? `
+          <div class="highlight-box ${status === 'balanced' ? 'success' : status === 'partial' ? 'warning' : ''}">
+            <strong>💡 Financial insight:</strong>
+            ${totalContribution >= sharedExpenses 
+              ? `${stayName}'s contribution (${money11(totalContribution)}) covers ${contributionVsShared.toFixed(0)}% of your shared expenses. This is significant and should be acknowledged in financial planning.`
+              : `${stayName}'s contribution (${money11(totalContribution)}) covers ${contributionVsShared.toFixed(0)}% of your shared expenses. Consider discussing how to ensure fair financial recognition.`}
+            ${pctOfIncome >= 80 ? ' The contribution is well-balanced with the working partner\'s income.' : pctOfIncome >= 50 ? ' The contribution is moderate. Consider reviewing the valuation or adjusting financial arrangements.' : ' The contribution appears undervalued. Consider reviewing hours, rates, or how contributions are recognized.'}
+          </div>
+        ` : ''}
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Task breakdown</div>
+          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+            <span>Task</span>
+            <span>Hours/week</span>
+            <span>Rate</span>
+            <span>Monthly value</span>
+          </div>
+          ${taskRows}
+          <div class="comparison-row" style="font-weight:700; border-top:2px solid var(--border); margin-top:4px; padding-top:6px;">
+            <span>TOTAL</span>
+            <span>${totalHours.toFixed(1)} hrs/wk</span>
+            <span>—</span>
+            <span class="money-cell">${money11(totalReplacement)}</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="background: color-mix(in srgb, var(--accent) 8%, transparent); padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="font-weight:700; font-size:.8rem; color: var(--accent);">📊 Replacement Cost</div>
+            <div style="font-size:.78rem; color: var(--muted); margin-top: 4px;">
+              ${money11(totalReplacement)}/month
+              <br>
+              ${(totalReplacement / 4.33).toFixed(0)}/week · ${(totalReplacement / (4.33 * 7)).toFixed(0)}/day
+            </div>
+          </div>
+          <div style="background: color-mix(in srgb, var(--purple) 8%, transparent); padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="font-weight:700; font-size:.8rem; color: var(--purple);">💼 Income-Equivalent</div>
+            <div style="font-size:.78rem; color: var(--muted); margin-top: 4px;">
+              ${money11(incomeEquivalent)}/month
+              <br>
+              ${workingHourly > 0 ? `Based on ${money11(workingHourly)}/hr` : 'Enter hourly rate for this method'}
+            </div>
+          </div>
+        </div>
+
+        <p class="note">
+          <strong>How to interpret:</strong> This calculator values ${stayName}'s household contributions using professional replacement rates and income-equivalent calculations.
+          ${method === 'replacement' ? 'The replacement cost method uses local market rates for each task.' : method === 'income' ? 'The income-equivalent method uses the working partner\'s hourly rate.' : 'The hybrid method combines both approaches.'}
+          <br><br>
+          <strong>Recommendation:</strong> 
+          ${pctOfIncome >= 80 
+            ? 'This contribution is well-valued. Consider discussing how to ensure financial security through savings, insurance, and retirement planning for both partners.' 
+            : pctOfIncome >= 50 
+              ? 'Consider reviewing the valuation or having an open conversation about financial recognition and appreciation.' 
+              : 'The contribution appears undervalued. Review hours and rates, and discuss how to ensure the stay-at-home partner feels financially recognized and secure.'}
+        </p>
+      `;
+    }
+
+    function resetSAHP() {
+      document.querySelectorAll('.calculator input[type="number"]').forEach(input => {
+        input.value = '';
+      });
+      document.getElementById('result11').innerHTML = '';
+    }
+
+    async function copyResult11() {
+      const result = document.getElementById('result11');
+      if (!result.innerText.trim()) { alert('Calculate the contribution first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
