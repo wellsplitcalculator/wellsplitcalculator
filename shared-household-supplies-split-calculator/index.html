@@ -18,7 +18,7 @@
   <link rel="icon" type="image/png" href="/files/favicon.png">
 
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport">
   <meta name="robots" content="index, follow">
   <meta name="description" content="Shared household supplies split calculator. Fairly divide costs for cleaning products, toiletries, and household essentials.">
   <title>Shared Household Supplies Split Calculator · WellSplit</title>
@@ -35,6 +35,7 @@
       --orange: #fcd34d;
       --purple: #c4b5fd;
       --pink: #f9a8d4;
+      --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
     }
     html[data-theme="light"] {
       --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
@@ -49,98 +50,111 @@
     html { scroll-behavior: smooth; }
     body {
       min-height: 100vh; background: var(--bg); color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-      line-height: 1.5;
+      font-family: var(--font); line-height: 1.5;
+      padding: 0; margin: 0;
     }
-    main { padding: 42px 6% 32px; }
+    main { padding: 24px 16px 32px; }
     .content-layout {
-      width: min(100%, 1180px);
-      display: grid;
-      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
-      gap: 30px; align-items: start;
+      width: 100%; max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
     .page-shell { width: 100%; min-width: 0; }
-    .ad-space { min-height: 600px; }
-    .ad-column { display: block; }
-    .hero { margin-bottom: 18px; }
+    .ad-space { min-height: 1px; }
+    .ad-column { display: none; }
+    .hero { margin-bottom: 16px; }
     h1 {
-      max-width: 780px; font-size: clamp(1.8rem, 4.5vw, 3.2rem);
-      line-height: 1.02; letter-spacing: -.06em; margin-bottom: 10px;
+      font-size: clamp(1.6rem, 6.5vw, 2.8rem);
+      line-height: 1.05; letter-spacing: -.04em; margin-bottom: 8px;
+      word-break: break-word;
     }
-    .hero p { max-width: 720px; color: var(--muted); font-size: .88rem; }
-    .calculator {
+    .hero p { 
+      max-width: 720px; color: var(--muted); 
+      font-size: clamp(0.85rem, 2.2vw, 1rem); 
+      margin-bottom: 4px;
+    }
+    .calculator, .content-section {
       background: var(--panel); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px;
+      border-radius: var(--radius); padding: 16px 14px;
       box-shadow: var(--shadow); margin-bottom: 14px;
+      width: 100%;
     }
-    .section-title { font-size: 1.02rem; letter-spacing: -.035em; margin-bottom: 3px; }
+    .section-title { font-size: 1.05rem; letter-spacing: -.025em; margin-bottom: 2px; font-weight: 700; }
     .section-description {
-      color: var(--muted); font-size: .8rem;
-      line-height: 1.4; margin-bottom: 12px;
+      color: var(--muted); font-size: 0.8rem;
+      line-height: 1.4; margin-bottom: 14px;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 12px;
     }
     .grid-3 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
+      gap: 10px 12px;
     }
     label {
       display: block; margin-bottom: 3px; color: var(--muted);
-      font-size: .7rem; font-weight: 800;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: .02em;
     }
     input, select {
-      width: 100%; min-height: 38px; background: var(--field);
+      width: 100%; min-height: 42px; background: var(--field);
       color: var(--text); border: 1px solid var(--border);
-      border-radius: 10px; padding: 7px 10px; outline: none;
-      font-size: .85rem;
+      border-radius: 12px; padding: 8px 12px; outline: none;
+      font-size: 0.9rem; font-family: var(--font);
+      transition: border-color .15s, box-shadow .15s;
+      -webkit-appearance: none; appearance: none;
     }
+    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23606977' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; padding-right: 36px; }
     input:focus, select:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
     }
     .result {
-      margin-top: 12px; padding: 12px;
+      margin-top: 16px; padding: 14px 12px;
       background: var(--panel-2); border: 1px solid var(--border);
-      border-radius: 12px; min-height: 50px; overflow-x: auto;
+      border-radius: 12px; min-height: 60px; overflow-x: auto;
+      font-size: 0.9rem;
     }
     .result:empty::before {
       content: "Your household supplies split will appear here.";
       color: var(--muted); font-weight: 600;
     }
     .summary-line {
-      color: var(--muted); font-size: .78rem; margin-bottom: 10px;
+      color: var(--muted); font-size: 0.8rem; margin-bottom: 12px;
     }
     .result-table {
-      width: 100%; min-width: 520px; border-collapse: collapse;
-      font-size: .82rem;
+      width: 100%; min-width: 400px; border-collapse: collapse;
+      font-size: 0.8rem;
     }
     .result-table th, .result-table td {
-      padding: 7px 6px; border-bottom: 1px solid var(--border);
+      padding: 6px 5px; border-bottom: 1px solid var(--border);
       text-align: left; vertical-align: top;
     }
     .result-table th {
-      color: var(--muted); font-size: .68rem;
+      color: var(--muted); font-size: 0.65rem;
       text-transform: uppercase; letter-spacing: .04em;
     }
     .result-table tr:last-child td { border-bottom: 0; }
-    .money-cell { font-weight: 900; color: var(--accent); white-space: nowrap; }
+    .money-cell { font-weight: 800; color: var(--accent); white-space: nowrap; }
     .note {
-      margin-top: 10px; color: var(--muted); font-size: .76rem;
-      line-height: 1.4;
+      margin-top: 12px; color: var(--muted); font-size: 0.78rem;
+      line-height: 1.5;
     }
     .btns {
-      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
     }
     button {
-      border: 0; cursor: pointer; border-radius: 10px;
-      padding: 8px 12px; font-size: .82rem; font-weight: 900;
-      transition: .16s;
+      border: 0; cursor: pointer; border-radius: 30px;
+      padding: 10px 16px; font-size: 0.85rem; font-weight: 700;
+      transition: .15s; font-family: var(--font); touch-action: manipulation;
+      min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
     }
-    button:hover { transform: translateY(-1px); }
+    button:hover { transform: translateY(-2px); opacity: 0.9; }
+    button:active { transform: scale(0.96); }
     .primary { background: var(--accent); color: #061018; }
     .primary:hover { background: var(--accent-2); }
     .secondary {
@@ -148,18 +162,13 @@
       border: 1px solid var(--border);
     }
     .secondary:hover { border-color: var(--accent); color: var(--accent); }
-    .content-section {
-      background: var(--panel); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px;
-      box-shadow: var(--shadow); margin-bottom: 14px;
-    }
     .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
-    .content-section h3 { font-size: .98rem; margin: 14px 0 5px; }
-    .content-section p { color: var(--muted); font-size: .85rem; margin-bottom: 8px; }
-    .content-section ul { margin: 6px 0 8px 18px; color: var(--muted); font-size: .85rem; }
+    .content-section h3 { font-size: 1rem; margin: 16px 0 4px; }
+    .content-section p { color: var(--muted); font-size: 0.85rem; margin-bottom: 10px; }
+    .content-section ul { margin: 6px 0 10px 18px; color: var(--muted); font-size: 0.85rem; }
     .content-section li { margin-bottom: 4px; }
-    #faqs h2 { font-size: 1.6rem; margin-bottom: 6px; letter-spacing: -.03em; }
-    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    #faqs h2 { font-size: 1.4rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
     .faq-item {
       background: var(--panel); border: 1px solid var(--border);
       border-radius: 12px; overflow: hidden;
@@ -169,36 +178,23 @@
     .faq-item[open] { background: var(--panel-2); }
     .faq-item summary {
       display: flex; align-items: center; gap: 10px; cursor: pointer;
-      list-style: none; user-select: none; padding: 10px 14px;
-      font-size: .88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+      list-style: none; user-select: none; padding: 12px 14px;
+      font-size: 0.88rem; font-weight: 700; line-height: 1.3; color: var(--text);
     }
     .faq-item summary::-webkit-details-marker { display: none; }
     .faq-item summary::before {
-      content: "▶"; font-size: .7rem; flex-shrink: 0;
+      content: "▶"; font-size: 0.7rem; flex-shrink: 0;
       color: var(--text); transition: transform .22s ease;
     }
     .faq-item[open] summary::before { transform: rotate(90deg); }
-    .faq-answer { padding: 0 18px 12px 42px; }
-    .faq-answer p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.5; }
-    footer { padding: 20px 6%; color: var(--muted); border-top: 1px solid var(--border); font-size: .85rem; text-align: center; }
-    @media (max-width:900px) { .content-layout { display: block; width: 100%; } .ad-column { display: none; } }
-    @media (max-width:780px) {
-      main { padding: 28px 14px 20px; }
-      h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); }
-      .calculator, .content-section { padding: 12px; }
-      .grid, .grid-3 { grid-template-columns: 1fr; }
-      .btns button { flex: 1 1 130px; }
-      .faq-answer { padding: 0 14px 10px 34px; }
-      .faq-answer p { font-size: .82rem; }
-      #faqs h2 { font-size: 1.4rem; }
-      .faq-item summary { padding: 8px 12px; gap: 8px; font-size: .84rem; }
-    }
-    @media (max-width:420px) { .btns button { flex: 1 1 100%; } }
+    .faq-answer { padding: 0 16px 14px 38px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: 0.84rem; line-height: 1.5; }
+    footer { padding: 20px 16px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; text-align: center; }
     .highlight-box {
       background: color-mix(in srgb, var(--accent) 10%, transparent);
       border-left: 3px solid var(--accent);
-      padding: 10px 12px; border-radius: 8px; margin: 10px 0 6px;
-      font-size: .85rem;
+      padding: 12px 14px; border-radius: 10px; margin: 12px 0 8px;
+      font-size: 0.85rem;
     }
     .highlight-box.success {
       background: color-mix(in srgb, var(--green) 15%, transparent);
@@ -211,82 +207,88 @@
     .result-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin: 8px 0;
+      gap: 10px;
+      margin: 10px 0;
     }
     .result-card {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 12px 8px;
       text-align: center;
     }
     .result-card .label {
       color: var(--muted);
-      font-size: .7rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: .04em;
-      font-weight: 800;
+      font-weight: 700;
     }
     .result-card .amount {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 900;
       color: var(--accent);
-      margin-top: 4px;
+      margin-top: 2px;
+      word-break: break-word;
     }
     .result-card .amount.surplus { color: var(--green); }
     .result-card .amount.deficit { color: var(--orange); }
     .result-card .detail {
       color: var(--muted);
-      font-size: .75rem;
+      font-size: 0.7rem;
       margin-top: 4px;
     }
     .comparison-row {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       padding: 6px 0;
       border-bottom: 1px solid var(--border);
-      font-size: .8rem;
+      font-size: 0.8rem;
+      gap: 4px 8px;
     }
     .comparison-row:last-child { border-bottom: 0; }
-    .comparison-label { color: var(--muted); }
+    .comparison-label { color: var(--muted); flex: 1 1 60px; }
     .status-badge {
       display: inline-block;
-      padding: 2px 12px;
-      border-radius: 20px;
-      font-size: .7rem;
+      padding: 2px 14px;
+      border-radius: 30px;
+      font-size: 0.7rem;
       font-weight: 700;
+      margin-left: 6px;
     }
     .status-fair { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
     .status-partial { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
     .status-unfair { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
-    @media (max-width:600px) {
-      .result-grid { grid-template-columns: 1fr; }
-      .result-card .amount { font-size: 1.3rem; }
-    }
     .item-row {
       display: flex;
+      flex-wrap: wrap;
       gap: 6px;
       align-items: center;
-      padding: 4px 0;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
     }
-    .item-row input[type="text"] { flex: 2; }
-    .item-row input[type="number"] { width: 100px; }
-    .item-row select { width: 120px; }
+    .item-row:last-child { border-bottom: 0; }
+    .item-row input[type="text"] { flex: 2 1 120px; min-width: 80px; }
+    .item-row input[type="number"] { flex: 1 1 80px; min-width: 60px; width: auto; }
+    .item-row select { flex: 1 1 90px; min-width: 70px; }
     .item-row .remove-item {
       background: transparent;
       border: none;
       color: var(--danger);
       cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       padding: 0 4px;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
     }
     .item-row .remove-item:hover { transform: scale(1.2); }
     .category-tag {
       display: inline-block;
       padding: 2px 10px;
-      border-radius: 20px;
-      font-size: .65rem;
+      border-radius: 30px;
+      font-size: 0.65rem;
       font-weight: 700;
     }
     .cat-cleaning { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
@@ -295,6 +297,47 @@
     .cat-laundry { background: color-mix(in srgb, var(--purple) 20%, transparent); color: var(--purple); }
     .cat-paper { background: color-mix(in srgb, var(--pink) 20%, transparent); color: var(--pink); }
     .cat-other { background: color-mix(in srgb, var(--muted) 20%, transparent); color: var(--muted); }
+
+    /* ✅ Mobile-first responsive overrides */
+    @media (max-width: 780px) {
+      main { padding: 16px 12px 24px; }
+      .calculator, .content-section { padding: 14px 12px; }
+      .grid { grid-template-columns: 1fr; gap: 10px; }
+      .grid-3 { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .btns button { flex: 1 1 100%; }
+      .result-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .result-card .amount { font-size: 1.2rem; }
+      .item-row { flex-wrap: wrap; }
+      .item-row input, .item-row select { min-height: 40px; }
+      .faq-answer { padding: 0 12px 12px 28px; }
+      .faq-item summary { padding: 10px 12px; font-size: 0.85rem; }
+      .ad-column { display: none; }
+      .content-layout { gap: 12px; }
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.6rem; }
+      .result-grid { grid-template-columns: 1fr; }
+      .calculator, .content-section { padding: 12px 10px; }
+      .btns { flex-direction: column; }
+      .btns button { width: 100%; }
+      .item-row input[type="text"] { flex: 1 1 100%; }
+      .item-row input[type="number"] { flex: 1 1 45%; }
+      .item-row select { flex: 1 1 45%; }
+      .section-title { font-size: 1rem; }
+    }
+    @media (min-width: 901px) {
+      .content-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+        gap: 30px;
+        align-items: start;
+      }
+      .ad-column { display: block; }
+      .ad-space { min-height: 600px; }
+    }
+    button, input, select { touch-action: manipulation; }
+    input[type="number"] { -moz-appearance: textfield; }
+    input[type="number"]::-webkit-inner-spin-button { opacity: 0.5; }
   </style>
 </head>
 <body>
@@ -321,15 +364,15 @@
             </div>
             <div>
               <label for="p1Usage16">Person 1 usage factor</label>
-              <input id="p1Usage16" type="number" min="0.1" max="5" placeholder="1" value="" step="0.1">
+              <input id="p1Usage16" type="number" min="0.1" max="5" placeholder="1" value="1" step="0.1">
             </div>
             <div>
               <label for="p2Usage16">Person 2 usage factor</label>
-              <input id="p2Usage16" type="number" min="0.1" max="5" placeholder="1" value="" step="0.1">
+              <input id="p2Usage16" type="number" min="0.1" max="5" placeholder="1" value="1.2" step="0.1">
             </div>
           </div>
-          <div style="margin-top: 8px;">
-            <button class="secondary" onclick="addPerson16()" type="button" style="font-size:.78rem;">+ Add Person</button>
+          <div style="margin-top: 10px;">
+            <button class="secondary" onclick="addPerson16()" type="button" style="font-size:0.8rem;">+ Add Person</button>
           </div>
           <div id="extraPeople16"></div>
         </section>
@@ -338,23 +381,23 @@
           <h2 class="section-title">2. Household supply items</h2>
           <p class="section-description">Add each supply item with its cost, category, and who uses it.</p>
           
-          <div style="margin-bottom: 8px;">
-            <button class="secondary" onclick="addItemTop16()" type="button" style="font-size:.78rem;">+ Add Item (top)</button>
-            <button class="secondary" onclick="addSampleItems16()" type="button" style="font-size:.78rem;">📋 Add Sample Items</button>
+          <div style="margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px;">
+            <button class="secondary" onclick="addItemTop16()" type="button" style="font-size:0.8rem;">+ Add Item</button>
+            <button class="secondary" onclick="addSampleItems16()" type="button" style="font-size:0.8rem;">📋 Sample Items</button>
           </div>
           
           <div id="itemList16">
             <!-- Items will be added here dynamically -->
           </div>
 
-          <div class="grid" style="margin-top: 8px;">
+          <div class="grid" style="margin-top: 14px;">
             <div>
               <label for="taxRate16">Tax rate (%)</label>
-              <input id="taxRate16" type="number" min="0" max="20" placeholder="8" value="" step="0.1">
+              <input id="taxRate16" type="number" min="0" max="20" placeholder="8" value="8" step="0.1">
             </div>
             <div>
               <label for="deliveryFee16">Delivery fee (optional)</label>
-              <input id="deliveryFee16" type="number" inputmode="decimal" min="0" placeholder="5" value="">
+              <input id="deliveryFee16" type="number" inputmode="decimal" min="0" placeholder="5" value="5">
             </div>
             <div>
               <label for="currencySymbol16">Currency</label>
@@ -385,7 +428,7 @@
             </div>
             <div id="customSupplyDiv16" style="display:none;">
               <label for="customSupplyPct16">Person 1's share (%)</label>
-              <input id="customSupplyPct16" type="number" min="0" max="100" placeholder="60" value="" step="1">
+              <input id="customSupplyPct16" type="number" min="0" max="100" placeholder="60" value="60" step="1">
             </div>
           </div>
         </section>
@@ -458,11 +501,11 @@
       const div = document.createElement('div');
       div.className = 'grid';
       div.id = 'sperson' + personCount16;
-      div.style.marginTop = '6px';
+      div.style.marginTop = '8px';
       div.innerHTML = `
         <div style="grid-column: 1 / -1; display:flex; justify-content:space-between; align-items:center;">
           <span style="font-weight:700; font-size:.85rem;">👤 Person ${personCount16}</span>
-          <button onclick="removePerson16('sperson${personCount16}')" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:.9rem;">✕</button>
+          <button onclick="removePerson16('sperson${personCount16}')" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:1.1rem;padding:0 6px;">✕</button>
         </div>
         <div>
           <label>Name</label>
@@ -470,7 +513,7 @@
         </div>
         <div>
           <label>Usage factor</label>
-          <input class="spUsage16" type="number" min="0.1" max="5" placeholder="1" value="" step="0.1">
+          <input class="spUsage16" type="number" min="0.1" max="5" placeholder="1" value="1" step="0.1">
         </div>
       `;
       container.appendChild(div);
@@ -511,7 +554,7 @@
       div.className = 'item-row';
       div.id = 'sitem' + itemCount16;
       div.innerHTML = `
-        <input class="itemName16" type="text" placeholder="Item name" value="${name}">
+        <input class="itemName16" type="text" placeholder="Item name, e.g. Toilet paper" value="${name}">
         <input class="itemPrice16" type="number" inputmode="decimal" min="0" placeholder="Price" value="${price}" step="0.01">
         <select class="itemCategory16">
           <option value="cleaning" ${category === 'cleaning' ? 'selected' : ''}>🧹 Cleaning</option>
@@ -537,25 +580,12 @@
     }
 
     function addSampleItems16() {
-      const samples = [
-        ['Toilet paper (24 rolls)', 19.99, 'paper', 'shared'],
-        ['Paper towels (6 rolls)', 14.99, 'paper', 'shared'],
-        ['All-purpose cleaner', 5.99, 'cleaning', 'shared'],
-        ['Dish soap', 4.99, 'kitchen', 'shared'],
-        ['Laundry detergent', 15.99, 'laundry', 'shared'],
-        ['Trash bags (50ct)', 12.99, 'kitchen', 'shared'],
-        ['Sponges (6 pack)', 4.99, 'kitchen', 'shared'],
-        ['Glass cleaner', 4.99, 'cleaning', 'shared'],
-        ['Hand soap refill', 8.99, 'bathroom', 'shared']
+      // Only add 2 default items with placeholders (no default values)
+      const defaults = [
+        ['', '', 'paper', 'shared'],
+        ['', '', 'cleaning', 'shared']
       ];
-      const people = collectPeople16();
-      if (people.length >= 2) {
-        samples.push([`${people[0].name}'s shampoo`, 8.99, 'bathroom', people[0].name]);
-        samples.push([`${people[1].name}'s conditioner`, 7.99, 'bathroom', people[1].name]);
-        samples.push([`${people[0].name}'s toothpaste`, 5.99, 'bathroom', people[0].name]);
-        samples.push([`${people[1].name}'s body wash`, 6.99, 'bathroom', people[1].name]);
-      }
-      samples.reverse().forEach(([name, price, category, assigned]) => {
+      defaults.forEach(([name, price, category, assigned]) => {
         addItemTop16(name, price, category, assigned);
       });
     }
@@ -600,7 +630,6 @@
         document.getElementById('result16').innerHTML = '<p>Please add at least one household supply item with a price.</p>';
         return;
       }
-
       if (people.length < 2) {
         document.getElementById('result16').innerHTML = '<p>Please add at least 2 people.</p>';
         return;
@@ -712,7 +741,6 @@
       };
 
       const resultDiv = document.getElementById('result16');
-
       resultDiv.innerHTML = `
         <div class="summary-line">
           🏠 Household Supplies Split · ${methodLabels[method] || 'Custom'} · ${items.length} items
@@ -758,8 +786,8 @@
               : 'This split is significantly unbalanced. Consider using a different method or adjusting assignments.'}
         </div>
 
-        <div style="margin-top: 10px;">
-          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Item breakdown</div>
+        <div style="margin-top: 12px;">
+          <div style="font-weight:700; font-size:0.8rem; margin-bottom:4px;">Item breakdown</div>
           <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border);">
             <span>Item</span>
             <span>Price</span>
@@ -798,6 +826,8 @@
       personCount16 = 2;
       itemCount16 = 0;
       document.getElementById('result16').innerHTML = '';
+      // Re-add default items after reset
+      addSampleItems16();
     }
 
     async function copyResult16() {
@@ -814,7 +844,6 @@
       }
     }
 
-    // Initialize with sample items
     document.addEventListener('DOMContentLoaded', function() {
       addSampleItems16();
     });
