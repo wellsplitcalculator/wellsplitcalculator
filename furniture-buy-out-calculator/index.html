@@ -328,11 +328,9 @@
         padding: 4px 8px;
         font-size: 1.2rem;
       }
-      /* Hide header row on mobile */
       #itemHeaderRow {
         display: none !important;
       }
-      /* Mobile labels for each field */
       .item-row .field-label-mobile {
         display: block;
         font-size: .6rem;
@@ -390,11 +388,11 @@
           <div class="grid">
             <div>
               <label for="p1Name19">Partner 1 name</label>
-              <input id="p1Name19" type="text" placeholder="e.g. Alex" value="">
+              <input id="p1Name19" type="text" placeholder="e.g. Alex" value="Alex">
             </div>
             <div>
               <label for="p2Name19">Partner 2 name</label>
-              <input id="p2Name19" type="text" placeholder="e.g. Jordan" value="">
+              <input id="p2Name19" type="text" placeholder="e.g. Jordan" value="Jordan">
             </div>
             <div>
               <label for="currencySymbol19">Currency</label>
@@ -416,7 +414,7 @@
             </div>
             <div>
               <label for="depreciationRate19">Annual depreciation rate (%)</label>
-              <input id="depreciationRate19" type="number" min="0" max="50" placeholder="e.g. 15" value="" step="1">
+              <input id="depreciationRate19" type="number" min="0" max="50" placeholder="e.g. 15" value="15" step="1">
             </div>
           </div>
         </section>
@@ -461,11 +459,11 @@
             </div>
             <div id="marketValueDiv19" style="display:none;">
               <label for="marketValuePct19">Market value as % of original</label>
-              <input id="marketValuePct19" type="number" min="0" max="100" placeholder="e.g. 70" value="" step="1">
+              <input id="marketValuePct19" type="number" min="0" max="100" placeholder="e.g. 70" value="70" step="1">
             </div>
             <div id="agreedValueDiv19" style="display:none;">
               <label for="agreedValueAmount19">Agreed total value</label>
-              <input id="agreedValueAmount19" type="number" inputmode="decimal" min="0" placeholder="e.g. 5000" value="" step="0.01">
+              <input id="agreedValueAmount19" type="number" inputmode="decimal" min="0" placeholder="e.g. 5000" value="5000" step="0.01">
             </div>
             <div>
               <label for="splitMethod19">Split method for shared items</label>
@@ -477,7 +475,7 @@
             </div>
             <div id="customBuyoutDiv19" style="display:none;">
               <label for="customBuyoutPct19">Partner 1's share (%)</label>
-              <input id="customBuyoutPct19" type="number" min="0" max="100" placeholder="e.g. 60" value="" step="1">
+              <input id="customBuyoutPct19" type="number" min="0" max="100" placeholder="e.g. 60" value="60" step="1">
             </div>
             <div>
               <label for="p1Income19">Partner 1 monthly income</label>
@@ -561,7 +559,7 @@
       const people = collectPeople19();
       div.innerHTML = `
         <span class="field-label-mobile">Item Name</span>
-        <input class="bItemName19" type="text" placeholder="Item name" value="${name}">
+        <input class="bItemName19" type="text" placeholder="e.g. Sofa" value="${name}">
         <span class="field-label-mobile">Original Cost</span>
         <input class="bItemPrice19" type="number" inputmode="decimal" min="0" placeholder="Original cost" value="${price}" step="0.01">
         <span class="field-label-mobile">Age (years)</span>
@@ -597,20 +595,12 @@
     }
 
     function addSampleBuyoutItems19() {
-      const people = collectPeople19();
-      const samples = [
-        ['Sofa (3-seater)', 899.99, 'living', 'shared', 2],
-        ['Dining table + chairs', 599.99, 'dining', 'shared', 3],
-        ['Queen bed frame', 499.99, 'bedroom', 'shared', 1.5],
-        ['Mattress', 799.99, 'bedroom', 'shared', 1.5],
-        ['Bookshelf', 249.99, 'living', 'shared', 4],
-        ['Desk', 349.99, 'office', 'shared', 2]
+      // Only add 2 default items with placeholders (no default values)
+      const defaults = [
+        ['', '', 'living', 'shared', 0],
+        ['', '', 'bedroom', 'shared', 0]
       ];
-      if (people.length >= 2) {
-        samples.push([`${people[0]}'s office chair`, 199.99, 'office', people[0], 1]);
-        samples.push([`${people[1]}'s nightstand`, 149.99, 'bedroom', people[1], 2]);
-      }
-      samples.reverse().forEach(([name, price, category, takenBy, age]) => {
+      defaults.forEach(([name, price, category, takenBy, age]) => {
         addBuyoutItemTop19(name, price, category, takenBy, age);
       });
     }
@@ -908,6 +898,8 @@
       document.querySelectorAll('#buyoutItemList19 .item-row').forEach(el => el.remove());
       buyoutItemCount19 = 0;
       document.getElementById('result19').innerHTML = '';
+      // Re-add default items after reset
+      addSampleBuyoutItems19();
     }
 
     async function copyResult19() {
