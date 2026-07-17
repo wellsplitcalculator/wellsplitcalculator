@@ -437,8 +437,10 @@
     function getNumber8(id) { return parseFloat(document.getElementById(id).value) || 0; }
 
     // ---- show/hide custom income ----
-    document.getElementById('jobLossScenario').addEventListener('change', function() {
-      document.getElementById('customIncomeDiv').style.display = this.value === 'custom' ? 'block' : 'none';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('jobLossScenario').addEventListener('change', function() {
+        document.getElementById('customIncomeDiv').style.display = this.value === 'custom' ? 'block' : 'none';
+      });
     });
 
     // ---- main calculation ----
@@ -623,27 +625,27 @@
 
         <div style="margin-top: 10px;">
           <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Budget breakdown</div>
-          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border); padding:4px 0;">
+          <div style="font-weight:700; border-bottom:2px solid var(--border); padding:4px 0; display:flex; justify-content:space-between;">
             <span>Category</span>
             <span>Amount</span>
             <span>% of income</span>
           </div>
-          <div class="comparison-row" style="padding:4px 0;">
+          <div style="padding:4px 0; display:flex; justify-content:space-between;">
             <span>Income</span>
             <span>${money8(income)}</span>
             <span>100%</span>
           </div>
-          <div class="comparison-row" style="padding:4px 0;">
+          <div style="padding:4px 0; display:flex; justify-content:space-between;">
             <span>Fixed expenses</span>
             <span>${money8(fixed)}</span>
             <span>${income > 0 ? ((fixed/income)*100).toFixed(1) : 0}%</span>
           </div>
-          <div class="comparison-row" style="padding:4px 0;">
+          <div style="padding:4px 0; display:flex; justify-content:space-between;">
             <span>Variable expenses</span>
             <span>${money8(variable)}</span>
             <span>${income > 0 ? ((variable/income)*100).toFixed(1) : 0}%</span>
           </div>
-          <div class="comparison-row" style="padding:4px 0; font-weight:700; border-top:1px solid var(--border);">
+          <div style="padding:4px 0; font-weight:700; border-top:1px solid var(--border); display:flex; justify-content:space-between;">
             <span>Monthly savings rate</span>
             <span>${money8(Math.max(0, income - totalExpenses))}</span>
             <span>${income > 0 ? ((Math.max(0, income - totalExpenses)/income)*100).toFixed(1) : 0}%</span>
@@ -652,7 +654,7 @@
 
         <p class="note">
           <strong>How this works:</strong> The stress test simulates income loss and emergency expenses to show your financial runway.
-          ${monthsSurvival === Infinity ? 'Your income covers expenses, so savings aren't being depleted.' : `You would survive ${monthsSurvival} months before savings run out.`}
+          ${monthsSurvival === Infinity ? 'Your income covers expenses, so savings aren\'t being depleted.' : `You would survive ${monthsSurvival} months before savings run out.`}
           ${benefitsAmount > 0 ? ` Unemployment benefits (${money8(benefitsAmount)}/month for ${benefitsMonths} months) are included.` : ''}
           <br><br>
           <strong>Recommendation:</strong> ${status === 'pass' ? 'Maintain your savings rate and consider investing surplus.' : status === 'warning' ? 'Aim to increase your emergency fund to 6 months of expenses.' : 'Priority: Build emergency fund to 3 months minimum, reduce expenses, or increase income.'}
