@@ -11,6 +11,16 @@ async function loadComponent(elementId, filePath) {
     }
 
     element.innerHTML = await response.text();
+    
+    // ADD THIS: If navbar just loaded, ensure body padding is applied
+    if (elementId === "navbar-container") {
+      // Force a reflow to ensure the navbar height is calculated correctly
+      const nav = document.querySelector('nav');
+      if (nav) {
+        const navHeight = nav.offsetHeight;
+        document.body.style.paddingTop = navHeight + 'px';
+      }
+    }
   } catch (error) {
     console.error(error);
   }
