@@ -715,6 +715,7 @@
   <!-- SHARED JS -->
   <script src="/components/shared.js"></script>
 
+  <!-- Page-specific JavaScript (NO duplicate theme functions!) -->
   <script>
     function money(value) {
       const number = Number(value || 0);
@@ -738,71 +739,11 @@
       }, 1600);
     }
 
-    function toggleTheme() {
-      const html = document.documentElement;
-      const btn = document.querySelector(".theme-toggle");
+    // REMOVED: toggleTheme(), toggleMobileMenu(), closeMobileMenu()
+    // These are now handled by shared.js
 
-      if (html.dataset.theme === "light") {
-        html.dataset.theme = "dark";
-        if (btn) btn.innerHTML = "☾ Dark";
-      } else {
-        html.dataset.theme = "light";
-        if (btn) btn.innerHTML = "☀ Light";
-      }
-    }
-
-    function toggleMobileMenu() {
-      const menu = document.getElementById("navActions");
-      const button = document.querySelector(".menu-toggle");
-      const backdrop = document.getElementById("mobileMenuBackdrop");
-      const isOpen = menu.classList.toggle("open");
-
-      button.classList.toggle("active", isOpen);
-      backdrop.classList.toggle("show", isOpen);
-
-      button.setAttribute("aria-expanded", String(isOpen));
-      button.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation menu" : "Open navigation menu"
-      );
-    }
-
-    function closeMobileMenu() {
-      const menu = document.getElementById("navActions");
-      const button = document.querySelector(".menu-toggle");
-      const backdrop = document.getElementById("mobileMenuBackdrop");
-
-      menu.classList.remove("open");
-      button.classList.remove("active");
-      backdrop.classList.remove("show");
-
-      button.setAttribute("aria-expanded", "false");
-      button.setAttribute("aria-label", "Open navigation menu");
-    }
-
-    document.querySelectorAll(".nav-actions a").forEach(link => {
-      link.addEventListener("click", () => {
-        if (window.matchMedia("(max-width: 780px)").matches) {
-          closeMobileMenu();
-        }
-      });
-    });
-
-    document.addEventListener("keydown", event => {
-      if (
-        event.key === "Escape" &&
-        document.getElementById("navActions").classList.contains("open")
-      ) {
-        closeMobileMenu();
-        document.querySelector(".menu-toggle").focus();
-      }
-    });
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 780) {
-        closeMobileMenu();
-      }
-    });
+    // Keep only the event listeners that are page-specific
+    // The mobile menu listeners are already in shared.js
 
     async function copyResult(id) {
       const result = document.getElementById(id).innerText.trim();
