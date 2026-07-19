@@ -440,6 +440,78 @@
         flex: 1 1 100%;
       }
     }
+
+    /* Roommate result styling */
+    .roommate-result-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+
+    .roommate-result-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .roommate-result-name {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .roommate-result-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 16px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .roommate-result-details span {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .roommate-result-details .label {
+      color: var(--muted);
+    }
+
+    .roommate-result-details .value {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .roommate-result-total {
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .roommate-result-total .label {
+      color: var(--muted);
+    }
+
+    .roommate-result-total .value {
+      color: var(--accent);
+    }
+
+    .roommate-summary {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .roommate-summary strong {
+      color: var(--text);
+    }
   </style>
 </head>
 <body>
@@ -485,14 +557,14 @@
         <div class="result" id="coupleResult">Result will appear here.</div>
       </section>
 
-      <!-- Calculator 2: Roommates Rent & Utilities -->
+      <!-- Calculator 2: Roommates Rent & Utilities Split Calculator -->
       <section aria-labelledby="roommates-title" class="calculator">
         <div class="calc-head">
           <div class="calc-title-wrap">
             <span class="calc-number">2</span>
             <div>
-              <h2 id="roommates-title">Roommates Rent &amp; Utilities</h2>
-              <p class="description">Weight rent by room value and split utilities by person or room size.</p>
+              <h2 id="roommates-title">Roommates Rent &amp; Utilities Split Calculator</h2>
+              <p class="description">Split rent by room size and utilities by person or room size.</p>
             </div>
           </div>
         </div>
@@ -502,7 +574,7 @@
             <input id="roomRent" inputmode="decimal" min="0" placeholder="2400" type="number"/>
           </div>
           <div>
-            <label for="roomUtilities">Utilities</label>
+            <label for="roomUtilities">Total Utilities</label>
             <input id="roomUtilities" inputmode="decimal" min="0" placeholder="300" type="number"/>
           </div>
           <div>
@@ -520,7 +592,7 @@
               <input class="roomName" placeholder="Master room" type="text"/>
             </div>
             <div>
-              <label>Room size</label>
+              <label>Room size weight</label>
               <input class="roomWeight" inputmode="decimal" min="0" placeholder="1.2" type="number"/>
             </div>
             <div>
@@ -535,8 +607,8 @@
               <input class="roomName" placeholder="Small room" type="text"/>
             </div>
             <div>
-              <label>Room size</label>
-              <input class="roomWeight" inputmode="decimal" min="0" placeholder="1" type="number"/>
+              <label>Room size weight</label>
+              <input class="roomWeight" inputmode="decimal" min="0" placeholder="1.0" type="number"/>
             </div>
             <div>
               <label>People</label>
@@ -602,7 +674,7 @@
           <div class="calc-title-wrap">
             <span class="calc-number">4</span>
             <div>
-              <h2 id="household-title">Household Affordability</h2>
+              <h2 id="household-title">Household Affordability Calculator</h2>
               <p class="description">Compare income, expenses, savings, and disposable income.</p>
             </div>
           </div>
@@ -638,7 +710,7 @@
           <div class="calc-title-wrap">
             <span class="calc-number">5</span>
             <div>
-              <h2 id="tradeoff-title">Life-Money Tradeoff</h2>
+              <h2 id="tradeoff-title">Life-Money Tradeoff Calculator</h2>
               <p class="description">See how many work hours a purchase costs each person.</p>
             </div>
           </div>
@@ -715,7 +787,7 @@
   <!-- SHARED JS -->
   <script src="/components/shared.js"></script>
 
-  <!-- Page-specific JavaScript (NO duplicate theme functions!) -->
+  <!-- Page-specific JavaScript -->
   <script>
     function money(value) {
       const number = Number(value || 0);
@@ -738,12 +810,6 @@
         toast.classList.remove("show");
       }, 1600);
     }
-
-    // REMOVED: toggleTheme(), toggleMobileMenu(), closeMobileMenu()
-    // These are now handled by shared.js
-
-    // Keep only the event listeners that are page-specific
-    // The mobile menu listeners are already in shared.js
 
     async function copyResult(id) {
       const result = document.getElementById(id).innerText.trim();
@@ -800,7 +866,7 @@
         `Total shared bill: ${money(bill)}`;
     }
 
-    // Calculator 2: Roommates Rent & Utilities
+    // Calculator 2: Roommates Rent & Utilities Split Calculator
     function addRoommateRow() {
       const container = document.getElementById("roommateRows");
       const row = document.createElement("div");
@@ -811,7 +877,7 @@
           <input type="text" placeholder="Room" class="roomName" />
         </div>
         <div>
-          <label>Weight</label>
+          <label>Room size weight</label>
           <input type="number" placeholder="1" min="0" inputmode="decimal" class="roomWeight" />
         </div>
         <div>
@@ -856,6 +922,7 @@
         return;
       }
 
+      const methodLabel = method === "equal" ? "split equally by person" : "split by room size";
       const lines = rooms.map(room => {
         const rentShare = rent * (room.weight / totalWeight);
         const utilityShare = method === "equal"
@@ -864,10 +931,38 @@
         const totalRoomShare = rentShare + utilityShare;
         const perPerson = totalRoomShare / room.count;
 
-        return `${room.name}: ${money(totalRoomShare)} total | ${money(perPerson)} per person\nRent ${money(rentShare)} + Utilities ${money(utilityShare)}`;
-      });
+        return `
+          <div class="roommate-result-item">
+            <div class="roommate-result-name">${room.name}</div>
+            <div class="roommate-result-details">
+              <span><span class="label">Rent (${(room.weight / totalWeight * 100).toFixed(1)}% of rent)</span><span class="value">${money(rentShare)}</span></span>
+              <span><span class="label">Utilities (${method === "equal" ? (room.count / totalPeople * 100).toFixed(1) : (room.weight / totalWeight * 100).toFixed(1)}% of utilities)</span><span class="value">${money(utilityShare)}</span></span>
+              <span><span class="label">Room size weight</span><span class="value">${room.weight.toFixed(2)}</span></span>
+              <span><span class="label">People in room</span><span class="value">${room.count}</span></span>
+            </div>
+            <div class="roommate-result-total">
+              <span class="label">Total for ${room.name}</span>
+              <span class="value">${money(totalRoomShare)}</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">${money(perPerson)} per person</div>
+          </div>
+        `;
+      }).join('');
 
-      output.innerText = lines.join("\n\n");
+      const utilityMethodLabel = method === "equal" ? "equally by person" : "by room size";
+
+      output.innerHTML = `
+        <div class="roommate-summary">
+          <strong>${rooms.length}</strong> rooms · <strong>${totalPeople}</strong> people · 
+          Total rent: <strong>${money(rent)}</strong> · Total utilities: <strong>${money(utilities)}</strong> · 
+          Utilities <strong>${utilityMethodLabel}</strong>
+        </div>
+        ${lines}
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:0.78rem;color:var(--muted);">
+          <strong>How it works:</strong> Rent is split proportionally by room size weight. Utilities are ${utilityMethodLabel}. 
+          Each room's total includes both rent and utilities.
+        </div>
+      `;
     }
 
     // Calculator 3: Friends Group Expense Split
