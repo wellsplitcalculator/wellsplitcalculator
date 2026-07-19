@@ -4,34 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About - Wellsplit</title>
+  
+  <!-- Your shared CSS -->
+  <link rel="stylesheet" href="/components/styles.css">
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
-    }
-
-    /* NAV */
-    .nav {
-      background: #111;
-      padding: 14px;
-      text-align: center;
-    }
-
-    .nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 14px;
-      font-size: 14px;
-    }
-
-    .nav a:hover {
-      text-decoration: underline;
-    }
-
-    /* CONTAINER */
+    /* About page specific styles */
     .container {
       max-width: 850px;
       margin: 50px auto;
@@ -39,101 +17,93 @@
     }
 
     .card {
-      background: white;
+      background: var(--panel);
       padding: 35px;
       border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
     }
 
     h1 {
       margin-top: 0;
       font-size: 28px;
+      color: var(--text);
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 30px;
+      color: var(--text);
     }
 
     p {
       line-height: 1.6;
       font-size: 16px;
-      color: #444;
+      color: var(--muted);
     }
 
     .highlight {
-      background: #f0f4ff;
-      padding: 10px;
-      border-left: 4px solid #4a6cf7;
-      margin-top: 20px;
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      padding: 15px 20px;
+      border-left: 4px solid var(--accent);
+      margin: 20px 0;
       border-radius: 6px;
+      color: var(--text);
+      font-weight: 600;
     }
 
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      margin: 4px 0;
-      font-size: 13px;
-      color: #777;
+    /* Override any default footer styles since we're using shared footer */
+    .footer-wrapper {
+      display: none;
     }
-    .footer-links {
-      text-align: center;
-    }
-    
   </style>
 </head>
 
 <body>
+  <!-- Navbar loaded from shared.js -->
+  <div id="navbar-container"></div>
 
-  <div class="nav">
-    <a href="/">Home</a>
-  </div>
+  <main>
+    <div class="container">
+      <div class="card">
+        <h1>About Wellsplit</h1>
 
-  <div class="container">
-    <div class="card">
-      <h1>About Wellsplit</h1>
-
-      <p>
-        WellSplit is a free website of calculators and decision tools built to help people make fair shared-money decisions with more clarity and less conflict. Whether you’re splitting rent with roommates, dividing bills with a partner, settling trip expenses with friends, or comparing major life costs, our goal is to make the math easier, faster, and more transparent.</p>
+        <p>
+          WellSplit is a free website of calculators and decision tools built to help people make fair shared-money decisions with more clarity and less conflict. Whether you're splitting rent with roommates, dividing bills with a partner, settling trip expenses with friends, or comparing major life costs, our goal is to make the math easier, faster, and more transparent.
+        </p>
         
-        <p>We created WellSplit because many of the most stressful money questions are not really about math alone. They are about fairness, tradeoffs, unequal incomes, shared living, group spending, and the awkward conversations that happen when people need a system everyone can understand.
-      </p>
+        <p>
+          We created WellSplit because many of the most stressful money questions are not really about math alone. They are about fairness, tradeoffs, unequal incomes, shared living, group spending, and the awkward conversations that happen when people need a system everyone can understand.
+        </p>
 
-      <p>
-        Our focus is on speed, simplicity, and usability. No unnecessary features,
-        no clutter. Just clean tools that work instantly.
-      </p>
-      
-      <h2>Who WellSplit is for?
-        WellSplit is built for:</h2>
+        <p>
+          Our focus is on speed, simplicity, and usability. No unnecessary features, no clutter. Just clean tools that work instantly.
+        </p>
+        
+        <h2>Who WellSplit is for</h2>
+        <p>WellSplit is built for:</p>
 
-      <p>Couples managing shared bills, rent, savings, or uneven incomes.</p>
+        <p>• Couples managing shared bills, rent, savings, or uneven incomes.</p>
+        <p>• Roommates trying to split rent, utilities, and shared household costs fairly.</p>
+        <p>• Friends settling group dinners, road trips, vacations, and shared purchases.</p>
+        <p>• People comparing high-stakes money decisions like moving, commuting, job offers, or living arrangements.</p>
+        <p>• Anyone who wants a practical fairness calculator instead of a messy spreadsheet.</p>
 
-      <p>Roommates trying to split rent, utilities, and shared household costs fairly.</p>
+        <div class="highlight">
+          Built for speed, simplicity, and everyday use.
+        </div>
 
-Friends settling group dinners, road trips, vacations, and shared purchases.
-
-<p>People comparing high-stakes money decisions like moving, commuting, job offers, or living arrangements.</p>
-
-<p>Anyone who wants a practical fairness calculator instead of a messy spreadsheet.
-      </p>
-      <div class="highlight">
-        Built for speed, simplicity, and everyday use.
+        <p>
+          This website is continuously improving to provide better tools for users worldwide.
+        </p>
       </div>
-
-      <p>
-        This website is continuously improving to provide better tools for users worldwide.
-      </p>
     </div>
-  </div>
+  </main>
 
+  <!-- Footer loaded from shared.js -->
+  <div id="footer-container"></div>
 
- <footer class="footer-wrapper">
-  <div class="footer">
-    © 2026 WellSplit.net. All rights reserved.
-  </div>
-  <div class="footer-links">
-    <a href="/all-calculators/">Sitemap</a>
-    <a href="/about/">About</a>
-    <a href="/contact/">Contact</a>
-    <a href="/privacy-policy/">Privacy Policy</a>
-  </div>
-</footer>
-  
+  <!-- Load shared.js -->
+  <script src="/components/shared.js"></script>
 </body>
 </html>
