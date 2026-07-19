@@ -1,3 +1,36 @@
+// Theme management
+function getPreferredTheme() {
+  // Check localStorage first
+  const savedTheme = localStorage.getItem('wellsplit-theme');
+  if (savedTheme) {
+    return savedTheme;
+  }
+  // If no saved preference, check system preference
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  // Default to light
+  return 'light';
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('wellsplit-theme', theme);
+  
+  // Update toggle button if it exists
+  const button = document.querySelector(".theme-toggle");
+  if (button) {
+    button.innerHTML = theme === "dark" ? "☾ Dark" : "☀ Light";
+  }
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const currentTheme = html.dataset.theme || 'light';
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+  setTheme(newTheme);
+}
+
 async function loadComponent(elementId, filePath) {
   const element = document.getElementById(elementId);
 
@@ -12,7 +45,7 @@ async function loadComponent(elementId, filePath) {
 
     element.innerHTML = await response.text();
     
-    // ADD THIS: If navbar just loaded, ensure body padding is applied
+    // Apply theme after navbar loads (in case the toggle button is in the navbar)
     if (elementId === "navbar-container") {
       // Force a reflow to ensure the navbar height is calculated correctly
       const nav = document.querySelector('nav');
@@ -20,28 +53,16 @@ async function loadComponent(elementId, filePath) {
         const navHeight = nav.offsetHeight;
         document.body.style.paddingTop = navHeight + 'px';
       }
+      
+      // Update theme toggle button if it exists in the navbar
+      const savedTheme = getPreferredTheme();
+      const button = document.querySelector(".theme-toggle");
+      if (button) {
+        button.innerHTML = savedTheme === "dark" ? "☾ Dark" : "☀ Light";
+      }
     }
   } catch (error) {
     console.error(error);
-  }
-}
-
-function toggleTheme() {
-  const html = document.documentElement;
-  const button = document.querySelector(".theme-toggle");
-
-  if (html.dataset.theme === "light") {
-    html.dataset.theme = "dark";
-
-    if (button) {
-      button.innerHTML = "☾ Dark";
-    }
-  } else {
-    html.dataset.theme = "light";
-
-    if (button) {
-      button.innerHTML = "☀ Light";
-    }
   }
 }
 
@@ -108,7 +129,33 @@ window.addEventListener("resize", () => {
   }
 });
 
+// Listen for theme changes from other tabs/windows
+window.addEventListener('storage', function(event) {
+  if (event.key === 'wellsplit-theme') {
+    const newTheme = event.newValue;
+    if (newTheme) {
+      document.documentElement.setAttribute('data-theme', newTheme);
+      const button = document.querySelector(".theme-toggle");
+      if (button) {
+        button.innerHTML = newTheme === "dark" ? "☾ Dark" : "☀ Light";
+      }
+    }
+  }
+});
+
 document.addEventListener("DOMContentLoaded", async () => {
+  // Apply saved theme BEFORE loading components to prevent flicker
+  const savedTheme = getPreferredTheme();
+  setTheme(savedTheme);
+  
   await loadComponent("navbar-container", "/components/navbar.html");
   await loadComponent("footer-container", "/components/footer.html");
+  
+  // Ensure theme is still applied after components load
+  const currentTheme = getPreferredTheme();
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  const button = document.querySelector(".theme-toggle");
+  if (button) {
+    button.innerHTML = currentTheme === "dark" ? "☾ Dark" : "☀ Light";
+  }
 });
