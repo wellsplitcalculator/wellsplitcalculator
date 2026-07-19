@@ -28,7 +28,8 @@
       padding: 0;
     }
 
-    :root {
+    /* FIX: Add 'html' before :root for same specificity */
+    html:root {
       --bg: #2f343c;
       --panel: #3a4048;
       --panel-2: #454c56;
@@ -45,6 +46,7 @@
       --radius: 16px;
     }
 
+    /* This now has the same specificity as html:root */
     html[data-theme="light"] {
       --bg: #f6f7f9;
       --panel: #ffffff;
@@ -445,7 +447,7 @@
   <main>
     <div class="page-shell">
       <section class="hero">
-        <h1></h1>
+        <h1>Split Bills &amp; Expenses Fairly</h1>
         <p>WellSplit helps couples, roommates, friends, families, and co-decision makers divide costs with context, fairness, and a result you can actually use.</p>
       </section>
 
