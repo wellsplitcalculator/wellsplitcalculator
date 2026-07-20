@@ -14,19 +14,33 @@
       box-sizing: border-box;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 1.5rem 1.5rem 2rem;
       min-height: 100vh;
       transition: background 0.25s ease, color 0.2s ease;
+      display: flex;
+      flex-direction: column;
     }
 
     a {
       text-decoration: none;
       color: inherit;
+    }
+
+    /* ---------- main content wrapper ---------- */
+    .blog-main {
+      flex: 1;
+      padding: 1.5rem 1.5rem 2rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
     }
 
     /* ---------- blog hero (compact, centered) ---------- */
@@ -37,9 +51,6 @@
       border-radius: 28px;
       margin-bottom: 2rem;
       border: 1px solid var(--border);
-      max-width: 1280px;
-      margin-left: auto;
-      margin-right: auto;
       transition: background 0.25s ease, border-color 0.25s ease;
     }
 
@@ -64,8 +75,6 @@
 
     /* ---------- blog grid ---------- */
     .blog-grid {
-      max-width: 1280px;
-      margin: 0 auto;
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 2rem;
@@ -298,7 +307,7 @@
 
     /* ---------- responsive: all devices ---------- */
     @media (max-width: 992px) {
-      body {
+      .blog-main {
         padding: 1.2rem 1.2rem 1.8rem;
       }
       .blog-grid {
@@ -313,7 +322,7 @@
     }
 
     @media (max-width: 768px) {
-      body {
+      .blog-main {
         padding: 0.8rem 0.8rem 1.5rem;
       }
 
@@ -353,7 +362,7 @@
     }
 
     @media (max-width: 480px) {
-      body {
+      .blog-main {
         padding: 0.5rem 0.5rem 1rem;
       }
 
@@ -434,91 +443,93 @@
   <!-- ====== SHARED NAVBAR ====== -->
   <div id="navbar-container"></div>
 
-  <!-- ====== BLOG HOMEPAGE (compact hero, centered, no icon) ====== -->
-  <section class="blog-hero">
-    <h1>WellSplit Blog</h1>
-    <p>Insights, tips, and stories about splitting, sharing, and simplifying life — from finances to family.</p>
-  </section>
+  <!-- ====== BLOG HOMEPAGE MAIN CONTENT ====== -->
+  <main class="blog-main">
+    <section class="blog-hero">
+      <h1>WellSplit Blog</h1>
+      <p>Insights, tips, and stories about splitting, sharing, and simplifying life — from finances to family.</p>
+    </section>
 
-  <div class="blog-grid">
-    <!-- main posts -->
-    <div class="main-posts">
-      <article class="post-card">
-        <div class="post-meta">
-          <span class="date"><i class="far fa-calendar-alt"></i> July 15, 2026</span>
-          <span class="category">Finance</span>
-        </div>
-        <h2><a href="#">How to Split Rent Fairly with Roommates</a></h2>
-        <p class="post-excerpt">Roommate disputes over rent are common. We break down three fair methods — including square footage, income‑based, and equal split — so everyone feels good about the numbers.</p>
-        <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
-      </article>
+    <div class="blog-grid">
+      <!-- main posts -->
+      <div class="main-posts">
+        <article class="post-card">
+          <div class="post-meta">
+            <span class="date"><i class="far fa-calendar-alt"></i> July 15, 2026</span>
+            <span class="category">Finance</span>
+          </div>
+          <h2><a href="#">How to Split Rent Fairly with Roommates</a></h2>
+          <p class="post-excerpt">Roommate disputes over rent are common. We break down three fair methods — including square footage, income‑based, and equal split — so everyone feels good about the numbers.</p>
+          <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+        </article>
 
-      <article class="post-card">
-        <div class="post-meta">
-          <span class="date"><i class="far fa-calendar-alt"></i> July 8, 2026</span>
-          <span class="category">Family</span>
-        </div>
-        <h2><a href="#">Splitting Holiday Costs: A Sibling Guide</a></h2>
-        <p class="post-excerpt">From group gifts to family dinners, learn how to coordinate shared expenses without awkwardness. Plus, a simple template for tracking who paid what.</p>
-        <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
-      </article>
+        <article class="post-card">
+          <div class="post-meta">
+            <span class="date"><i class="far fa-calendar-alt"></i> July 8, 2026</span>
+            <span class="category">Family</span>
+          </div>
+          <h2><a href="#">Splitting Holiday Costs: A Sibling Guide</a></h2>
+          <p class="post-excerpt">From group gifts to family dinners, learn how to coordinate shared expenses without awkwardness. Plus, a simple template for tracking who paid what.</p>
+          <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+        </article>
 
-      <article class="post-card">
-        <div class="post-meta">
-          <span class="date"><i class="far fa-calendar-alt"></i> June 28, 2026</span>
-          <span class="category">Tools</span>
-        </div>
-        <h2><a href="#">5 Split‑wise Alternatives You Should Try</a></h2>
-        <p class="post-excerpt">We tested the most popular expense‑sharing apps. Here's our honest take on each, including features, pricing, and who they're best for.</p>
-        <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
-      </article>
+        <article class="post-card">
+          <div class="post-meta">
+            <span class="date"><i class="far fa-calendar-alt"></i> June 28, 2026</span>
+            <span class="category">Tools</span>
+          </div>
+          <h2><a href="#">5 Split‑wise Alternatives You Should Try</a></h2>
+          <p class="post-excerpt">We tested the most popular expense‑sharing apps. Here's our honest take on each, including features, pricing, and who they're best for.</p>
+          <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+        </article>
 
-      <article class="post-card">
-        <div class="post-meta">
-          <span class="date"><i class="far fa-calendar-alt"></i> June 15, 2026</span>
-          <span class="category">Wellness</span>
+        <article class="post-card">
+          <div class="post-meta">
+            <span class="date"><i class="far fa-calendar-alt"></i> June 15, 2026</span>
+            <span class="category">Wellness</span>
+          </div>
+          <h2><a href="#">Splitting Meals? A Guide to Dietary Harmony</a></h2>
+          <p class="post-excerpt">When one person is vegan, another is gluten‑free, and a third eats everything — how do you split the grocery bill (and the cooking) without friction?</p>
+          <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+        </article>
+      </div>
+
+      <!-- sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3><i class="fas fa-fire"></i> Trending</h3>
+          <ul class="sidebar-list">
+            <li><a href="#">Splitting utilities: who pays what?</a></li>
+            <li><a href="#">Vacation cost splitting 101</a></li>
+            <li><a href="#">Shared subscriptions: Netflix, Spotify & more</a></li>
+            <li><a href="#">Pet expenses: fair split for fur babies</a></li>
+          </ul>
         </div>
-        <h2><a href="#">Splitting Meals? A Guide to Dietary Harmony</a></h2>
-        <p class="post-excerpt">When one person is vegan, another is gluten‑free, and a third eats everything — how do you split the grocery bill (and the cooking) without friction?</p>
-        <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
-      </article>
+
+        <div class="sidebar-card">
+          <h3><i class="fas fa-tags"></i> Topics</h3>
+          <div class="tag-cloud">
+            <span class="tag">Finance</span>
+            <span class="tag">Family</span>
+            <span class="tag">Tools</span>
+            <span class="tag">Wellness</span>
+            <span class="tag">Travel</span>
+            <span class="tag">Tech</span>
+            <span class="tag">Lifestyle</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3><i class="fas fa-envelope"></i> Newsletter</h3>
+          <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.3rem; transition: color 0.2s ease;">Get the latest posts straight to your inbox.</p>
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="Your email" />
+            <button>Subscribe</button>
+          </div>
+        </div>
+      </aside>
     </div>
-
-    <!-- sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-card">
-        <h3><i class="fas fa-fire"></i> Trending</h3>
-        <ul class="sidebar-list">
-          <li><a href="#">Splitting utilities: who pays what?</a></li>
-          <li><a href="#">Vacation cost splitting 101</a></li>
-          <li><a href="#">Shared subscriptions: Netflix, Spotify & more</a></li>
-          <li><a href="#">Pet expenses: fair split for fur babies</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-card">
-        <h3><i class="fas fa-tags"></i> Topics</h3>
-        <div class="tag-cloud">
-          <span class="tag">Finance</span>
-          <span class="tag">Family</span>
-          <span class="tag">Tools</span>
-          <span class="tag">Wellness</span>
-          <span class="tag">Travel</span>
-          <span class="tag">Tech</span>
-          <span class="tag">Lifestyle</span>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
-        <h3><i class="fas fa-envelope"></i> Newsletter</h3>
-        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.3rem; transition: color 0.2s ease;">Get the latest posts straight to your inbox.</p>
-        <div class="newsletter-input-group">
-          <input type="email" placeholder="Your email" />
-          <button>Subscribe</button>
-        </div>
-      </div>
-    </aside>
-  </div>
+  </main>
 
   <!-- ====== SHARED FOOTER ====== -->
   <div id="footer-container"></div>
@@ -536,8 +547,6 @@
 
       // --- Ensure body background matches theme (in case navbar hasn't loaded yet) ---
       function applyThemeToBody() {
-        const theme = getCurrentTheme();
-        // The CSS variables handle the colors, but we ensure body has correct transition
         document.body.style.background = 'var(--bg)';
       }
 
@@ -570,7 +579,7 @@
         const interval = setInterval(function() {
           applyThemeToBody();
           checks++;
-          if (checks > 10) clearInterval(interval); // stop after ~5 seconds
+          if (checks > 10) clearInterval(interval);
         }, 500);
       }
 
@@ -602,12 +611,10 @@
       setupThemeSync();
       setupDemoInteractions();
 
-      // Also re-apply when DOM is fully loaded (in case navbar loads after)
       document.addEventListener('DOMContentLoaded', function() {
         applyThemeToBody();
       });
 
-      // One more check after a short delay (for async navbar load)
       setTimeout(applyThemeToBody, 1000);
       setTimeout(applyThemeToBody, 2000);
 
