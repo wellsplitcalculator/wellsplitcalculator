@@ -11,15 +11,20 @@
   <!-- Font Awesome (free icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   
-  <!-- ====== SHARED CSS (same as calculator page) ====== -->
+  <!-- ====== SHARED CSS ====== -->
   <link rel="stylesheet" href="/components/styles.css" />
   
   <style>
-    /* ===== BLOG-ONLY STYLES (no navbar styles!) ===== */
+    /* ===== BLOG-ONLY STYLES ===== */
+    
+    /* CRITICAL FIX: Prevents content from shifting when navbar loads */
+    body {
+      padding-top: 74px; /* Same as your shared CSS */
+    }
     
     .blog-main {
       flex: 1;
-      padding: 90px 1.5rem 2rem;
+      padding: 20px 1.5rem 2rem; /* Reduced top padding since body handles it */
       max-width: 1280px;
       margin: 0 auto;
       width: 100%;
@@ -296,7 +301,7 @@
     /* Responsive Blog Styles */
     @media (max-width: 992px) {
       .blog-main {
-        padding: 85px 1.2rem 1.8rem;
+        padding: 20px 1.2rem 1.8rem;
       }
       .blog-grid {
         gap: 1.8rem;
@@ -305,7 +310,7 @@
 
     @media (max-width: 768px) {
       .blog-main {
-        padding: 80px 0.8rem 1.5rem;
+        padding: 20px 0.8rem 1.5rem;
       }
 
       .blog-hero {
@@ -335,7 +340,7 @@
 
     @media (max-width: 480px) {
       .blog-main {
-        padding: 75px 0.5rem 1rem;
+        padding: 20px 0.5rem 1rem;
       }
 
       .blog-hero {
