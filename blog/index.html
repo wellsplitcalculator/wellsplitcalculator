@@ -2,50 +2,416 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>WellSplit.net – Blog</title>
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/files/favicon.png" />
   
-  <!-- Font Awesome -->
+  <!-- Font Awesome (free icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   
   <style>
-    /* ===== BLOG-SPECIFIC STYLES (won't conflict with shared CSS) ===== */
-    
-    /* All blog classes are prefixed with 'blog-' to avoid conflicts */
-    .blog-wrapper {
+    /* ---------- SHARED NAVBAR STYLES (copied from your shared CSS) ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #2f343c;
+      --panel: #3a4048;
+      --panel-2: #454c56;
+      --field: #505863;
+      --text: #f3f4f6;
+      --muted: #c6ccd4;
+      --border: #606977;
+      --accent: #7dd3fc;
+      --accent-2: #38bdf8;
+      --good: #86efac;
+      --warn: #facc15;
+      --danger: #f87171;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+      --radius: 16px;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --panel-2: #f1f5f9;
+      --field: #ffffff;
+      --text: #111827;
+      --muted: #5e6b78;
+      --border: #dce3eb;
+      --accent: #0369a1;
+      --accent-2: #0284c7;
+      --good: #15803d;
+      --warn: #a16207;
+      --danger: #b91c1c;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    /* ---------- NAVBAR STYLES ---------- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 6%;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      min-width: 0;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .logo:hover,
+    .logo:focus,
+    .logo:visited {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      transition: color 0.3s ease;
+    }
+
+    .logo:hover span {
+      color: var(--text);
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      border-radius: 0;
+      flex: 0 0 auto;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 800;
+      transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease, background-color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel);
+      cursor: pointer;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      gap: 5px;
+      flex: 0 0 auto;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text);
+      border-radius: 999px;
+      transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .nav-link,
+    .dropdown-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 38px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+      transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease, background-color 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .dropdown-toggle:hover,
+    .dropdown.open .dropdown-toggle {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .all-splitters-link {
+      background: var(--panel);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      border-bottom: none !important;
+    }
+
+    html[data-theme="dark"] .all-splitters-link {
+      background: var(--panel);
+    }
+
+    .mobile-menu-backdrop {
+      display: none;
+    }
+
+    /* ---------- RESPONSIVE NAVBAR ---------- */
+    @media (max-width: 780px) {
+      .mobile-menu-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 15;
+        display: block;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+      }
+
+      .mobile-menu-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      nav {
+        padding: 11px 18px;
+        gap: 10px;
+        flex-wrap: wrap;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+
+      .menu-toggle {
+        display: flex;
+        margin-left: auto;
+      }
+
+      .nav-actions {
+        display: none;
+        width: 100%;
+        margin-left: 0;
+        padding: 10px 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-actions.open {
+        display: flex;
+      }
+
+      .nav-actions > .nav-link:not(.all-splitters-link) {
+        order: 1;
+      }
+
+      .nav-actions > .theme-toggle {
+        order: 2;
+      }
+
+      .nav-actions > .all-splitters-link {
+        order: 3;
+      }
+
+      .nav-link,
+      .dropdown-toggle,
+      .theme-toggle {
+        width: 100%;
+        min-height: 46px;
+        justify-content: space-between;
+        border: 0;
+        border-radius: 8px;
+        padding: 11px 12px;
+        background: transparent;
+        color: var(--text);
+        font-size: 0.9rem;
+        text-align: left;
+        box-shadow: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .nav-link:hover,
+      .dropdown-toggle:hover,
+      .theme-toggle:hover {
+        background: var(--panel-2);
+        color: var(--accent);
+        transform: none;
+      }
+
+      .theme-toggle {
+        justify-content: flex-start;
+      }
+
+      .all-splitters-link::after {
+        content: "›";
+        margin-left: auto;
+        font-size: 1.35rem;
+        line-height: 1;
+        color: var(--muted);
+      }
+
+      .all-splitters-link {
+        background: transparent !important;
+        border: 0 !important;
+        padding: 11px 12px !important;
+        border-radius: 8px !important;
+      }
+
+      .all-splitters-link:hover {
+        background: var(--panel-2) !important;
+        color: var(--accent) !important;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .logo span {
+        display: none;
+      }
+
+      .logo img {
+        width: 34px;
+        height: 34px;
+      }
+
+      .nav-link,
+      .dropdown-toggle,
+      .theme-toggle {
+        padding: 10px 11px;
+        font-size: 0.82rem;
+      }
+
+      .theme-toggle {
+        gap: 4px;
+      }
+    }
+
+    /* ---------- BLOG STYLES ---------- */
+    .blog-main {
+      flex: 1;
+      padding: 90px 1.5rem 2rem;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 100px 1.5rem 2rem;
       width: 100%;
     }
 
     .blog-hero {
       background: var(--panel-2);
-      padding: 1.2rem 1.5rem 1rem;
+      padding: 1rem 1.5rem 0.9rem;
       text-align: center;
       border-radius: 28px;
       margin-bottom: 2rem;
       border: 1px solid var(--border);
-      transition: background 0.3s, border-color 0.3s;
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
 
     .blog-hero h1 {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--text);
+      font-size: 1.8rem;
+      font-weight: 700;
       letter-spacing: -0.02em;
-      transition: color 0.3s;
+      color: var(--text);
+      line-height: 1.2;
+      text-align: center;
+      transition: color 0.2s ease;
     }
 
     .blog-hero p {
-      font-size: 1rem;
-      color: var(--muted);
+      font-size: 0.95rem;
       max-width: 580px;
       margin: 0.1rem auto 0;
-      transition: color 0.3s;
+      color: var(--muted);
+      text-align: center;
+      transition: color 0.2s ease;
     }
 
     .blog-grid {
@@ -54,27 +420,27 @@
       gap: 2rem;
     }
 
-    .blog-posts {
+    .main-posts {
       display: flex;
       flex-direction: column;
       gap: 1.75rem;
     }
 
-    .blog-post {
+    .post-card {
       background: var(--panel);
       border-radius: 24px;
-      padding: 1.6rem 1.8rem 1.8rem;
-      border: 1px solid var(--border);
+      padding: 1.5rem 1.8rem 1.8rem;
       box-shadow: var(--shadow);
-      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--border);
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .blog-post:hover {
+    .post-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     }
 
-    .blog-meta {
+    .post-meta {
       display: flex;
       align-items: center;
       gap: 1.2rem;
@@ -82,171 +448,173 @@
       color: var(--muted);
       margin-bottom: 0.3rem;
       flex-wrap: wrap;
-      transition: color 0.3s;
+      transition: color 0.2s ease;
     }
 
-    .blog-meta .date {
+    .post-meta .date {
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
-    .blog-meta .category {
+    .post-meta .category {
       background: var(--panel-2);
-      padding: 0.15rem 0.9rem;
+      padding: 0.15rem 0.8rem;
       border-radius: 30px;
-      font-weight: 600;
+      font-weight: 500;
       font-size: 0.7rem;
       color: var(--accent);
+      letter-spacing: 0.2px;
       border: 1px solid var(--border);
-      letter-spacing: 0.3px;
-      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
     }
 
-    .blog-post h2 {
+    .post-card h2 {
       font-size: 1.4rem;
       font-weight: 700;
       margin: 0.2rem 0 0.4rem;
       color: var(--text);
       line-height: 1.3;
-      transition: color 0.3s;
+      transition: color 0.2s ease;
     }
 
-    .blog-post h2 a {
+    .post-card h2 a {
       color: var(--text);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.15s;
     }
 
-    .blog-post h2 a:hover {
+    .post-card h2 a:hover {
       color: var(--accent);
       text-decoration: none;
     }
 
-    .blog-excerpt {
+    .post-excerpt {
       color: var(--muted);
       margin: 0.3rem 0 1rem;
       font-size: 0.95rem;
-      transition: color 0.3s;
+      transition: color 0.2s ease;
     }
 
-    .blog-readmore {
+    .read-more {
       font-weight: 600;
       color: var(--accent);
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      border-bottom: 2px solid transparent;
+      border-bottom: 1.5px solid transparent;
       text-decoration: none;
-      transition: color 0.2s, gap 0.2s, border-color 0.2s;
+      transition: color 0.2s ease, gap 0.15s, border-color 0.15s;
       font-size: 0.95rem;
     }
 
-    .blog-readmore:hover {
+    .read-more:hover {
       border-bottom-color: var(--accent);
       gap: 10px;
       text-decoration: none;
     }
 
-    .blog-readmore i {
+    .read-more i {
       font-size: 0.7rem;
     }
 
-    /* ===== SIDEBAR ===== */
-    .blog-sidebar {
+    /* Sidebar */
+    .sidebar {
       display: flex;
       flex-direction: column;
       gap: 1.75rem;
     }
 
-    .blog-sidebar-card {
+    .sidebar-card {
       background: var(--panel);
       border-radius: 24px;
-      padding: 1.5rem;
+      padding: 1.5rem 1.5rem 1.8rem;
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      transition: background 0.3s, border-color 0.3s;
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .blog-sidebar-card h3 {
+    .sidebar-card h3 {
       font-size: 1rem;
       font-weight: 700;
       color: var(--text);
       margin-bottom: 0.8rem;
+      letter-spacing: -0.2px;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: color 0.3s;
+      transition: color 0.2s ease;
     }
 
-    .blog-sidebar-card h3 i {
+    .sidebar-card h3 i {
       color: var(--accent);
-      transition: color 0.3s;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
     }
 
-    .blog-sidebar-list {
+    .sidebar-list {
       list-style: none;
     }
 
-    .blog-sidebar-list li {
+    .sidebar-list li {
       padding: 0.5rem 0;
       border-bottom: 1px solid var(--border);
       font-size: 0.9rem;
-      transition: border-color 0.3s;
+      transition: border-color 0.25s ease;
     }
 
-    .blog-sidebar-list li:last-child {
+    .sidebar-list li:last-child {
       border-bottom: none;
     }
 
-    .blog-sidebar-list a {
+    .sidebar-list a {
       display: flex;
       justify-content: space-between;
       color: var(--muted);
       text-decoration: none;
-      transition: color 0.2s, padding 0.2s;
+      transition: color 0.15s, padding 0.15s;
     }
 
-    .blog-sidebar-list a:hover {
+    .sidebar-list a:hover {
       color: var(--accent);
       padding-left: 4px;
       text-decoration: none;
     }
 
-    .blog-tags {
+    .tag-cloud {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
       margin-top: 0.1rem;
     }
 
-    .blog-tag {
+    .tag {
       background: var(--panel-2);
       padding: 0.15rem 1rem;
       border-radius: 30px;
       font-size: 0.75rem;
       color: var(--muted);
-      font-weight: 500;
+      font-weight: 450;
       border: 1px solid var(--border);
-      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
       cursor: default;
       text-decoration: none;
     }
 
-    .blog-tag:hover {
+    .tag:hover {
       border-color: var(--accent);
       color: var(--accent);
       text-decoration: none;
     }
 
-    .blog-newsletter-form {
+    .newsletter-input-group {
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
       margin-top: 0.3rem;
     }
 
-    .blog-newsletter-form input {
+    .newsletter-input-group input {
       flex: 1;
       min-width: 110px;
       padding: 0.45rem 0.8rem;
@@ -255,41 +623,63 @@
       background: var(--field);
       color: var(--text);
       font-size: 0.85rem;
-      transition: background 0.3s, border-color 0.3s, color 0.3s;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.2s ease;
     }
 
-    .blog-newsletter-form input:focus {
+    .newsletter-input-group input:focus {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
     }
 
-    .blog-newsletter-form input::placeholder {
-      color: var(--muted);
-      opacity: 0.7;
+    .newsletter-input-group input::placeholder {
+      color: color-mix(in srgb, var(--muted) 70%, transparent);
     }
 
-    .blog-newsletter-form button {
+    .newsletter-input-group button {
       background: var(--accent);
       border: none;
       color: #061018;
       padding: 0.45rem 1.2rem;
       border-radius: 40px;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 0.85rem;
       cursor: pointer;
-      transition: background 0.3s, transform 0.15s;
+      transition: background 0.25s ease, transform 0.16s ease;
     }
 
-    .blog-newsletter-form button:hover {
+    .newsletter-input-group button:hover {
       background: var(--accent-2);
       transform: translateY(-1px);
     }
 
-    /* ===== RESPONSIVE ===== */
+    /* Footer styles (matching shared CSS) */
+    footer {
+      padding: 24px 6%;
+      color: var(--text);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+      background: var(--bg);
+      margin-top: auto;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    footer a:hover {
+      color: var(--accent-2);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* Responsive */
     @media (max-width: 992px) {
-      .blog-wrapper {
-        padding: 90px 1.2rem 1.8rem;
+      .blog-main {
+        padding: 85px 1.2rem 1.8rem;
       }
       .blog-grid {
         gap: 1.8rem;
@@ -297,17 +687,17 @@
     }
 
     @media (max-width: 768px) {
-      .blog-wrapper {
-        padding: 80px 1rem 1.5rem;
+      .blog-main {
+        padding: 80px 0.8rem 1.5rem;
       }
 
       .blog-hero {
-        padding: 1rem;
+        padding: 0.8rem 1rem 0.7rem;
         border-radius: 22px;
         margin-bottom: 1.5rem;
       }
       .blog-hero h1 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
       }
       .blog-hero p {
         font-size: 0.85rem;
@@ -317,142 +707,95 @@
         grid-template-columns: 1fr;
         gap: 1.8rem;
       }
-
-      .blog-post {
-        padding: 1.2rem;
-      }
-      .blog-post h2 {
-        font-size: 1.2rem;
-      }
     }
 
     @media (max-width: 480px) {
-      .blog-wrapper {
-        padding: 75px 0.75rem 1rem;
+      .blog-main {
+        padding: 75px 0.5rem 1rem;
       }
 
       .blog-hero {
-        padding: 0.8rem;
+        padding: 0.6rem 0.8rem 0.5rem;
         border-radius: 18px;
         margin-bottom: 1.2rem;
       }
       .blog-hero h1 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
       .blog-hero p {
         font-size: 0.8rem;
+        max-width: 100%;
       }
 
-      .blog-post {
-        padding: 1rem;
+      .post-card {
+        padding: 1rem 0.9rem 1.2rem;
         border-radius: 18px;
       }
-      .blog-post h2 {
+      .post-card h2 {
         font-size: 1.05rem;
-      }
-      .blog-meta {
-        font-size: 0.7rem;
-        gap: 0.8rem;
-      }
-      .blog-excerpt {
-        font-size: 0.85rem;
-      }
-
-      .blog-sidebar-card {
-        padding: 1rem;
-        border-radius: 18px;
-      }
-      .blog-sidebar-card h3 {
-        font-size: 0.9rem;
-      }
-      .blog-sidebar-list li {
-        font-size: 0.8rem;
-        padding: 0.4rem 0;
-      }
-      .blog-tag {
-        font-size: 0.65rem;
-        padding: 0.1rem 0.8rem;
-      }
-      .blog-newsletter-form input {
-        font-size: 0.8rem;
-        padding: 0.35rem 0.7rem;
-        min-width: 80px;
-      }
-      .blog-newsletter-form button {
-        font-size: 0.8rem;
-        padding: 0.35rem 1rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== SHARED NAVBAR ===== -->
+  <!-- ====== SHARED NAVBAR ====== -->
   <div id="navbar-container"></div>
 
-  <!-- ===== BLOG CONTENT ===== -->
-  <div class="blog-wrapper">
-    
-    <!-- Hero -->
+  <!-- ====== BLOG HOMEPAGE MAIN CONTENT ====== -->
+  <main class="blog-main">
     <section class="blog-hero">
-      <h1>📘 WellSplit Blog</h1>
+      <h1>WellSplit Blog</h1>
       <p>Insights, tips, and stories about splitting, sharing, and simplifying life — from finances to family.</p>
     </section>
 
-    <!-- Grid -->
     <div class="blog-grid">
-
-      <!-- Posts -->
-      <div class="blog-posts">
-
-        <article class="blog-post">
-          <div class="blog-meta">
+      <div class="main-posts">
+        <article class="post-card">
+          <div class="post-meta">
             <span class="date"><i class="far fa-calendar-alt"></i> July 15, 2026</span>
             <span class="category">Finance</span>
           </div>
           <h2><a href="#">How to Split Rent Fairly with Roommates</a></h2>
-          <p class="blog-excerpt">Roommate disputes over rent are common. We break down three fair methods — including square footage, income‑based, and equal split — so everyone feels good about the numbers.</p>
-          <a href="#" class="blog-readmore">Read more <i class="fas fa-arrow-right"></i></a>
+          <p class="post-excerpt">Roommate disputes over rent are common. We break down three fair methods — including square footage, income‑based, and equal split — so everyone feels good about the numbers.</p>
+          <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
         </article>
 
-        <article class="blog-post">
-          <div class="blog-meta">
+        <article class="post-card">
+          <div class="post-meta">
             <span class="date"><i class="far fa-calendar-alt"></i> July 8, 2026</span>
             <span class="category">Family</span>
           </div>
           <h2><a href="#">Splitting Holiday Costs: A Sibling Guide</a></h2>
-          <p class="blog-excerpt">From group gifts to family dinners, learn how to coordinate shared expenses without awkwardness. Plus, a simple template for tracking who paid what.</p>
-          <a href="#" class="blog-readmore">Read more <i class="fas fa-arrow-right"></i></a>
+          <p class="post-excerpt">From group gifts to family dinners, learn how to coordinate shared expenses without awkwardness. Plus, a simple template for tracking who paid what.</p>
+          <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
         </article>
 
-        <article class="blog-post">
-          <div class="blog-meta">
+        <article class="post-card">
+          <div class="post-meta">
             <span class="date"><i class="far fa-calendar-alt"></i> June 28, 2026</span>
             <span class="category">Tools</span>
           </div>
           <h2><a href="#">5 Split‑wise Alternatives You Should Try</a></h2>
-          <p class="blog-excerpt">We tested the most popular expense‑sharing apps. Here's our honest take on each, including features, pricing, and who they're best for.</p>
-          <a href="#" class="blog-readmore">Read more <i class="fas fa-arrow-right"></i></a>
+          <p class="post-excerpt">We tested the most popular expense‑sharing apps. Here's our honest take on each, including features, pricing, and who they're best for.</p>
+          <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
         </article>
 
-        <article class="blog-post">
-          <div class="blog-meta">
+        <article class="post-card">
+          <div class="post-meta">
             <span class="date"><i class="far fa-calendar-alt"></i> June 15, 2026</span>
             <span class="category">Wellness</span>
           </div>
           <h2><a href="#">Splitting Meals? A Guide to Dietary Harmony</a></h2>
-          <p class="blog-excerpt">When one person is vegan, another is gluten‑free, and a third eats everything — how do you split the grocery bill (and the cooking) without friction?</p>
-          <a href="#" class="blog-readmore">Read more <i class="fas fa-arrow-right"></i></a>
+          <p class="post-excerpt">When one person is vegan, another is gluten‑free, and a third eats everything — how do you split the grocery bill (and the cooking) without friction?</p>
+          <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
         </article>
-
       </div>
 
-      <!-- Sidebar -->
-      <aside class="blog-sidebar">
-
-        <div class="blog-sidebar-card">
+      <aside class="sidebar">
+        <div class="sidebar-card">
           <h3><i class="fas fa-fire"></i> Trending</h3>
-          <ul class="blog-sidebar-list">
+          <ul class="sidebar-list">
             <li><a href="#">Splitting utilities: who pays what?</a></li>
             <li><a href="#">Vacation cost splitting 101</a></li>
             <li><a href="#">Shared subscriptions: Netflix, Spotify & more</a></li>
@@ -460,62 +803,109 @@
           </ul>
         </div>
 
-        <div class="blog-sidebar-card">
+        <div class="sidebar-card">
           <h3><i class="fas fa-tags"></i> Topics</h3>
-          <div class="blog-tags">
-            <span class="blog-tag">Finance</span>
-            <span class="blog-tag">Family</span>
-            <span class="blog-tag">Tools</span>
-            <span class="blog-tag">Wellness</span>
-            <span class="blog-tag">Travel</span>
-            <span class="blog-tag">Tech</span>
-            <span class="blog-tag">Lifestyle</span>
+          <div class="tag-cloud">
+            <span class="tag">Finance</span>
+            <span class="tag">Family</span>
+            <span class="tag">Tools</span>
+            <span class="tag">Wellness</span>
+            <span class="tag">Travel</span>
+            <span class="tag">Tech</span>
+            <span class="tag">Lifestyle</span>
           </div>
         </div>
 
-        <div class="blog-sidebar-card">
+        <div class="sidebar-card">
           <h3><i class="fas fa-envelope"></i> Newsletter</h3>
           <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.3rem;">Get the latest posts straight to your inbox.</p>
-          <div class="blog-newsletter-form">
+          <div class="newsletter-input-group">
             <input type="email" placeholder="Your email" />
             <button>Subscribe</button>
           </div>
         </div>
-
       </aside>
     </div>
-  </div>
+  </main>
 
-  <!-- ===== SHARED FOOTER ===== -->
+  <!-- ====== SHARED FOOTER ====== -->
   <div id="footer-container"></div>
 
-  <!-- ===== SHARED SCRIPTS ===== -->
+  <!-- ====== SHARED SCRIPTS ====== -->
   <script src="/components/shared.js"></script>
 
-  <!-- ===== DEMO SCRIPTS ===== -->
+  <!-- ====== ADDITIONAL SCRIPTS ====== -->
   <script>
     (function() {
-      // Read more demo
-      document.querySelectorAll('.blog-readmore').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          alert('📄 Full article would open here. (demo)');
-        });
-      });
+      function getCurrentTheme() {
+        return document.documentElement.getAttribute('data-theme') || 'light';
+      }
 
-      // Subscribe demo
-      const subscribeBtn = document.querySelector('.blog-newsletter-form button');
-      if (subscribeBtn) {
-        subscribeBtn.addEventListener('click', function(e) {
-          const input = this.closest('.blog-newsletter-form').querySelector('input');
-          if (input && input.value.trim()) {
-            alert('📬 Thanks for subscribing! (demo)');
-            input.value = '';
-          } else {
-            alert('Please enter an email address.');
+      function applyThemeToBody() {
+        document.body.style.background = 'var(--bg)';
+      }
+
+      function setupThemeSync() {
+        window.addEventListener('storage', function(event) {
+          if (event.key === 'wellsplit-theme') {
+            const newTheme = event.newValue;
+            if (newTheme) {
+              document.documentElement.setAttribute('data-theme', newTheme);
+              applyThemeToBody();
+            }
           }
         });
+
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'data-theme') {
+              applyThemeToBody();
+            }
+          });
+        });
+
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+        let checks = 0;
+        const interval = setInterval(function() {
+          applyThemeToBody();
+          checks++;
+          if (checks > 10) clearInterval(interval);
+        }, 500);
       }
+
+      function setupDemoInteractions() {
+        document.querySelectorAll('.read-more').forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('📄 Full article would open here. (demo)');
+          });
+        });
+
+        const subscribeBtn = document.querySelector('.newsletter-input-group button');
+        if (subscribeBtn) {
+          subscribeBtn.addEventListener('click', function(e) {
+            const input = this.closest('.newsletter-input-group').querySelector('input');
+            if (input && input.value.trim()) {
+              alert('📬 Thanks for subscribing! (demo)');
+              input.value = '';
+            } else {
+              alert('Please enter an email address.');
+            }
+          });
+        }
+      }
+
+      applyThemeToBody();
+      setupThemeSync();
+      setupDemoInteractions();
+
+      document.addEventListener('DOMContentLoaded', function() {
+        applyThemeToBody();
+      });
+
+      setTimeout(applyThemeToBody, 1000);
+      setTimeout(applyThemeToBody, 2000);
     })();
   </script>
 
