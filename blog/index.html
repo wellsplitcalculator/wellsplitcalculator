@@ -227,15 +227,17 @@
       transform: translateY(-1px);
     }
 
+    /* FIXED: All Calculators now matches other nav links */
     .all-splitters-link {
-      background: #e6eef8;
-      padding: 0.3rem 1rem;
-      border-radius: 30px;
+      background: var(--panel);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
       border-bottom: none !important;
     }
 
     html[data-theme="dark"] .all-splitters-link {
-      background: #2a4a62;
+      background: var(--panel);
     }
 
     .mobile-menu-backdrop {
@@ -338,6 +340,19 @@
         line-height: 1;
         color: var(--muted);
       }
+
+      /* Fix for mobile: all-splitters-link should match others in mobile menu */
+      .all-splitters-link {
+        background: transparent !important;
+        border: 0 !important;
+        padding: 11px 12px !important;
+        border-radius: 8px !important;
+      }
+
+      .all-splitters-link:hover {
+        background: var(--panel-2) !important;
+        color: var(--accent) !important;
+      }
     }
 
     @media (max-width: 420px) {
@@ -365,7 +380,7 @@
     /* ---------- BLOG STYLES ---------- */
     .blog-main {
       flex: 1;
-      padding: 20px 1.5rem 2rem;
+      padding: 80px 1.5rem 2rem;
       max-width: 1280px;
       margin: 0 auto;
       width: 100%;
@@ -664,7 +679,7 @@
     /* Responsive */
     @media (max-width: 992px) {
       .blog-main {
-        padding: 10px 1.2rem 1.8rem;
+        padding: 75px 1.2rem 1.8rem;
       }
       .blog-grid {
         gap: 1.8rem;
@@ -673,7 +688,7 @@
 
     @media (max-width: 768px) {
       .blog-main {
-        padding: 10px 0.8rem 1.5rem;
+        padding: 70px 0.8rem 1.5rem;
       }
 
       .blog-hero {
@@ -696,7 +711,7 @@
 
     @media (max-width: 480px) {
       .blog-main {
-        padding: 10px 0.5rem 1rem;
+        padding: 65px 0.5rem 1rem;
       }
 
       .blog-hero {
