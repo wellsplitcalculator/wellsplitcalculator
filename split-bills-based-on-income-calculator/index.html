@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+
+  <!-- Google AdSense tag -->
+  <script
+    async
+    crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+  ></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-VR5ESWGW9Y");
+  </script>
+
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+
+  <meta
+    name="description"
+    content="Split shared household bills fairly by income. Add multiple people, monthly incomes, and common expenses to calculate proportional payments."
+  >
+
+  <title>Split Bills Based on Income Calculator - WellSplit</title>
+
+  <link rel="stylesheet" href="/components/styles.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a split bills based on income calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It divides shared monthly bills according to each person's share of total household income."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the calculator work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter each person's monthly income and the shared bills. The calculator assigns a proportional payment to each person."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use gross or take-home income?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Take-home income is usually more practical because it reflects the money actually available after deductions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use gross income instead?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Just make sure everyone uses the same income type."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What bills can be included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can include housing, utilities, groceries, transportation, insurance, subscriptions, and other shared costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is splitting bills by income fair?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It can be fair when incomes differ because each person contributes according to their ability to pay."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if both incomes are equal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The result will be the same as a 50/50 split."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if one person earns twice as much?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That person will pay about twice as much of the shared bills."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can couples use this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. It works well for couples with unequal incomes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can roommates use this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can add multiple people and split shared household bills proportionally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can someone have zero income?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Their income-based share will be zero unless the household agrees on a minimum contribution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the calculator include savings?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can add shared savings under other shared bills if everyone agrees."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should debt payments be included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only include debts that are truly shared. Personal debts should usually stay separate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add more than two people?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Add as many people as needed up to the calculator limit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do all payments add up to the total bills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, apart from minor display rounding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I see income percentages?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The results show each person's income share and recommended payment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I copy the result?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the Copy Result button after calculating."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use different currencies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Select the currency symbol you want displayed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can this calculator be used every month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Update the incomes and bill amounts whenever they change."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the result legally binding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It is a planning tool for household discussions."
+      }
+    }
+  ]
+}
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #2f343c;
+      --panel: #3a4048;
+      --panel-2: #454c56;
+      --field: #505863;
+      --text: #f3f4f6;
+      --muted: #c6ccd4;
+      --border: #606977;
+      --accent: #7dd3fc;
+      --accent-2: #38bdf8;
+      --danger: #f87171;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+      --radius: 16px;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --panel-2: #f1f5f9;
+      --field: #ffffff;
+      --text: #111827;
+      --muted: #5e6b78;
+      --border: #dce3eb;
+      --accent: #0369a1;
+      --accent-2: #0284c7;
+      --danger: #b91c1c;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    main {
+      padding: 42px 6% 40px;
+    }
+
+    .content-layout {
+      width: min(100%, 1180px);
+      display: grid;
+      grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .page-shell {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .ad-space {
+      min-height: 600px;
+    }
+
+    .hero {
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+    }
+
+    .hero p {
+      max-width: 700px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .calculator,
+    .content-section {
+      margin-bottom: 16px;
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      margin-bottom: 5px;
+      font-size: 1.15rem;
+      line-height: 1.25;
+      letter-spacing: -0.035em;
+    }
+
+    .section-description {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .person-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .person-row {
+      padding: 12px;
+      background: color-mix(in srgb, var(--panel-2) 66%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+    }
+
+    .person-row-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .person-label {
+      font-size: 0.9rem;
+      font-weight: 850;
+    }
+
+    .person-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 8px;
+      align-items: end;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 42px;
+      padding: 9px 10px;
+      background: var(--field);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+
+    .remove {
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .remove:hover {
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.86rem;
+      font-weight: 900;
+      transition: 0.16s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #061018;
+    }
+
+    .primary:hover {
+      background: var(--accent-2);
+    }
+
+    .secondary {
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .result {
+      min-height: 56px;
+      margin-top: 14px;
+      padding: 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    .result:empty::before {
+      content: "Your income-based bill split will appear here.";
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .summary-line {
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .result-table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+
+    .result-table th,
+    .result-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .result-table th {
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .result-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .money-cell {
+      color: var(--accent);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .content-section h2 {
+      margin-bottom: 10px;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+    }
+
+    .content-section h3 {
+      margin: 18px 0 6px;
+      font-size: 1.02rem;
+    }
+
+    .content-section p {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .content-section ul {
+      margin: 8px 0 10px 20px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .content-section li {
+      margin-bottom: 5px;
+    }
+
+    #faqs h2 {
+      margin-bottom: 7px;
+      font-size: 1.45rem;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-top: 13px;
+    }
+
+    .faq-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+    }
+
+    .faq-item:hover {
+      border-color: var(--accent);
+    }
+
+    .faq-item[open] {
+      background: var(--panel-2);
+    }
+
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.85rem;
+      font-weight: 750;
+      line-height: 1.3;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::before {
+      content: "▶";
+      flex-shrink: 0;
+      font-size: 0.64rem;
+      transition: transform 0.2s;
+    }
+
+    .faq-item[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    .faq-answer {
+      padding: 0 12px 11px 31px;
+    }
+
+    .faq-answer p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.79rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 24px 6%;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .content-layout {
+        display: block;
+        width: 100%;
+      }
+
+      .ad-column {
+        display: none;
+      }
+    }
+
+    @media (max-width: 780px) {
+      main {
+        padding: 34px 18px 26px;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+
+      .calculator,
+      .content-section {
+        padding: 15px;
+      }
+
+      .grid,
+      .person-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btns button {
+        flex: 1 1 145px;
+      }
+
+      #faqs h2 {
+        font-size: 1.32rem;
+      }
+
+      .faq-item summary {
+        font-size: 0.82rem;
+      }
+
+      .faq-answer p {
+        font-size: 0.77rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .btns button {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+
+        <section class="hero">
+          <h1>Split Bills Based on Income Calculator</h1>
+
+          <p>
+            Divide shared household bills according to each person's share of
+            total monthly income.
+          </p>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Household and bill details</h2>
+
+          <p class="section-description">
+            Enter the shared monthly bills and choose the income type used by everyone.
+          </p>
+
+          <div class="grid">
+            <div>
+              <label for="housing">Rent / mortgage</label>
+              <input id="housing" inputmode="decimal" min="0" placeholder="2200" type="number">
+            </div>
+
+            <div>
+              <label for="utilities">Utilities</label>
+              <input id="utilities" inputmode="decimal" min="0" placeholder="300" type="number">
+            </div>
+
+            <div>
+              <label for="groceries">Groceries</label>
+              <input id="groceries" inputmode="decimal" min="0" placeholder="600" type="number">
+            </div>
+
+            <div>
+              <label for="transportation">Shared transportation</label>
+              <input id="transportation" inputmode="decimal" min="0" placeholder="250" type="number">
+            </div>
+
+            <div>
+              <label for="insurance">Shared insurance</label>
+              <input id="insurance" inputmode="decimal" min="0" placeholder="150" type="number">
+            </div>
+
+            <div>
+              <label for="otherBills">Other shared bills</label>
+              <input id="otherBills" inputmode="decimal" min="0" placeholder="200" type="number">
+            </div>
+
+            <div>
+              <label for="personCount">Number of people</label>
+              <input id="personCount" inputmode="numeric" min="1" max="20" value="2" type="number">
+            </div>
+
+            <div>
+              <label for="incomeType">Income type</label>
+              <select id="incomeType">
+                <option value="net" selected>Monthly take-home income</option>
+                <option value="gross">Monthly gross income</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="currencySymbol">Currency symbol</label>
+              <select id="currencySymbol">
+                <option value="$">$</option>
+                <option value="CA$">CA$</option>
+                <option value="US$">US$</option>
+                <option value="€">€</option>
+                <option value="£">£</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Income details</h2>
+
+          <p class="section-description">
+            Add each person and enter their monthly income using the same income type.
+          </p>
+
+          <div class="person-list" id="personRows"></div>
+
+          <div class="btns">
+            
+            <button class="primary" onclick="calculateSplit()" type="button">
+              Calculate
+            </button>
+            
+            <button class="secondary" onclick="addPerson()" type="button">
+              Add Person
+            </button>
+
+            <button class="secondary" onclick="syncPeopleFromCount()" type="button">
+              Apply Person Count
+            </button>
+
+            <button class="secondary" onclick="copyResult()" type="button">
+              Copy Result
+            </button>
+          </div>
+
+          <div class="result" id="result"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Split Bills Based on Income Calculator</h2>
+
+          <p>
+            The WellSplit Split Bills Based on Income Calculator helps couples,
+            roommates, and households divide shared monthly bills in proportion
+            to income.
+          </p>
+
+          <p>
+            Instead of assigning the same dollar amount to everyone, the calculator
+            uses each person's percentage of total household income. A person earning
+            60% of the combined income is assigned 60% of the shared bills.
+          </p>
+
+          <h3>How to use this calculator</h3>
+
+          <ul>
+            <li>Enter the shared monthly bills.</li>
+            <li>Choose take-home or gross income.</li>
+            <li>Add each person and their monthly income.</li>
+            <li>Calculate the income percentage and recommended payment.</li>
+            <li>Copy the result for your household discussion.</li>
+          </ul>
+
+          <p>
+            This method is useful when incomes differ and the household wants each
+            person to contribute according to their ability to pay. Everyone should
+            use the same income type and agree on which expenses are truly shared.
+          </p>
+        </section>
+
+        <section class="content-section" id="faqs">
+          <h2>Split Bills Based on Income FAQs</h2>
+
+          <p>
+            Quick answers about proportional household bill splitting.
+          </p>
+
+          <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is a split bills based on income calculator?</summary>
+            <div class="faq-answer"><p>It divides shared monthly bills according to each person's share of total household income.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How does the calculator work?</summary>
+            <div class="faq-answer"><p>Enter each person's monthly income and the shared bills. The calculator assigns a proportional payment to each person.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should I use gross or take-home income?</summary>
+            <div class="faq-answer"><p>Take-home income is usually more practical because it reflects the money actually available after deductions.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use gross income instead?</summary>
+            <div class="faq-answer"><p>Yes. Just make sure everyone uses the same income type.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What bills can be included?</summary>
+            <div class="faq-answer"><p>You can include housing, utilities, groceries, transportation, insurance, subscriptions, and other shared costs.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is splitting bills by income fair?</summary>
+            <div class="faq-answer"><p>It can be fair when incomes differ because each person contributes according to their ability to pay.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if both incomes are equal?</summary>
+            <div class="faq-answer"><p>The result will be the same as a 50/50 split.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What if one person earns twice as much?</summary>
+            <div class="faq-answer"><p>That person will pay about twice as much of the shared bills.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can couples use this calculator?</summary>
+            <div class="faq-answer"><p>Yes. It works well for couples with unequal incomes.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can roommates use this calculator?</summary>
+            <div class="faq-answer"><p>Yes. You can add multiple people and split shared household bills proportionally.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can someone have zero income?</summary>
+            <div class="faq-answer"><p>Yes. Their income-based share will be zero unless the household agrees on a minimum contribution.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Does the calculator include savings?</summary>
+            <div class="faq-answer"><p>You can add shared savings under other shared bills if everyone agrees.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Should debt payments be included?</summary>
+            <div class="faq-answer"><p>Only include debts that are truly shared. Personal debts should usually stay separate.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I add more than two people?</summary>
+            <div class="faq-answer"><p>Yes. Add as many people as needed up to the calculator limit.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Do all payments add up to the total bills?</summary>
+            <div class="faq-answer"><p>Yes, apart from minor display rounding.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I see income percentages?</summary>
+            <div class="faq-answer"><p>Yes. The results show each person's income share and recommended payment.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I copy the result?</summary>
+            <div class="faq-answer"><p>Yes. Use the Copy Result button after calculating.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I use different currencies?</summary>
+            <div class="faq-answer"><p>Yes. Select the currency symbol you want displayed.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Can this calculator be used every month?</summary>
+            <div class="faq-answer"><p>Yes. Update the incomes and bill amounts whenever they change.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is the result legally binding?</summary>
+            <div class="faq-answer"><p>No. It is a planning tool for household discussions.</p></div>
+          </details>
+          </div>
+        </section>
+      </div>
+
+      <aside class="ad-column" aria-label="Advertisement space">
+        <div class="ad-space">
+          <!-- Place your desktop AdSense ad code here. -->
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    function getNumber(id) {
+      return parseFloat(document.getElementById(id).value) || 0;
+    }
+
+    function money(value) {
+      const symbol = document.getElementById("currencySymbol").value;
+
+      return symbol + Number(value || 0).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function personTemplate(index) {
+      return `
+        <div class="person-row">
+          <div class="person-row-head">
+            <span class="person-label">Person ${index}</span>
+
+            <button
+              aria-label="Remove person"
+              class="remove"
+              onclick="removePerson(this)"
+              type="button"
+            >×</button>
+          </div>
+
+          <div class="person-grid">
+            <div>
+              <label>Person name</label>
+              <input class="personName" placeholder="Person ${index}" type="text">
+            </div>
+
+            <div>
+              <label>Monthly income</label>
+              <input class="income" inputmode="decimal" min="0" placeholder="4000" type="number">
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function refreshPersonLabels() {
+      document.querySelectorAll(".person-row").forEach((row, index) => {
+        row.querySelector(".person-label").textContent = "Person " + (index + 1);
+      });
+
+      document.getElementById("personCount").value =
+        document.querySelectorAll(".person-row").length;
+    }
+
+    function addPerson() {
+      const container = document.getElementById("personRows");
+
+      if (container.children.length >= 20) {
+        alert("You can add up to 20 people.");
+        return;
+      }
+
+      container.insertAdjacentHTML(
+        "beforeend",
+        personTemplate(container.children.length + 1)
+      );
+
+      refreshPersonLabels();
+    }
+
+    function removePerson(button) {
+      const rows = document.querySelectorAll(".person-row");
+
+      if (rows.length <= 1) {
+        alert("Keep at least one person.");
+        return;
+      }
+
+      button.closest(".person-row").remove();
+      refreshPersonLabels();
+    }
+
+    function syncPeopleFromCount() {
+      const requested = Math.min(
+        Math.max(parseInt(document.getElementById("personCount").value) || 1, 1),
+        20
+      );
+
+      const container = document.getElementById("personRows");
+
+      while (container.children.length < requested) {
+        addPerson();
+      }
+
+      while (container.children.length > requested) {
+        container.lastElementChild.remove();
+      }
+
+      refreshPersonLabels();
+    }
+
+    function collectPeople() {
+      return [...document.querySelectorAll(".person-row")].map((row, index) => ({
+        name:
+          row.querySelector(".personName").value.trim() ||
+          "Person " + (index + 1),
+
+        income:
+          parseFloat(row.querySelector(".income").value) || 0
+      }));
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function calculateSplit() {
+      const result = document.getElementById("result");
+      const people = collectPeople();
+
+      const bills = {
+        housing: getNumber("housing"),
+        utilities: getNumber("utilities"),
+        groceries: getNumber("groceries"),
+        transportation: getNumber("transportation"),
+        insurance: getNumber("insurance"),
+        other: getNumber("otherBills")
+      };
+
+      const totalBills = Object.values(bills).reduce(
+        (sum, value) => sum + value,
+        0
+      );
+
+      const totalIncome = people.reduce(
+        (sum, person) => sum + person.income,
+        0
+      );
+
+      if (totalBills <= 0) {
+        result.innerHTML =
+          "<p>Please enter at least one shared monthly bill.</p>";
+        return;
+      }
+
+      if (totalIncome <= 0) {
+        result.innerHTML =
+          "<p>Please enter at least one income greater than zero.</p>";
+        return;
+      }
+
+      people.forEach(person => {
+        person.incomeShare = person.income / totalIncome;
+        person.payment = totalBills * person.incomeShare;
+        person.incomeAfterBills = person.income - person.payment;
+        person.billBurden =
+          person.income > 0
+            ? (person.payment / person.income) * 100
+            : 0;
+      });
+
+      const rows = people.map(person => `
+        <tr>
+          <td>${escapeHtml(person.name)}</td>
+          <td>${money(person.income)}</td>
+          <td>${(person.incomeShare * 100).toFixed(1)}%</td>
+          <td class="money-cell">${money(person.payment)}</td>
+          <td>${person.billBurden.toFixed(1)}%</td>
+          <td>${money(person.incomeAfterBills)}</td>
+        </tr>
+      `).join("");
+
+      const incomeTypeLabel =
+        document.getElementById("incomeType").value === "net"
+          ? "take-home income"
+          : "gross income";
+
+      result.innerHTML = `
+        <div class="summary-line">
+          ${people.length} people ·
+          ${money(totalIncome)} total monthly ${incomeTypeLabel} ·
+          ${money(totalBills)} total shared bills
+        </div>
+
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Monthly income</th>
+              <th>Income share</th>
+              <th>Recommended payment</th>
+              <th>Bill burden</th>
+              <th>Income after bills</th>
+            </tr>
+          </thead>
+
+          <tbody>${rows}</tbody>
+        </table>
+
+        <p class="note">
+          Each person's payment equals their share of total household income          multiplied by the total shared bills. Use the same income type for everyone.
+        </p>
+      `;
+    }
+
+    async function copyResult() {
+      const result = document.getElementById("result");
+
+      if (!result.innerText.trim()) {
+        alert("Calculate the bill split first.");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert("Result copied.");
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+
+        textarea.value = result.innerText.trim();
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+
+        alert("Result copied.");
+      }
+    }
+
+    syncPeopleFromCount();
+  </script>
+
+  <div id="footer-container"></div>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
