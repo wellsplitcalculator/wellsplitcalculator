@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <!-- Google AdSense tag -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1724135069833024"
+       crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VR5ESWGW9Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VR5ESWGW9Y');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/files/favicon.png">
+
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Furniture cost calculator: split costs when moving in together or calculate buyouts during separation. Fair furniture division for couples and roommates.">
+  <title>Furniture Cost Calculator · WellSplit</title>
+  <link rel="stylesheet" href="/components/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #2f343c; --panel: #3a4048; --panel-2: #454c56;
+      --field: #505863; --text: #f3f4f6; --muted: #c6ccd4;
+      --border: #606977; --accent: #7dd3fc; --accent-2: #38bdf8;
+      --danger: #f87171; --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 16px;
+      --green: #6ee7b7;
+      --orange: #fcd34d;
+      --purple: #c4b5fd;
+      --pink: #f9a8d4;
+      --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    html[data-theme="light"] {
+      --bg: #f6f7f9; --panel: #fff; --panel-2: #f1f5f9;
+      --field: #fff; --text: #111827; --muted: #5e6b78;
+      --border: #dce3eb; --accent: #0369a1; --accent-2: #0284c7;
+      --danger: #b91c1c; --shadow: 0 18px 45px rgba(15,23,42,.08);
+      --green: #059669;
+      --orange: #d97706;
+      --purple: #7c3aed;
+      --pink: #db2777;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: var(--font); line-height: 1.4;
+      padding: 0; margin: 0;
+    }
+    main { padding: 24px 16px 32px; }
+    .content-layout {
+      width: 100%; max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .page-shell { width: 100%; min-width: 0; }
+    .ad-space { min-height: 1px; }
+    .ad-column { display: none; }
+    .hero { margin-bottom: 16px; }
+    h1 {
+      font-size: clamp(1.6rem, 6.5vw, 2.8rem);
+      line-height: 1.05; letter-spacing: -.04em; margin-bottom: 8px;
+      word-break: break-word;
+    }
+    .hero p { 
+      max-width: 720px; color: var(--muted); 
+      font-size: clamp(0.85rem, 2.2vw, 1rem); 
+      margin-bottom: 4px;
+    }
+    .mode-selector {
+      display: flex;
+      gap: 10px;
+      margin: 12px 0 16px;
+      flex-wrap: wrap;
+    }
+    .mode-btn {
+      padding: 10px 20px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      flex: 1 1 auto;
+      min-width: 140px;
+      font-family: var(--font);
+    }
+    .mode-btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .mode-btn.active {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 15%, var(--panel));
+      color: var(--accent);
+    }
+    .mode-btn .icon { margin-right: 6px; }
+    .calculator, .content-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 14px;
+      box-shadow: var(--shadow); margin-bottom: 14px;
+      width: 100%;
+    }
+    .section-title { font-size: 1.05rem; letter-spacing: -.025em; margin-bottom: 2px; font-weight: 700; }
+    .section-description {
+      color: var(--muted); font-size: 0.8rem;
+      line-height: 1.4; margin-bottom: 14px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 12px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px 12px;
+    }
+    label {
+      display: block; margin-bottom: 3px; color: var(--muted);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: .02em;
+    }
+    input, select {
+      width: 100%; min-height: 36px; background: var(--field);
+      color: var(--text); border: 1px solid var(--border);
+      border-radius: 8px; padding: 4px 10px; outline: none;
+      font-size: 0.85rem; font-family: var(--font);
+      transition: border-color .15s, box-shadow .15s;
+      -webkit-appearance: none; appearance: none;
+      line-height: 1.4;
+    }
+    select { 
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23606977' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); 
+      background-repeat: no-repeat; background-position: right 10px center; background-size: 12px; 
+      padding-right: 32px; 
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .result {
+      margin-top: 16px; padding: 14px 12px;
+      background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 60px; overflow-x: auto;
+      font-size: 0.9rem;
+    }
+    .result:empty::before {
+      content: "Your furniture analysis will appear here.";
+      color: var(--muted); font-weight: 600;
+    }
+    .summary-line {
+      color: var(--muted); font-size: 0.8rem; margin-bottom: 12px;
+    }
+    .result-table {
+      width: 100%; min-width: 400px; border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .result-table th, .result-table td {
+      padding: 6px 5px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    .result-table th {
+      color: var(--muted); font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    .result-table tr:last-child td { border-bottom: 0; }
+    .money-cell { font-weight: 800; color: var(--accent); white-space: nowrap; }
+    .buyout-cell { font-weight: 900; color: var(--green); white-space: nowrap; }
+    .note {
+      margin-top: 12px; color: var(--muted); font-size: 0.78rem;
+      line-height: 1.5;
+    }
+    .btns {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+    }
+    button {
+      border: 0; cursor: pointer; border-radius: 30px;
+      padding: 8px 16px; font-size: 0.85rem; font-weight: 700;
+      transition: .15s; font-family: var(--font); touch-action: manipulation;
+      min-height: 38px; display: inline-flex; align-items: center; justify-content: center;
+    }
+    button:hover { transform: translateY(-2px); opacity: 0.9; }
+    button:active { transform: scale(0.96); }
+    .primary { background: var(--accent); color: #061018; }
+    .primary:hover { background: var(--accent-2); }
+    .secondary {
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .content-section h2 { font-size: 1.3rem; letter-spacing: -.035em; margin-bottom: 8px; }
+    .content-section h3 { font-size: 1rem; margin: 16px 0 4px; }
+    .content-section p { color: var(--muted); font-size: 0.85rem; margin-bottom: 10px; }
+    .content-section ul { margin: 6px 0 10px 18px; color: var(--muted); font-size: 0.85rem; }
+    .content-section li { margin-bottom: 4px; }
+    #faqs h2 { font-size: 1.4rem; margin-bottom: 6px; letter-spacing: -.03em; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .faq-item {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .faq-item:hover { border-color: var(--accent); }
+    .faq-item[open] { background: var(--panel-2); }
+    .faq-item summary {
+      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      list-style: none; user-select: none; padding: 12px 14px;
+      font-size: 0.88rem; font-weight: 700; line-height: 1.3; color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "▶"; font-size: 0.7rem; flex-shrink: 0;
+      color: var(--text); transition: transform .22s ease;
+    }
+    .faq-item[open] summary::before { transform: rotate(90deg); }
+    .faq-answer { padding: 0 16px 14px 38px; }
+    .faq-answer p { margin: 0; color: var(--muted); font-size: 0.84rem; line-height: 1.5; }
+    footer { padding: 20px 16px; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.85rem; text-align: center; }
+    .highlight-box {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      border-left: 3px solid var(--accent);
+      padding: 12px 14px; border-radius: 10px; margin: 12px 0 8px;
+      font-size: 0.85rem;
+    }
+    .highlight-box.success {
+      background: color-mix(in srgb, var(--green) 15%, transparent);
+      border-left-color: var(--green);
+    }
+    .highlight-box.warning {
+      background: color-mix(in srgb, var(--orange) 15%, transparent);
+      border-left-color: var(--orange);
+    }
+    .highlight-box.danger {
+      background: color-mix(in srgb, var(--danger) 15%, transparent);
+      border-left-color: var(--danger);
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 10px 0;
+    }
+    .result-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+    .result-card .label {
+      color: var(--muted);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-weight: 700;
+    }
+    .result-card .amount {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-top: 2px;
+      word-break: break-word;
+    }
+    .result-card .amount.buyout { color: var(--green); }
+    .result-card .amount.debt { color: var(--danger); }
+    .result-card .detail {
+      color: var(--muted);
+      font-size: 0.7rem;
+      margin-top: 4px;
+    }
+    .comparison-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      gap: 4px 8px;
+    }
+    .comparison-row:last-child { border-bottom: 0; }
+    .comparison-label { color: var(--muted); flex: 1 1 60px; }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 14px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+    .status-balanced { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .status-partial { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .status-unbalanced { background: color-mix(in srgb, var(--danger) 20%, transparent); color: var(--danger); }
+    .item-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .item-row:last-child { border-bottom: 0; }
+    .item-row input[type="text"] { flex: 2 1 120px; min-width: 80px; min-height: 36px; }
+    .item-row input[type="number"] { flex: 1 1 80px; min-width: 60px; width: auto; min-height: 36px; }
+    .item-row select { flex: 1 1 90px; min-width: 70px; min-height: 36px; }
+    .item-row .remove-item {
+      background: transparent;
+      border: none;
+      color: var(--danger);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0 4px;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+    }
+    .item-row .remove-item:hover { transform: scale(1.2); }
+    .category-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 30px;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+    .cat-living { background: color-mix(in srgb, var(--green) 20%, transparent); color: var(--green); }
+    .cat-bedroom { background: color-mix(in srgb, var(--purple) 20%, transparent); color: var(--purple); }
+    .cat-dining { background: color-mix(in srgb, var(--orange) 20%, transparent); color: var(--orange); }
+    .cat-office { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent); }
+    .cat-outdoor { background: color-mix(in srgb, var(--pink) 20%, transparent); color: var(--pink); }
+    .cat-other { background: color-mix(in srgb, var(--muted) 20%, transparent); color: var(--muted); }
+
+    .field-label-mobile { display: none; }
+
+    /* Mobile-first responsive - COMPACT */
+    @media (max-width: 780px) {
+      main { padding: 14px 10px 20px; }
+      .calculator, .content-section { padding: 12px 10px; }
+      .grid { grid-template-columns: 1fr; gap: 8px; }
+      .grid-3 { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .btns button { flex: 1 1 100%; }
+      .result-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+      .result-card .amount { font-size: 1.1rem; }
+      .result-card { padding: 8px 6px; }
+      .faq-answer { padding: 0 12px 12px 28px; }
+      .faq-item summary { padding: 8px 12px; font-size: 0.82rem; }
+      .ad-column { display: none; }
+      .content-layout { gap: 10px; }
+      .mode-btn { min-width: 100px; font-size: 0.78rem; padding: 6px 12px; }
+      .mode-selector { gap: 6px; margin: 8px 0 12px; }
+      
+      /* COMPACT mobile item rows */
+      .item-row {
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--panel-2);
+        border-radius: 8px;
+        padding: 6px 8px;
+        margin-bottom: 4px;
+        border: 1px solid var(--border);
+        gap: 3px;
+      }
+      .item-row input[type="text"],
+      .item-row input[type="number"],
+      .item-row select {
+        width: 100% !important;
+        min-width: unset;
+        min-height: 28px !important;
+        padding: 2px 8px !important;
+        font-size: 0.78rem !important;
+        border-radius: 6px !important;
+        line-height: 1.3 !important;
+      }
+      .item-row .remove-item {
+        align-self: flex-end;
+        padding: 0 4px;
+        font-size: 1rem;
+        min-height: 24px;
+      }
+      #itemHeaderRow { display: none !important; }
+      .field-label-mobile {
+        display: block !important;
+        font-size: 0.55rem;
+        color: var(--muted);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        margin-bottom: 1px;
+        margin-top: 2px;
+      }
+      .field-label-mobile:first-of-type { margin-top: 0; }
+      
+      /* COMPACT form inputs */
+      input, select {
+        min-height: 28px !important;
+        padding: 2px 8px !important;
+        font-size: 0.78rem !important;
+        border-radius: 6px !important;
+        line-height: 1.3 !important;
+      }
+      label {
+        font-size: 0.6rem !important;
+        margin-bottom: 1px !important;
+      }
+      .section-description {
+        font-size: 0.72rem !important;
+        margin-bottom: 8px !important;
+      }
+      .section-title {
+        font-size: 0.95rem !important;
+      }
+      .btns button {
+        min-height: 32px !important;
+        padding: 4px 12px !important;
+        font-size: 0.78rem !important;
+        border-radius: 20px !important;
+      }
+      .calculator {
+        padding: 10px 8px !important;
+        margin-bottom: 10px !important;
+      }
+      .result {
+        padding: 10px 8px !important;
+        font-size: 0.82rem !important;
+      }
+      .comparison-row {
+        font-size: 0.72rem !important;
+        padding: 4px 0 !important;
+      }
+      .highlight-box {
+        font-size: 0.78rem !important;
+        padding: 8px 10px !important;
+      }
+      .summary-line {
+        font-size: 0.72rem !important;
+        margin-bottom: 8px !important;
+      }
+      .note {
+        font-size: 0.72rem !important;
+        margin-top: 8px !important;
+      }
+      h1 {
+        font-size: 1.5rem !important;
+      }
+      .hero p {
+        font-size: 0.78rem !important;
+      }
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.4rem; }
+      .result-grid { grid-template-columns: 1fr; }
+      .calculator, .content-section { padding: 10px 8px; }
+      .btns { flex-direction: column; }
+      .btns button { width: 100%; }
+      .section-title { font-size: 0.9rem; }
+      .mode-btn { min-width: 100%; font-size: 0.75rem; padding: 6px 10px; }
+      .mode-selector { flex-direction: column; }
+      
+      .item-row {
+        padding: 4px 6px !important;
+        gap: 2px !important;
+      }
+      .item-row input[type="text"],
+      .item-row input[type="number"],
+      .item-row select {
+        min-height: 26px !important;
+        padding: 1px 6px !important;
+        font-size: 0.75rem !important;
+      }
+      input, select {
+        min-height: 26px !important;
+        padding: 1px 6px !important;
+        font-size: 0.75rem !important;
+      }
+      .field-label-mobile {
+        font-size: 0.5rem !important;
+      }
+      .btns button {
+        min-height: 30px !important;
+        padding: 3px 10px !important;
+        font-size: 0.75rem !important;
+      }
+    }
+    @media (min-width: 901px) {
+      .content-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 780px) minmax(280px, 1fr);
+        gap: 30px;
+        align-items: start;
+      }
+      .ad-column { display: block; }
+      .ad-space { min-height: 600px; }
+    }
+    button, input, select { touch-action: manipulation; }
+    input[type="number"] { -moz-appearance: textfield; }
+    input[type="number"]::-webkit-inner-spin-button { opacity: 0.5; height: 16px; }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <div class="content-layout">
+      <div class="page-shell">
+        <section class="hero">
+          <h1>Furniture Cost Calculator</h1>
+          <p>Fairly split furniture costs when moving in together, or calculate buyouts during separation. One tool for both situations.</p>
+        </section>
+
+        <!-- Mode Selector -->
+        <div class="calculator" style="margin-bottom:0;">
+          <div class="mode-selector">
+            <button class="mode-btn active" id="modeBuyIn" onclick="setMode('buyin')">
+              <span class="icon">🏠</span> Buy-In (Moving In)
+            </button>
+            <button class="mode-btn" id="modeBuyOut" onclick="setMode('buyout')">
+              <span class="icon">🔀</span> Buy-Out (Separation)
+            </button>
+          </div>
+          <p class="section-description" id="modeDescription">Split furniture costs fairly when moving in together. Track ownership, contributions, and buy-in amounts.</p>
+        </div>
+
+        <section class="calculator">
+          <h2 class="section-title">1. Partners</h2>
+          <p class="section-description">Enter the names of the people sharing or dividing furniture.</p>
+          <div class="grid">
+            <div>
+              <label for="p1Name">Partner 1 name</label>
+              <input id="p1Name" type="text" placeholder="e.g. Alex" value="Alex">
+            </div>
+            <div>
+              <label for="p2Name">Partner 2 name</label>
+              <input id="p2Name" type="text" placeholder="e.g. Jordan" value="Jordan">
+            </div>
+            <div>
+              <label for="currencySymbol">Currency</label>
+              <select id="currencySymbol">
+                <option value="$">$ (USD)</option>
+                <option value="€">€ (EUR)</option>
+                <option value="£">£ (GBP)</option>
+                <option value="CA$">CA$ (CAD)</option>
+                <option value="AU$">AU$ (AUD)</option>
+                <option value="¥">¥ (JPY)</option>
+                <option value="CHF">CHF (CHF)</option>
+                <option value="kr">kr (SEK)</option>
+                <option value="NZ$">NZ$ (NZD)</option>
+                <option value="₹">₹ (INR)</option>
+                <option value="R">R (ZAR)</option>
+                <option value="S$">S$ (SGD)</option>
+                <option value="HK$">HK$ (HKD)</option>
+              </select>
+            </div>
+            <div>
+              <label for="depreciationRate">Annual depreciation rate (%)</label>
+              <input id="depreciationRate" type="number" min="0" max="50" placeholder="e.g. 15" value="15" step="1">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">2. Furniture Items</h2>
+          <p class="section-description" id="itemDescription">Add each furniture item with its cost, age, category, and who it's assigned to.</p>
+          
+          <div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 4px;">
+            <button class="secondary" onclick="addItem()" type="button" style="font-size:0.75rem; padding:4px 12px; min-height:30px;">+ Add Item</button>
+            <button class="secondary" onclick="addSampleItems()" type="button" style="font-size:0.75rem; padding:4px 12px; min-height:30px;">📋 Sample Items</button>
+            <button class="secondary" onclick="addSampleSplit()" type="button" style="font-size:0.75rem; padding:4px 12px; min-height:30px;" id="sampleSplitBtn">🔀 Sample Split</button>
+          </div>
+
+          <!-- Desktop header -->
+          <div id="itemHeaderRow" style="display:flex; gap:6px; padding:4px 0; font-size:.7rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--border); margin-bottom:4px;">
+            <span style="flex:2 1 120px;">Item Name</span>
+            <span style="flex:1 1 80px;">Cost</span>
+            <span style="flex:1 1 80px;">Age (yrs)</span>
+            <span style="flex:1 1 90px;">Category</span>
+            <span style="flex:1 1 90px;">Owned/Taken By</span>
+            <span style="width:30px;"></span>
+          </div>
+          
+          <div id="itemList">
+            <!-- Items added dynamically -->
+          </div>
+        </section>
+
+        <section class="calculator">
+          <h2 class="section-title">3. Settings</h2>
+          <p class="section-description" id="settingsDescription">Choose how to split costs and value furniture.</p>
+          <div class="grid">
+            <div>
+              <label for="splitMethod">Split method</label>
+              <select id="splitMethod">
+                <option value="equal">Equal split (50/50)</option>
+                <option value="income">Proportional by income</option>
+                <option value="custom">Custom percentage</option>
+              </select>
+            </div>
+            <div id="customDiv" style="display:none;">
+              <label for="customPct">Partner 1's share (%)</label>
+              <input id="customPct" type="number" min="0" max="100" placeholder="e.g. 60" value="60" step="1">
+            </div>
+            <div>
+              <label for="p1Income">Partner 1 monthly income</label>
+              <input id="p1Income" type="number" inputmode="decimal" min="0" placeholder="e.g. 4000" value="4000">
+            </div>
+            <div>
+              <label for="p2Income">Partner 2 monthly income</label>
+              <input id="p2Income" type="number" inputmode="decimal" min="0" placeholder="e.g. 3500" value="3500">
+            </div>
+            <div>
+              <label for="valuationMethod">Valuation method</label>
+              <select id="valuationMethod">
+                <option value="original">Original cost</option>
+                <option value="depreciated">Depreciated value</option>
+                <option value="market">Market value estimate</option>
+              </select>
+            </div>
+            <div id="marketDiv" style="display:none;">
+              <label for="marketPct">Market value as % of original</label>
+              <input id="marketPct" type="number" min="0" max="100" placeholder="e.g. 70" value="70" step="1">
+            </div>
+          </div>
+        </section>
+
+        <section class="calculator">
+          <div class="btns">
+            <button class="primary" onclick="calculate()" type="button">Calculate</button>
+            <button class="secondary" onclick="copyResult()" type="button">Copy result</button>
+            <button class="secondary" onclick="resetAll()" type="button">Reset</button>
+          </div>
+          <div class="result" id="result"></div>
+        </section>
+
+        <section class="content-section" id="about">
+          <h2>About the Furniture Cost Calculator</h2>
+          <p>Whether you're moving in together and need to split furniture costs fairly, or separating and need to divide shared items, this calculator helps you find a fair solution.</p>
+          <h3>How to use this tool</h3>
+          <ul>
+            <li><strong>Buy-In Mode:</strong> Split costs when moving in together. Track who owns what and calculate buy-in amounts.</li>
+            <li><strong>Buy-Out Mode:</strong> Divide furniture during separation. See who keeps what and who owes whom.</li>
+            <li>Add furniture items with costs, ages, categories, and ownership assignment.</li>
+            <li>Choose split method (equal, by income, or custom) and valuation method (original, depreciated, or market value).</li>
+            <li>Get a clear breakdown of each person's share and any buyout amounts.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="faqs">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-list">
+            <details class="faq-item"><summary>What's the difference between Buy-In and Buy-Out modes?</summary><div class="faq-answer"><p><strong>Buy-In</strong> is for when you're moving in together — it helps split new furniture costs and track ownership. <strong>Buy-Out</strong> is for separation — it helps divide existing furniture and calculate who owes whom.</p></div></details>
+            <details class="faq-item"><summary>How should we split furniture costs when moving in together?</summary><div class="faq-answer"><p>Common methods include equal split (50/50), proportional by income (fairer when incomes differ), or custom percentage. The calculator supports all three.</p></div></details>
+            <details class="faq-item"><summary>What's a fair depreciation rate for furniture?</summary><div class="faq-answer"><p>10-20% per year is typical. Sofas and mattresses depreciate faster (15-20%), while solid wood furniture holds value better (10-15%).</p></div></details>
+            <details class="faq-item"><summary>How is the buyout amount calculated?</summary><div class="faq-answer"><p>The calculator finds the difference in value between what each person is taking. The person taking more pays half the difference to the other person to equalize the division.</p></div></details>
+            <details class="faq-item"><summary>What if one person already owns furniture?</summary><div class="faq-answer"><p>Mark those items as owned by that person. The calculator will track their ownership and adjust the split accordingly.</p></div></details>
+            <details class="faq-item"><summary>Can we split individual items?</summary><div class="faq-answer"><p>Yes! Mark items as "Shared" and the calculator splits their value according to your chosen split method.</p></div></details>
+            <details class="faq-item"><summary>What about items that were gifts?</summary><div class="faq-answer"><p>Gifts are typically the recipient's property. Assign them to that person and the calculator will handle it correctly.</p></div></details>
+            <details class="faq-item"><summary>How does income affect the split?</summary><div class="faq-answer"><p>With income-based splitting, higher earners contribute more to shared purchases, which is reflected in the final ownership percentages.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator legally binding?</summary><div class="faq-answer"><p>No, this is a planning and negotiation tool. Use it to find a fair solution, but consult a professional for legal agreements.</p></div></details>
+            <details class="faq-item"><summary>Is this calculator free to use?</summary><div class="faq-answer"><p>Yes, completely free. We believe fair furniture cost sharing should be accessible to everyone.</p></div></details>
+          </div>
+        </section>
+      </div>
+      <aside class="ad-column" aria-label="Advertisement"><div class="ad-space"><!-- AdSense ad code --></div></aside>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+  <script>
+    // ----- State -----
+    let currentMode = 'buyin'; // 'buyin' or 'buyout'
+    let itemCount = 0;
+
+    // ----- Helpers -----
+    function money(value) {
+      const sym = document.getElementById('currencySymbol').value || '$';
+      return sym + Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function getNumber(id) { return parseFloat(document.getElementById(id).value) || 0; }
+    function getVal(id) { return document.getElementById(id).value; }
+
+    function getPeople() {
+      const p1 = document.getElementById('p1Name').value.trim() || 'Partner 1';
+      const p2 = document.getElementById('p2Name').value.trim() || 'Partner 2';
+      return [p1, p2];
+    }
+
+    function getItemValue(price, age) {
+      const method = document.getElementById('valuationMethod').value;
+      const depRate = getNumber('depreciationRate') / 100;
+      const marketPct = getNumber('marketPct') / 100;
+      
+      if (method === 'depreciated') {
+        return price * Math.pow(1 - depRate, age);
+      } else if (method === 'market') {
+        return price * (marketPct || 0.7);
+      }
+      return price;
+    }
+
+    // ----- Mode Switching -----
+    function setMode(mode) {
+      currentMode = mode;
+      document.getElementById('modeBuyIn').classList.toggle('active', mode === 'buyin');
+      document.getElementById('modeBuyOut').classList.toggle('active', mode === 'buyout');
+      
+      const desc = document.getElementById('modeDescription');
+      const itemDesc = document.getElementById('itemDescription');
+      const settingsDesc = document.getElementById('settingsDescription');
+      const sampleBtn = document.getElementById('sampleSplitBtn');
+      
+      if (mode === 'buyin') {
+        desc.innerHTML = 'Split furniture costs fairly when moving in together. Track ownership, contributions, and buy-in amounts.';
+        itemDesc.innerHTML = 'Add each furniture item with its cost, age, category, and who owns it.';
+        settingsDesc.innerHTML = 'Choose how to split costs and value furniture for buy-in calculations.';
+        sampleBtn.textContent = '🔀 Sample Buy-In';
+      } else {
+        desc.innerHTML = 'Divide furniture fairly during separation. See who keeps what and calculate buyout amounts.';
+        itemDesc.innerHTML = 'Add each furniture item with its cost, age, category, and who takes it.';
+        settingsDesc.innerHTML = 'Choose how to value furniture and split shared items for buyout calculations.';
+        sampleBtn.textContent = '🔀 Sample Split';
+      }
+      
+      document.getElementById('result').innerHTML = '';
+    }
+
+    // ----- Item Management -----
+    function addItem(name = '', price = 0, category = 'living', assigned = 'shared', age = 0) {
+      itemCount++;
+      const container = document.getElementById('itemList');
+      const div = document.createElement('div');
+      div.className = 'item-row';
+      div.id = 'item' + itemCount;
+      const people = getPeople();
+      
+      div.innerHTML = `
+        <span class="field-label-mobile">Item Name</span>
+        <input class="itemName" type="text" placeholder="e.g. Sofa" value="${name}">
+        <span class="field-label-mobile">Cost</span>
+        <input class="itemPrice" type="number" inputmode="decimal" min="0" placeholder="Cost" value="${price}" step="0.01">
+        <span class="field-label-mobile">Age (years)</span>
+        <input class="itemAge" type="number" min="0" placeholder="Age" value="${age}" step="0.5">
+        <span class="field-label-mobile">Category</span>
+        <select class="itemCategory">
+          <option value="living" ${category === 'living' ? 'selected' : ''}>🛋️ Living</option>
+          <option value="bedroom" ${category === 'bedroom' ? 'selected' : ''}>🛏️ Bedroom</option>
+          <option value="dining" ${category === 'dining' ? 'selected' : ''}>🍽️ Dining</option>
+          <option value="office" ${category === 'office' ? 'selected' : ''}>💼 Office</option>
+          <option value="outdoor" ${category === 'outdoor' ? 'selected' : ''}>🌳 Outdoor</option>
+          <option value="other" ${category === 'other' ? 'selected' : ''}>📦 Other</option>
+        </select>
+        <span class="field-label-mobile">Owned/Taken By</span>
+        <select class="itemAssigned">
+          <option value="shared" ${assigned === 'shared' ? 'selected' : ''}>👥 Shared</option>
+          ${people.map(p => `<option value="${p}" ${assigned === p ? 'selected' : ''}>${p}</option>`).join('')}
+        </select>
+        <button class="remove-item" onclick="removeItem('item${itemCount}')">✕</button>
+      `;
+      container.insertBefore(div, container.firstChild);
+    }
+
+    function removeItem(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function getItems() {
+      const items = [];
+      document.querySelectorAll('#itemList .item-row').forEach(el => {
+        const name = el.querySelector('.itemName').value.trim() || 'Item';
+        const price = parseFloat(el.querySelector('.itemPrice').value) || 0;
+        const age = parseFloat(el.querySelector('.itemAge').value) || 0;
+        const category = el.querySelector('.itemCategory').value;
+        const assigned = el.querySelector('.itemAssigned').value;
+        if (price > 0) {
+          items.push({ name, price, age, category, assigned });
+        }
+      });
+      return items;
+    }
+
+    // ----- Sample Data -----
+    function addSampleItems() {
+      const samples = [
+        ['Sofa', 899.99, 'living', 'shared', 0],
+        ['Dining Table', 599.99, 'dining', 'shared', 0],
+        ['Bed Frame', 499.99, 'bedroom', 'shared', 0]
+      ];
+      samples.forEach(([name, price, category, assigned, age]) => {
+        addItem(name, price, category, assigned, age);
+      });
+    }
+
+    function addSampleSplit() {
+      const people = getPeople();
+      document.querySelectorAll('#itemList .item-row').forEach(el => el.remove());
+      itemCount = 0;
+      
+      if (currentMode === 'buyin') {
+        const samples = [
+          [`${people[0]} owns: Sofa`, 899.99, 'living', people[0], 0],
+          [`${people[1]} owns: Dining Table`, 599.99, 'dining', people[1], 0],
+          [`Shared: Bed Frame`, 499.99, 'bedroom', 'shared', 0],
+          [`${people[0]} owns: Office Desk`, 349.99, 'office', people[0], 0],
+          [`Shared: Coffee Table`, 249.99, 'living', 'shared', 0]
+        ];
+        samples.reverse().forEach(([name, price, category, assigned, age]) => {
+          addItem(name, price, category, assigned, age);
+        });
+      } else {
+        const samples = [
+          [`${people[0]} keeps: Sofa`, 899.99, 'living', people[0], 2],
+          [`${people[1]} keeps: Dining Table`, 599.99, 'dining', people[1], 3],
+          [`${people[0]} keeps: Bed Frame`, 499.99, 'bedroom', people[0], 1.5],
+          [`${people[1]} keeps: Mattress`, 799.99, 'bedroom', people[1], 1.5],
+          [`${people[0]} keeps: Bookshelf`, 249.99, 'living', people[0], 4],
+          [`${people[1]} keeps: Desk`, 349.99, 'office', people[1], 2],
+          [`Shared: Coffee Table`, 199.99, 'living', 'shared', 1]
+        ];
+        samples.reverse().forEach(([name, price, category, assigned, age]) => {
+          addItem(name, price, category, assigned, age);
+        });
+      }
+    }
+
+    // ----- Event Listeners -----
+    document.getElementById('splitMethod').addEventListener('change', function() {
+      document.getElementById('customDiv').style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+
+    document.getElementById('valuationMethod').addEventListener('change', function() {
+      document.getElementById('marketDiv').style.display = this.value === 'market' ? 'block' : 'none';
+    });
+
+    document.getElementById('p1Name').addEventListener('change', updateItemOwners);
+    document.getElementById('p2Name').addEventListener('change', updateItemOwners);
+
+    function updateItemOwners() {
+      const people = getPeople();
+      document.querySelectorAll('#itemList .item-row select.itemAssigned').forEach(sel => {
+        const current = sel.value;
+        sel.innerHTML = `
+          <option value="shared" ${current === 'shared' ? 'selected' : ''}>👥 Shared</option>
+          ${people.map(p => `<option value="${p}" ${current === p ? 'selected' : ''}>${p}</option>`).join('')}
+        `;
+      });
+    }
+
+    // ----- Main Calculation -----
+    function calculate() {
+      const p1Name = getPeople()[0];
+      const p2Name = getPeople()[1];
+      const splitMethod = document.getElementById('splitMethod').value;
+      const p1Income = getNumber('p1Income');
+      const p2Income = getNumber('p2Income');
+      const totalIncome = p1Income + p2Income;
+      const items = getItems();
+
+      if (items.length === 0) {
+        document.getElementById('result').innerHTML = '<p>Please add at least one furniture item.</p>';
+        return;
+      }
+
+      let p1Pct = 50, p2Pct = 50;
+      let splitLabel = 'Equal split (50/50)';
+      
+      if (splitMethod === 'equal') {
+        p1Pct = 50; p2Pct = 50;
+        splitLabel = 'Equal split (50/50)';
+      } else if (splitMethod === 'income') {
+        if (totalIncome <= 0) {
+          document.getElementById('result').innerHTML = '<p>Please enter valid incomes for both partners.</p>';
+          return;
+        }
+        p1Pct = (p1Income / totalIncome) * 100;
+        p2Pct = (p2Income / totalIncome) * 100;
+        splitLabel = 'Proportional by income';
+      } else {
+        const custom = getNumber('customPct');
+        if (custom <= 0 || custom >= 100) {
+          document.getElementById('result').innerHTML = '<p>Please enter a valid custom percentage (1-99).</p>';
+          return;
+        }
+        p1Pct = custom;
+        p2Pct = 100 - custom;
+        splitLabel = 'Custom percentage';
+      }
+
+      let totalOriginal = 0;
+      let totalCurrent = 0;
+      let p1CurrentOwned = 0;
+      let p2CurrentOwned = 0;
+      const itemDetails = [];
+
+      items.forEach(item => {
+        totalOriginal += item.price;
+        const currentVal = getItemValue(item.price, item.age);
+        totalCurrent += currentVal;
+
+        let p1Share = 0, p2Share = 0;
+        if (item.assigned === 'shared') {
+          p1Share = currentVal * (p1Pct / 100);
+          p2Share = currentVal * (p2Pct / 100);
+        } else if (item.assigned === p1Name) {
+          p1Share = currentVal;
+        } else if (item.assigned === p2Name) {
+          p2Share = currentVal;
+        }
+
+        p1CurrentOwned += p1Share;
+        p2CurrentOwned += p2Share;
+
+        itemDetails.push({
+          ...item,
+          currentVal,
+          p1Share,
+          p2Share,
+          p1Pct: p1Share / currentVal * 100 || 0,
+          p2Pct: p2Share / currentVal * 100 || 0
+        });
+      });
+
+      const totalValue = p1CurrentOwned + p2CurrentOwned;
+      const difference = p1CurrentOwned - p2CurrentOwned;
+      const buyoutAmount = Math.abs(difference) / 2;
+      const whoOwes = p1CurrentOwned > p2CurrentOwned ? p2Name : p1Name;
+      const whoIsOwed = p1CurrentOwned > p2CurrentOwned ? p1Name : p2Name;
+      const isBalanced = Math.abs(difference) < totalValue * 0.05;
+
+      const modeLabel = currentMode === 'buyin' ? 'Buy-In' : 'Buy-Out';
+      const methodLabel = {
+        'original': 'Original cost',
+        'depreciated': `Depreciated (${getNumber('depreciationRate')}% annual)`,
+        'market': 'Market value'
+      }[document.getElementById('valuationMethod').value];
+
+      let status, statusClass, statusText;
+      if (isBalanced) {
+        status = 'balanced';
+        statusClass = 'status-balanced';
+        statusText = '✅ Balanced';
+      } else if (buyoutAmount < totalValue * 0.15) {
+        status = 'partial';
+        statusClass = 'status-partial';
+        statusText = '⚠️ Partial';
+      } else {
+        status = 'unbalanced';
+        statusClass = 'status-unbalanced';
+        statusText = '❌ Unbalanced';
+      }
+
+      let itemRows = itemDetails.map(item => {
+        const catClass = `cat-${item.category}`;
+        return `
+          <div class="comparison-row">
+            <span class="comparison-label">${item.name}</span>
+            <span>${money(item.price)}</span>
+            <span>${money(item.currentVal)}</span>
+            <span><span class="category-tag ${catClass}">${item.category}</span></span>
+            <span>${item.assigned === 'shared' ? '👥 Shared' : item.assigned}</span>
+          </div>
+        `;
+      }).join('');
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `
+        <div class="summary-line">
+          🛋️ ${modeLabel} · ${splitLabel} · ${methodLabel} · ${items.length} items
+        </div>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="label">💰 Original total</div>
+            <div class="amount">${money(totalOriginal)}</div>
+            <div class="detail">${items.length} items</div>
+          </div>
+          <div class="result-card">
+            <div class="label">📉 Current value</div>
+            <div class="amount" style="color: var(--orange);">${money(totalCurrent)}</div>
+            <div class="detail">${methodLabel}</div>
+          </div>
+          <div class="result-card">
+            <div class="label">💵 Buyout amount</div>
+            <div class="amount buyout">${money(buyoutAmount)}</div>
+            <div class="detail">${whoOwes} pays ${whoIsOwed}</div>
+          </div>
+        </div>
+
+        <div class="result-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+          <div class="result-card" style="border-color: var(--accent);">
+            <div class="label">${p1Name}</div>
+            <div class="amount">${money(p1CurrentOwned)}</div>
+            <div class="detail">${totalValue > 0 ? ((p1CurrentOwned / totalValue) * 100).toFixed(1) : 0}% of total</div>
+            ${splitMethod === 'income' ? `<div class="detail">Income: ${money(p1Income)}</div>` : ''}
+          </div>
+          <div class="result-card" style="border-color: var(--purple);">
+            <div class="label">${p2Name}</div>
+            <div class="amount" style="color: var(--purple);">${money(p2CurrentOwned)}</div>
+            <div class="detail">${totalValue > 0 ? ((p2CurrentOwned / totalValue) * 100).toFixed(1) : 0}% of total</div>
+            ${splitMethod === 'income' ? `<div class="detail">Income: ${money(p2Income)}</div>` : ''}
+          </div>
+          <div class="result-card" style="border-color: ${isBalanced ? 'var(--green)' : 'var(--orange)'};">
+            <div class="label">📊 Status</div>
+            <div class="amount" style="font-size:1.2rem;">${statusText}</div>
+            <div class="detail"><span class="status-badge ${statusClass}">${isBalanced ? '✓ Fair' : buyoutAmount < totalValue * 0.15 ? '⚠️ Partial' : '✗ Unfair'}</span></div>
+          </div>
+        </div>
+
+        <div class="highlight-box ${isBalanced ? 'success' : buyoutAmount < totalValue * 0.15 ? 'warning' : 'danger'}">
+          <strong>${isBalanced ? '✅ This division is well-balanced!' : buyoutAmount < totalValue * 0.15 ? '⚠️ This division is somewhat unbalanced.' : '❌ This division is significantly unbalanced.'}</strong>
+          <br>
+          ${isBalanced 
+            ? `The furniture division is fair. ${whoOwes} owes ${whoIsOwed} ${money(buyoutAmount)} to equalize ownership.` 
+            : buyoutAmount < totalValue * 0.15 
+              ? `The division is partially fair. Consider minor adjustments or accept the ${money(buyoutAmount)} buyout.` 
+              : `Consider reassigning some items to create a more balanced split. The current buyout of ${money(buyoutAmount)} is significant.`}
+          ${currentMode === 'buyin' 
+            ? ` ${p1Name} is contributing ${((p1CurrentOwned / totalValue) * 100).toFixed(1)}% and ${p2Name} ${((p2CurrentOwned / totalValue) * 100).toFixed(1)}%.` 
+            : ` ${whoOwes} should pay ${whoIsOwed} ${money(buyoutAmount)} to keep the items they're taking.`}
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-weight:700; font-size:.82rem; margin-bottom:4px;">Item breakdown</div>
+          <div class="comparison-row" style="font-weight:700; border-bottom:2px solid var(--border);">
+            <span>Item</span>
+            <span>Original</span>
+            <span>Current</span>
+            <span>Category</span>
+            <span>${currentMode === 'buyin' ? 'Owner' : 'Taken By'}</span>
+          </div>
+          ${itemRows}
+          <div class="comparison-row" style="font-weight:700; border-top:2px solid var(--border); margin-top:4px; padding-top:6px;">
+            <span>TOTAL</span>
+            <span>${money(totalOriginal)}</span>
+            <span>${money(totalCurrent)}</span>
+            <span>—</span>
+            <span>—</span>
+          </div>
+        </div>
+
+        <p class="note">
+          <strong>Recommendation:</strong> 
+          ${isBalanced 
+            ? `Proceed with the buyout: ${whoOwes} pays ${whoIsOwed} ${money(buyoutAmount)}. Consider documenting the agreement.` 
+            : `Review the item assignment. ${whoOwes} may want to take fewer items, or you can negotiate the buyout amount.`}
+          ${currentMode === 'buyin' 
+            ? ' For moving in together, this analysis helps you understand each person\'s contribution and ownership.' 
+            : ' For separation, this gives you a clear starting point for negotiations.'}
+        </p>
+      `;
+    }
+
+    // ----- Reset -----
+    function resetAll() {
+      document.querySelectorAll('.calculator input[type="number"]').forEach(input => {
+        if (input.id !== 'splitMethod' && input.id !== 'valuationMethod') {
+          input.value = '';
+        }
+      });
+      document.querySelectorAll('#itemList .item-row').forEach(el => el.remove());
+      itemCount = 0;
+      document.getElementById('result').innerHTML = '';
+      addSampleItems();
+    }
+
+    // ----- Copy Result -----
+    async function copyResult() {
+      const result = document.getElementById('result');
+      if (!result.innerText.trim()) { alert('Calculate first.'); return; }
+      try {
+        await navigator.clipboard.writeText(result.innerText.trim());
+        alert('Result copied.');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = result.innerText.trim();
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        alert('Result copied.');
+      }
+    }
+
+    // ----- Init -----
+    document.addEventListener('DOMContentLoaded', function() {
+      addSampleItems();
+    });
+  </script>
+  <script src="/components/shared.js"></script>
+</body>
+</html>
